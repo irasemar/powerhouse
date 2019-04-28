@@ -1,0 +1,26 @@
+html{
+    font-size:16px;
+    font-family:$font;
+    font-weight: 300;
+}
+body{
+    padding:0;
+    background: none;
+    // font-family: $primary-font !important;
+    font-weight: 300;
+}
+img{
+    max-width: 100%;
+}
+
+.img-full{
+    width: 100%;
+}
+
+.btn--orange{
+    background-color:$orange;
+    color: #FFF;
+    border-radius: 0;
+    padding:.5rem 1.5rem;
+    font-size:calculateRem(14px)
+}

@@ -3,21 +3,21 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "powerhouseapp": {
+    "powerhouse": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "sass"
         }
       },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/powerhouseapp",
+            "outputPath": "dist/powerhouse",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -27,7 +27,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true
@@ -62,18 +63,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "powerhouseapp:build"
+            "browserTarget": "powerhouse:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "powerhouseapp:build:production"
+              "browserTarget": "powerhouse:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "powerhouseapp:build"
+            "browserTarget": "powerhouse:build"
           }
         },
         "test": {
@@ -107,7 +108,7 @@
         }
       }
     },
-    "powerhouseapp-e2e": {
+    "powerhouse-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -116,11 +117,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "powerhouseapp:serve"
+            "devServerTarget": "powerhouse:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "powerhouseapp:serve:production"
+              "devServerTarget": "powerhouse:serve:production"
             }
           }
         },
@@ -136,5 +137,5 @@
       }
     }
   },
-  "defaultProject": "powerhouseapp"
+  "defaultProject": "powerhouse"
 }
