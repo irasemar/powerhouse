@@ -8,13 +8,27 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { SliderComponent } from './slider/slider.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SidenavComponent } from './shared/sidenav/sidenav.component';
+import { UserdataComponent } from './shared/userdata/userdata.component';
+import { UpcomingComponent } from './upcoming/upcoming.component';
+import { HistoryComponent } from './history/history.component';
+import { AwardsComponent } from './awards/awards.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SliderComponent,
-    FooterComponent
+    FooterComponent,
+    RegisterComponent,
+    ProfileComponent,
+    SidenavComponent,
+    UserdataComponent,
+    UpcomingComponent,
+    HistoryComponent,
+    AwardsComponent
   ],
   imports: [
     BrowserModule,

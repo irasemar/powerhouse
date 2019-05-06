@@ -5,15 +5,28 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
-
-  logged:boolean = true;
+  logged:boolean = false;
   username:string = 'Analu';
-  isNavbarCollapsed=true;
+  isNavbarCollapsed = true;
+  welcome = false;
 
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  login(){    
+    this.welcome = true;
+    setTimeout(() => this.welcome = false, 5000);
+    
+    if(this.logged === false){
+      this.logged = true
+    }else{
+      this.logged = false
+    }
+
+    console.log(this.logged)
   }
 
 }
