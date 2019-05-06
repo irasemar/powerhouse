@@ -18,19 +18,41 @@
         padding-bottom: calculateRem(10px);
         margin-bottom: calculateRem(15px);
     }
+    &__right-links{
+        color:rgba(0,0,0,.5);
+        font-size:calculateRem(13px);
+        p{
+            margin-bottom:0;
+        }
+        a{
+            display: inline-block;
+            padding-top:calculateRem(10px);
+            padding-bottom:calculateRem(10px);
+            color:rgba(0,0,0,.5);
+            &:hover, &:visited{
+                color:rgba(0,0,0,.5);
+                text-decoration: underline;
+                cursor:pointer;
+            }
+        }
+    }
 }
 
-    //Bootstrap override
-    .dropdown-menu{
-        background: rgba(255, 255, 255, 0.40) !important;
-        padding:calculateRem(15px) !important;
-   }
-   .dropdown-item{
-       color: $orange !important;
-       font-size:calculateRem(13px);
-       padding:.25rem 0 !important;
-       &:hover{
-           background: transparent !important;
-           color:#FFF !important;
-       }
-   }
+.social{
+    &__list{
+        position: absolute;
+        z-index:1000;
+        right: calculateRem(20px);
+        margin-top:calculateRem(80px);
+       list-style: none;
+        &-item{
+            display: inline-block;
+            margin-right:calculateRem(10px);
+            &:last-child{
+                margin-right: 0;
+            }
+            a, a:hover{color:$orange;}
+        }
+    }
+}
+

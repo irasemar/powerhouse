@@ -1,0 +1,5 @@
+<ul class="nav sidenav flex-column">
+  <li class="nav-item" *ngFor="let link of links">
+    <a class="nav-link sidenav__nav-link" routerLink="{{link.url}}" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="sidenav__nav-link--active">{{link.title}}</a>
+  </li>
+</ul>

@@ -6,7 +6,7 @@ html{
 body{
     padding:0;
     background: none;
-    // font-family: $primary-font !important;
+    color: $gray;
     font-weight: 300;
 }
 img{
@@ -17,10 +17,124 @@ img{
     width: 100%;
 }
 
-.btn--orange{
-    background-color:$orange;
+p, label{
+    font-size: calculateRem(13px)
+}
+
+a, a:hover, a:visited{
+    color:$gray
+}
+
+.h1{
+    font-size:calculateRem(32px);
+    font-weight: 600;
+}
+
+.h2{
+    font-size:calculateRem(24px);
+    font-weight: 400;
+}
+
+.h3{
+    font-size:calculateRem(19px);
+    font-weight: 400;
+}
+
+.line{
+    &--orange{
+        border-top: 3px solid $orange;
+    }
+    &--blue{
+        border-top: 1px solid $blue;
+    }
+}
+
+.line-list{
+    list-style: none;
+    padding-left: 0;
+    &__item{
+        padding-top:calculateRem(20px);
+        border-bottom:1px solid $lightgray;
+        .h4{
+            font-size: calculateRem(13px);
+        }
+    }
+}
+
+.orange{
+    color: $orange;
+}
+
+.underlined{
+    border-bottom:1px solid;
+    padding-bottom:5px;
+}
+
+.alert-custom {
+    width: 100%;
     color: #FFF;
+    background-color:$orange;
+    padding:calculateRem(15px) 0 calculateRem(10px) 0;
+    text-align: center;
+    margin-bottom:0; 
+    border-radius: 0;
+    position: absolute;
+    z-index: 900;
+    top:calculateRem(60px);
+    opacity: .8;
+  }
+
+//Bootstrap overrides
+.btn-outline-primary{
+    color: $gray;
+    border-color: $lightgray;
+    font-size:calculateRem(13px);
+    border-radius: 0;
+    &:hover{
+        background-color: #FFF;
+        color: $gray;
+        border-color: $gray;
+    }
+}
+.dropdown-menu{
+    background: #e9ecef !important;
+    padding:calculateRem(15px) !important;
+    box-shadow: none;
+    border: 0;
+}
+.dropdown-item{
+    color: $orange !important;
+    font-size:calculateRem(13px);
+    padding:.25rem 0 !important;
+    &:hover{
+        background: transparent !important;
+        color: lighten($orange, 10)
+    }
+}
+
+.form-group{
+    label{color:$orange}
+    .form-control{
+        background-color: $lightgray;
+        font-size: calculateRem(13px)
+    }
+
+}
+
+.container{
+    padding-top: calculateRem(100px);
+    padding-bottom: calculateRem(40px);
+}
+
+.btn-primary{
+    background-color:$orange;
+    color: #FFF !important;
     border-radius: 0;
     padding:.5rem 1.5rem;
-    font-size:calculateRem(14px)
+    font-size:calculateRem(14px);
+    border:0;
+    &:hover{
+        color:#FFF !important;
+        background-color: darken($orange,10)
+    }
 }

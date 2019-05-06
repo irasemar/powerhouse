@@ -1,0 +1,11 @@
+.sidenav{
+    &__nav-link{
+        padding-left:calculateRem(5px);
+        font-size:calculateRem(13px);
+        &--active{
+            color: $orange !important;
+            border-bottom:1px solid $orange;
+            padding-bottom:calculateRem(5px);
+        }
+    }
+}

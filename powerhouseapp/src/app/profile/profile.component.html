@@ -1,0 +1,196 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 mb-5">
+      <app-userdata></app-userdata>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <app-sidenav [active]="active"></app-sidenav>
+    </div>
+    <div class="col-md-9">
+      <h2 class="h2 orange text-center">{{title}}</h2>
+      <p>Para darte la mejor experiencia en Power House, compártenos un poco más sobre ti.</p>
+      <hr class="line--orange">
+      <form>
+        <h3 class="h3">Cumpleaños</h3>
+        <hr>
+        <div class="form-group">
+          <div class="btn-group mb-1">
+            <div ngbDropdown class="d-inline-block">
+              <button type="button" class="btn btn-outline-primary mr-1" id="dropdownBasic1"
+                ngbDropdownToggle>Día</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem>Action - 1</button>
+                <button ngbDropdownItem>Another Action</button>
+                <button ngbDropdownItem>Something else is here</button>
+              </div>
+            </div>
+            <div ngbDropdown class="d-inline-block">
+              <button type="button" class="btn btn-outline-primary mr-1" id="dropdownBasic1"
+                ngbDropdownToggle>Mes</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem>Action - 1</button>
+                <button ngbDropdownItem>Another Action</button>
+                <button ngbDropdownItem>Something else is here</button>
+              </div>
+            </div>
+            <div ngbDropdown class="d-inline-block">
+              <button type="button" class="btn btn-outline-primary mr-1" id="dropdownBasic1"
+                ngbDropdownToggle>Año</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem>Action - 1</button>
+                <button ngbDropdownItem>Another Action</button>
+                <button ngbDropdownItem>Something else is here</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h3 class="h3">Género</h3>
+        <hr>
+        <div class="form-group">
+            <div ngbDropdown class="d-inline-block">
+                <button type="button" class="btn btn-outline-primary mr-1" id="dropdownBasic1" ngbDropdownToggle>Genero</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button ngbDropdownItem>Action - 1</button>
+                  <button ngbDropdownItem>Another Action</button>
+                  <button ngbDropdownItem>Something else is here</button>
+                </div>
+            </div>
+        </div>
+        <h3 class="h3">Información personal</h3>
+        <hr>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="Nombre" hidden>Nombre</label>
+            <input type="text" class="form-control" placeholder="Nombre">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="Apellido" hidden>Apellido</label>
+            <input type="text" class="form-control" placeholder="Apellido">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="Email" hidden>Email</label>
+            <input type="text" class="form-control" placeholder="Email">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="Telefono" hidden>Telefono</label>
+            <input type="text" class="form-control" placeholder="+52">
+          </div>
+        </div>
+        <h3 class="h3">Cambiar contraseña</h3>
+        <hr>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="Contraseña" hidden>Contraseña</label>
+            <input type="password" class="form-control">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="Confirmar" hidden>Confirmar contraseña</label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <h3 class="h3">Contacto de emergencia</h3>
+        <hr>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="Contacto" hidden>Contacto de emergencia</label>
+            <input type="text" class="form-control">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="TelC" hidden>Telefono contacto</label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <h3 class="h3">Información de pago</h3>
+        <hr>
+        <p>************1004</p>
+        <p><a href="">Editar Información de pago <i class="fas fa-chevron-right"></i></a></p>
+        <h3 class="h3">Bike Set-Up</h3>
+        <hr>
+        <div class="form-row">
+          <div class="col-md-3">
+            <label for="" class="">Altura del asiento</label>
+          </div>
+          <div class="col-md-3 form-group">
+              <div ngbDropdown class="d-inline-block">
+                  <button type="button" class="btn btn-outline-primary mr-1" id="dropdownBasic1" ngbDropdownToggle>##</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem>Action - 1</button>
+                    <button ngbDropdownItem>Another Action</button>
+                    <button ngbDropdownItem>Something else is here</button>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-3">
+            <label for="" class="">Diastancia de asiento</label>
+          </div>
+          <div class="col-md-3 form-group">
+              <div ngbDropdown class="d-inline-block">
+                  <button type="button" class="btn btn-outline-primary mr-1" id="dropdownBasic1" ngbDropdownToggle>##</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem>Action - 1</button>
+                    <button ngbDropdownItem>Another Action</button>
+                    <button ngbDropdownItem>Something else is here</button>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-3">
+            <label for="" class="">Altura de manubrio</label>
+          </div>
+          <div class="col-md-3 form-group">
+              <div ngbDropdown class="d-inline-block">
+                  <button type="button" class="btn btn-outline-primary mr-1" id="dropdownBasic1" ngbDropdownToggle>##</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem>Action - 1</button>
+                    <button ngbDropdownItem>Another Action</button>
+                    <button ngbDropdownItem>Something else is here</button>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-3">
+            <label for="" class="">Distacia de manubrio</label>
+          </div>
+          <div class="col-md-3 form-group">
+              <div ngbDropdown class="d-inline-block">
+                  <button type="button" class="btn btn-outline-primary mr-1" id="dropdownBasic1" ngbDropdownToggle>##</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem>Action - 1</button>
+                    <button ngbDropdownItem>Another Action</button>
+                    <button ngbDropdownItem>Something else is here</button>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-3 offset-md-6">
+            <label for="" class="">Talla de zapato</label>
+          </div>
+          <div class="col-md-3 form-group">
+              <div ngbDropdown class="d-inline-block">
+                  <button type="button" class="btn btn-outline-primary mr-1" id="dropdownBasic1" ngbDropdownToggle>##</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem>Action - 1</button>
+                    <button ngbDropdownItem>Another Action</button>
+                    <button ngbDropdownItem>Something else is here</button>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-6">
+            <a href="">Borrar cuenta</a>
+          </div>
+          <div class="col-md-6 text-right">
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
