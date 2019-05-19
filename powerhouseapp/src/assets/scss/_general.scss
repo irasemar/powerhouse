@@ -138,3 +138,47 @@ a, a:hover, a:visited{
         background-color: darken($orange,10)
     }
 }
+
+.card{
+    &.round{
+        border-radius: 50%;
+        height: 230px;
+        width: 230px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color:$orange;
+        border:0; 
+        background: #e9ecef;
+        margin-bottom: calculateRem(10px);
+        &:hover{
+            color: #FFF;
+            background: $orange;
+            cursor:pointer;
+        }
+        .card-body{
+            flex: initial;
+            padding: 0;
+        }
+        .card-title{
+            font-size: calculateRem(18px);
+            margin-bottom: calculateRem(20px);
+        }
+        .h3{
+            font-size: calculateRem(18px);
+        }
+        .card-text{
+            margin-top:calculateRem(20px)
+        }
+    }
+}
+
+.margin-top{
+    margin-top:calculateRem(80px);
+}
+
+.big-title{
+    font-size: calculateRem(42px);
+}
+

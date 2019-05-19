@@ -6,6 +6,8 @@ import {ProfileComponent} from './profile/profile.component';
 import {UpcomingComponent} from './upcoming/upcoming.component';
 import {HistoryComponent} from './history/history.component';
 import {AwardsComponent} from './awards/awards.component';
+import {HiitComponent} from './hiit/hiit.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/slider',pathMatch: 'full'},
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'proximas-clases',      component: UpcomingComponent },
   { path: 'historial',      component: HistoryComponent },
   { path: 'awards',      component: AwardsComponent },
+  { path: 'hiit',      component: HiitComponent },
+  { path: 'calendar',      component: CalendarComponent },
 
 
 

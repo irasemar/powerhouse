@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-12  pb-5" *ngFor="let cupon of cupons">
+          <div class="card round">
+            <div class="card-body">
+              <h5 class="card-title">{{cupon.title}}</h5>
+              <h3 class="h3">{{cupon.text}}</h3>
+              <h3 class="h3">{{cupon.price}}</h3>
+              <p class="card-text">{{cupon.expiration}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
