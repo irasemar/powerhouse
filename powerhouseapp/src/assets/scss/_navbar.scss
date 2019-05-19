@@ -2,4 +2,7 @@
     &--link{
         font-size:calculateRem(14px)
     }
+    &--items{
+        border-bottom:1px solid $orange
+    }
 }

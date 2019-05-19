@@ -15,6 +15,8 @@ import { UserdataComponent } from './shared/userdata/userdata.component';
 import { UpcomingComponent } from './upcoming/upcoming.component';
 import { HistoryComponent } from './history/history.component';
 import { AwardsComponent } from './awards/awards.component';
+import { HiitComponent } from './hiit/hiit.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { AwardsComponent } from './awards/awards.component';
     UserdataComponent,
     UpcomingComponent,
     HistoryComponent,
-    AwardsComponent
+    AwardsComponent,
+    HiitComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
