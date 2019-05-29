@@ -82,6 +82,10 @@ a, a:hover, a:visited{
     z-index: 900;
     top:calculateRem(60px);
     opacity: .8;
+    &.over{
+        position: relative;
+        z-index: 0;
+    }
   }
 
 //Bootstrap overrides
