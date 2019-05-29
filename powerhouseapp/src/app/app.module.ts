@@ -17,6 +17,7 @@ import { HistoryComponent } from './history/history.component';
 import { AwardsComponent } from './awards/awards.component';
 import { HiitComponent } from './hiit/hiit.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { ClassComponent } from './class/class.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CalendarComponent } from './calendar/calendar.component';
     HistoryComponent,
     AwardsComponent,
     HiitComponent,
-    CalendarComponent
+    CalendarComponent,
+    ClassComponent
   ],
   imports: [
     BrowserModule,
