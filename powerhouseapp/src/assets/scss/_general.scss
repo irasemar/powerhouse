@@ -99,6 +99,15 @@ a, a:hover, a:visited{
         color: $gray;
         border-color: $gray;
     }
+    &--orange{
+        color: $orange;
+        border:1px solid $orange;
+        border-radius: 0;
+        &:hover{
+            color:lighten($orange, 10);
+            border:1px solid lighten($orange, 10);
+        }
+    }
 }
 .dropdown-menu{
     background: #e9ecef !important;
@@ -128,6 +137,10 @@ a, a:hover, a:visited{
 .container{
     padding-top: calculateRem(100px);
     padding-bottom: calculateRem(40px);
+}
+
+.container-fluid{
+    padding-top: calculateRem(70px);
 }
 
 .btn-primary{
@@ -184,5 +197,19 @@ a, a:hover, a:visited{
 
 .big-title{
     font-size: calculateRem(42px);
+}
+
+.small{
+    font-size: calculateRem(11px);
+}
+
+.upper{
+    text-transform: uppercase;
+}
+
+//override modal styles
+.modal-header{
+    border-top:0;
+    border-bottom:0;
 }
 

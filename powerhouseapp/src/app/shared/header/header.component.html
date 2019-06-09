@@ -11,7 +11,7 @@
         <a class="nav-link header__navbar--link" href="#">Estudio</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link header__navbar--link" href="#">Power Team</a>
+        <a class="nav-link header__navbar--link" href="/team">Power Team</a>
       </li>
       <li class="nav-item">
           <div ngbDropdown class="d-inline-block">
@@ -32,6 +32,7 @@
     <div ngbDropdown class="d-inline-block">
       <button type="button" class="btn header__dropdown" id="dropdownBasic1" ngbDropdownToggle>Bienvenido,
         {{username}}</button>
+        <div class="header__cart-items"><a href="/cart">3</a></div>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <h4 class="header__dropdown-title">Mi cuenta</h4>
         <a href="/perfil" ngbDropdownItem>Mi perfil</a>

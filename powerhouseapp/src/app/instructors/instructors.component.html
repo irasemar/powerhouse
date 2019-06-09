@@ -1,0 +1,23 @@
+<div class="container-fluid instructors">
+  <div class="card-group" *ngIf="instructors.length == 4">
+    <div class="col-md-6 mb-2" *ngFor="let instructor of instructors">
+      <div class="card instructors__card">
+        <a href="/team-detail">
+          <img class="card-img-top" [src]="instructor.image" alt="Card image cap">
+          <h5 class="card-title instructors__card--title">{{instructor.name}}</h5>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="card-group" *ngIf="instructors.length > 4">
+    <div class="col-md-4 mb-2" *ngFor="let instructor of instructors">
+      <div class="card instructors__card">
+        <a href="/team-detail">
+          <img class="card-img-top" [src]="instructor.image" alt="Card image cap">
+          <h5 class="card-title instructors__card--title">{{instructor.name}}</h5>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>

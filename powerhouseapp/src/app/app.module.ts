@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +19,13 @@ import { AwardsComponent } from './awards/awards.component';
 import { HiitComponent } from './hiit/hiit.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ClassComponent } from './class/class.component';
+import { CartComponent } from './cart/cart.component';
+import { ModalPaymentComponent } from './modal-payment/modal-payment.component';
+import { InstructorsComponent } from './instructors/instructors.component';
+import { TeamDetailComponent } from './team-detail/team-detail.component';
+import { TeamMusicComponent } from './team-music/team-music.component';
+import { TeamCalendarComponent } from './team-calendar/team-calendar.component';
+
 
 @NgModule({
   declarations: [
@@ -34,12 +42,25 @@ import { ClassComponent } from './class/class.component';
     AwardsComponent,
     HiitComponent,
     CalendarComponent,
-    ClassComponent
+    ClassComponent,
+    CartComponent,
+    ModalPaymentComponent,
+    InstructorsComponent,
+    TeamDetailComponent,
+    TeamMusicComponent,
+    TeamCalendarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    FormsModule
+  ],
+  exports: [
+    ModalPaymentComponent
+  ],
+  entryComponents: [
+    ModalPaymentComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

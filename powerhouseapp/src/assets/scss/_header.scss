@@ -36,6 +36,20 @@
             }
         }
     }
+    &__cart-items{
+        background: #FFF;
+        border-radius: 50%;
+        width: calculateRem(25px);
+        height: calculateRem(25px);
+        color:$midgray;
+        text-align: center;
+        border:1px solid $midgray;
+        font-size:calculateRem(12px);
+        font-weight: 400;
+        margin-right: 5px;
+        display: inline-block;
+        line-height: 21px;
+    }
 }
 
 .social{
