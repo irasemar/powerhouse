@@ -1,0 +1,22 @@
+<ngb-carousel class="calendar" *ngIf="weeks" data-interval="false" [showNavigationArrows]="showNavigationArrows"
+  [showNavigationIndicators]="showNavigationIndicators">
+  <ng-template ngbSlide *ngFor="let week of weeks">
+    <h2 class="h3 text-center mt-4 mb-5">SEMANA {{week.id}}, 2019</h2>
+    <div class="card-deck">
+      <div class="card calendar__card" *ngFor="let day of week.days">
+        <div class="card-title calendar__card--title" [ngClass]="{'active': day.active}">
+          <span>{{day.day}}</span>
+          <span class="calendar__card--number"><strong>{{day.date}}</strong></span>
+        </div>
+        <div class="card calendar__card--child" *ngFor="let class of day.classes">
+          <div class="card-body">
+            <h5 class="card-title calendar__card--child--time">{{class.time}}</h5>
+            <p class="card-text"><a class="calendar__card--child--instructor"
+                [href]="'instructor/' +  class.instructorId">{{class.instructor}}</a></p>
+            <p class="card-text calendar__card--child--duration">{{class.duration}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ngb-carousel>
