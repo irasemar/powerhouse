@@ -6,12 +6,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AwardsComponent implements OnInit {
 
-  title: string
+  title: string;
+  list: any[];
 
   constructor() { }
 
   ngOnInit() {
-    this.title = 'Power points'
+    this.title = 'Power points';
+    this.list = [
+      {
+        "title": "Mi Perfil",
+        "url": "/perfil"
+      },
+      {
+        "title": "Mis próximas clases",
+        "url": "/proximas-clases"
+      },
+      {
+        "title": "Mis historial",
+        "url": "/historial"
+      },
+      {
+        "title": "Power awards",
+        "url": "/awards"
+      }
+    ]
+  
   }
 
 }

@@ -12,9 +12,12 @@ import { ClassComponent } from './class/class.component';
 import { CartComponent } from './cart/cart.component';
 import { InstructorsComponent } from './instructors/instructors.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
+import { StudioComponent } from './studio/studio.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/slider',pathMatch: 'full'},
+  { path: '', redirectTo: '/home',pathMatch: 'full'},
+  { path: 'home',      component: HomeComponent },
   { path: 'slider',      component: SliderComponent },
   { path: 'registro',      component: RegisterComponent },
   { path: 'perfil',      component: ProfileComponent },
@@ -27,6 +30,8 @@ const routes: Routes = [
   { path: 'cart',      component: CartComponent },
   { path: 'team',      component: InstructorsComponent },
   { path: 'team-detail',      component: TeamDetailComponent },
+  { path: 'estudio',      component: StudioComponent },
+
 
 
 
