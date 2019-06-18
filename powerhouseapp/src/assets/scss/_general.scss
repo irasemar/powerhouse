@@ -62,7 +62,7 @@ a, a:hover, a:visited{
 }
 
 .orange{
-    color: $orange;
+    color: $orange !important;
 }
 
 .underlined{
@@ -211,5 +211,23 @@ a, a:hover, a:visited{
 .modal-header{
     border-top:0;
     border-bottom:0;
+}
+
+.social{
+    margin-top:calculateRem(10px);
+    list-style: none;
+    padding-left: 0;
+        &__item{
+            display: inline-block;
+            margin-right:calculateRem(10px);
+            &:last-child{
+                margin-right: 0;
+            }
+            a, a:hover{color:$orange;}
+        } 
+}
+
+.fixed{
+    position: fixed;
 }
 

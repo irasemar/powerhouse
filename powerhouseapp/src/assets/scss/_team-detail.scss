@@ -11,19 +11,6 @@
         margin-top:calculateRem(250px);
         left:calculateRem(20px);
     }
-    .social{
-        margin-top:calculateRem(10px);
-        list-style: none;
-        padding-left: 0;
-            &__item{
-                display: inline-block;
-                margin-right:calculateRem(10px);
-                &:last-child{
-                    margin-right: 0;
-                }
-                a, a:hover{color:$orange;}
-            } 
-    }
     .h4{
         font-size:calculateRem(12px);
         font-weight: 300;
