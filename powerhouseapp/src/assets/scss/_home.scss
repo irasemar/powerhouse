@@ -1,3 +1,15 @@
 .home{
-    &--classes{}
+    &__classes{
+        background: url(/assets/images/slider_03.jpg) no-repeat;
+        background-size:100%;
+        color: #FFF;
+        padding:calculateRem(50px) 0;
+        .sidenav__nav-link {
+            color: #FFF;
+        }
+        &.hiit{
+            background: url(/assets/images/home-hiit.jpg) no-repeat;
+        }
+    }
+
 }

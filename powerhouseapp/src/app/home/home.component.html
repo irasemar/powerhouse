@@ -21,11 +21,13 @@
         </div>
       </div>
 </div>
+<!-- Classes -->
 <div class="home__classes">
   <div class="container">
       <div class="row">
           <div class="col-md-3">
-              <app-sidenav class="static" [active]="active" [list]="lista"></app-sidenav>
+              <app-sidenav class="static mt-5 mb-3" [active]="active" [list]="lista"></app-sidenav>
+              <button class="btn btn-primary mt-3">Ver Horario</button>
             </div>
             <div class="col-md-9">
               <h2 class="h2 white">Indoor cycling</h2>
@@ -34,5 +36,39 @@
               <h3 class="h3">No es el tiempo, no son las instalaciones, es como sales sintiéndote, esa energía compartida de un grupo de personas dando lo mejor.</h3>
             </div>
       </div>
+  </div>
+</div>
+<!-- Rides -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <app-rides [items]="rides"></app-rides>
+    </div>
+  </div>
+</div>
+
+<div class="home__classes hiit">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-3">
+              <app-sidenav class="static mt-5 mb-3" [active]="1" [list]="lista"></app-sidenav>
+              <button class="btn btn-primary--aqua mt-3">Ver Horario</button>
+            </div>
+            <div class="col-md-9">
+              <h2 class="h2 white">HIIT High Intensity Interval Training</h2>
+              <hr class="line--white mb-5">
+              <h3 class="h3 mt-4">Power House quiere que encuentres tu fuerza a través de una experiencia poderosa en un espacio holístico donde sabemos que el ejercicio transforma más allá del cuerpo.</h3>
+              <h3 class="h3">In a dim, candlelit room led by inspiring instructors, you surrender to the beat of the music and get lost in the energy of the room. You move, you ride, and you push towards the finish line - together.</h3>
+            </div>
+      </div>
+  </div>
+</div>
+
+<!-- Rides -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <app-rides [items]="hiits"></app-rides>
+    </div>
   </div>
 </div>
