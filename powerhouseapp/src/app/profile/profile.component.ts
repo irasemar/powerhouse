@@ -10,7 +10,6 @@ import { Router } from '@angular/router'
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent implements OnInit {
-<<<<<<< HEAD
   form = this.fb.group({
     NPK_Usuario : 0,
     Nombre : "",
@@ -30,7 +29,7 @@ export class ProfileComponent implements OnInit {
     QuieroOfertas : 0,
     ContrasenaConfirma : "",
   });
-  
+  list: Array<Object>;
   title: string;
   active : number;
   Generos = [];
@@ -46,6 +45,25 @@ export class ProfileComponent implements OnInit {
     this.title = "Mi Perfil";
     this.Usuario = "email";
     window.scroll(0,0);
+    this.title = "Mi Perfil";
+    this.list = [
+      {
+        "title": "Mi Perfil",
+        "url": "/perfil"
+      },
+      {
+        "title": "Mis próximas clases",
+        "url": "/proximas-clases"
+      },
+      {
+        "title": "Mis historial",
+        "url": "/historial"
+      },
+      {
+        "title": "Power awards",
+        "url": "/awards"
+      }
+    ]
   }
   ngAfterViewInit() {
 		setTimeout(() => {
@@ -90,34 +108,5 @@ export class ProfileComponent implements OnInit {
     this.authservice.UpdateProfile(usuario).subscribe(resp => {
       this.router.navigateByUrl('perfil');
     });
-=======
-
-  title: string;
-  list: Array<Object>;
-
-  
-  constructor() { }
-  
-  ngOnInit() {
-    this.title = "Mi Perfil";
-    this.list = [
-      {
-        "title": "Mi Perfil",
-        "url": "/perfil"
-      },
-      {
-        "title": "Mis próximas clases",
-        "url": "/proximas-clases"
-      },
-      {
-        "title": "Mis historial",
-        "url": "/historial"
-      },
-      {
-        "title": "Power awards",
-        "url": "/awards"
-      }
-    ]
->>>>>>> a7e7485b9731a076178807cc472f1d3eecf2fe06
   }
 }
