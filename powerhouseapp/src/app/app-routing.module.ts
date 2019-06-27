@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { PreloadAllModules, Routes, RouterModule } from '@angular/router';
 import {SliderComponent} from './slider/slider.component';
 import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
@@ -15,7 +15,7 @@ import { TeamDetailComponent } from './team-detail/team-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/slider',pathMatch: 'full'},
-  { path: 'slider',      component: SliderComponent },
+  { path: 'slider',      component: SliderComponent},
   { path: 'registro',      component: RegisterComponent },
   { path: 'perfil',      component: ProfileComponent },
   { path: 'proximas-clases',      component: UpcomingComponent },
@@ -33,7 +33,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    preloadingStrategy: PreloadAllModules,onSameUrlNavigation: 'reload'
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

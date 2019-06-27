@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 export class HistoryComponent implements OnInit {
 
   title: string;
-
+  active : number;
   constructor() { }
 
   ngOnInit() {

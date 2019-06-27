@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 export class UpcomingComponent implements OnInit {
 
   title: string;
-
+  active : number;
   constructor() { }
 
   ngOnInit() {

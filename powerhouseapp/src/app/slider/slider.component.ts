@@ -10,15 +10,15 @@ export class SliderComponent implements OnInit {
   showNavigationArrows = true;
   showNavigationIndicators = true;
   images = [
-    {src:'../assets/images/slider_01.jpg',
+    {src:'./assets/images/slider_01.jpg',
     title: 'It\'s about you, it\'s about the power. ',
     description: 'Sit amet dolo lorem ipsum '
   },
-  {src:'../assets/images/slider_02.jpg',
+  {src:'./assets/images/slider_02.jpg',
   title: 'Lorem ipsum dolo sit two',
   description: 'Sit amet dolo lorem ipsum '
 },
-{src:'../assets/images/slider_03.jpg',
+{src:'./assets/images/slider_03.jpg',
 title: 'Lorem ipsum dolo sit three',
 description: 'Sit amet dolo lorem ipsum '
 }
