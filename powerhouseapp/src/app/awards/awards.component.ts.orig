@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-history',
-  templateUrl: './history.component.html',
+  selector: 'app-awards',
+  templateUrl: './awards.component.html',
 })
-export class HistoryComponent implements OnInit {
+export class AwardsComponent implements OnInit {
 
+<<<<<<< .merge_file_a12100
+  title: string
+  active : number;
+=======
   title: string;
   list: any[];
 
+>>>>>>> .merge_file_a20160
   constructor() { }
 
   ngOnInit() {
-    this.title = 'Mi historial';
+    this.title = 'Power points';
     this.list = [
       {
         "title": "Mi Perfil",

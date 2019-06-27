@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import {SliderComponent} from './slider/slider.component';
 import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
@@ -12,10 +12,13 @@ import { ClassComponent } from './class/class.component';
 import { CartComponent } from './cart/cart.component';
 import { InstructorsComponent } from './instructors/instructors.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
+import { StudioComponent } from './studio/studio.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/slider',pathMatch: 'full'},
-  { path: 'slider',      component: SliderComponent},
+  { path: '', redirectTo: '/home',pathMatch: 'full'},
+  { path: 'home',      component: HomeComponent },
+  { path: 'slider',      component: SliderComponent },
   { path: 'registro',      component: RegisterComponent },
   { path: 'perfil',      component: ProfileComponent },
   { path: 'proximas-clases',      component: UpcomingComponent },
@@ -27,15 +30,15 @@ const routes: Routes = [
   { path: 'cart',      component: CartComponent },
   { path: 'team',      component: InstructorsComponent },
   { path: 'team-detail',      component: TeamDetailComponent },
+  { path: 'estudio',      component: StudioComponent },
+
 
 
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    preloadingStrategy: PreloadAllModules,onSameUrlNavigation: 'reload'
-  })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

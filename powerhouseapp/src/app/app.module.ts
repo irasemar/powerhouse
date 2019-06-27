@@ -60,6 +60,8 @@ registerLocaleData(localemx);
     TeamDetailComponent,
     TeamMusicComponent,
     TeamCalendarComponent,
+    StudioComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

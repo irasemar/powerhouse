@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-history',
-  templateUrl: './history.component.html',
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
 })
-export class HistoryComponent implements OnInit {
+export class ProfileComponent implements OnInit {
 
   title: string;
-  list: any[];
+  list: Array<Object>;
 
+  
   constructor() { }
-
+  
   ngOnInit() {
-    this.title = 'Mi historial';
+    this.title = "Mi Perfil";
     this.list = [
       {
         "title": "Mi Perfil",
@@ -31,7 +32,6 @@ export class HistoryComponent implements OnInit {
         "url": "/awards"
       }
     ]
-  
   }
 
 }
