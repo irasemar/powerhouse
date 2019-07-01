@@ -8,6 +8,7 @@ export class AwardsComponent implements OnInit {
 
   title: string
   active : number;
+  list: any[];
   constructor() { }
 
   ngOnInit() {

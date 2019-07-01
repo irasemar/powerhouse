@@ -28,6 +28,10 @@ import { InstructorsComponent } from './instructors/instructors.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
 import { TeamMusicComponent } from './team-music/team-music.component';
 import { TeamCalendarComponent } from './team-calendar/team-calendar.component';
+import { StudioComponent } from './studio/studio.component';
+import { HomeComponent } from './home/home.component';
+import { RidesComponent } from './rides/rides.component';
+import { StudioSliderComponent } from './studio-slider/studio-slider.component';
 import { APP_CONFIG, AppConfigImpl } from './app.config';
 import { TokenInterceptor } from '../app/auth/token.interceptor';
 import { LoaderInterceptor } from './auth/loading-http.interceptor';
@@ -62,6 +66,8 @@ registerLocaleData(localemx);
     TeamCalendarComponent,
     StudioComponent,
     HomeComponent,
+    RidesComponent,
+    StudioSliderComponent,
   ],
   imports: [
     BrowserModule,
