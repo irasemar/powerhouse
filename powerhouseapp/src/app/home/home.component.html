@@ -26,7 +26,7 @@
   <div class="container">
       <div class="row">
           <div class="col-md-3">
-              <app-sidenav class="static mt-5 mb-3" [active]="active" [list]="lista"></app-sidenav>
+              <app-sidenav class="static mt-5 mb-3" [active]="indoorlink" [list]="lista"></app-sidenav>
               <button class="btn btn-primary mt-3">Ver Horario</button>
             </div>
             <div class="col-md-9">
@@ -46,12 +46,12 @@
     </div>
   </div>
 </div>
-
+<!--HIIT-->
 <div class="home__classes hiit">
   <div class="container">
       <div class="row">
           <div class="col-md-3">
-              <app-sidenav class="static mt-5 mb-3" [active]="1" [list]="lista"></app-sidenav>
+              <app-sidenav class="static mt-5 mb-3" [active]="hitlink" [list]="lista"></app-sidenav>
               <button class="btn btn-primary--aqua mt-3">Ver Horario</button>
             </div>
             <div class="col-md-9">
@@ -63,12 +63,60 @@
       </div>
   </div>
 </div>
-
 <!-- Rides -->
 <div class="container">
   <div class="row">
     <div class="col-md-12">
       <app-rides [items]="hiits"></app-rides>
     </div>
+  </div>
+</div>
+<!-- Classes -->
+<div class="home__classes powerteam">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-3">
+              <app-sidenav class="static mt-5 mb-3" [active]="powerlink" [list]="lista"></app-sidenav>
+              <button class="btn btn-primary mt-3">¡Conoce al Power Team!</button>
+            </div>
+            <div class="col-md-9">
+              <h2 class="h2 white">Power Team</h2>
+              <hr class="line--white mb-5">
+              <h3 class="h3 mt-4">Nuestro equipo de coaches...</h3>
+            </div>
+      </div>
+  </div>
+</div>
+<app-studio-slider></app-studio-slider>
+<!-- Motto -->
+<div class="home__classes motto">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-3">
+              <app-sidenav class="static mt-5 mb-3" [active]="powerlink" [list]="lista"></app-sidenav>
+            </div>
+            <div class="col-md-9">
+              <h2 class="h2 white">
+              It’s not about the ass. <br>
+              It’s not about the likes. <br>
+              It’s not about the looks. <br><br>
+            </h2>
+
+            <h2 class="h2 white">
+            It’s about feeling the vibe. It’s about connecting. <br>
+            It’s about you. <br>
+            It’s about the power. <br><br>
+          </h2>
+
+            <h2 class="h2 white">
+              Welcome.<br>
+              This is your place. <br>
+              This is your team. <br>
+              This is your vibe. <br>
+              This is your moment. <br>
+              This is your<br>
+              POWERHOUSE.
+            </h2>
+      </div>
   </div>
 </div>

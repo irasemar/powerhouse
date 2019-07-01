@@ -28,6 +28,7 @@ import { TeamCalendarComponent } from './team-calendar/team-calendar.component';
 import { StudioComponent } from './studio/studio.component';
 import { HomeComponent } from './home/home.component';
 import { RidesComponent } from './rides/rides.component';
+import { StudioSliderComponent } from './studio-slider/studio-slider.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { RidesComponent } from './rides/rides.component';
     StudioComponent,
     HomeComponent,
     RidesComponent,
+    StudioSliderComponent,
   ],
   imports: [
     BrowserModule,

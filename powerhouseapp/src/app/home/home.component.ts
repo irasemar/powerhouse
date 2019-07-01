@@ -5,11 +5,13 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  active: number;
-  hiit: number;
+  hiit: any;
   lista: Array<Object>;
   hiits: any[];
   rides: any[];
+  indoorlink: any;
+  hiitlink: any;
+  powerlink: any;
   
 
   constructor() { }
@@ -18,20 +20,24 @@ export class HomeComponent implements OnInit {
 
     this.lista = [
       {
-        "title": "Indoor Cycling",
-        "url": "/home"
+        "title": "Powerhouse",
+        "url": "./home"
       },
       {
-        "title": "HIIT",
-        "url": "/team"
+        "title": "Classes",
+        "url": "./classes"
       },
       {
-        "title": "Power Team/Coaches Estudio",
-        "url": "/estudio"
+        "title": "Power Team",
+        "url": "./powerteam"
+      },
+      {
+        "title": "Estudio",
+        "url": "./estudio"
       },
       {
         "title": "Life Motto",
-        "url": "/motto"
+        "url": "./motto"
       }
     ]
     this.hiits = [
@@ -126,9 +132,9 @@ export class HomeComponent implements OnInit {
         }
       ]
     ]
-    this.active = 0;
-    this.hiit = 2;
-
+    this.indoorlink = 1;
+    this.hiitlink = 1;
+    this.powerlink = 2;
     
   }
 
