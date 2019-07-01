@@ -6,9 +6,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AwardsComponent implements OnInit {
 
-  title: string;
+  title: string
+  active : number;
   list: any[];
-
   constructor() { }
 
   ngOnInit() {

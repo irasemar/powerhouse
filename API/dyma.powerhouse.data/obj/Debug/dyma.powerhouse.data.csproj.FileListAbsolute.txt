@@ -1,0 +1,15 @@
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Debug\dyma.sit.data.dll.config
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Debug\dyma.sit.data.dll
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Debug\dyma.sit.data.pdb
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Debug\Dapper.xml
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Debug\Dapper.Contrib.xml
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Debug\log4net.xml
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Debug\Newtonsoft.Json.pdb
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Debug\Newtonsoft.Json.xml
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Debug\SendGrid.pdb
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Debug\SendGrid.xml
+C:\Miguel\Irasema\API\dyma.powerhouse.data\obj\Debug\dyma.powerhouse.data.csprojAssemblyReference.cache
+C:\Miguel\Irasema\API\dyma.powerhouse.data\obj\Debug\dyma.powerhouse.data.csproj.CoreCompileInputs.cache
+C:\Miguel\Irasema\API\dyma.powerhouse.data\obj\Debug\dyma.powerhouse.data.csproj.CopyComplete
+C:\Miguel\Irasema\API\dyma.powerhouse.data\obj\Debug\dyma.sit.data.dll
+C:\Miguel\Irasema\API\dyma.powerhouse.data\obj\Debug\dyma.sit.data.pdb
