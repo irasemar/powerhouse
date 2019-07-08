@@ -25,6 +25,8 @@ import { InstructorsComponent } from './instructors/instructors.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
 import { TeamMusicComponent } from './team-music/team-music.component';
 import { TeamCalendarComponent } from './team-calendar/team-calendar.component';
+import { StudioComponent } from './studio/studio.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -49,6 +51,8 @@ import { TeamCalendarComponent } from './team-calendar/team-calendar.component';
     TeamDetailComponent,
     TeamMusicComponent,
     TeamCalendarComponent,
+    StudioComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
