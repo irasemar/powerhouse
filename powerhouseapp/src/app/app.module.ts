@@ -1,7 +1,10 @@
+import { CommonModule,registerLocaleData } from '@angular/common';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,7 +30,17 @@ import { TeamMusicComponent } from './team-music/team-music.component';
 import { TeamCalendarComponent } from './team-calendar/team-calendar.component';
 import { StudioComponent } from './studio/studio.component';
 import { HomeComponent } from './home/home.component';
+import { RidesComponent } from './rides/rides.component';
+import { StudioSliderComponent } from './studio-slider/studio-slider.component';
+import { APP_CONFIG, AppConfigImpl } from './app.config';
+import { TokenInterceptor } from '../app/auth/token.interceptor';
+import { LoaderInterceptor } from './auth/loading-http.interceptor';
+import localemx from '@angular/common/locales/es-MX';
 
+import {BrowserAnimationsModule,NoopAnimationsModule} from '@angular/platform-browser/animations';
+
+
+registerLocaleData(localemx);
 
 @NgModule({
   declarations: [
@@ -53,12 +66,17 @@ import { HomeComponent } from './home/home.component';
     TeamCalendarComponent,
     StudioComponent,
     HomeComponent,
+    RidesComponent,
+    StudioSliderComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NoopAnimationsModule,
   ],
   exports: [
     ModalPaymentComponent
@@ -66,7 +84,16 @@ import { HomeComponent } from './home/home.component';
   entryComponents: [
     ModalPaymentComponent
   ],
-  providers: [],
+  providers: [
+    /* { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }, */
+    /* {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }, */
+    { provide: APP_CONFIG, useValue: AppConfigImpl },
+    { provide: LOCALE_ID, useValue: 'es-MX'},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
