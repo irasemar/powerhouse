@@ -155,6 +155,19 @@ a, a:hover, a:visited{
     padding-top: calculateRem(70px);
 }
 
+.btn-gray{
+    background-color:$lightgray;
+    color: $gray !important;
+    border-radius: 0;
+    padding:.5rem 1.5rem;
+    font-size:calculateRem(14px);
+    border:0;
+    &:hover{
+        color:$gray !important;
+        background-color: darken($lightgray,10)
+    }
+}
+
 .btn-primary{
     background-color:$orange;
     color: #FFF !important;
@@ -252,5 +265,9 @@ a, a:hover, a:visited{
 
 .fixed{
     position: fixed;
+}
+
+.mid-margin{
+    padding-top:50px !important;
 }
 
