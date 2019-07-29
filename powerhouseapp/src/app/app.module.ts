@@ -38,6 +38,7 @@ import { LoaderInterceptor } from './auth/loading-http.interceptor';
 import localemx from '@angular/common/locales/es-MX';
 
 import {BrowserAnimationsModule,NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { LoginComponent } from './login/login.component';
 
 
 registerLocaleData(localemx);
@@ -68,6 +69,7 @@ registerLocaleData(localemx);
     HomeComponent,
     RidesComponent,
     StudioSliderComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,10 +81,12 @@ registerLocaleData(localemx);
     NoopAnimationsModule,
   ],
   exports: [
-    ModalPaymentComponent
+    ModalPaymentComponent,
+    LoginComponent
   ],
   entryComponents: [
-    ModalPaymentComponent
+    ModalPaymentComponent,
+    LoginComponent
   ],
   providers: [
     /* { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }, */
