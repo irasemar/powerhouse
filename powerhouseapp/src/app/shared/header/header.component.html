@@ -1,11 +1,11 @@
-<nav class="navbar ph__navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav class="navbar ph__navbar navbar-expand-lg navbar-light bg-light fixed-top" >
   <a href="/">
     <div class="header__logo"></div>
   </a>
   <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link header__navbar--link" href="/home">Eres nuevo?</a>
+        <a class="nav-link header__navbar--link" href="/home">¿Eres nuevo?</a>
       </li>
       <li class="nav-item">
         <a class="nav-link header__navbar--link" href="/estudio">Estudio</a>
@@ -15,7 +15,7 @@
       </li>
       <li class="nav-item">
           <div ngbDropdown class="d-inline-block">
-              <button type="button" class="btn nav-link header__navbar--link" id="Classes" ngbDropdownToggle>Clases</button>
+              <button type="button" class="btn nav-link header__navbar--link" id="Classes" style="color: #f04c22; font-weight: bolder;" ngbDropdownToggle> Reservar Clases</button>
               <div ngbDropdownMenu aria-labelledby="Classes" >
                 <a class="header__navbar--items" href="/calendar" ngbDropdownItem>Indoor cycling</a>
                 <a class="header__navbar--items" href="/hiit" ngbDropdownItem>Hiit</a>

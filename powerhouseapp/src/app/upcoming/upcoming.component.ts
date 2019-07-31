@@ -8,6 +8,7 @@ export class UpcomingComponent implements OnInit {
 
   title: string;
   active : number;
+  list: { "title": string; "url": string; }[];
   constructor() { }
 
   ngOnInit() {
