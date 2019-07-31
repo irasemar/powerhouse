@@ -42,7 +42,7 @@ a, a:hover, a:visited{
 
 .line{
     &--orange{
-        border-top: 3px solid $orange;
+        border-top: 1px solid $orange;
     }
     &--blue{
         border-top: 1px solid $blue;
@@ -130,7 +130,7 @@ a, a:hover, a:visited{
 .dropdown-item{
     color: $orange !important;
     font-size:calculateRem(13px);
-    padding:.25rem 0 !important;
+    padding:.8rem 0 !important;
     &:hover{
         background: transparent !important;
         color: lighten($orange, 10)
