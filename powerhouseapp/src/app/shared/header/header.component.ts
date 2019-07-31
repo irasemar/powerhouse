@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from 'src/app/login/login.component';
 
 @Component({
   selector: 'app-header',
@@ -11,13 +13,16 @@ export class HeaderComponent implements OnInit {
   welcome = false;
 
 
-  constructor() { }
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
   }
 
   login(){    
     this.welcome = true;
+    this.modalService.open(LoginComponent);
+
+    
     setTimeout(() => this.welcome = false, 5000);
     
     if(this.logged === false){
@@ -26,7 +31,7 @@ export class HeaderComponent implements OnInit {
       this.logged = false
     }
 
-    console.log(this.logged)
+    // console.log(this.logged)
   }
 
 }
