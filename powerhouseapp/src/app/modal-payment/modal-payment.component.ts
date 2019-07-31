@@ -10,6 +10,7 @@ export class ModalPaymentComponent implements OnInit {
   @Input() items;
   @Input() payment;
   @Input() tax;
+  total : number;
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {

@@ -1,0 +1,15 @@
+<div class="rides">
+  <ngb-carousel *ngIf="items" [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
+    <ng-template ngbSlide *ngFor="let set of items">
+      <div class="card-deck">
+        <div class="card rides__card" *ngFor="let image of set" style="width: 18rem;">
+            <img [src]="image.src" alt="Random slide">
+            <div class="card-body">
+              <h5 class="card-title rides__title mt-3 mb-4">{{image.title}}</h5>
+              <p class="card-text rides__text">{{image.description}}</p>
+            </div>
+          </div>
+          </div>
+    </ng-template>
+  </ngb-carousel>
+</div>
