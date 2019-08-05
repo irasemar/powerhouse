@@ -14,64 +14,69 @@
     <!--Row of bikes and photo-->
     <div class="row">
         <!--First column of bikes -->
-        <div class="col-sm-2 offset-2">
-          <div class="row mb-5">
+        <div class="col-sm-2 offset-1">
+          <div class="row mb-2 mt-5">
               <div class="col-sm-6 text-center">
-                  <span class="classes__bike" (click)="select(bikes[0])" [ngClass]="{'active' : bikes[0].status }">{{bikes[0].id}}</span>
               </div>
               <div class="col-sm-6 text-center">
-                  <span class="classes__bike" (click)="select(bikes[1])" [ngClass]="{'active' : bikes[1].status }">{{bikes[1].id}}</span>
+                  <span class="classes__bike" (click)="select(bikes[4])" [ngClass]="{'active' : bikes[4].status }">{{bikes[4].id}}</span>
+              </div>
+          </div>
+          <div class="row mb-2">
+              <div class="col-sm-6 text-center">
+                    <span class="classes__bike" (click)="select(bikes[7])" [ngClass]="{'active' : bikes[7].status }">{{bikes[7].id}}</span>
+              </div>
+              <div class="col-sm-6 text-center">
+                  <span class="classes__bike" (click)="select(bikes[5])" [ngClass]="{'active' : bikes[5].status }">{{bikes[5].id}}</span>
               </div>
           </div>
           <div class="row">
-              <div class="col-sm-6 text-center">
-                  <span class="classes__bike" (click)="select(bikes[2])" [ngClass]="{'active' : bikes[2].status }">{{bikes[2].id}}</span>
-              </div>
-              <div class="col-sm-6 text-center">
-                  <span class="classes__bike" (click)="select(bikes[3])" [ngClass]="{'active' : bikes[3].status }">{{bikes[3].id}}</span>
-              </div>
-          </div>
+            <div class="col-sm-6 text-center">
+            </div>
+            <div class="col-sm-6 text-center">
+                <span class="classes__bike" (click)="select(bikes[6])" [ngClass]="{'active' : bikes[6].status }">{{bikes[6].id}}</span>
+            </div>
+        </div>
         </div>
         <!--Second column of avatar-->
-        <div class="col-sm-4">
+        <div class="col-sm-4 offset-1">
           <div>
             <img class="classes__avatar" src="../../assets/images/instructor.jpg" alt="">
           </div>
         </div>
         <!--Third column of bikes-->
-        <div class="col-sm-2">
-            <div class="row mb-5">
-                <div class="col-sm-6 text-center">
-                    <span class="classes__bike" (click)="select(bikes[4])" [ngClass]="{'active' : bikes[4].status }">{{bikes[4].id}}</span>
-                </div>
-                <div class="col-sm-6 text-center">
-                    <span class="classes__bike" (click)="select(bikes[5])" [ngClass]="{'active' : bikes[5].status }">{{bikes[5].id}}</span>
+        <div class="col-sm-2 offset-1">
+            <div class="row mb-2 mt-5">
+                <div class="col-sm-12 text-center">
+                    <span class="classes__bike" (click)="select(bikes[1])" [ngClass]="{'active' : bikes[1].status }">{{bikes[1].id}}</span>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-6 text-center">
-                    <span class="classes__bike" (click)="select(bikes[6])" [ngClass]="{'active' : bikes[6].status }">{{bikes[6].id}}</span>
+            <div class="row mb-2">
+                <div class="col-sm-12 text-center">
+                    <span class="classes__bike" (click)="select(bikes[2])" [ngClass]="{'active' : bikes[2].status }">{{bikes[2].id}}</span>
                 </div>
-                <div class="col-sm-6 text-center">
-                    <span class="classes__bike" (click)="select(bikes[7])" [ngClass]="{'active' : bikes[7].status }">{{bikes[7].id}}</span>
+            </div>
+            <div class="row mb-2">
+                <div class="col-sm-12 text-center">
+                    <span class="classes__bike" (click)="select(bikes[3])" [ngClass]="{'active' : bikes[3].status }">{{bikes[3].id}}</span>
                 </div>
             </div>
           </div>
     </div>
     <!--Row of bikes -->
 
-    <div class="row mb-3 classes__bikes-row">
-        <div class="col-sm-1 text-center" *ngFor="let bike of bikes | slice : 8:18" >
+    <div class="row mb-3 classes__bikes-row mt-5">
+        <div class="col-sm-1 custom-col text-center" *ngFor="let bike of bikes.slice().reverse() | slice : 28:37" >
             <span  class="classes__bike" (click)="select(bike)" [ngClass]="{'active' : bike.status }">{{bike.id}}</span>
         </div>
     </div>
     <div class="row mb-3 classes__bikes-row">
-        <div class="col-sm-1 text-center" *ngFor="let bike of bikes | slice : 19:29" >
+        <div class="col-sm-1 custom-col text-center" *ngFor="let bike of bikes | slice : 17:26" >
             <span  class="classes__bike" (click)="select(bike)" [ngClass]="{'active' : bike.status }">{{bike.id}}</span>
         </div>
     </div>
     <div class="row mb-3 classes__bikes-row">
-            <div class="col-sm-1 text-center" *ngFor="let bike of bikes | slice : 30:40" >
+            <div class="col-sm-1 custom-col text-center" *ngFor="let bike of bikes | slice : 26:35" >
                 <span  class="classes__bike" (click)="select(bike)" [ngClass]="{'active' : bike.status }">{{bike.id}}</span>
             </div>
         </div>
