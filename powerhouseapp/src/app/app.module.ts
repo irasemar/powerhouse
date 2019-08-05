@@ -28,12 +28,20 @@ import { InstructorsComponent } from './instructors/instructors.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
 import { TeamMusicComponent } from './team-music/team-music.component';
 import { TeamCalendarComponent } from './team-calendar/team-calendar.component';
+import { StudioComponent } from './studio/studio.component';
+import { HomeComponent } from './home/home.component';
+import { RidesComponent } from './rides/rides.component';
+import { StudioSliderComponent } from './studio-slider/studio-slider.component';
 import { APP_CONFIG, AppConfigImpl } from './app.config';
 import { TokenInterceptor } from '../app/auth/token.interceptor';
 import { LoaderInterceptor } from './auth/loading-http.interceptor';
 import localemx from '@angular/common/locales/es-MX';
 
 import {BrowserAnimationsModule,NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { LoginComponent } from './login/login.component';
+import { HiitCalendarComponent } from './hiit-calendar/hiit-calendar.component';
+import { NewComponent } from './new/new.component';
+import { ClassTrainComponent } from './class-train/class-train.component';
 
 
 registerLocaleData(localemx);
@@ -62,6 +70,12 @@ registerLocaleData(localemx);
     TeamCalendarComponent,
     StudioComponent,
     HomeComponent,
+    RidesComponent,
+    StudioSliderComponent,
+    LoginComponent,
+    HiitCalendarComponent,
+    NewComponent,
+    ClassTrainComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,10 +87,12 @@ registerLocaleData(localemx);
     NoopAnimationsModule,
   ],
   exports: [
-    ModalPaymentComponent
+    ModalPaymentComponent,
+    LoginComponent
   ],
   entryComponents: [
-    ModalPaymentComponent
+    ModalPaymentComponent,
+    LoginComponent
   ],
   providers: [
     /* { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }, */

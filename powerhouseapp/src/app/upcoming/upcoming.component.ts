@@ -8,10 +8,30 @@ export class UpcomingComponent implements OnInit {
 
   title: string;
   active : number;
+  list: { "title": string; "url": string; }[];
   constructor() { }
 
   ngOnInit() {
     this.title = "Mis próximas clases";
+    this.list = [
+      {
+        "title": "Mi Perfil",
+        "url": "/perfil"
+      },
+      {
+        "title": "Mis próximas clases",
+        "url": "/proximas-clases"
+      },
+      {
+        "title": "Mis historial",
+        "url": "/historial"
+      },
+      {
+        "title": "Power awards",
+        "url": "/awards"
+      }
+    ]
+  
   }
 
 }

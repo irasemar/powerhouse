@@ -42,10 +42,13 @@ a, a:hover, a:visited{
 
 .line{
     &--orange{
-        border-top: 3px solid $orange;
+        border-top: 1px solid $orange;
     }
     &--blue{
         border-top: 1px solid $blue;
+    }
+    &--white{
+        border-top: 1px solid #FFF;
     }
 }
 
@@ -63,6 +66,15 @@ a, a:hover, a:visited{
 
 .orange{
     color: $orange !important;
+}
+
+.aqua{
+    color: $aqua !important;
+}
+
+
+.gray{
+    color: $gray !important;
 }
 
 .underlined{
@@ -108,6 +120,15 @@ a, a:hover, a:visited{
             border:1px solid lighten($orange, 10);
         }
     }
+    &--aqua{
+        color: $aqua;
+        border:1px solid $aqua;
+        border-radius: 0;
+        &:hover{
+            color:lighten($orange, 10);
+            border:1px solid lighten($aqua, 10);
+        }
+    }
 }
 .dropdown-menu{
     background: #e9ecef !important;
@@ -118,7 +139,7 @@ a, a:hover, a:visited{
 .dropdown-item{
     color: $orange !important;
     font-size:calculateRem(13px);
-    padding:.25rem 0 !important;
+    padding:.8rem 0 !important;
     &:hover{
         background: transparent !important;
         color: lighten($orange, 10)
@@ -143,6 +164,19 @@ a, a:hover, a:visited{
     padding-top: calculateRem(70px);
 }
 
+.btn-gray{
+    background-color:$lightgray;
+    color: $gray !important;
+    border-radius: 0;
+    padding:.5rem 1.5rem;
+    font-size:calculateRem(14px);
+    border:0;
+    &:hover{
+        color:$gray !important;
+        background-color: darken($lightgray,10)
+    }
+}
+
 .btn-primary{
     background-color:$orange;
     color: #FFF !important;
@@ -153,6 +187,17 @@ a, a:hover, a:visited{
     &:hover{
         color:#FFF !important;
         background-color: darken($orange,10)
+    }
+    &--aqua{
+        background-color:$aqua;
+        border-radius: 0;
+        padding:.5rem 1.5rem;
+        font-size:calculateRem(14px);
+        color:#FFF;
+        &:hover{
+            color:#FFF !important;
+            background-color: darken($aqua,10)
+        }
     }
 }
 
@@ -229,5 +274,9 @@ a, a:hover, a:visited{
 
 .fixed{
     position: fixed;
+}
+
+.mid-margin{
+    padding-top:50px !important;
 }
 
