@@ -1,0 +1,23 @@
+<div class="padding">
+  <h2 mat-dialog-title>Genero</h2>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+
+      <div>
+        <div fxLayout="column" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+          <mat-form-field fxFlex>
+            <mat-label>Genero</mat-label>
+            <input type="text" formControlName="Genero" matInput required>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button *ngIf="isCreateMode()" mat-button [disabled]="!form.valid">CREAR GENERO</button>
+      <button *ngIf="isUpdateMode()" mat-button [disabled]="!form.valid">ACTUALIZAR GENERO</button>
+    </mat-dialog-actions>
+  </form>
+</div>
+  

@@ -65,6 +65,48 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+        [AllowAnonymous]
+        [Route("loginAdmin"), HttpPost, ResponseType(typeof(List<Models.UserSession>))]
+        public HttpResponseMessage LoginAdmin(Models.LoginForm datos)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var proxy = new Tasks(this.GetConnectionString());
+                    var user = proxy.AuthenticateUserAdmin(datos.username, datos.password);
+                    if (user == null)
+                        throw new data.exceptions.BusinessRuleValidationException("Usuario No Existe");
+
+                    var token = Jwt.JwtManager.GenerateToken(user);
+                    var sesion = new Models.UserSession()
+                    {
+                        Nombre = user.Nombre,
+                        Apellidos = user.Apellidos,
+                        Usuario = user.Usuario,
+                        NPK_Usuario = user.NPK_Usuario,
+                        Token = token
+                    };
+                    return Request.CreateResponse(HttpStatusCode.OK, sesion);
+                }
+                else
+                {
+                    log.Error(ModelState);
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
 
         [AllowAnonymous]
         [Route("ValidateExistsUser"), HttpPost, ResponseType(typeof(List<Models.RespuestaForm>))]

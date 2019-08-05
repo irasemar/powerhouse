@@ -200,6 +200,14 @@
     <Compile Include="Mapping\Profile.cs" />
     <Compile Include="Models\AlturaAsientoForm.cs" />
     <Compile Include="Models\AlturaManubrioForm.cs" />
+    <Compile Include="Models\SalonLugarForm.cs" />
+    <Compile Include="Models\SalonForm.cs" />
+    <Compile Include="Models\PowerHouseRedSocialForm.cs" />
+    <Compile Include="Models\RedSocialForm.cs" />
+    <Compile Include="Models\PowerHouseForm.cs" />
+    <Compile Include="Models\PaqueteForm.cs" />
+    <Compile Include="Models\InstructorForm.cs" />
+    <Compile Include="Models\ClaseForm.cs" />
     <Compile Include="Models\UserProfileForm.cs" />
     <Compile Include="Models\TallaZapatoForm.cs" />
     <Compile Include="Models\DistanciaManubrioForm.cs" />

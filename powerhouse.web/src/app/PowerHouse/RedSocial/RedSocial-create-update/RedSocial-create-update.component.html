@@ -1,0 +1,23 @@
+<div class="padding">
+  <h2 mat-dialog-title>Redes Sociales</h2>
+  
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+  
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Red Social</mat-label>
+            <input type="text" formControlName="RedSocial" matInput required >
+          </mat-form-field>
+        </div>
+      </div>      
+  
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button *ngIf="isCreateMode()" mat-button [disabled]="!form.valid">CREAR RED SOCIAL</button>
+      <button *ngIf="isUpdateMode()" mat-button [disabled]="!form.valid">ACTUALIZAR RED SOCIAL</button>
+    </mat-dialog-actions>
+  </form>
+  </div>
+  

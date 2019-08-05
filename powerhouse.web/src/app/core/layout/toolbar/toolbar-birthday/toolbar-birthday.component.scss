@@ -1,0 +1,16 @@
+@import "var";
+.encImage {
+  max-width: 50%;
+  max-height: 50%;
+}
+
+.rotate {
+  transform: rotate(270deg);
+  background-color: #1F1F1F;
+  height: 3px;
+  width: 125%;
+}
+
+.progress-bar-custom {
+  background-color: white;
+}
