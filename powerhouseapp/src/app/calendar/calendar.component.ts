@@ -17,9 +17,6 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
-
     //Arreglo semanas
     this.weeks = [
       {

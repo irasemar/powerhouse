@@ -1,9 +1,15 @@
 .calendar{
+    .card-deck{
+        margin-right: 0;
+        margin-left: 0;
+    }
+
     &__card{
         border-radius: 0;
         margin-left:0 !important;
         margin-right: 0 !important;
         border-left:0 !important;
+        border:0;
         &--title{
             background: #e9e9e9;
             text-align: center;
@@ -27,6 +33,7 @@
             border-bottom:0;
             margin-left:0 !important;
             margin-right: 0 !important;
+            border: 10px solid #e9e9e9;
             &--duration{
                 text-transform: uppercase;
                 font-weight: 600;
@@ -37,7 +44,7 @@
                 font-size:calculateRem(18px);
             }
             &--instructor{
-                &:hover, &:visited{
+                &:hover{
                     color:#fff !important;
                 }
 
@@ -52,6 +59,8 @@
         }
     }
     
+
+
     //override bootstrap arrows
     .carousel-control-next, .carousel-control-prev{
         display:block;
@@ -70,4 +79,21 @@
         right:33%;
         background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA2klEQVRYR+3TMWoCQRgF4M9UgVSeIF4h6dIpFl5C8ATWqXMZLyCkUcGjaOUVLFKEAYUUJuzMP2QRxmoL2fft438DPf8GPedrgNbA3TbwiHONBZU0MMcHpjhEEbmAGT7xgCPGUUQu4AlrTC5fHkbkAlJuVUQJoCqiFFANEQFUQUQBV8QGbz8OMz2fuky0BuAVWwwvgSss8PUfgFB4AkYaCIdHAFXCSwHVwksAL9iVHtyto8y9gRH2eEbWtf+2iFxAek9CLPHedWp/zbEE0GXenf/TAK2B1kDvDXwDaeUvId1wEZQAAAAASUVORK5CYII=');
     }
+}
+
+.calendar.aqua{
+    .calendar__card--title{
+        color:$gray;
+        &.active{
+            color: $aqua;
+        }
+    }
+    .calendar__card--child{
+        color:$gray;
+        &:hover{
+            background: $aqua;
+            color:#FFF!important;
+        }
+    }
+
 }

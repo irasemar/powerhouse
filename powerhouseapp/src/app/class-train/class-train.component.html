@@ -1,0 +1,63 @@
+<ngb-alert type="custom"  class="over" [dismissible]="false" *ngIf="welcome">
+    <h2 class="h2">Para reservar tu lugar, compra una clase.</h2>
+</ngb-alert>
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-md-12 text-center">
+            <h1 class="classes__heading aq">Train</h1>
+            
+            <h2 class="classes__date aq mt-3 mb-3">{{class.date}}</h2>
+            <p class="classes__coach">Coach: <a [href]="class.coachId">{{class.coach}}</a></p>
+            <p class="classes__coach">Tipo de clase: <a [href]="class.type">{{class.type}}</a></p>
+        </div>
+    </div>
+    <!--Row of bikes and photo-->
+    <div class="row">
+        <!--First column of bikes -->
+        <div class="col-sm-2 offset-2">
+          <div class="row mb-2 mt-5">
+              <div class="col-sm-6 text-center">
+                <span class="classes__bike aq" (click)="select(bikes[1])" [ngClass]="{'active' : bikes[1].status }">{{bikes[1].id}}</span>
+              </div>
+              <div class="col-sm-6 text-center">
+                  <span class="classes__bike aq" (click)="select(bikes[2])" [ngClass]="{'active' : bikes[2].status }">{{bikes[2].id}}</span>
+              </div>
+          </div>
+
+        </div>
+        <!--Second column of avatar-->
+        <div class="col-sm-4">
+          <div>
+            <img class="classes__avatar" src="../../assets/images/instructor.jpg" alt="">
+          </div>
+        </div>
+        <!--Third column of bikes-->
+        <div class="col-sm-2">
+            <div class="row mb-2 mt-5">
+                <div class="col-sm-4 text-center">
+                    <span class="classes__bike aq" (click)="select(bikes[3])" [ngClass]="{'active' : bikes[3].status }">{{bikes[3].id}}</span>
+                </div>
+                <div class="col-sm-4 text-center">
+                        <span class="classes__bike aq" (click)="select(bikes[4])" [ngClass]="{'active' : bikes[4].status }">{{bikes[4].id}}</span>
+                </div>
+                <div class="col-sm-4 text-center">
+                        <span class="classes__bike aq" (click)="select(bikes[5])" [ngClass]="{'active' : bikes[5].status }">{{bikes[5].id}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Row of bikes -->
+
+    <div class="row mb-3 classes__bikes-row first mt-4">
+        <div class="col-sm-1  text-center" *ngFor="let bike of bikes | slice : 6:14" >
+            <span  class="classes__bike aq" (click)="select(bike)" [ngClass]="{'active' : bike.status }">{{bike.id}}</span>
+        </div>
+    </div>
+    <div class="row mb-3 classes__bikes-row second">
+        <div class="col-sm-1  text-center" *ngFor="let bike of bikes | slice : 15:20" >
+            <span  class="classes__bike aq" (click)="select(bike)" [ngClass]="{'active' : bike.status }">{{bike.id}}</span>
+        </div>
+    </div>
+
+    
+</div>

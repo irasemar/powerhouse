@@ -21,6 +21,19 @@
             background: $orange;
             color:#FFF;
         }
+        &.aq{
+            color:$gray;
+            &:hover{
+                background-color: $aqua;
+                border:1px solid transparent;
+                color:#FFF;
+            }
+            &.active{
+                background-color: rgba(29, 203, 206, 0.38);
+                color: $gray;
+                border:1px solid $aqua;
+            }
+        }
     }
     &__heading{
         color:$orange;
@@ -30,6 +43,10 @@
         max-width:300px;
         padding-bottom: 5px;
         margin: auto;
+        &.aqua{
+            border-bottom: 1px solid $aqua;
+            color:$aqua;
+        }
     }
     &__avatar{
         border-radius: 50%;
@@ -39,43 +56,61 @@
         font-size:calculateRem(24px);
         color:$orange;
         margin-bottom:10px;
+        &.aqua{
+            color:$aqua;
+        }
     }
     &__coach{
         font-size: calculateRem(16px);
         margin-bottom:0;
     }
     &__bikes-row{
+
+        .custom-col{
+            flex: 0 0 13%;
+            max-width: 11%;
+        }
+        &.first{
+            .col-sm-1:first-child{
+                margin-left:200px
+            }
+        }
+        &.second{
+            .col-sm-1:first-child{
+                margin-left:350px
+            }
+        }
     
-        div:nth-child(1){
-            margin-left: 8.333333%;
-        }
-        div:nth-child(2){
-            margin-top: 25px;
-    }
-    div:nth-child(3){
-            margin-top: 35px;
-        }
-        div:nth-child(4){
-            margin-top: 45px;
-        }
-        div:nth-child(5){
-            margin-top: 55px;
-        }
-        div:nth-child(6){
-            margin-top: 55px;
-        }
-        div:nth-child(7){
-            margin-top: 45px;
-        }
-        div:nth-child(8){
-            margin-top: 35px;
-        }
-        div:nth-child(9){
-            margin-top: 25px;
-        }
-        div:nth-child(10){
-            margin-top: 0
-        }
+    //     div:nth-child(1){
+    //         margin-left: 8.333333%;
+    //     }
+    //     div:nth-child(2){
+    //         margin-top: 25px;
+    // }
+    //     div:nth-child(3){
+    //         margin-top: 35px;
+    //     }
+    //     div:nth-child(4){
+    //         margin-top: 45px;
+    //     }
+    //     div:nth-child(5){
+    //         margin-top: 55px;
+    //     }
+    //     div:nth-child(6){
+    //         margin-top: 55px;
+    //     }
+    //     div:nth-child(7){
+    //         margin-top: 45px;
+    //     }
+    //     div:nth-child(8){
+    //         margin-top: 35px;
+    //     }
+    //     div:nth-child(9){
+    //         margin-top: 25px;
+    //     }
+    //     div:nth-child(10){
+    //         margin-top: 0
+    //     }
 
     }
 
