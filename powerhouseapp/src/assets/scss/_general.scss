@@ -8,6 +8,7 @@ body{
     background: none;
     color: $gray;
     font-weight: 300;
+    font-family:$font;
 }
 img{
     max-width: 100%;
@@ -242,6 +243,7 @@ a, a:hover, a:visited{
 
 .big-title{
     font-size: calculateRem(42px);
+    font-family: $larseitmedium;
 }
 
 .small{

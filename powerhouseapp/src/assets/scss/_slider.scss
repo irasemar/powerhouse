@@ -23,7 +23,8 @@
         font-weight: 700;
         text-transform: uppercase;
         font-size: calculateRem(80px);
-        line-height: calculateRem(75px)
+        line-height: calculateRem(75px);
+        font-family: $fontblack;
     }
     top:33%;
 }
