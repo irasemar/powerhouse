@@ -77,5 +77,7 @@ namespace dyma.powerhouse.data.views
         public DateTime? FechaModificacion { get; set; }
 
         public short Activo { get; set; }
+        public int AnioInicio { get; set; }
+        public int CantidadClasesTomadas { get; set; }
     }
 }

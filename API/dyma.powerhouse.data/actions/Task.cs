@@ -161,6 +161,11 @@ namespace dyma.powerhouse.data.actions
             else
                 return repo.TraerInstructors(null);
         }
+        public List<vwInstructor> DetalleInstructorPublico(int NPK_Instructor)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.DetalleInstructorPublico(NPK_Instructor);
+        }
         public InstructorCatalogo GuardarInstructor(InstructorCatalogo datos, int NFK_User)
         {
             var repo = new CatalogRepository(ClientConnectionString);
@@ -293,6 +298,54 @@ namespace dyma.powerhouse.data.actions
             return repo.GuardarSalonLugarActivo(NPK_SalonLugar, Activo, NFK_User);
         }
 
+        public InstructorCatalogo UpdateInstructorFotografia(int NPK_Instructor, string FotografiaURL, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.UpdateInstructorFotografia(NPK_Instructor, FotografiaURL, NFK_User);
+        }
+        public RedSocialCatalogo UpdateRedSocialFotografia(int NPK_RedSocial, string FotografiaURL, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.UpdateRedSocialFotografia(NPK_RedSocial, FotografiaURL, NFK_User);
+        }
+        public InstructorMusicaCatalogo UpdateInstructorMusicaFotografia(int NPK_InstructorMusica, string FotografiaURL, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.UpdateInstructorMusicaFotografia(NPK_InstructorMusica, FotografiaURL, NFK_User);
+        }
+        public List<vwInstructorMusica> TraerInstructorMusicas(int NFK_Instructor)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.TraerInstructorMusicas(NFK_Instructor);
+        }
+        public InstructorMusicaCatalogo GuardarInstructorMusica(InstructorMusicaCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarInstructorMusica(datos, NFK_User);
+        }
+        public InstructorMusicaCatalogo EliminarInstructorMusica(long NPK_InstructorMusica)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.EliminarInstructorMusica(NPK_InstructorMusica);
+        }
+
+        public List<vwInstructorRedSocial> TraerInstructorRedSocials(int NFK_Instructor)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.TraerInstructorRedSocials(NFK_Instructor);
+        }
+        public InstructorRedSocialCatalogo GuardarInstructorRedSocial(InstructorRedSocialCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarInstructorRedSocial(datos, NFK_User);
+        }
+        public InstructorRedSocialCatalogo EliminarInstructorRedSocial(long NPK_InstructorRedSocial)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.EliminarInstructorRedSocial(NPK_InstructorRedSocial);
+        }
         #endregion       
 
         #region USERS

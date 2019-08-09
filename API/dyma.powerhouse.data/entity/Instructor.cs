@@ -32,4 +32,5 @@
         public int? ModificadoPor { get; set; }
 
         public DateTime? FechaModificacion { get; set; }
+        public string Fotografia { get; set; }
     }}

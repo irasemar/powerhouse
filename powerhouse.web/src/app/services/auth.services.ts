@@ -77,13 +77,10 @@ interface LoginForm {
   
 export interface Account {
     NPK_Usuario: number;
-    Nombres: string;
-    ApellidoPaterno: string;
-    ApellidoMaterno: string;
+    Nombre: string;
+    Apellidos: string;
     Usuario: string;
     Token: string;
-    NFK_Planta: number;
-    Planta: string;
   }
   export interface Usuario {
     NPK_Usuario: number;

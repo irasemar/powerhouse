@@ -105,6 +105,14 @@ const routes: Routes = [
         loadChildren: 'app/PowerHouse/Instructor/Instructor.module#InstructorModule',
       },
       {
+        path: 'InstructorMusica/:npk_instructor/:instructor',
+        loadChildren: 'app/PowerHouse/InstructorMusica/InstructorMusica.module#InstructorMusicaModule',
+      },
+      {
+        path: 'InstructorRedSocial/:npk_instructor/:instructor',
+        loadChildren: 'app/PowerHouse/InstructorRedSocial/InstructorRedSocial.module#InstructorRedSocialModule',
+      },
+      {
         path: 'Paquete',
         loadChildren: 'app/PowerHouse/Paquete/Paquete.module#PaqueteModule',
       },

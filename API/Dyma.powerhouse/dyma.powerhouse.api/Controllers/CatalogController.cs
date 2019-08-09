@@ -15,6 +15,7 @@ using dyma.powerhouse.data.actions;
 using dyma.powerhouse.api.Jwt;
 using dyma.powerhouse.data.entity;
 using AutoMapper;
+using System.Drawing.Imaging;
 
 namespace dyma.powerhouse.api.Controllers
 {
@@ -567,6 +568,50 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+        [AllowAnonymous]
+        [Route("InstructorPublico/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwInstructor>))]
+        public HttpResponseMessage TraerInstructorsPublico(int activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerInstructors(activo));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
+        [Route("DetalleInstructorPublico/{NPK_Instructor:int}"), HttpGet, ResponseType(typeof(List<data.views.vwInstructor>))]
+        public HttpResponseMessage DetalleInstructorPublico(int NPK_Instructor)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.DetalleInstructorPublico(NPK_Instructor));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
 
         [JwtAuthentication]
         [Route("Instructor"), HttpPost, ResponseType(typeof(Models.InstructorForm))]
@@ -854,6 +899,58 @@ namespace dyma.powerhouse.api.Controllers
                 var httpError = new HttpError(ex, true);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
+        }        [JwtAuthentication]
+        [Route("RedSocial/{NPK_RedSocial:int}/fileRedSocial"), HttpPost]
+        public async System.Threading.Tasks.Task<HttpResponseMessage> UpdateRedSocialFotografia(int NPK_RedSocial)
+        {
+            try
+            {
+                if (!Request.Content.IsMimeMultipartContent())
+                    throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+
+                var task = new Tasks(this.GetConnectionString());
+
+
+                var provider = new MultipartMemoryStreamProvider();
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                string baseUrl = string.Concat(Request.RequestUri.Scheme, "://", Request.RequestUri.Authority, HttpContext.Current.Request.ApplicationPath);
+
+                var path = HttpContext.Current.Server.MapPath(string.Format("~/Files/RedesSociales/{0}/", NPK_RedSocial));
+                var urlPath = string.Format("/Files/RedesSociales/{0}/", NPK_RedSocial);
+                var newFilename = "";
+                foreach (var file in provider.Contents)
+                {
+
+                    var filename = file.Headers.ContentDisposition.FileName.Replace("\"", string.Empty);
+                    if (filename.IndexOf('.') < 0)
+                        throw new data.exceptions.BusinessRuleValidationException("Invalid Request Format (Headers.ContentDisposition.FileName)");
+
+                    var extension = filename.Split('.').Last();
+                    var name = filename.Split('.').First();
+                    var buffer = await file.ReadAsByteArrayAsync();
+                    newFilename = name + Path.GetExtension(filename).ToLower();
+                    CreateDirectoryIfNotExists(path);
+                    File.WriteAllBytes(path + newFilename, buffer);
+                    break;
+                }
+
+                var urlfile = baseUrl + urlPath + newFilename;
+                var result = task.UpdateRedSocialFotografia(NPK_RedSocial, urlfile, GetNpkUser());
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
         [JwtAuthentication]
         [Route("PowerHouseRedSocial/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwPowerHouseRedSocial>))]
@@ -877,6 +974,8 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+
+        
 
         [JwtAuthentication]
         [Route("PowerHouseRedSocial"), HttpPost, ResponseType(typeof(Models.PowerHouseRedSocialForm))]
@@ -1079,5 +1178,308 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+        [JwtAuthentication]
+        [Route("Instructor/{NPK_Instructor:int}/filefotoInstructor"), HttpPost]
+        public async System.Threading.Tasks.Task<HttpResponseMessage> UpdateInstructorFotografia(int NPK_Instructor)
+        {
+            try
+            {
+                if (!Request.Content.IsMimeMultipartContent())
+                    throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+
+                var task = new Tasks(this.GetConnectionString());
+
+
+                var provider = new MultipartMemoryStreamProvider();
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                string baseUrl = string.Concat(Request.RequestUri.Scheme, "://", Request.RequestUri.Authority, HttpContext.Current.Request.ApplicationPath);
+
+                var path = HttpContext.Current.Server.MapPath(string.Format("~/Files/Instructores/{0}/", NPK_Instructor));
+                var urlPath = string.Format("/Files/Instructores/{0}/", NPK_Instructor);
+                var newFilename = "";
+                foreach (var file in provider.Contents)
+                {
+
+                    var filename = file.Headers.ContentDisposition.FileName.Replace("\"", string.Empty);
+                    if (filename.IndexOf('.') < 0)
+                        throw new data.exceptions.BusinessRuleValidationException("Invalid Request Format (Headers.ContentDisposition.FileName)");
+
+                    var extension = filename.Split('.').Last();
+                    var name = filename.Split('.').First();
+                    var buffer = await file.ReadAsByteArrayAsync();
+                    newFilename = name + Path.GetExtension(filename).ToLower();
+                    CreateDirectoryIfNotExists(path);
+                    File.WriteAllBytes(path + newFilename, buffer);
+                    break;
+                }
+
+                var urlfile = baseUrl + urlPath + newFilename;
+                var result = task.UpdateInstructorFotografia(NPK_Instructor, urlfile, GetNpkUser());
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [JwtAuthentication]
+        [Route("InstructorMusica/{NFK_Instructor:int}"), HttpGet, ResponseType(typeof(List<data.views.vwInstructorMusica>))]
+        public HttpResponseMessage TraerInstructorMusicas(int NFK_Instructor)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerInstructorMusicas(NFK_Instructor));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
+        [Route("InstructorMusicaWH/{NFK_Instructor:int}"), HttpGet, ResponseType(typeof(List<data.views.vwInstructorMusica>))]
+        public HttpResponseMessage TraerInstructorMusicasWH(int NFK_Instructor)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerInstructorMusicas(NFK_Instructor));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [JwtAuthentication]
+        [Route("InstructorMusica"), HttpPost, ResponseType(typeof(Models.InstructorMusicaForm))]
+
+        public HttpResponseMessage GuardarInstructorMusica(Models.InstructorMusicaForm datos)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                var resp = new InstructorMusicaCatalogo()
+                {
+                    NPK_InstructorMusica = datos.NPK_InstructorMusica,
+                    NFK_Instructor = datos.NFK_Instructor,
+                    Musica = datos.Musica,
+                    imagen = datos.imagen
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarInstructorMusica(resp, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [JwtAuthentication]
+        [Route("InstructorMusica/{NPK_InstructorMusica:long}/Eliminar"), HttpPost, ResponseType(typeof(Models.InstructorMusicaForm))]
+        public HttpResponseMessage EliminarInstructorMusica(long NPK_InstructorMusica)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.EliminarInstructorMusica(NPK_InstructorMusica));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }        [JwtAuthentication]
+        [Route("InstructorMusica/{NPK_InstructorMusica:int}/filefotoInstructorMusica"), HttpPost]
+        public async System.Threading.Tasks.Task<HttpResponseMessage> UpdateFotografiaInstructorMusica(int NPK_InstructorMusica)
+        {
+            try
+            {
+                if (!Request.Content.IsMimeMultipartContent())
+                    throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+
+                var task = new Tasks(this.GetConnectionString());
+
+
+                var provider = new MultipartMemoryStreamProvider();
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                string baseUrl = string.Concat(Request.RequestUri.Scheme, "://", Request.RequestUri.Authority, HttpContext.Current.Request.ApplicationPath);
+
+                var path = HttpContext.Current.Server.MapPath(string.Format("~/Files/InstructoresMusica/{0}/", NPK_InstructorMusica));
+                var urlPath = string.Format("/Files/InstructoresMusica/{0}/", NPK_InstructorMusica);
+                var newFilename = "";
+                foreach (var file in provider.Contents)
+                {
+
+                    var filename = file.Headers.ContentDisposition.FileName.Replace("\"", string.Empty);
+                    if (filename.IndexOf('.') < 0)
+                        throw new data.exceptions.BusinessRuleValidationException("Invalid Request Format (Headers.ContentDisposition.FileName)");
+
+                    var extension = filename.Split('.').Last();
+                    var name = filename.Split('.').First();
+                    var buffer = await file.ReadAsByteArrayAsync();
+                    newFilename = name + Path.GetExtension(filename).ToLower();
+                    CreateDirectoryIfNotExists(path);
+                    File.WriteAllBytes(path + newFilename, buffer);
+                    break;
+                }
+
+                var urlfile = baseUrl + urlPath + newFilename;
+                var result = task.UpdateInstructorMusicaFotografia(NPK_InstructorMusica, urlfile, GetNpkUser());
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }        [JwtAuthentication]
+        [Route("InstructorRedSocial/{NFK_Instructor:int}"), HttpGet, ResponseType(typeof(List<data.views.vwInstructorRedSocial>))]
+        public HttpResponseMessage TraerInstructorRedSocials(int NFK_Instructor)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerInstructorRedSocials(NFK_Instructor));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("InstructorRedSocialWH/{NFK_Instructor:int}"), HttpGet, ResponseType(typeof(List<data.views.vwInstructorRedSocial>))]
+        public HttpResponseMessage TraerInstructorRedSocialsWH(int NFK_Instructor)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerInstructorRedSocials(NFK_Instructor));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [JwtAuthentication]
+        [Route("InstructorRedSocial"), HttpPost, ResponseType(typeof(Models.InstructorRedSocialForm))]
+        public HttpResponseMessage GuardarInstructorRedSocial(Models.InstructorRedSocialForm datos)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                var resp = new InstructorRedSocialCatalogo()
+                {
+                    NPK_InstructorRedSocial = datos.NPK_InstructorRedSocial,
+                    NFK_Instructor = datos.NFK_Instructor,
+                    NFK_RedSocial = datos.NFK_RedSocial,
+                    RedSocial = datos.RedSocial
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarInstructorRedSocial(resp, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [JwtAuthentication]
+        [Route("InstructorRedSocial/{NPK_InstructorRedSocial:long}/Eliminar"), HttpPost, ResponseType(typeof(Models.InstructorRedSocialForm))]
+        public HttpResponseMessage EliminarInstructorRedSocial(long NPK_InstructorRedSocial)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.EliminarInstructorRedSocial(NPK_InstructorRedSocial));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
     }
 }

@@ -297,6 +297,58 @@ export class CatalogsService {
   }
   
   
+  getInstructorMusicas(NFK_Instructor) {
+    const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<InstructorMusicaView[]>(`${this.config.apiEndpoint}/v1/catalogos/InstructorMusica/${NFK_Instructor}`, { headers: head } );
+  }
+  letInstructorMusica(instructormusica) {
+    const acc = this.auth.getAccount();
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.post<InstructorMusicaForm>(`${this.config.apiEndpoint}/v1/catalogos/InstructorMusica`,instructormusica, { headers: headers });
+  }
+  letActivarInstructorMusica(NPK_InstructorMusica, Activo) {
+    const acc = this.auth.getAccount();
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.post<InstructorMusicaForm>(`${this.config.apiEndpoint}/v1/catalogos/InstructorMusica/${NPK_InstructorMusica}/${Activo}/Activar`, { headers: headers });
+  }
+  letEliminarInstructorMusica(NPK_InstructorMusica) {
+    let acc = this.auth.getAccount();
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append("Content-Type", "application/json");
+    headers = headers.append("Authorization", `Bearer ${acc.Token}`);
+    return this.http.post<InstructorMusicaForm>(`${this.config.apiEndpoint}/v1/catalogos/InstructorMusica/${NPK_InstructorMusica}/Eliminar`, { headers: headers })
+  }
+  
+  getInstructorRedSocials(NFK_Instructor) {
+    const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<InstructorRedSocialView[]>(`${this.config.apiEndpoint}/v1/catalogos/InstructorRedSocial/${NFK_Instructor}`, { headers: head } );
+  }
+  letInstructorRedSocial(instructorredsocial) {
+    const acc = this.auth.getAccount();
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.post<InstructorRedSocialForm>(`${this.config.apiEndpoint}/v1/catalogos/InstructorRedSocial`,instructorredsocial, { headers: headers });
+  }
+  letEliminarInstructorRedSocial(NPK_InstructorRedSocial) {
+    const acc = this.auth.getAccount();
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.post<InstructorRedSocialForm>(`${this.config.apiEndpoint}/v1/catalogos/InstructorRedSocial/${NPK_InstructorRedSocial}/Eliminar`, { headers: headers });
+  }
+  
+  
 }
 export interface GeneroForm {
   NPK_Genero: number;
@@ -390,11 +442,28 @@ export interface SalonLugarForm {
 export interface SalonLugarView extends SalonLugarForm {
   Salon : string
 }
- /* export interface WorkCenterResponsableView extends WorkCenterResponsableForm {
-  WorkCenter : string
-  Responsable : string
+export interface InstructorMusicaForm {
+  NPK_InstructorMusica: number;
+  NFK_Instructor: number;
+  Musica: string;
+  imagen: string;
+  Activo: number;
 }
- */
+export interface InstructorMusicaView extends InstructorMusicaForm {
+  Instructor : string
+}
+export interface InstructorRedSocialForm {
+  NPK_InstructorRedSocial: number;
+  NFK_Instructor: number;
+  NFK_RedSocial: number;
+  RedSocial: string;
+  Activo: number;
+}
+export interface InstructorRedSocialView extends InstructorRedSocialForm {
+  Instructor : string;
+  RedSocialDesc: string;
+}
+ 
 
 
 

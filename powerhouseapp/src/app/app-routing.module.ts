@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'clase',      component: ClassComponent },
   { path: 'cart',      component: CartComponent },
   { path: 'team',      component: InstructorsComponent },
-  { path: 'team-detail',      component: TeamDetailComponent },
+  { path: 'team-detail/:id',      component: TeamDetailComponent },
   { path: 'estudio',      component: StudioComponent },
   { path: 'nuevo',      component: NewComponent },
   { path: 'comprar-clase',      component: HiitComponent },

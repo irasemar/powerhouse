@@ -1,8 +1,8 @@
 <div class="container-fluid team-detail">
   <div class="row">
       <div class="team-detail__profile-pic">
-          <h1 class="team-detail__profile-name">Tere Mtz</h1>
-          <img src="../../assets/images/instructor_banner.jpeg" alt="">
+          <h1 class="team-detail__profile-name">{{instructor_name}}</h1>
+          <img [src]="instructor_image" alt="">
         </div>
   </div>
 </div>
@@ -11,28 +11,28 @@
     <div class="col-md-8">
       <h2 class="h3 orange mb-3">Música que le gusta ahorita</h2>
       <app-team-music></app-team-music>
-      <h3 class="h2 orange mt-5 mb-5">"Eres más fuerte de lo crees”</h3>
-      <p>La clase de Tere Mtz está enfocada en intensidad de una forma completa, retandote a pensar en cada parte de tu
-        cuerpo como algo poderoso.
-        Tere fué bailarina de ballet desde los 5 años, ama la música pop.</p>
+      <h3 class="h2 orange mt-5 mb-5">"{{instructor_Frase}}”</h3>
+      <p>{{instructor_DescripcionSuClase}}</p>
       <ul class="social">
-        <li class="social__item"><a href=""><i class="fab fa-facebook-f"></i></a></li>
-        <li class="social__item"><a href=""><i class="fab fa-instagram"></i></a></li>
-        <li class="social__item"><a href=""><i class="fab fa-youtube"></i></a></li>
+        <li class="social__item"><a href="http:https://www.facebook.com/{{instructor_facebook}}"><i class="fab fa-facebook-f"></i>{{instructor_facebook}}</a></li>
+        <li class="social__item"><a href="instructor_instagram"><i class="fab fa-instagram"></i>{{instructor_instagram}}</a></li>
+        <li class="social__item"><a href="instructor_youtube"><i class="fab fa-youtube"></i>{{instructor_youtube}}</a></li>
       </ul>
     </div>
     <div class="col-md-4">
       <h4 class="h4 upper mt-5">Su paso favorito arriba de la bici:</h4>
-      <h3 class="h3 mb-4">Tap back push up</h3>
+      <h3 class="h3 mb-4">{{instructor_PasoFavoritoBici}}</h3>
 
       <h4 class="h4 upper">Su paso favorito en hiit:</h4>
-      <h3 class="h3 mb-4">Shakira</h3>
+      <h3 class="h3 mb-4">{{instructor_PasoFavoritoHiit}}</h3>
+      <h4 class="h4 upper">Artista favorito:</h4>
+      <h3 class="h3 mb-4">{{instructor_ArtistaFavorito}}</h3>
 
       <h4 class="h4 upper">Animal favorito:</h4>
-      <h3 class="h3 mb-4">León</h3>
+      <h3 class="h3 mb-4">{{instructor_AnimalFavorito}}</h3>
 
       <h4 class="h4 upper">Película favorita</h4>
-      <h3 class="h3 mb-4">Lion king</h3>
+      <h3 class="h3 mb-4">{{instructor_PeliculaFavorito}}</h3>
     </div>
   </div>
   <hr class="line">

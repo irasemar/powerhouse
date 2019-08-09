@@ -86,6 +86,8 @@
     <Compile Include="entity\AlturaManubrio.cs" />
     <Compile Include="entity\DistanciaManubrio.cs" />
     <Compile Include="entity\Clase.cs" />
+    <Compile Include="entity\InstructorRedSocial.cs" />
+    <Compile Include="entity\InstructorMusica.cs" />
     <Compile Include="entity\SalonLugar.cs" />
     <Compile Include="entity\Salon.cs" />
     <Compile Include="entity\PowerHouseRedSocial.cs" />
@@ -106,6 +108,8 @@
     <Compile Include="util\DbManager.cs" />
     <Compile Include="views\vwAlturaAsiento.cs" />
     <Compile Include="views\vwAlturaManubrio.cs" />
+    <Compile Include="views\vwInstructorRedSocial.cs" />
+    <Compile Include="views\vwInstructorMusica.cs" />
     <Compile Include="views\vwSalonLugar.cs" />
     <Compile Include="views\vwSalon.cs" />
     <Compile Include="views\vwPowerHouseRedSocial.cs" />

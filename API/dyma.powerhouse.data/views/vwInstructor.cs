@@ -28,4 +28,7 @@
         public int? ModificadoPor { get; set; }
         public DateTime? FechaModificacion { get; set; }
         public short Activo { get; set; }
+        public string Fotografia { get; set; }
+        public string name { get; set; }
+        public string image { get; set; }
     }}

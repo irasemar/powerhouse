@@ -12,7 +12,8 @@ export class NewComponent implements OnInit {
   indoorlink: any;
   hiitlink: any;
   powerlink: any;
-  
+  active : string;
+  hitlink : string;
 
   constructor() { }
 

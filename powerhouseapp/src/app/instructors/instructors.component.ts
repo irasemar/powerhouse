@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CatalogsService } from "../services/catalogs.service";
 
 @Component({
   selector: 'app-instructors',
@@ -6,12 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InstructorsComponent implements OnInit {
 
-  instructors: any[];
+  instructors= [];
 
-  constructor() { }
+  constructor( private catalog: CatalogsService, ) { }
 
   ngOnInit() {
-    this.instructors = [
+    
+    /* this.instructors = [
       {
         name: 'Mely',
         image: '../../assets/images/instructor_1.jpeg'
@@ -36,7 +38,12 @@ export class InstructorsComponent implements OnInit {
         name: 'Ale Garza',
         image: '../../assets/images/instructor_3.jpeg'
       },
-    ]
+    ] */
+  }
+  ngAfterViewInit() {
+		setTimeout(() => {
+      this.catalog.getInstructorsWH(1).subscribe(instructores =>{this.instructors = instructores;console.log(this.instructors);});
+    });
   }
 
 }

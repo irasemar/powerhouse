@@ -43,7 +43,9 @@ namespace dyma.powerhouse.api.Controllers
                         Apellidos = user.Apellidos,
                         Usuario = user.Usuario,
                         NPK_Usuario = user.NPK_Usuario,
-                        Token = token
+                        Token = token,
+                        AnioInicio = user.AnioInicio,
+                        CantidadClasesTomadas = user.CantidadClasesTomadas
                     };
                     return Request.CreateResponse(HttpStatusCode.OK, sesion);
                 }

@@ -33,11 +33,11 @@ export class AuthService {
     }
     
     
-    getAccount() : Account{
+    getAccount() : Usuario{
         return JSON.parse(localStorage.getItem(CURRENT_ACCOUNT));
     }
 
-    public setAccount(acc: Account){
+    public setAccount(acc: Usuario){
         return localStorage.setItem(CURRENT_ACCOUNT,JSON.stringify(acc))
     }
 
@@ -98,13 +98,12 @@ interface LoginForm {
   
 export interface Account {
     NPK_Usuario: number,
-    Nombres: string,
-    ApellidoPaterno: string,
-    ApellidoMaterno: string,
+    Nombre: string,
+    Apellidos: string,
     Usuario: string,
     Token: string,
-    NFK_Planta: number,
-    Planta: string
+    AnioInicio: number,
+    CantidadClasesTomadas : number
   }
   export interface Usuario {
     NPK_Usuario: number,
@@ -112,6 +111,8 @@ export interface Account {
     Apellidos: string,
     Usuario: string,
     Token: string,
+    AnioInicio: number,
+    CantidadClasesTomadas : number
   }
   export interface RegisterForm {
     NPK_Usuario: number,

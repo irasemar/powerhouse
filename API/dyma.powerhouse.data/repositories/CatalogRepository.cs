@@ -810,6 +810,23 @@ namespace dyma.powerhouse.data.repositories
             }
             return resp;
         }
+        public List<vwInstructor> DetalleInstructorPublico(int NPK_Instructor)
+        {
+            var resp = new List<vwInstructor>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwInstructor>("Select * From vwInstructor with(nolock) Where NPK_Instructor = @NPK_Instructor order by Nombre, Apellidos", new { NPK_Instructor }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
 
         public InstructorCatalogo GuardarInstructor(InstructorCatalogo datos, int NFK_User)
         {
@@ -829,6 +846,7 @@ namespace dyma.powerhouse.data.repositories
                             datos.Activo = 1;
                             datos.FechaCreacion = DateTime.Now;
                             datos.CreadoPor = NFK_User;
+                            datos.Fotografia = "";
                             datos.NPK_Instructor = connection.Insert<InstructorCatalogo>(datos, tran);
                             tran.Commit();
                         }
@@ -857,6 +875,7 @@ namespace dyma.powerhouse.data.repositories
                             datos.ModificadoPor = NFK_User;
                             datos.CreadoPor = fab.CreadoPor;
                             datos.FechaCreacion = fab.FechaCreacion;
+                            datos.Fotografia = fab.Fotografia;
                             connection.Update<InstructorCatalogo>(datos, tran);
                             tran.Commit();
                         }
@@ -1571,5 +1590,310 @@ namespace dyma.powerhouse.data.repositories
 
             return datos;
         }
+        public InstructorCatalogo UpdateInstructorFotografia(int NPK_Instructor, string FotografiaURL, int NFK_User)
+        {
+            InstructorCatalogo datos = new InstructorCatalogo();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        datos = connection.Get<InstructorCatalogo>(NPK_Instructor, tran);
+                        datos.FechaModificacion = DateTime.Now;
+                        datos.ModificadoPor = NFK_User;
+                        datos.Fotografia = FotografiaURL;
+                        connection.Update<InstructorCatalogo>(datos, tran);
+                        tran.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+        public RedSocialCatalogo UpdateRedSocialFotografia(int NPK_RedSocial, string FotografiaURL, int NFK_User)
+        {
+            RedSocialCatalogo datos = new RedSocialCatalogo();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        datos = connection.Get<RedSocialCatalogo>(NPK_RedSocial, tran);
+                        datos.FechaModificacion = DateTime.Now;
+                        datos.ModificadoPor = NFK_User;
+                        datos.RedSocialImagen = FotografiaURL;
+                        connection.Update<RedSocialCatalogo>(datos, tran);
+                        tran.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+        public InstructorMusicaCatalogo UpdateInstructorMusicaFotografia(int NPK_InstructorMusica, string FotografiaURL, int NFK_User)
+        {
+            InstructorMusicaCatalogo datos = new InstructorMusicaCatalogo();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        datos = connection.Get<InstructorMusicaCatalogo>(NPK_InstructorMusica, tran);
+                        datos.FechaModificacion = DateTime.Now;
+                        datos.ModificadoPor = NFK_User;
+                        datos.imagen = FotografiaURL;
+                        connection.Update<InstructorMusicaCatalogo>(datos, tran);
+                        tran.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+
+        public List<vwInstructorMusica> TraerInstructorMusicas(int NFK_Instructor)
+        {
+            var resp = new List<vwInstructorMusica>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwInstructorMusica>("Select * From vwInstructorMusica with(nolock) Where NFK_Instructor = @NFK_Instructor order by Musica", new { NFK_Instructor }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public InstructorMusicaCatalogo GuardarInstructorMusica(InstructorMusicaCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("InstructorMusica Datos requeridos");
+
+            if (datos.NPK_InstructorMusica == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_InstructorMusica = connection.Insert<InstructorMusicaCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_InstructorMusica = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<InstructorMusicaCatalogo>(datos.NPK_InstructorMusica, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<InstructorMusicaCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_InstructorMusica = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public InstructorMusicaCatalogo EliminarInstructorMusica(long NPK_InstructorMusica)
+        {
+            InstructorMusicaCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<InstructorMusicaCatalogo>(NPK_InstructorMusica, tran);
+                        connection.Delete<InstructorMusicaCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+        public List<vwInstructorRedSocial> TraerInstructorRedSocials(int NFK_Instructor)
+        {
+            var resp = new List<vwInstructorRedSocial>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwInstructorRedSocial>("Select * From vwInstructorRedSocial with(nolock) Where NFK_Instructor = @NFK_Instructor order by RedSocial", new { NFK_Instructor }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public InstructorRedSocialCatalogo GuardarInstructorRedSocial(InstructorRedSocialCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("InstructorRedSocial Datos requeridos");
+
+            if (datos.NPK_InstructorRedSocial == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_InstructorRedSocial = connection.Insert<InstructorRedSocialCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_InstructorRedSocial = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<InstructorRedSocialCatalogo>(datos.NPK_InstructorRedSocial, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<InstructorRedSocialCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_InstructorRedSocial = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public InstructorRedSocialCatalogo EliminarInstructorRedSocial(long NPK_InstructorRedSocial)
+        {
+            InstructorRedSocialCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<InstructorRedSocialCatalogo>(NPK_InstructorRedSocial, tran);
+                        connection.Delete<InstructorRedSocialCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
     }
 }

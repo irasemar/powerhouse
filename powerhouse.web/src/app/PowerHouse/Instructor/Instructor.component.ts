@@ -6,6 +6,7 @@ import { filter } from 'rxjs/operators';
 import { ListColumn } from '../../shared/list/list-column.model';
 import { InstructorCreateUpdateComponent } from './Instructor-create-update/Instructor-create-update.component';
 import { CatalogsService,InstructorForm } from "../../services/catalogs.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fury-Instructor',
@@ -21,6 +22,7 @@ export class InstructorComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input()
   columns: ListColumn[] = [
 		{ name: '#Instructor', property:' NPK_Instructor', visible: false, isModelProperty: true },
+		{ name: 'imagen', property: 'imagen', visible: true },
 		{ name: 'Nombre', property: 'Nombre', visible: true, isModelProperty: true },
 		{ name: 'Apellidos', property: 'Apellidos', visible: true, isModelProperty: true },
 		{ name: 'Paso Favorito de Bici', property: 'PasoFavoritoBici', visible: true, isModelProperty: true },
@@ -39,7 +41,7 @@ export class InstructorComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private dialog: MatDialog, private catalog: CatalogsService) {
+  constructor(private dialog: MatDialog, private catalog: CatalogsService, private router: Router) {
 }
 	get visibleColumns() {
 		return this.columns.filter(column => column.visible).map(column => column.property);
@@ -98,4 +100,10 @@ export class InstructorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
   }
+	verMusica(Instructor) {
+		this.router.navigate(['/InstructorMusica/' + Instructor.NPK_Instructor + '/' + Instructor.Nombre + ' ' + Instructor.Apellidos]);
+	}
+	verRedSocial(Instructor) {
+		this.router.navigate(['/InstructorRedSocial/' + Instructor.NPK_Instructor + '/' + Instructor.Nombre + ' ' + Instructor.Apellidos]);
+	}
 }

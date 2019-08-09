@@ -18,18 +18,25 @@ export class TokenInterceptor implements HttpInterceptor {
   
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const acc = this.auth.getAccount();
-    if(acc){
+    if (acc) {
+      if (request.url.indexOf("file") === -1) {
+        request = request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${acc.Token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+      }else{
+        request = request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${acc.Token}`
+          }
+        });
+      }
+    } else {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${acc.Token}`,
-          'Content-Type' : 'application/json'
-        }
-      });
-    }else{
-      
-      request = request.clone({
-        setHeaders: {
-          'Content-Type' : 'application/json'
+          'Content-Type': 'application/json'
         }
       });
     }

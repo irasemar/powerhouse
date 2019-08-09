@@ -20,6 +20,14 @@
           </mat-cell>
         </ng-container> 
 
+        <ng-container matColumnDef="imagen">
+          <mat-header-cell class="image-cell" *matHeaderCellDef></mat-header-cell>
+          <mat-cell class="image-cell" *matCellDef="let row">
+            <span class="fury-mobile-label"></span>
+            <img src="{{ row.Fotografia }}">
+          </mat-cell>
+        </ng-container>
+
         <!-- fullName Column -->
          <ng-container *ngFor="let column of columns">
           <ng-container *ngIf="column.isModelProperty" [matColumnDef]="column.property">
@@ -50,6 +58,8 @@
               </button>
               <button *ngIf="row.Activo == 0" (click)="activateInstructor(row,1)" mat-menu-item><span>Activar</span></button>
               <button *ngIf="row.Activo == 1" (click)="activateInstructor(row,0)" mat-menu-item><span>DesActivar</span></button>
+              <button (click)="verMusica(row)" mat-menu-item><span>Musica</span></button>
+              <button (click)="verRedSocial(row)" mat-menu-item><span>Redes Sociales</span></button>
             </mat-menu>
           </mat-cell>
         </ng-container> 

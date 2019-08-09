@@ -200,6 +200,8 @@
     <Compile Include="Mapping\Profile.cs" />
     <Compile Include="Models\AlturaAsientoForm.cs" />
     <Compile Include="Models\AlturaManubrioForm.cs" />
+    <Compile Include="Models\InstructorRedSocialForm.cs" />
+    <Compile Include="Models\InstructorMusicaForm.cs" />
     <Compile Include="Models\SalonLugarForm.cs" />
     <Compile Include="Models\SalonForm.cs" />
     <Compile Include="Models\PowerHouseRedSocialForm.cs" />

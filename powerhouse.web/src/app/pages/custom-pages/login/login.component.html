@@ -7,12 +7,12 @@
       <div fxFlex="auto" fxLayout="column">
         <mat-form-field fxFlex="grow">
           <mat-label>Usuario</mat-label>
-          <input matInput required formControlName="username">
+          <input matInput required formControlName="username" value="">
           <mat-error *ngIf="form.get('username').hasError('required')">El usuario es requerido</mat-error>
         </mat-form-field>
         <mat-form-field fxFlex="grow">
           <mat-label>Password</mat-label>
-          <input matInput [type]="inputType" formControlName="password" required>
+          <input matInput [type]="inputType" formControlName="password" required value="">
           <button type="button" mat-icon-button matSuffix (click)="toggleVisibility()" matTooltip="Toggle Visibility">
             <mat-icon *ngIf="visible">visibility</mat-icon>
             <mat-icon *ngIf="!visible">visibility_off</mat-icon>

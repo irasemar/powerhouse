@@ -1,20 +1,34 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { CatalogsService,InstructorForm } from '../../../services/catalogs.service';
+import { UploadService } from '../../../services/upload.service';
+import { forkJoin } from 'rxjs';
+
 @Component({
   selector: 'fury-Instructor-create-update',
   templateUrl: './Instructor-create-update.component.html',
   styleUrls: ['./Instructor-create-update.component.scss']
 })
 export class InstructorCreateUpdateComponent implements OnInit {
+  @ViewChild('fileImage') fileImage;
+  public filesImage: Set<File> = new Set();
+  public imagePath;
 
   form: FormGroup;
   mode: 'create' | 'update' = 'create';
 
+  progress;
+  imgURL: any;
+  canBeClosed = true;
+  primaryButtonText = 'Upload';
+  showCancelButton = true;
+  uploading = false;
+  uploadSuccessful = false;
+
   constructor(@Inject(MAT_DIALOG_DATA) public defaults: any,
               private dialogRef: MatDialogRef<InstructorCreateUpdateComponent>,
-              private fb: FormBuilder, private catalog: CatalogsService) {
+              private fb: FormBuilder, private catalog: CatalogsService, private uploadService: UploadService,) {
   }
 
   ngOnInit() {
@@ -50,12 +64,26 @@ export class InstructorCreateUpdateComponent implements OnInit {
   createInstructor() {
     const instructor = this.form.value;
     instructor.NPK_Instructor = 0;
-    this.catalog.letInstructor(instructor).subscribe(instructors =>{this.dialogRef.close(instructor);});
+    this.catalog.letInstructor(instructor).subscribe(instructors =>{
+      if (this.filesImage.size > 0){
+        this.uploadImage(instructors);
+      }
+      else {
+      this.dialogRef.close(instructors);
+      }
+    });
   }
 
   updateInstructor() {
     const instructor = this.form.value;
-    this.catalog.letInstructor(instructor).subscribe(instructors =>{this.dialogRef.close(instructor);});
+    this.catalog.letInstructor(instructor).subscribe(instructors =>{
+      if (this.filesImage.size > 0){
+        this.uploadImage(instructors);
+      }
+      else {
+      this.dialogRef.close(instructors);
+      }
+    });
   }
 
   isCreateMode() {
@@ -64,5 +92,68 @@ export class InstructorCreateUpdateComponent implements OnInit {
 
   isUpdateMode() {
     return this.mode === 'update';
+  }
+
+  createPolicyAreaImage(instructor) {    
+    if (this.filesImage.size > 0)
+        this.uploadImage(instructor);
+    else  this.uploadSuccessful = true;
+    if (this.uploadSuccessful) {
+      this.dialogRef.close(instructor);
+    }
+  }
+  onFilesAddedImage() {
+    const files: { [key: string]: File } = this.fileImage.nativeElement.files;
+    for (let key in files) {
+      if (!isNaN(parseInt(key))) {
+        this.filesImage.add(files[key]);
+      }
+    }
+  }
+  addFilesImage() {
+    this.fileImage.nativeElement.click();
+    return false;
+  }
+  uploadImage(datos: any) {
+    this.uploading = true;
+    this.progress = this.uploadService.uploadFotografiaInstructor(this.filesImage, datos.NPK_Instructor);
+    console.log(this.progress);
+    for (const key in this.progress) {
+      this.progress[key].progress.subscribe(val => console.log(val));
+    }
+
+    // convert the progress map into an array
+    let allProgressObservables = [];
+    for (let key in this.progress) {
+      allProgressObservables.push(this.progress[key].progress);
+    }
+
+    // Adjust the state variables
+
+    // The OK-button should have the text "Finish" now
+    this.primaryButtonText = 'Finish';
+
+    // The dialog should not be closed while uploading
+    this.canBeClosed = false;
+    this.dialogRef.disableClose = true;
+
+    // Hide the cancel-button
+    this.showCancelButton = false;
+
+    // When all progress-observables are completed...
+    forkJoin(allProgressObservables).subscribe(end => {
+      // ... the dialog can be closed again...
+      this.canBeClosed = true;
+      this.dialogRef.disableClose = false;
+
+      // ... the upload was successful...
+
+      this.uploadSuccessful = true;
+      // ... and the component is no longer uploading
+      this.uploading = false;
+      if (this.uploadSuccessful) {
+        this.dialogRef.close(datos);
+      }
+    });
   }
 }
