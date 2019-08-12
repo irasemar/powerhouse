@@ -1,0 +1,107 @@
+<div class="padding">
+  <h2 mat-dialog-title>Instructor</h2>
+  
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+  
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Nombre</mat-label>
+            <input type="text" formControlName="Nombre" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Apellidos</mat-label>
+            <input type="text" formControlName="Apellidos" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Paso Favorito de Bici</mat-label>
+            <input type="text" formControlName="PasoFavoritoBici" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Paso Favorito de Hiit</mat-label>
+            <input type="text" formControlName="PasoFavoritoHiit" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Artista Favorito</mat-label>
+            <input type="text" formControlName="ArtistaFavorito" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Animal Favorito</mat-label>
+            <input type="text" formControlName="AnimalFavorito" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Pelicula Favorito</mat-label>
+            <input type="text" formControlName="PeliculaFavorito" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Frase</mat-label>
+            <input type="text" formControlName="Frase" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Descripcion de Su Clase</mat-label>
+            <input type="text" formControlName="DescripcionSuClase" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <input type="file" #fileImage style="display: none" (change)="onFilesAddedImage()" multiple required/>
+        <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+          <div flex>
+            <button [disabled]="uploading || uploadSuccessful" mat-raised-button color="primary" class="add-files-btn"
+              (click)="addFilesImage()">
+              Cargar Imagen
+            </button>
+            <mat-list>
+              <mat-list-item *ngFor="let file of filesImage">
+        
+                <h4 mat-line>{{file.name}}</h4>
+                <mat-progress-bar *ngIf="progressAcuse" mode="determinate" [value]="progressAcuse[file.name].progress | async">
+                </mat-progress-bar>
+        
+        
+              </mat-list-item>
+            </mat-list>
+            <img class="avatar-lg" [src]="imgURL" *ngIf="imgURL">
+          </div>
+        </div>
+  
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button *ngIf="isCreateMode()" mat-button [disabled]="!form.valid">CREAR INSTRUCTOR</button>
+      <button *ngIf="isUpdateMode()" mat-button [disabled]="!form.valid">ACTUALIZAR INSTRUCTOR</button>
+    </mat-dialog-actions>
+  </form>
+  </div>
+  

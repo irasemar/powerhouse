@@ -14,6 +14,9 @@ import { InstructorsComponent } from './instructors/instructors.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
 import { StudioComponent } from './studio/studio.component';
 import { HomeComponent } from './home/home.component';
+import { HiitCalendarComponent } from './hiit-calendar/hiit-calendar.component';
+import { NewComponent } from './new/new.component';
+import { ClassTrainComponent } from './class-train/class-train.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home',pathMatch: 'full'},
@@ -24,13 +27,19 @@ const routes: Routes = [
   { path: 'proximas-clases',      component: UpcomingComponent },
   { path: 'historial',      component: HistoryComponent },
   { path: 'awards',      component: AwardsComponent },
-  { path: 'hiit',      component: HiitComponent },
-  { path: 'calendar',      component: CalendarComponent },
+  { path: 'hiit-calendar',      component: HiitCalendarComponent },
+  { path: 'indoor-calendar',      component: CalendarComponent },
   { path: 'clase',      component: ClassComponent },
   { path: 'cart',      component: CartComponent },
   { path: 'team',      component: InstructorsComponent },
-  { path: 'team-detail',      component: TeamDetailComponent },
+  { path: 'team-detail/:id',      component: TeamDetailComponent },
   { path: 'estudio',      component: StudioComponent },
+  { path: 'nuevo',      component: NewComponent },
+  { path: 'comprar-clase',      component: HiitComponent },
+  { path: 'train',      component: ClassTrainComponent }
+
+
+
 
 
 

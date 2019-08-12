@@ -1,0 +1,43 @@
+<div class="padding">
+  <h2 mat-dialog-title>Redes Sociales</h2>
+  
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+  
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Red Social</mat-label>
+            <input type="text" formControlName="RedSocial" matInput required >
+          </mat-form-field>
+        </div>
+      </div> 
+      <input type="file" #fileImage style="display: none" (change)="onFilesAddedImage()" multiple required/>
+        <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+          <div flex>
+            <button [disabled]="uploading || uploadSuccessful" mat-raised-button color="primary" class="add-files-btn"
+              (click)="addFilesImage()">
+              Cargar Imagen
+            </button>
+            <mat-list>
+              <mat-list-item *ngFor="let file of filesImage">
+        
+                <h4 mat-line>{{file.name}}</h4>
+                <mat-progress-bar *ngIf="progressAcuse" mode="determinate" [value]="progressAcuse[file.name].progress | async">
+                </mat-progress-bar>
+        
+        
+              </mat-list-item>
+            </mat-list>
+            <img class="avatar-lg" [src]="imgURL" *ngIf="imgURL">
+          </div>
+        </div>     
+  
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button *ngIf="isCreateMode()" mat-button [disabled]="!form.valid">CREAR RED SOCIAL</button>
+      <button *ngIf="isUpdateMode()" mat-button [disabled]="!form.valid">ACTUALIZAR RED SOCIAL</button>
+    </mat-dialog-actions>
+  </form>
+  </div>
+  

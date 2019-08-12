@@ -680,6 +680,1220 @@ namespace dyma.powerhouse.data.repositories
             }
 
             return datos;
+        }
+
+        public List<vwClase> TraerClases(int? Activo)
+        {
+            var resp = new List<vwClase>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwClase>("Select * From vwClase with(nolock) Where Activo = IsNull(@Activo, Activo) order by Clase", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public ClaseCatalogo GuardarClase(ClaseCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("Clase Datos requeridos");
+
+            if (datos.NPK_Clase == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_Clase = connection.Insert<ClaseCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Clase = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<ClaseCatalogo>(datos.NPK_Clase, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<ClaseCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Clase = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public ClaseCatalogo GuardarClaseActivo(long NPK_Clase, int Activo, int NFK_User)
+        {
+            ClaseCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<ClaseCatalogo>(NPK_Clase, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<ClaseCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+
+        public List<vwInstructor> TraerInstructors(int? Activo)
+        {
+            var resp = new List<vwInstructor>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwInstructor>("Select * From vwInstructor with(nolock) Where Activo = IsNull(@Activo, Activo) order by Nombre, Apellidos", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+        public List<vwInstructor> DetalleInstructorPublico(int NPK_Instructor)
+        {
+            var resp = new List<vwInstructor>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwInstructor>("Select * From vwInstructor with(nolock) Where NPK_Instructor = @NPK_Instructor order by Nombre, Apellidos", new { NPK_Instructor }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public InstructorCatalogo GuardarInstructor(InstructorCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("Instructor Datos requeridos");
+
+            if (datos.NPK_Instructor == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.Fotografia = "";
+                            datos.NPK_Instructor = connection.Insert<InstructorCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Instructor = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<InstructorCatalogo>(datos.NPK_Instructor, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            datos.Fotografia = fab.Fotografia;
+                            connection.Update<InstructorCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Instructor = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public InstructorCatalogo GuardarInstructorActivo(long NPK_Instructor, int Activo, int NFK_User)
+        {
+            InstructorCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<InstructorCatalogo>(NPK_Instructor, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<InstructorCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+
+        public List<vwPaquete> TraerPaquetes(int? Activo)
+        {
+            var resp = new List<vwPaquete>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwPaquete>("Select * From vwPaquete with(nolock) Where Activo = IsNull(@Activo, Activo) order by Paquete", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public PaqueteCatalogo GuardarPaquete(PaqueteCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("Paquete Datos requeridos");
+
+            if (datos.NPK_Paquete == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_Paquete = connection.Insert<PaqueteCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Paquete = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<PaqueteCatalogo>(datos.NPK_Paquete, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<PaqueteCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Paquete = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public PaqueteCatalogo GuardarPaqueteActivo(long NPK_Paquete, int Activo, int NFK_User)
+        {
+            PaqueteCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<PaqueteCatalogo>(NPK_Paquete, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<PaqueteCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+
+        public List<vwPowerHouse> TraerPowerHouses(int? Activo)
+        {
+            var resp = new List<vwPowerHouse>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwPowerHouse>("Select * From vwPowerHouse with(nolock) Where Activo = IsNull(@Activo, Activo) order by Direccion", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public PowerHouseCatalogo GuardarPowerHouse(PowerHouseCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("PowerHouse Datos requeridos");
+
+            if (datos.NPK_PowerHouse == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_PowerHouse = connection.Insert<PowerHouseCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_PowerHouse = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<PowerHouseCatalogo>(datos.NPK_PowerHouse, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<PowerHouseCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_PowerHouse = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public PowerHouseCatalogo GuardarPowerHouseActivo(long NPK_PowerHouse, int Activo, int NFK_User)
+        {
+            PowerHouseCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<PowerHouseCatalogo>(NPK_PowerHouse, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<PowerHouseCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+
+        public List<vwRedSocial> TraerRedSocials(int? Activo)
+        {
+            var resp = new List<vwRedSocial>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwRedSocial>("Select * From vwRedSocial with(nolock) Where Activo = IsNull(@Activo, Activo) order by RedSocial", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public RedSocialCatalogo GuardarRedSocial(RedSocialCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("RedSocial Datos requeridos");
+
+            if (datos.NPK_RedSocial == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.RedSocialImagen = null;
+                            datos.NPK_RedSocial = connection.Insert<RedSocialCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_RedSocial = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<RedSocialCatalogo>(datos.NPK_RedSocial, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            datos.RedSocialImagen = fab.RedSocialImagen;
+                            connection.Update<RedSocialCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_RedSocial = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public RedSocialCatalogo GuardarRedSocialActivo(long NPK_RedSocial, int Activo, int NFK_User)
+        {
+            RedSocialCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<RedSocialCatalogo>(NPK_RedSocial, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<RedSocialCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+
+        public List<vwPowerHouseRedSocial> TraerPowerHouseRedSocials(int? Activo)
+        {
+            var resp = new List<vwPowerHouseRedSocial>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwPowerHouseRedSocial>("Select * From vwPowerHouseRedSocial with(nolock) Where Activo = IsNull(@Activo, Activo) order by RedSocial", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public PowerHouseRedSocialCatalogo GuardarPowerHouseRedSocial(PowerHouseRedSocialCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("PowerHouseRedSocial Datos requeridos");
+
+            if (datos.NPK_PowerHouseRedSocial == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_PowerHouseRedSocial = connection.Insert<PowerHouseRedSocialCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_PowerHouseRedSocial = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<PowerHouseRedSocialCatalogo>(datos.NPK_PowerHouseRedSocial, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<PowerHouseRedSocialCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_PowerHouseRedSocial = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public PowerHouseRedSocialCatalogo GuardarPowerHouseRedSocialActivo(long NPK_PowerHouseRedSocial, int Activo, int NFK_User)
+        {
+            PowerHouseRedSocialCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<PowerHouseRedSocialCatalogo>(NPK_PowerHouseRedSocial, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<PowerHouseRedSocialCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+
+        public List<vwSalon> TraerSalons(int? Activo)
+        {
+            var resp = new List<vwSalon>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwSalon>("Select * From vwSalon with(nolock) Where Activo = IsNull(@Activo, Activo) order by Salon", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public SalonCatalogo GuardarSalon(SalonCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("Salon Datos requeridos");
+
+            if (datos.NPK_Salon == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_Salon = connection.Insert<SalonCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Salon = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<SalonCatalogo>(datos.NPK_Salon, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<SalonCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Salon = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public SalonCatalogo GuardarSalonActivo(long NPK_Salon, int Activo, int NFK_User)
+        {
+            SalonCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<SalonCatalogo>(NPK_Salon, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<SalonCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+
+        public List<vwSalonLugar> TraerSalonLugars(int? Activo)
+        {
+            var resp = new List<vwSalonLugar>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwSalonLugar>("Select * From vwSalonLugar with(nolock) Where Activo = IsNull(@Activo, Activo) order by SalonLugar", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public SalonLugarCatalogo GuardarSalonLugar(SalonLugarCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("SalonLugar Datos requeridos");
+
+            if (datos.NPK_SalonLugar == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_SalonLugar = connection.Insert<SalonLugarCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_SalonLugar = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<SalonLugarCatalogo>(datos.NPK_SalonLugar, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<SalonLugarCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_SalonLugar = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public SalonLugarCatalogo GuardarSalonLugarActivo(long NPK_SalonLugar, int Activo, int NFK_User)
+        {
+            SalonLugarCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<SalonLugarCatalogo>(NPK_SalonLugar, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<SalonLugarCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
         }
+        public InstructorCatalogo UpdateInstructorFotografia(int NPK_Instructor, string FotografiaURL, int NFK_User)
+        {
+            InstructorCatalogo datos = new InstructorCatalogo();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        datos = connection.Get<InstructorCatalogo>(NPK_Instructor, tran);
+                        datos.FechaModificacion = DateTime.Now;
+                        datos.ModificadoPor = NFK_User;
+                        datos.Fotografia = FotografiaURL;
+                        connection.Update<InstructorCatalogo>(datos, tran);
+                        tran.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+        public RedSocialCatalogo UpdateRedSocialFotografia(int NPK_RedSocial, string FotografiaURL, int NFK_User)
+        {
+            RedSocialCatalogo datos = new RedSocialCatalogo();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        datos = connection.Get<RedSocialCatalogo>(NPK_RedSocial, tran);
+                        datos.FechaModificacion = DateTime.Now;
+                        datos.ModificadoPor = NFK_User;
+                        datos.RedSocialImagen = FotografiaURL;
+                        connection.Update<RedSocialCatalogo>(datos, tran);
+                        tran.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+        public InstructorMusicaCatalogo UpdateInstructorMusicaFotografia(int NPK_InstructorMusica, string FotografiaURL, int NFK_User)
+        {
+            InstructorMusicaCatalogo datos = new InstructorMusicaCatalogo();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        datos = connection.Get<InstructorMusicaCatalogo>(NPK_InstructorMusica, tran);
+                        datos.FechaModificacion = DateTime.Now;
+                        datos.ModificadoPor = NFK_User;
+                        datos.imagen = FotografiaURL;
+                        connection.Update<InstructorMusicaCatalogo>(datos, tran);
+                        tran.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+
+        public List<vwInstructorMusica> TraerInstructorMusicas(int NFK_Instructor)
+        {
+            var resp = new List<vwInstructorMusica>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwInstructorMusica>("Select * From vwInstructorMusica with(nolock) Where NFK_Instructor = @NFK_Instructor order by Musica", new { NFK_Instructor }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public InstructorMusicaCatalogo GuardarInstructorMusica(InstructorMusicaCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("InstructorMusica Datos requeridos");
+
+            if (datos.NPK_InstructorMusica == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_InstructorMusica = connection.Insert<InstructorMusicaCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_InstructorMusica = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<InstructorMusicaCatalogo>(datos.NPK_InstructorMusica, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<InstructorMusicaCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_InstructorMusica = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public InstructorMusicaCatalogo EliminarInstructorMusica(long NPK_InstructorMusica)
+        {
+            InstructorMusicaCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<InstructorMusicaCatalogo>(NPK_InstructorMusica, tran);
+                        connection.Delete<InstructorMusicaCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+        public List<vwInstructorRedSocial> TraerInstructorRedSocials(int NFK_Instructor)
+        {
+            var resp = new List<vwInstructorRedSocial>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwInstructorRedSocial>("Select * From vwInstructorRedSocial with(nolock) Where NFK_Instructor = @NFK_Instructor order by RedSocial", new { NFK_Instructor }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public InstructorRedSocialCatalogo GuardarInstructorRedSocial(InstructorRedSocialCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("InstructorRedSocial Datos requeridos");
+
+            if (datos.NPK_InstructorRedSocial == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_InstructorRedSocial = connection.Insert<InstructorRedSocialCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_InstructorRedSocial = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<InstructorRedSocialCatalogo>(datos.NPK_InstructorRedSocial, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<InstructorRedSocialCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_InstructorRedSocial = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public InstructorRedSocialCatalogo EliminarInstructorRedSocial(long NPK_InstructorRedSocial)
+        {
+            InstructorRedSocialCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<InstructorRedSocialCatalogo>(NPK_InstructorRedSocial, tran);
+                        connection.Delete<InstructorRedSocialCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
     }
 }

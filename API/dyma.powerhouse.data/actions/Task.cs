@@ -131,8 +131,221 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.GuardarTallaZapatoActivo(NPK_TallaZapato, Activo, NFK_User);
-        }
+        }
 
+        public List<vwClase> TraerClases(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            if (Activo < 2)
+                return repo.TraerClases(Activo);
+            else
+                return repo.TraerClases(null);
+        }
+        public ClaseCatalogo GuardarClase(ClaseCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarClase(datos, NFK_User);
+        }
+        public ClaseCatalogo GuardarClaseActivo(long NPK_Clase, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarClaseActivo(NPK_Clase, Activo, NFK_User);
+        }
+
+        public List<vwInstructor> TraerInstructors(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            if (Activo < 2)
+                return repo.TraerInstructors(Activo);
+            else
+                return repo.TraerInstructors(null);
+        }
+        public List<vwInstructor> DetalleInstructorPublico(int NPK_Instructor)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.DetalleInstructorPublico(NPK_Instructor);
+        }
+        public InstructorCatalogo GuardarInstructor(InstructorCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarInstructor(datos, NFK_User);
+        }
+        public InstructorCatalogo GuardarInstructorActivo(long NPK_Instructor, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarInstructorActivo(NPK_Instructor, Activo, NFK_User);
+        }
+
+        public List<vwPaquete> TraerPaquetes(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            if (Activo < 2)
+                return repo.TraerPaquetes(Activo);
+            else
+                return repo.TraerPaquetes(null);
+        }
+        public PaqueteCatalogo GuardarPaquete(PaqueteCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarPaquete(datos, NFK_User);
+        }
+        public PaqueteCatalogo GuardarPaqueteActivo(long NPK_Paquete, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarPaqueteActivo(NPK_Paquete, Activo, NFK_User);
+        }
+
+        public List<vwPowerHouse> TraerPowerHouses(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            if (Activo < 2)
+                return repo.TraerPowerHouses(Activo);
+            else
+                return repo.TraerPowerHouses(null);
+        }
+        public PowerHouseCatalogo GuardarPowerHouse(PowerHouseCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarPowerHouse(datos, NFK_User);
+        }
+        public PowerHouseCatalogo GuardarPowerHouseActivo(long NPK_PowerHouse, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarPowerHouseActivo(NPK_PowerHouse, Activo, NFK_User);
+        }
+
+        public List<vwRedSocial> TraerRedSocials(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            if (Activo < 2)
+                return repo.TraerRedSocials(Activo);
+            else
+                return repo.TraerRedSocials(null);
+        }
+        public RedSocialCatalogo GuardarRedSocial(RedSocialCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarRedSocial(datos, NFK_User);
+        }
+        public RedSocialCatalogo GuardarRedSocialActivo(long NPK_RedSocial, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarRedSocialActivo(NPK_RedSocial, Activo, NFK_User);
+        }
+
+        public List<vwPowerHouseRedSocial> TraerPowerHouseRedSocials(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            if (Activo < 2)
+                return repo.TraerPowerHouseRedSocials(Activo);
+            else
+                return repo.TraerPowerHouseRedSocials(null);
+        }
+        public PowerHouseRedSocialCatalogo GuardarPowerHouseRedSocial(PowerHouseRedSocialCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarPowerHouseRedSocial(datos, NFK_User);
+        }
+        public PowerHouseRedSocialCatalogo GuardarPowerHouseRedSocialActivo(long NPK_PowerHouseRedSocial, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarPowerHouseRedSocialActivo(NPK_PowerHouseRedSocial, Activo, NFK_User);
+        }
+
+        public List<vwSalon> TraerSalons(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            if (Activo < 2)
+                return repo.TraerSalons(Activo);
+            else
+                return repo.TraerSalons(null);
+        }
+        public SalonCatalogo GuardarSalon(SalonCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarSalon(datos, NFK_User);
+        }
+        public SalonCatalogo GuardarSalonActivo(long NPK_Salon, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarSalonActivo(NPK_Salon, Activo, NFK_User);
+        }
+
+        public List<vwSalonLugar> TraerSalonLugars(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            if (Activo < 2)
+                return repo.TraerSalonLugars(Activo);
+            else
+                return repo.TraerSalonLugars(null);
+        }
+        public SalonLugarCatalogo GuardarSalonLugar(SalonLugarCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarSalonLugar(datos, NFK_User);
+        }
+        public SalonLugarCatalogo GuardarSalonLugarActivo(long NPK_SalonLugar, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarSalonLugarActivo(NPK_SalonLugar, Activo, NFK_User);
+        }
+
+        public InstructorCatalogo UpdateInstructorFotografia(int NPK_Instructor, string FotografiaURL, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.UpdateInstructorFotografia(NPK_Instructor, FotografiaURL, NFK_User);
+        }
+        public RedSocialCatalogo UpdateRedSocialFotografia(int NPK_RedSocial, string FotografiaURL, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.UpdateRedSocialFotografia(NPK_RedSocial, FotografiaURL, NFK_User);
+        }
+        public InstructorMusicaCatalogo UpdateInstructorMusicaFotografia(int NPK_InstructorMusica, string FotografiaURL, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.UpdateInstructorMusicaFotografia(NPK_InstructorMusica, FotografiaURL, NFK_User);
+        }
+        public List<vwInstructorMusica> TraerInstructorMusicas(int NFK_Instructor)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.TraerInstructorMusicas(NFK_Instructor);
+        }
+        public InstructorMusicaCatalogo GuardarInstructorMusica(InstructorMusicaCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarInstructorMusica(datos, NFK_User);
+        }
+        public InstructorMusicaCatalogo EliminarInstructorMusica(long NPK_InstructorMusica)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.EliminarInstructorMusica(NPK_InstructorMusica);
+        }
+
+        public List<vwInstructorRedSocial> TraerInstructorRedSocials(int NFK_Instructor)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.TraerInstructorRedSocials(NFK_Instructor);
+        }
+        public InstructorRedSocialCatalogo GuardarInstructorRedSocial(InstructorRedSocialCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarInstructorRedSocial(datos, NFK_User);
+        }
+        public InstructorRedSocialCatalogo EliminarInstructorRedSocial(long NPK_InstructorRedSocial)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.EliminarInstructorRedSocial(NPK_InstructorRedSocial);
+        }
         #endregion       
 
         #region USERS
@@ -140,6 +353,11 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new UserRepository(ClientConnectionString);
             return repo.AuthenticateUser(username, password);
+        }
+        public vwUsuario AuthenticateUserAdmin(string username, string password)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            return repo.AuthenticateUserAdmin(username, password);
         }
         public vwUsuario RegisterUser(vwUsuario datos)
         {

@@ -1,0 +1,23 @@
+<div class="padding">
+  <h2 mat-dialog-title>Salon</h2>
+  
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+  
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Salon</mat-label>
+            <input type="text" formControlName="Salon" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+  
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button *ngIf="isCreateMode()" mat-button [disabled]="!form.valid">CREAR SALON</button>
+      <button *ngIf="isUpdateMode()" mat-button [disabled]="!form.valid">ACTUALIZAR SALON</button>
+    </mat-dialog-actions>
+  </form>
+  </div>
+  

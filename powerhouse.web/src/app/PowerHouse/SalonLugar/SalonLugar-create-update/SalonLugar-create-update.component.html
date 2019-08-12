@@ -1,0 +1,36 @@
+<div class="padding">
+  <h2 mat-dialog-title>Lugares del Salon</h2>
+  
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+  
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Salon</mat-label>
+            <mat-select placeholder="Salon"  formControlName="NFK_Salon" required>
+          <mat-option>Seleccione</mat-option>
+                <mat-option *ngFor="let salon of Salons" [value]="salon.NPK_Salon">
+                  {{salon.Salon}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Lugar</mat-label>
+            <input type="text" formControlName="SalonLugar" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+  
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button *ngIf="isCreateMode()" mat-button [disabled]="!form.valid">CREAR LUGAR</button>
+      <button *ngIf="isUpdateMode()" mat-button [disabled]="!form.valid">ACTUALIZAR LUGAR</button>
+    </mat-dialog-actions>
+  </form>
+  </div>
+  

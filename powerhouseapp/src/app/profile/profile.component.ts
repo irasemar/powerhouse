@@ -74,7 +74,6 @@ export class ProfileComponent implements OnInit {
       this.catalog.getDistanciaManubrios(1).subscribe(distmanubrio =>{this.DistanciaManubrios = distmanubrio;});
       this.catalog.getTallaZapatos(1).subscribe(tallazapato =>{this.TallaZapatos = tallazapato;});
       this.authservice.getUser(this.Usuario, this.Usuario).subscribe(user => {
-        console.log(user);
         this.form = this.fb.group({
           NPK_Usuario : [user.NPK_Usuario || ''],
           Nombre : [user.Nombre || ''],
@@ -104,7 +103,6 @@ export class ProfileComponent implements OnInit {
     } else {
       usuario.QuieroOfertas = 0;
     }
-    console.log(usuario);
     this.authservice.UpdateProfile(usuario).subscribe(resp => {
       this.router.navigateByUrl('perfil');
     });

@@ -39,6 +39,14 @@ import localemx from '@angular/common/locales/es-MX';
 
 import {BrowserAnimationsModule,NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
+import { HiitCalendarComponent } from './hiit-calendar/hiit-calendar.component';
+import { NewComponent } from './new/new.component';
+import { ClassTrainComponent } from './class-train/class-train.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoaderService } from './services/loader.service';
+
+import { Component } from '@angular/core';
+
 
 
 registerLocaleData(localemx);
@@ -46,6 +54,7 @@ registerLocaleData(localemx);
 @NgModule({
   declarations: [
     AppComponent,
+    
     HeaderComponent,
     SliderComponent,
     FooterComponent,
@@ -70,6 +79,9 @@ registerLocaleData(localemx);
     RidesComponent,
     StudioSliderComponent,
     LoginComponent,
+    HiitCalendarComponent,
+    NewComponent,
+    ClassTrainComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +91,7 @@ registerLocaleData(localemx);
     ReactiveFormsModule,
     HttpClientModule,
     NoopAnimationsModule,
+    BrowserAnimationsModule,
   ],
   exports: [
     ModalPaymentComponent,

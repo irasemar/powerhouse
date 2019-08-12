@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService, Usuario,} from '../../services/auth.services';
 
 @Component({
   selector: 'app-userdata',
@@ -9,13 +10,16 @@ export class UserdataComponent implements OnInit {
   username: string;
   lessons:number;
   year: number;
+  session = {} as Usuario;
+  
 
-  constructor() { }
+  constructor( public auth: AuthService,) { }
 
   ngOnInit() {
-    this.username = 'Ana Lucía Valderrama';
-    this.lessons = 0;
-    this.year = 2019;
+    this.session = this.auth.getAccount();
+    this.username = this.session.Nombre.toString().toUpperCase() + ' ' + this.session.Apellidos.toString().toUpperCase();
+    this.lessons = this.session.CantidadClasesTomadas;
+    this.year = this.session.AnioInicio;
   }
 
 }

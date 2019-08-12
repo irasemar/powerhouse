@@ -8,6 +8,7 @@ export class HistoryComponent implements OnInit {
 
   title: string;
   list: any[];
+  active : string;
 
   constructor() { }
 

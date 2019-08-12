@@ -1,0 +1,47 @@
+<div class="padding">
+  <h2 mat-dialog-title>PowerHouse</h2>
+  
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+  
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Direccion</mat-label>
+            <input type="text" formControlName="Direccion" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Telefonos</mat-label>
+            <input type="text" formControlName="Telefonos" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Latitud</mat-label>
+            <input type="text" formControlName="Latitud" matInput  >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Longitud</mat-label>
+            <input type="text" formControlName="Longitud" matInput  >
+          </mat-form-field>
+        </div>
+      </div>
+  
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button *ngIf="isCreateMode()" mat-button [disabled]="!form.valid">CREAR POWERHOUSE</button>
+      <button *ngIf="isUpdateMode()" mat-button [disabled]="!form.valid">ACTUALIZAR POWERHOUSE</button>
+    </mat-dialog-actions>
+  </form>
+  </div>
+  

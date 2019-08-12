@@ -1,0 +1,40 @@
+<div class="padding">
+  <h2 mat-dialog-title>Clase</h2>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+
+      <div>
+        <div fxLayout="column" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+          <mat-form-field fxFlex>
+            <mat-label>Clase</mat-label>
+            <input type="text" formControlName="Clase" matInput required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+          <mat-form-field fxFlex>
+            <mat-label>Descripcion de Clase</mat-label>
+            <input type="text" formControlName="DescripcionClase" matInput required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+          <mat-form-field fxFlex>
+            <mat-label>Tiempo</mat-label>
+            <input type="text" formControlName="Tiempo" matInput required>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button *ngIf="isCreateMode()" mat-button [disabled]="!form.valid">CREAR CLASE</button>
+      <button *ngIf="isUpdateMode()" mat-button [disabled]="!form.valid">ACTUALIZAR CLASE</button>
+    </mat-dialog-actions>
+  </form>
+</div>
+  
+  

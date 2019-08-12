@@ -35,6 +35,23 @@ namespace dyma.powerhouse.data.repositories
             }
             return resp;
         }
+        public vwUsuario AuthenticateUserAdmin(string username, string password)
+        {
+            var resp = new vwUsuario();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwUsuario>("Select * From vwUsuario with(nolock) Where Activo = 1 AND Usuario = @username AND Contrasena = @password And Administrador = 1", new { username, password }).FirstOrDefault();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
         public vwUsuario GetUser(string username)
         {
             var resp = new vwUsuario();
