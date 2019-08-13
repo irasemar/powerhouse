@@ -1,6 +1,6 @@
 .home{
     &__classes{
-        background: url(/assets/images/slider_03.jpg) no-repeat;
+        background: url(./assets/images/slider_03.jpg) no-repeat;
         background-size:100%;
         color: #FFF;
         padding:calculateRem(120px) 0;
@@ -8,11 +8,11 @@
             color: #FFF;
         }
         &.hiit{
-            background: url(/assets/images/home-hiit.jpg) no-repeat;
+            background: url(./assets/images/home-hiit.jpg) no-repeat;
             background-size:100%;
         }
         &.powerteam{
-            background: url(/assets/images/home-powerteam.jpg) no-repeat;
+            background: url(./assets/images/home-powerteam.jpg) no-repeat;
             background-size:100%;
         }
         &.motto{

@@ -13,22 +13,22 @@
       <tbody>
         <tr *ngFor="let item of items">
           <td class="col-md-4">
-              <div class="cart__qty">{{item.qty}}</div>
-              <div class="cart__desc"><strong>{{item.desc}}</strong><br><span class="cart__exp">*Expira en {{item.exp}} días</span></div>
+              <div class="cart__qty">{{item.CantidadClases}}</div>
+              <div class="cart__desc"><strong>{{item.Paquete}}</strong><br><span class="cart__exp">*Expira en {{item.ExpiracionDias}} días</span></div>
           </td>
           <td class="col-md-2 no-wrap">
-            ${{item.price}} pesos
+            ${{item.PrecioVenta}} pesos
           </td>
           <td class="col-md-3">
-            <input type="number" [(ngModel)]="item.qty" class="form-control">
+            <input type="number" [(ngModel)]="item.Cantidad" class="form-control">
           </td>
-          <td class="col-md-3"> $ {{item.qty * item.price}}</td>
+          <td class="col-md-3"> $ {{item.Cantidad * item.PrecioVenta}}</td>
         </tr>
         <tr>
           <td></td>
           <td></td>
-          <td class="no-wrap"><strong>Total ${{total}}</strong></td>
-          <td>$  pesos</td>
+          <td class="no-wrap"><strong>Total {{totalcantidad}}</strong></td>
+          <td>$ {{total}} pesos</td>
         </tr>
         <tr>
           <td>
@@ -44,7 +44,7 @@
             <div class="radio">
                 <label class="orange"><input type="radio" name="optradio" checked> <strong>  Acepto términos y condiciones</strong></label>
             </div>
-            <button class="btn d-block btn-primary"(click)="pay()">Pagar</button>
+            <button class="btn d-block btn-primary" (click)="pay()">Pagar</button>
           </td>
         </tr>
       </tbody>

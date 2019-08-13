@@ -17,10 +17,12 @@ namespace dyma.powerhouse.api
             // Configuración y servicios de API web
 
             // Rutas de API web
+            config.EnableCors();
             config.Filters.Add(new AuthorizeAttribute());
 
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
+            
             config.MessageHandlers.Add(new PreflightRequestsHandler());
 
             config.MapHttpAttributeRoutes();

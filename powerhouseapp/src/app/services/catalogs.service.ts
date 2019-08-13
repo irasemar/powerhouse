@@ -12,169 +12,71 @@ export class CatalogsService {
     @Inject(APP_CONFIG) private config: AppConfig,
   ) {
   }
+  
   getGeneros(Activo) {
-    const acc = this.auth.getAccount();
+    //const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    head = head.append('Authorization', `Bearer ${acc.Token}`);
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<GeneroForm[]>(`${this.config.apiEndpoint}/v1/catalogos/Genero/${Activo}`, { headers: head } );
   }
-  letGenero(genero) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<GeneroForm>(`${this.config.apiEndpoint}/v1/catalogos/Genero`,genero, { headers: headers });
-  }
-  letActivarGenero(NPK_Genero, Activo) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<GeneroForm>(`${this.config.apiEndpoint}/v1/catalogos/Genero/${NPK_Genero}/${Activo}/Activar`, { headers: headers });
-  }
+  getGenerosPWH(Activo) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    /* head = head.append('Authorization', `Bearer ${acc.Token}`); */
+    return this.http.get<GeneroForm[]>(`${this.config.apiEndpoint}/v1/catalogos/GeneroPWH/${Activo}`, { headers: head } );
+  }  
   
   getAlturaAsientos(Activo) {
-    const acc = this.auth.getAccount();
+    //const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    head = head.append('Authorization', `Bearer ${acc.Token}`);
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<AlturaAsientoForm[]>(`${this.config.apiEndpoint}/v1/catalogos/AlturaAsiento/${Activo}`, { headers: head } );
   }
-  letAlturaAsiento(alturaasiento) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<AlturaAsientoForm>(`${this.config.apiEndpoint}/v1/catalogos/AlturaAsiento`,alturaasiento, { headers: headers });
-  }
-  letActivarAlturaAsiento(NPK_AlturaAsiento, Activo) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<AlturaAsientoForm>(`${this.config.apiEndpoint}/v1/catalogos/AlturaAsiento/${NPK_AlturaAsiento}/${Activo}/Activar`, { headers: headers });
-  }  
+  
   getDistanciaAsientos(Activo) {
-    const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<DistanciaAsientoForm[]>(`${this.config.apiEndpoint}/v1/catalogos/DistanciaAsiento/${Activo}`, { headers: head } );
   }
-  letDistanciaAsiento(distanciaasiento) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<DistanciaAsientoForm>(`${this.config.apiEndpoint}/v1/catalogos/DistanciaAsiento`,distanciaasiento, { headers: headers });
-  }
-  letActivarDistanciaAsiento(NPK_DistanciaAsiento, Activo) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<DistanciaAsientoForm>(`${this.config.apiEndpoint}/v1/catalogos/DistanciaAsiento/${NPK_DistanciaAsiento}/${Activo}/Activar`, { headers: headers });
-  }  
+   
   getAlturaManubrios(Activo) {
-    const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<AlturaManubrioForm[]>(`${this.config.apiEndpoint}/v1/catalogos/AlturaManubrio/${Activo}`, { headers: head } );
   }
-  letAlturaManubrio(alturamanubrio) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<AlturaManubrioForm>(`${this.config.apiEndpoint}/v1/catalogos/AlturaManubrio`,alturamanubrio, { headers: headers });
-  }
-  letActivarAlturaManubrio(NPK_AlturaManubrio, Activo) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<AlturaManubrioForm>(`${this.config.apiEndpoint}/v1/catalogos/AlturaManubrio/${NPK_AlturaManubrio}/${Activo}/Activar`, { headers: headers });
-  }
+  
   getDistanciaManubrios(Activo) {
-    let acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<DistanciaManubrioForm[]>(`${this.config.apiEndpoint}/v1/catalogos/DistanciaManubrio/${Activo}`, { headers: head } )
   }
-  letDistanciaManubrio(distanciamanubrio) {
-    let acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<DistanciaManubrioForm>(`${this.config.apiEndpoint}/v1/catalogos/DistanciaManubrio`,distanciamanubrio, { headers: headers })
-  }
-  letActivarDistanciaManubrio(NPK_DistanciaManubrio,Activo) {
-    let acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append("Content-Type", "application/json");
-    headers = headers.append("Authorization", `Bearer ${acc.Token}`);
-    return this.http.post<DistanciaManubrioForm>(`${this.config.apiEndpoint}/v1/catalogos/DistanciaManubrio/${NPK_DistanciaManubrio}/${Activo}/Activar`, { headers: headers })
-  }
-  
+    
   getTallaZapatos(Activo) {
-    const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<TallaZapatoForm[]>(`${this.config.apiEndpoint}/v1/catalogos/TallaZapato/${Activo}`, { headers: head } );
   }
-  letTallaZapato(tallazapato) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<TallaZapatoForm>(`${this.config.apiEndpoint}/v1/catalogos/TallaZapato`,tallazapato, { headers: headers });
-  }
-  letActivarTallaZapato(NPK_TallaZapato, Activo) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<TallaZapatoForm>(`${this.config.apiEndpoint}/v1/catalogos/TallaZapato/${NPK_TallaZapato}/${Activo}/Activar`, { headers: headers });
-  }  
+   
   getClases(Activo) {
-    const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<ClaseForm[]>(`${this.config.apiEndpoint}/v1/catalogos/Clase/${Activo}`, { headers: head } );
-  }
-  letClase(clase) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<ClaseForm>(`${this.config.apiEndpoint}/v1/catalogos/Clase`,clase, { headers: headers });
-  }
-  letActivarClase(NPK_Clase, Activo) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<ClaseForm>(`${this.config.apiEndpoint}/v1/catalogos/Clase/${NPK_Clase}/${Activo}/Activar`, { headers: headers });
   }  
   
   getInstructors(Activo) {
-    const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<InstructorView[]>(`${this.config.apiEndpoint}/v1/catalogos/Instructor/${Activo}`, { headers: head } );
   }
   getInstructorsWH(Activo) {
     /* const acc = this.auth.getAccount(); */
-    let head: HttpHeaders = new HttpHeaders();
-    head = head.append('Content-Type', 'application/json');
+    /* let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json'); */
     /* head = head.append('Authorization', `Bearer ${acc.Token}`); */
-    return this.http.get<InstructorView[]>(`${this.config.apiEndpoint}/v1/catalogos/InstructorPublico/${Activo}`, { headers: head } );
+    return this.http.get<InstructorView[]>(`${this.config.apiEndpoint}/v1/catalogos/InstructorPublico/${Activo}`);
   }
   getDetalleInstructorPublico(NPK_Instructor) {
     /* const acc = this.auth.getAccount(); */
@@ -189,160 +91,122 @@ export class CatalogsService {
     head = head.append('Content-Type', 'application/json');
     /* head = head.append('Authorization', `Bearer ${acc.Token}`); */
     return this.http.get<InstructorRedSocialView[]>(`${this.config.apiEndpoint}/v1/catalogos/InstructorRedSocialWH/${NPK_Instructor}`, { headers: head } );
-  }
-    
-  letInstructor(instructor) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<InstructorForm>(`${this.config.apiEndpoint}/v1/catalogos/Instructor`,instructor, { headers: headers });
-  }
-  letActivarInstructor(NPK_Instructor, Activo) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<InstructorForm>(`${this.config.apiEndpoint}/v1/catalogos/Instructor/${NPK_Instructor}/${Activo}/Activar`, { headers: headers });
-  }  
+  } 
   
   getPaquetes(Activo) {
-    const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<PaqueteForm[]>(`${this.config.apiEndpoint}/v1/catalogos/Paquete/${Activo}`, { headers: head } );
   }
-  letPaquete(paquete) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<PaqueteForm>(`${this.config.apiEndpoint}/v1/catalogos/Paquete`,paquete, { headers: headers });
-  }
-  letActivarPaquete(NPK_Paquete, Activo) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<PaqueteForm>(`${this.config.apiEndpoint}/v1/catalogos/Paquete/${NPK_Paquete}/${Activo}/Activar`, { headers: headers });
-  }  
   
   getPowerHouses(Activo) {
-    const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<PowerHouseForm[]>(`${this.config.apiEndpoint}/v1/catalogos/PowerHouse/${Activo}`, { headers: head } );
   }
-  letPowerHouse(powerhouse) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<PowerHouseForm>(`${this.config.apiEndpoint}/v1/catalogos/PowerHouse`,powerhouse, { headers: headers });
-  }
-  letActivarPowerHouse(NPK_PowerHouse, Activo) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<PowerHouseForm>(`${this.config.apiEndpoint}/v1/catalogos/PowerHouse/${NPK_PowerHouse}/${Activo}/Activar`, { headers: headers });
-  }
-  
   getRedSocials(Activo) {
-    const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<RedSocialForm[]>(`${this.config.apiEndpoint}/v1/catalogos/RedSocial/${Activo}`, { headers: head } );
   }
-  letRedSocial(redsocial) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<RedSocialForm>(`${this.config.apiEndpoint}/v1/catalogos/RedSocial`,redsocial, { headers: headers });
-  }
-  letActivarRedSocial(NPK_RedSocial, Activo) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<RedSocialForm>(`${this.config.apiEndpoint}/v1/catalogos/RedSocial/${NPK_RedSocial}/${Activo}/Activar`, { headers: headers });
-  }  
   
   getPowerHouseRedSocials(Activo) {
-    const acc = this.auth.getAccount();
-    let head: HttpHeaders = new HttpHeaders();
+   let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<PowerHouseRedSocialForm[]>(`${this.config.apiEndpoint}/v1/catalogos/PowerHouseRedSocial/${Activo}`, { headers: head } );
-  }
-  letPowerHouseRedSocial(powerhouseredsocial) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<PowerHouseRedSocialForm>(`${this.config.apiEndpoint}/v1/catalogos/PowerHouseRedSocial`,powerhouseredsocial, { headers: headers });
-  }
-  letActivarPowerHouseRedSocial(NPK_PowerHouseRedSocial, Activo) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<PowerHouseRedSocialForm>(`${this.config.apiEndpoint}/v1/catalogos/PowerHouseRedSocial/${NPK_PowerHouseRedSocial}/${Activo}/Activar`, { headers: headers });
-  }
+  }  
   
   getSalons(Activo) {
-    const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<SalonForm[]>(`${this.config.apiEndpoint}/v1/catalogos/Salon/${Activo}`, { headers: head } );
-  }
-  letSalon(salon) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<SalonForm>(`${this.config.apiEndpoint}/v1/catalogos/Salon`,salon, { headers: headers });
-  }
-  letActivarSalon(NPK_Salon, Activo) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<SalonForm>(`${this.config.apiEndpoint}/v1/catalogos/Salon/${NPK_Salon}/${Activo}/Activar`, { headers: headers });
   }
   
   getSalonLugars(Activo) {
-    const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<SalonLugarView[]>(`${this.config.apiEndpoint}/v1/catalogos/SalonLugar/${Activo}`, { headers: head } );
   }
-  letSalonLugar(salonlugar) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<SalonLugarForm>(`${this.config.apiEndpoint}/v1/catalogos/SalonLugar`,salonlugar, { headers: headers });
-  }
-  letActivarSalonLugar(NPK_SalonLugar, Activo) {
-    const acc = this.auth.getAccount();
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<SalonLugarForm>(`${this.config.apiEndpoint}/v1/catalogos/SalonLugar/${NPK_SalonLugar}/${Activo}/Activar`, { headers: headers });
-  }
+  
   getInstructorMusicas(NFK_Instructor) {    
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
     return this.http.get<InstructorMusicaView[]>(`${this.config.apiEndpoint}/v1/catalogos/InstructorMusicaWH/${NFK_Instructor}`, { headers: head } );
   }
   
+  letVentaUsuario(Venta) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.post<VentaForm>(`${this.config.apiEndpoint}/v1/powerhouse/VentaUsuario`, Venta, { headers: head });
+  }
+  letVentaUsuarioPago(Venta) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.post<PagoForm>(`${this.config.apiEndpoint}/v1/powerhouse/VentaUsuarioPago`, Venta, { headers: head });
+  }
+  getVentaCarrro() {
+    const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<VentaCarro[]>(`${this.config.apiEndpoint}/v1/powerhouse/VentaUsuarioCarro/${acc.NPK_Usuario}`, { headers: head });
+  }  
+  
+  getAñoTarjetas(Activo) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<AñoTarjetaForm[]>(`${this.config.apiEndpoint}/v1/catalogos/AñoTarjeta/${Activo}`, { headers: head } );
+  }
+  
+  getTipoTarjetas(Activo) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<TipoTarjetaForm[]>(`${this.config.apiEndpoint}/v1/catalogos/TipoTarjeta/${Activo}`, { headers: head } );
+  }
+  
+  getMess(Activo) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<MesForm[]>(`${this.config.apiEndpoint}/v1/catalogos/Mes/${Activo}`, { headers: head } );
+  }
+  getClasesDisponibles(NFK_Clase) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<ClasesDisponiblesWeeks[]>(`${this.config.apiEndpoint}/v1/powerhouse/ClasesDisponibles/${NFK_Clase}`, { headers: head });
+  }
+  getEstatus_Salon_PorDia_Header(NFK_Clase, NFK_Semana, Dia, NPK_CalendarioClase,NPK_Usuario) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<ClaseHeader[]>(`${this.config.apiEndpoint}/v1/powerhouse/Estatus_Salon_PorDia_Header/${NFK_Clase}/${NFK_Semana}/${Dia}/${NPK_CalendarioClase}/${NPK_Usuario}`, { headers: head });
+  }
+  getEstatus_Salon_PorDia(NFK_Clase, NFK_Semana, Dia, NPK_CalendarioClase) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<ClaseReserva[]>(`${this.config.apiEndpoint}/v1/powerhouse/Estatus_Salon_PorDia/${NFK_Clase}/${NFK_Semana}/${Dia}/${NPK_CalendarioClase}`, { headers: head });
+  }
+  letReservaLugar(NFK_CalendarioClase, NFK_Usuario, NFK_Salon, NFK_SalonLugar) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.post<PagoForm>(`${this.config.apiEndpoint}/v1/powerhouse/ReservaLugar/${NFK_CalendarioClase}/${NFK_Usuario}/${NFK_Salon}/${NFK_SalonLugar}`, { headers: head });
+  }
   
 }
 export interface GeneroForm {
@@ -405,7 +269,6 @@ export interface PaqueteForm {
   Paquete: string;
   CantidadClases: number;
   Precio: number;
-  DescripcionExpiracion: string;
   ExpiracionDias: number;
   Activo: number;
 }
@@ -468,4 +331,96 @@ export interface InstructorMusicaForm {
 }
 export interface InstructorMusicaView extends InstructorMusicaForm {
   Instructor : string
+}
+export interface VentaForm {
+  NFK_Usuario: number;
+  NFK_Paquete: number;
+  Cantidad: number;
+}
+export interface VentaCarro {
+  NFK_Usuario: number;
+  NFK_Paquete: number;
+  Cantidad: number;
+  PrecioVenta: number;
+  FechaVenta: string;
+  FechaPago: string;
+  Paquete: string;
+  CantidadClases: number;
+  ExpiracionDias: number;
+}
+export interface AñoTarjetaForm {
+  NPK_AñoTarjeta: number;
+  Anio: number;
+  Activo: number;
+}
+export interface TipoTarjetaForm {
+  NPK_TipoTarjeta: number;
+  TipoTarjeta: string;
+  Activo: number;
+}
+export interface MesForm {
+  NPK_Mes: number;
+  NumeroMes: number;
+  MesDescripcion: string;
+  Activo: number;
+}
+export interface PagoForm {
+  NFK_Usuario : number;
+  TipoTarjeta : string;
+  NumeroTarjeta : string;
+  ExpiraMes : string;
+  ExpiraAño : string;
+  NombreTitular : string;
+  DireccionTitular : string;
+  CorreoElectronico : string;
+  NumAutorizacion : string;
+}
+
+export interface ClasesDisponiblesWeeks {
+  NPK_Calendario : number;
+  NumeroSemana : number;
+  NFK_Semana : number;
+  Anio : number;
+  DiaSemana  : string;
+  Dia  : string;
+  NFK_Clase: number;
+  days: Array<ClasesDisponiblesDia>
+}
+export interface ClasesDisponiblesDia {  
+  DiaSemana : string;
+  Dia: number;
+  classes: Array<ClasesDisponibles>
+}
+export interface ClasesDisponibles {  
+  Fecha : string;
+  HoraInicio: string;
+  Instructor: string;
+  Duracion: string;
+  selection: boolean;
+  NPK_CalendarioClase : number;
+  NFK_Calendario : number;
+  NFK_Instructor :number;
+  Anio : number;
+  FechaInicio: string;
+  FechaFin: string;
+  Reservado : number;
+}
+export interface ClaseHeader {  
+  NPK_CalendarioClase : number;
+  NFK_Instructor: number;
+  Instructor: string;
+  Fecha: string;
+  Clase: string;
+  Fotografia: string;
+  TengoClase: number;
+}
+export interface ClaseReserva {  
+  NPK_Salon : number;
+  Salon: string;
+  NPK_SalonLugar: number;
+  LugarSalon: string;
+  NPK_ReservaClase: number;
+  NPK_CalendarioClase: number;
+  Estatus: boolean;
+  NFK_Usuario : number;
 }

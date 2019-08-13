@@ -42,8 +42,9 @@ export class ProfileComponent implements OnInit {
   constructor(private fb: FormBuilder,private catalog: CatalogsService,private authservice: AuthService,private router: Router,) { }
 
   ngOnInit() {
+    const acc = this.authservice.getAccount();
     this.title = "Mi Perfil";
-    this.Usuario = "email";
+    this.Usuario = acc.Usuario;
     window.scroll(0,0);
     this.title = "Mi Perfil";
     this.list = [
@@ -67,7 +68,7 @@ export class ProfileComponent implements OnInit {
   }
   ngAfterViewInit() {
 		setTimeout(() => {
-      this.catalog.getGeneros(1).subscribe(generos =>{this.Generos = generos;});
+      this.catalog.getGenerosPWH(1).subscribe(generos =>{this.Generos = generos;});
       this.catalog.getAlturaAsientos(1).subscribe(altasiento =>{this.AlturaAsientos = altasiento;});
       this.catalog.getDistanciaAsientos(1).subscribe(distasiento =>{this.DistanciaAsientos = distasiento;});
       this.catalog.getAlturaManubrios(1).subscribe(altmanubrio =>{this.AlturaManubrios = altmanubrio;});
@@ -81,7 +82,7 @@ export class ProfileComponent implements OnInit {
           Usuario : [user.Usuario || ''],
           Contrasena : [user.Contrasena || ''],
           Telefono : [user.Telefono || ''],
-          FechaNacimiento : [user.FechaNacimiento || ''],
+          FechaNacimiento : [user.FechaNacimiento || 'MM/dd/yyyy'],
           Genero : [user.Genero || ''],
           ContactoEmergencia : [user.ContactoEmergencia || ''],
           TelefonoContacto : [user.TelefonoContacto || ''],
@@ -93,6 +94,7 @@ export class ProfileComponent implements OnInit {
           QuieroOfertas : [user.QuieroOfertas || false],
           ContrasenaConfirma : [user.Contrasena || ''],
         });
+        console.log(this.form);
       });
     });
   }

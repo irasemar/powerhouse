@@ -1,10 +1,7 @@
 C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\dyma.sit.data.dll.config
 C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\dyma.sit.data.dll
 C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\dyma.sit.data.pdb
-C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\Dapper.xml
-C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\Dapper.Contrib.xml
 C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\log4net.xml
-C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\Newtonsoft.Json.pdb
 C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\Newtonsoft.Json.xml
 C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\SendGrid.pdb
 C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\SendGrid.xml
@@ -13,3 +10,14 @@ C:\Miguel\Irasema\API\dyma.powerhouse.data\obj\Release\dyma.powerhouse.data.cspr
 C:\Miguel\Irasema\API\dyma.powerhouse.data\obj\Release\dyma.powerhouse.data.csproj.CopyComplete
 C:\Miguel\Irasema\API\dyma.powerhouse.data\obj\Release\dyma.sit.data.dll
 C:\Miguel\Irasema\API\dyma.powerhouse.data\obj\Release\dyma.sit.data.pdb
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\Dapper.Contrib.dll
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\Dapper.Contrib.Ext.dll
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\Dapper.dll
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\log4net.dll
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\Newtonsoft.Json.dll
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\SendGrid.dll
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\System.Net.Http.dll
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\System.Security.Cryptography.Algorithms.dll
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\System.Security.Cryptography.Encoding.dll
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\System.Security.Cryptography.Primitives.dll
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\System.Security.Cryptography.X509Certificates.dll

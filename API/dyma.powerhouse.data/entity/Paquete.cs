@@ -11,9 +11,7 @@
 
         public decimal Precio { get; set; }
 
-        public string DescripcionExpiracion { get; set; }
-
-        public int? ExpiracionDias { get; set; }
+        public int ExpiracionDias { get; set; }
 
         public int Activo { get; set; }
 
@@ -24,4 +22,4 @@
         public int? ModificadoPor { get; set; }
 
         public DateTime? FechaModificacion { get; set; }
-    }}
+    }}

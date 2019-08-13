@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from 'src/app/login/login.component';
 import { AuthService, Usuario,} from '../../services/auth.services';
 import { Router } from '@angular/router';
+import { CatalogsService,VentaCarro } from "../../services/catalogs.service";
 
 @Component({
   selector: 'app-header',
@@ -15,18 +16,30 @@ export class HeaderComponent implements OnInit {
   welcome = false;
   LoginResult: string;
   session = {} as Usuario;
+  itemscarro: VentaCarro[];
+  CantidadCarro : number = 0;
 
-  constructor(private modalService: NgbModal, public auth: AuthService, private router: Router,) { }
+  constructor(private modalService: NgbModal, public auth: AuthService, private catalog: CatalogsService, private router: Router,) { }
 
   ngOnInit() {
-    this.LoginResult = 'Valid User';
-    this.session = this.auth.getAccount();
-    if (this.session) {
-      if(this.session.NPK_Usuario > 0) {
-        this.logged = true;
-        this.username = this.session.Nombre;
+    
+  }
+  ngAfterViewInit() {
+		setTimeout(() => {
+      this.LoginResult = 'Valid User';
+      this.session = this.auth.getAccount();
+      if (this.session) {
+        if (this.session.NPK_Usuario > 0) {
+          this.logged = true;
+          this.username = this.session.Nombre;
+          this.catalog.getVentaCarrro().subscribe(ventas => {
+            this.itemscarro = ventas;
+            this.CantidadCarro = ventas.length;
+          });
+        }
       }
-    }
+
+    });
   }
 
   login(){    

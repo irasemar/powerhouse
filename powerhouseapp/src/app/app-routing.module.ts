@@ -29,15 +29,15 @@ const routes: Routes = [
   { path: 'awards',      component: AwardsComponent },
   { path: 'hiit-calendar',      component: HiitCalendarComponent },
   { path: 'indoor-calendar',      component: CalendarComponent },
-  { path: 'clase',      component: ClassComponent },
+  { path: 'clase/:NFK_Semana/:NFK_Clase/:Dia/:NPK_CalendarioClase',      component: ClassComponent },
   { path: 'cart',      component: CartComponent },
-  { path: 'team',      component: InstructorsComponent },
+  { path: 'team',      component: InstructorsComponent },  
   { path: 'team-detail/:id',      component: TeamDetailComponent },
   { path: 'estudio',      component: StudioComponent },
   { path: 'nuevo',      component: NewComponent },
   { path: 'comprar-clase',      component: HiitComponent },
-  { path: 'train',      component: ClassTrainComponent }
-
+  { path: 'train/:NFK_Semana/:NFK_Clase/:Dia/:NPK_CalendarioClase',      component: ClassTrainComponent }
+ 
 
 
 

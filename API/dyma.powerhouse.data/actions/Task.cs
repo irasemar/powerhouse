@@ -196,7 +196,7 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.GuardarPaqueteActivo(NPK_Paquete, Activo, NFK_User);
-        }
+        }
 
         public List<vwPowerHouse> TraerPowerHouses(int Activo)
         {
@@ -378,6 +378,106 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new UserRepository(ClientConnectionString);
             return repo.GetUser(username);
+        }
+        public vwUsuarioDatos GetUserDatos(int NPK_Usuario)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            return repo.GetUserDatos(NPK_Usuario);
+        }
+
+        public string VentaUsuario(vwVenta datos)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            repo.VentaUsuario(datos);
+            return "";
+        }
+        public List<vwVentaCarro> VentaUsuarioCarro(int NPK_User)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            return repo.VentaUsuarioCarro(NPK_User);
+        }
+        public List<vwAñoTarjeta> TraerAñoTarjetas(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            if (Activo < 2)
+                return repo.TraerAñoTarjetas(Activo);
+            else
+                return repo.TraerAñoTarjetas(null);
+        }
+        public AñoTarjetaCatalogo GuardarAñoTarjeta(AñoTarjetaCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarAñoTarjeta(datos, NFK_User);
+        }
+        public AñoTarjetaCatalogo GuardarAñoTarjetaActivo(long NPK_AñoTarjeta, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarAñoTarjetaActivo(NPK_AñoTarjeta, Activo, NFK_User);
+        }
+        public List<vwMes> TraerMess(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            if (Activo < 2)
+                return repo.TraerMess(Activo);
+            else
+                return repo.TraerMess(null);
+        }
+        public MesCatalogo GuardarMes(MesCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarMes(datos, NFK_User);
+        }
+        public MesCatalogo GuardarMesActivo(long NPK_Mes, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarMesActivo(NPK_Mes, Activo, NFK_User);
+        }
+        public List<vwTipoTarjeta> TraerTipoTarjetas(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            if (Activo < 2)
+                return repo.TraerTipoTarjetas(Activo);
+            else
+                return repo.TraerTipoTarjetas(null);
+        }
+        public TipoTarjetaCatalogo GuardarTipoTarjeta(TipoTarjetaCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarTipoTarjeta(datos, NFK_User);
+        }
+        public TipoTarjetaCatalogo GuardarTipoTarjetaActivo(long NPK_TipoTarjeta, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarTipoTarjetaActivo(NPK_TipoTarjeta, Activo, NFK_User);
+        }        public string VentaUsuarioPago(vwVentaCarroPago datos)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            repo.VentaUsuarioPago(datos);
+            return "";
+        }
+        public List<vwClasesDisponiblesWeeks> ClasesDisponibles(int NFK_Clase)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.ClasesDisponibles(NFK_Clase);
+        }
+        public List<vwClaseHeader> Estatus_Salon_PorDia_Header(int NFK_Clase, int NFK_Semana, int Dia, int NPK_CalendarioClase, int NFK_Usuario)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Estatus_Salon_PorDia_Header(NFK_Clase, NFK_Semana, Dia, NPK_CalendarioClase, NFK_Usuario);
+        }
+        public List<vwClaseReserva> Estatus_Salon_PorDia(int NFK_Clase, int NFK_Semana, int Dia, int NPK_CalendarioClase)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Estatus_Salon_PorDia(NFK_Clase, NFK_Semana, Dia, NPK_CalendarioClase);
+        }
+        public string ReservaLugar(int NFK_CalendarioClase, int NFK_Usuario, int NFK_Salon, int NFK_SalonLugar)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            repo.ReservaLugar(NFK_CalendarioClase, NFK_Usuario, NFK_Salon, NFK_SalonLugar);
+            return "";
         }
         #endregion      
     }

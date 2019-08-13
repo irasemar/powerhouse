@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, Usuario,} from '../../services/auth.services';
+import { AuthService, Usuario, UsuarioData} from '../../services/auth.services';
 
 @Component({
   selector: 'app-userdata',
@@ -10,16 +10,19 @@ export class UserdataComponent implements OnInit {
   username: string;
   lessons:number;
   year: number;
-  session = {} as Usuario;
+  UserData = {} as UsuarioData;
   
 
   constructor( public auth: AuthService,) { }
 
   ngOnInit() {
-    this.session = this.auth.getAccount();
-    this.username = this.session.Nombre.toString().toUpperCase() + ' ' + this.session.Apellidos.toString().toUpperCase();
-    this.lessons = this.session.CantidadClasesTomadas;
-    this.year = this.session.AnioInicio;
+    this.auth.getUserDatos().subscribe(UserData =>{
+      this.UserData = UserData;
+      this.username = this.UserData.NombreCompleto.toString().toUpperCase();
+      this.lessons = this.UserData.CantidadClasesTomadas;
+      this.year = this.UserData.AnioInicio;
+    });
+    
   }
 
 }

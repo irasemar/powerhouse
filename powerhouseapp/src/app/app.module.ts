@@ -24,6 +24,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { ClassComponent } from './class/class.component';
 import { CartComponent } from './cart/cart.component';
 import { ModalPaymentComponent } from './modal-payment/modal-payment.component';
+import { ModalReservaComponent } from './modal-reserva/modal-reserva.component';
 import { InstructorsComponent } from './instructors/instructors.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
 import { TeamMusicComponent } from './team-music/team-music.component';
@@ -39,6 +40,7 @@ import localemx from '@angular/common/locales/es-MX';
 
 import {BrowserAnimationsModule,NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
+import { agregarventaComponent } from './agregarventa/agregarventa.component';
 import { HiitCalendarComponent } from './hiit-calendar/hiit-calendar.component';
 import { NewComponent } from './new/new.component';
 import { ClassTrainComponent } from './class-train/class-train.component';
@@ -70,6 +72,7 @@ registerLocaleData(localemx);
     ClassComponent,
     CartComponent,
     ModalPaymentComponent,
+    ModalReservaComponent,
     InstructorsComponent,
     TeamDetailComponent,
     TeamMusicComponent,
@@ -82,6 +85,8 @@ registerLocaleData(localemx);
     HiitCalendarComponent,
     NewComponent,
     ClassTrainComponent,
+    agregarventaComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -99,7 +104,9 @@ registerLocaleData(localemx);
   ],
   entryComponents: [
     ModalPaymentComponent,
-    LoginComponent
+    LoginComponent,
+    agregarventaComponent,
+    ModalReservaComponent
   ],
   providers: [
     /* { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }, */

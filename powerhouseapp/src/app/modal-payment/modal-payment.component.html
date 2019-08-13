@@ -4,17 +4,17 @@
   <div class="small orange text-center">Revisa tu correo para tu confirmación</div>
   <hr clas="line--orange"> 
   <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-6">
       <strong class="orange">Resumen de la orden:</strong>
       <ul class="cart__list mt-4 mb-4">
         <li *ngFor="let item of items">
           <div class="row">
             <div class="col-md-1">
-                <div class="cart__list--qty">{{item.qty}}</div>
+                <div class="cart__list--qty">{{item.Cantidad}}</div>
             </div>
             <div class="col-md-10">
-                <p class="cart__list--desc">{{item.desc}}</p>
-                <p class="cart__list--price">${{item.price}} mx</p>
+                <p class="cart__list--desc">{{item.CantidadClases}}</p>
+                <p class="cart__list--price">${{item.PrecioVenta}} mx</p>
             </div>
           </div>
         </li>
@@ -28,18 +28,81 @@
           <div class="col-md-6"><strong>${{total}} mx</strong></div>
         </div>
     </div>
-    <div class="col-md-5">
-      <p class="orange">Información de pago</p>
-      <p>{{payment.brand}} **** **** **** {{payment.digits}}</p>
-      <p>Expira: {{payment.expiration}}</p>
-      <p>{{payment.name}}</p>
-      <p>{{payment.address}}</p>
-      <p class="orange">Correo</p>
-      <p>{{payment.email}}</p>
+    <div class="col-md-6">
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="col-md-12">
+            <p class="orange">Información de pago</p>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label>Tipo de Tarjeta</label>
+                <select class="form-control" name="singleSelect" formControlName="TipoTarjeta" required>
+                  <option [value]="0">Seleccione</option>
+                  <option *ngFor="let tarjeta of Tarjetas" [value]="tarjeta.TipoTarjeta">{{tarjeta.TipoTarjeta}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label>Numero de Tarjeta</label>
+                <input type="number" class="form-control" formControlName="NumeroTarjeta" maxlength="16" required>
+              </div>
+            </div>
+            <div class="form-row col-md-12">
+              <p class="orange">Vigencia</p>
+            </div>
+            <div class="form-row col-md-12">
+              <!-- <div class="col-md-12"> -->
+              <div class="form-group col-md-7">
+                <label>Año</label>
+                <select class="form-control" name="singleSelect" formControlName="ExpiraAño" required>
+                  <option [value]="0">Seleccione</option>
+                  <option *ngFor="let anio of Anios" [value]="anio.Anio">{{anio.Anio}}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group col-md-5">
+                  <label>Mes</label>
+                  <select class="form-control" name="singleSelect" formControlName="ExpiraMes" required>
+                    <option [value]="0">Seleccione</option>
+                    <option *ngFor="let mes of Meses" [value]="mes.MesDescripcion">{{mes.MesDescripcion}}
+                    </option>
+                  </select>
+                </div>
+            <!-- </div> -->
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label>Titular</label>
+                <input type="text" class="form-control" formControlName="NombreTitular" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label>Domicilio del Titular</label>
+                <input type="text" class="form-control" formControlName="DireccionTitular" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label class="orange">Correo</label>
+                <input type="text" class="form-control" formControlName="CorreoElectronico" required>
+              </div>
+            </div>
+            <!-- <p>{{payment.brand}} **** **** **** {{payment.digits}}</p>
+                  <p>Expira: {{payment.expiration}}</p>
+                  <p>{{payment.name}}</p>
+                  <p>{{payment.address}}</p>
+                  <p class="orange">Correo</p>
+                  <p>{{payment.email}}</p> -->
+          </div>
+        </div>
+    
+      </form>
     </div>
-
   </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-primary--orange" (click)="activeModal.close('Close click')">Aceptar</button>
+  <button type="button" class="btn btn-outline-primary--orange" (click)="closePay();" [disabled]="!form.valid">Aceptar</button>
 </div>

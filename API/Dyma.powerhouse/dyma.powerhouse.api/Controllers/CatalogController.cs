@@ -19,15 +19,37 @@ using System.Drawing.Imaging;
 
 namespace dyma.powerhouse.api.Controllers
 {
-    [EnableCors("*", "*", "GET,POST,PUT,DELETE, OPTIONS")]
+    [EnableCors("*", "*", "GET,POST,PUT,DELETE, OPTIONS")]   
     [RoutePrefix("api/v1/catalogos")]
     public class CatalogController : BaseController
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Genero/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwGenero>))]
         public HttpResponseMessage TraerGeneros(int activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerGeneros(activo));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
+        [Route("GeneroPWH/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwGenero>))]
+        public HttpResponseMessage TraerGenerosPWH(int activo)
         {
             try
             {
@@ -100,7 +122,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("AlturaAsiento/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwAlturaAsiento>))]
         public HttpResponseMessage TraerAlturaAsientos(int activo)
         {
@@ -174,7 +196,7 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("DistanciaAsiento/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwDistanciaAsiento>))]
         public HttpResponseMessage TraerDistanciaAsientos(int activo)
         {
@@ -248,7 +270,7 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("AlturaManubrio/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwAlturaManubrio>))]
         public HttpResponseMessage TraerAlturaManubrios(int activo)
         {
@@ -322,7 +344,7 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("DistanciaManubrio/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwDistanciaManubrio>))]
         public HttpResponseMessage TraerDistanciaManubrios(int activo)
         {
@@ -396,7 +418,7 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("TallaZapato/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwTallaZapato>))]
         public HttpResponseMessage TraerTallaZapatos(int activo)
         {
@@ -470,7 +492,7 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Clase/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwClase>))]
         public HttpResponseMessage TraerClases(int activo)
         {
@@ -546,7 +568,7 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Instructor/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwInstructor>))]
         public HttpResponseMessage TraerInstructors(int activo)
         {
@@ -671,7 +693,7 @@ namespace dyma.powerhouse.api.Controllers
                 var httpError = new HttpError(ex, true);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
-        }        [JwtAuthentication]
+        }        [AllowAnonymous]
         [Route("Paquete/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwPaquete>))]
         public HttpResponseMessage TraerPaquetes(int activo)
         {
@@ -707,7 +729,6 @@ namespace dyma.powerhouse.api.Controllers
                     Paquete = datos.Paquete,
                     CantidadClases = datos.CantidadClases,
                     Precio = datos.Precio,
-                    DescripcionExpiracion = datos.DescripcionExpiracion,
                     ExpiracionDias = datos.ExpiracionDias
                 };
 
@@ -748,7 +769,7 @@ namespace dyma.powerhouse.api.Controllers
                 var httpError = new HttpError(ex, true);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
-        }        [JwtAuthentication]
+        }        [AllowAnonymous]
         [Route("PowerHouse/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwPowerHouse>))]
         public HttpResponseMessage TraerPowerHouses(int activo)
         {
@@ -825,7 +846,7 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("RedSocial/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwRedSocial>))]
         public HttpResponseMessage TraerRedSocials(int activo)
         {
@@ -1029,7 +1050,7 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Salon/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwSalon>))]
         public HttpResponseMessage TraerSalons(int activo)
         {
@@ -1126,7 +1147,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("SalonLugar"), HttpPost, ResponseType(typeof(Models.SalonLugarForm))]
         public HttpResponseMessage GuardarSalonLugar(Models.SalonLugarForm datos)
         {
@@ -1480,6 +1501,250 @@ namespace dyma.powerhouse.api.Controllers
                 var httpError = new HttpError(ex, true);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
-        }
+        }        [AllowAnonymous]
+        [Route("AñoTarjeta/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwAñoTarjeta>))]
+        public HttpResponseMessage TraerAñoTarjetas(int activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerAñoTarjetas(activo));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [JwtAuthentication]
+        [Route("AñoTarjeta"), HttpPost, ResponseType(typeof(Models.AñoTarjetaForm))]
+        public HttpResponseMessage GuardarAñoTarjeta(Models.AñoTarjetaForm datos)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                var resp = new AñoTarjetaCatalogo()
+                {
+                    NPK_AñoTarjeta = datos.NPK_AñoTarjeta,
+                    Anio = datos.Anio
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarAñoTarjeta(resp, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [JwtAuthentication]
+        [Route("AñoTarjeta/{NPK_AñoTarjeta:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.AñoTarjetaForm))]
+        public HttpResponseMessage UpdateActivateAñoTarjeta(long NPK_AñoTarjeta, int Activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarAñoTarjetaActivo(NPK_AñoTarjeta, Activo, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
+        [Route("Mes/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwMes>))]
+        public HttpResponseMessage TraerMess(int activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerMess(activo));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [JwtAuthentication]
+        [Route("Mes"), HttpPost, ResponseType(typeof(Models.MesForm))]
+        public HttpResponseMessage GuardarMes(Models.MesForm datos)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                var resp = new MesCatalogo()
+                {
+                    NPK_Mes = datos.NPK_Mes,
+                    NumeroMes = datos.NumeroMes,
+                    MesDescripcion = datos.MesDescripcion
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarMes(resp, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [JwtAuthentication]
+        [Route("Mes/{NPK_Mes:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.MesForm))]
+        public HttpResponseMessage UpdateActivateMes(long NPK_Mes, int Activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarMesActivo(NPK_Mes, Activo, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
+        [Route("TipoTarjeta/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwTipoTarjeta>))]
+        public HttpResponseMessage TraerTipoTarjetas(int activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerTipoTarjetas(activo));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("TipoTarjeta"), HttpPost, ResponseType(typeof(Models.TipoTarjetaForm))]
+        public HttpResponseMessage GuardarTipoTarjeta(Models.TipoTarjetaForm datos)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                var resp = new TipoTarjetaCatalogo()
+                {
+                    NPK_TipoTarjeta = datos.NPK_TipoTarjeta,
+                    TipoTarjeta = datos.TipoTarjeta
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarTipoTarjeta(resp, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("TipoTarjeta/{NPK_TipoTarjeta:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.TipoTarjetaForm))]
+        public HttpResponseMessage UpdateActivateTipoTarjeta(long NPK_TipoTarjeta, int Activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarTipoTarjetaActivo(NPK_TipoTarjeta, Activo, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
+        [Route("GetUserData/{NPK_User:long}"), HttpGet, ResponseType(typeof(List<dyma.powerhouse.data.views.vwUsuarioDatos>))]
+        public HttpResponseMessage GetUserData(int NPK_User)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                var user = proxy.GetUserDatos(NPK_User);
+                return Request.CreateResponse(HttpStatusCode.OK, user);
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
     }
 }

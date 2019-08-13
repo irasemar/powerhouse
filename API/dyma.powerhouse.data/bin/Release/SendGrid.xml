@@ -399,7 +399,7 @@
         </member>
         <member name="P:SendGrid.Helpers.Mail.Personalization.SendAt">
             <summary>
-            Gets or sets a unix timestamp allowing you to specify when you want your email to be sent from SendGrid. This is not necessary if you want the email to be sent at the time of your API request.
+            Gets or sets a unix timestamp allowing you to specify when you want your email to be sent from Twilio SendGrid. This is not necessary if you want the email to be sent at the time of your API request.
             </summary>
         </member>
         <member name="P:SendGrid.Helpers.Mail.Personalization.TemplateData">
@@ -490,7 +490,7 @@
         </member>
         <member name="T:SendGrid.Helpers.Mail.SendGridMessage">
             <summary>
-            Class SendGridMessage builds an object that sends an email through SendGrid.
+            Class SendGridMessage builds an object that sends an email through Twilio SendGrid.
             </summary>
         </member>
         <member name="P:SendGrid.Helpers.Mail.SendGridMessage.From">
@@ -729,9 +729,9 @@
         </member>
         <member name="M:SendGrid.Helpers.Mail.SendGridMessage.SetSendAt(System.Int32,System.Int32,SendGrid.Helpers.Mail.Personalization)">
             <summary>
-            Specify the unix timestamp to specify when you want the email to be sent from SendGrid.
+            Specify the unix timestamp to specify when you want the email to be sent from Twilio SendGrid.
             </summary>
-            <param name="sendAt">Specify the unix timestamp for when you want the email to be sent from SendGrid</param>
+            <param name="sendAt">Specify the unix timestamp for when you want the email to be sent from Twilio SendGrid</param>
             <param name="personalizationIndex">Specify the index of the Personalization object where you want to add the send at timestamp.</param>
             <param name="personalization">A personalization object to append to the message.</param>
         </member>
@@ -868,7 +868,7 @@
             <summary>
             Set the global send at unix timestamp.
             </summary>
-            <param name="sendAt">A unix timestamp allowing you to specify when you want your email to be sent from SendGrid. This is not necessary if you want the email to be sent at the time of your API request.</param>
+            <param name="sendAt">A unix timestamp allowing you to specify when you want your email to be sent from Twilio SendGrid. This is not necessary if you want the email to be sent at the time of your API request.</param>
         </member>
         <member name="M:SendGrid.Helpers.Mail.SendGridMessage.SetBatchId(System.String)">
             <summary>
@@ -975,9 +975,9 @@
         </member>
         <member name="M:SendGrid.Helpers.Mail.SendGridMessage.Serialize">
             <summary>
-            Creates the JSON object required to make a request to SendGrid.
+            Creates the JSON object required to make a request to Twilio SendGrid.
             </summary>
-            <returns>The JSON object required to make a request to SendGrid.</returns>
+            <returns>The JSON object required to make a request to Twilio SendGrid.</returns>
         </member>
         <member name="T:SendGrid.Helpers.Reliability.ReliabilitySettings">
             <summary>
@@ -1041,7 +1041,7 @@
         </member>
         <member name="T:SendGrid.ISendGridClient">
             <summary>
-            A HTTP client wrapper for interacting with SendGrid's API
+            A HTTP client wrapper for interacting with Twilio SendGrid's API
             </summary>
         </member>
         <member name="P:SendGrid.ISendGridClient.UrlPath">
@@ -1091,7 +1091,7 @@
         </member>
         <member name="M:SendGrid.ISendGridClient.SendEmailAsync(SendGrid.Helpers.Mail.SendGridMessage,System.Threading.CancellationToken)">
             <summary>
-            Make a request to send an email through SendGrid asynchronously.
+            Make a request to send an email through Twilio SendGrid asynchronously.
             </summary>
             <param name="msg">A SendGridMessage object with the details for the request.</param>
             <param name="cancellationToken">Cancel the asynchronous call.</param>
@@ -1099,7 +1099,7 @@
         </member>
         <member name="T:SendGrid.MimeType">
             <summary>
-            Helper for the common SendGrid email mime types.
+            Helper for the common Twilio SendGrid email mime types.
             </summary>
         </member>
         <member name="F:SendGrid.MimeType.Html">
@@ -1114,22 +1114,22 @@
         </member>
         <member name="T:SendGrid.Response">
             <summary>
-            The response received from an API call to SendGrid
+            The response received from an API call to Twilio SendGrid
             </summary>
         </member>
         <member name="F:SendGrid.Response.statusCode">
             <summary>
-            The status code returned from SendGrid.
+            The status code returned from Twilio SendGrid.
             </summary>
         </member>
         <member name="F:SendGrid.Response.body">
             <summary>
-            The response body returned from SendGrid.
+            The response body returned from Twilio SendGrid.
             </summary>
         </member>
         <member name="F:SendGrid.Response.headers">
             <summary>
-            The response headers returned from SendGrid.
+            The response headers returned from Twilio SendGrid.
             </summary>
         </member>
         <member name="M:SendGrid.Response.#ctor(System.Net.HttpStatusCode,System.Net.Http.HttpContent,System.Net.Http.Headers.HttpResponseHeaders)">
@@ -1142,17 +1142,17 @@
         </member>
         <member name="P:SendGrid.Response.StatusCode">
             <summary>
-            Gets or sets the status code returned from SendGrid.
+            Gets or sets the status code returned from Twilio SendGrid.
             </summary>
         </member>
         <member name="P:SendGrid.Response.Body">
             <summary>
-            Gets or sets the response body returned from SendGrid.
+            Gets or sets the response body returned from Twilio SendGrid.
             </summary>
         </member>
         <member name="P:SendGrid.Response.Headers">
             <summary>
-            Gets or sets the response headers returned from SendGrid.
+            Gets or sets the response headers returned from Twilio SendGrid.
             </summary>
         </member>
         <member name="M:SendGrid.Response.DeserializeResponseBodyAsync(System.Net.Http.HttpContent)">
@@ -1171,7 +1171,7 @@
         </member>
         <member name="T:SendGrid.SendGridClient">
             <summary>
-            A HTTP client wrapper for interacting with SendGrid's API
+            A HTTP client wrapper for interacting with Twilio SendGrid's API
             </summary>
         </member>
         <member name="F:SendGrid.SendGridClient.client">
@@ -1184,42 +1184,42 @@
             Initializes a new instance of the <see cref="T:SendGrid.SendGridClient"/> class.
             </summary>
             <param name="webProxy">Web proxy.</param>
-            <param name="apiKey">Your SendGrid API key.</param>
+            <param name="apiKey">Your Twilio SendGrid API key.</param>
             <param name="host">Base url (e.g. https://api.sendgrid.com)</param>
             <param name="requestHeaders">A dictionary of request headers</param>
             <param name="version">API version, override AddVersion to customize</param>
             <param name="urlPath">Path to endpoint (e.g. /path/to/endpoint)</param>
-            <returns>Interface to the SendGrid REST API</returns>
+            <returns>Interface to the Twilio SendGrid REST API</returns>
         </member>
         <member name="M:SendGrid.SendGridClient.#ctor(SendGrid.SendGridClientOptions)">
             <summary>
             Initializes a new instance of the <see cref="T:SendGrid.SendGridClient"/> class.
             </summary>
             <param name="options">A <see cref="T:SendGrid.SendGridClientOptions"/> instance that defines the configuration settings to use with the client </param>
-            <returns>Interface to the SendGrid REST API</returns>
+            <returns>Interface to the Twilio SendGrid REST API</returns>
         </member>
         <member name="M:SendGrid.SendGridClient.#ctor(System.Net.Http.HttpClient,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:SendGrid.SendGridClient"/> class.
             </summary>
             <param name="httpClient">An optional http client which may me injected in order to facilitate testing.</param>
-            <param name="apiKey">Your SendGrid API key.</param>
+            <param name="apiKey">Your Twilio SendGrid API key.</param>
             <param name="host">Base url (e.g. https://api.sendgrid.com)</param>
             <param name="requestHeaders">A dictionary of request headers</param>
             <param name="version">API version, override AddVersion to customize</param>
             <param name="urlPath">Path to endpoint (e.g. /path/to/endpoint)</param>
-            <returns>Interface to the SendGrid REST API</returns>
+            <returns>Interface to the Twilio SendGrid REST API</returns>
         </member>
         <member name="M:SendGrid.SendGridClient.#ctor(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:SendGrid.SendGridClient"/> class.
             </summary>
-            <param name="apiKey">Your SendGrid API key.</param>
+            <param name="apiKey">Your Twilio SendGrid API key.</param>
             <param name="host">Base url (e.g. https://api.sendgrid.com)</param>
             <param name="requestHeaders">A dictionary of request headers</param>
             <param name="version">API version, override AddVersion to customize</param>
             <param name="urlPath">Path to endpoint (e.g. /path/to/endpoint)</param>
-            <returns>Interface to the SendGrid REST API</returns>
+            <returns>Interface to the Twilio SendGrid REST API</returns>
         </member>
         <member name="M:SendGrid.SendGridClient.#ctor(System.Net.Http.HttpClient,SendGrid.SendGridClientOptions)">
             <summary>
@@ -1227,7 +1227,7 @@
             </summary>
             <param name="httpClient">An optional http client which may me injected in order to facilitate testing.</param>
             <param name="options">A <see cref="T:SendGrid.SendGridClientOptions"/> instance that defines the configuration settings to use with the client </param>
-            <returns>Interface to the SendGrid REST API</returns>
+            <returns>Interface to the Twilio SendGrid REST API</returns>
         </member>
         <member name="T:SendGrid.SendGridClient.Method">
             <summary>
@@ -1256,7 +1256,7 @@
         </member>
         <member name="F:SendGrid.SendGridClient.Method.PUT">
             <summary>
-            Update an entire resource.s
+            Update an entire resource.
             </summary>
         </member>
         <member name="P:SendGrid.SendGridClient.UrlPath">
@@ -1306,7 +1306,7 @@
         </member>
         <member name="M:SendGrid.SendGridClient.SendEmailAsync(SendGrid.Helpers.Mail.SendGridMessage,System.Threading.CancellationToken)">
             <summary>
-            Make a request to send an email through SendGrid asynchronously.
+            Make a request to send an email through Twilio SendGrid asynchronously.
             </summary>
             <param name="msg">A SendGridMessage object with the details for the request.</param>
             <param name="cancellationToken">Cancel the asynchronous call.</param>
@@ -1326,7 +1326,7 @@
             <summary>
             Common method to initiate internal fields regardless of which constructor was used.
             </summary>
-            <param name="apiKey">Your SendGrid API key.</param>
+            <param name="apiKey">Your Twilio SendGrid API key.</param>
             <param name="host">Base url (e.g. https://api.sendgrid.com)</param>
             <param name="requestHeaders">A dictionary of request headers</param>
             <param name="version">API version, override AddVersion to customize</param>
@@ -1338,7 +1338,7 @@
             </summary>
             <remarks>
             This function flattens all Objects/Array.
-            This means that for example <code>{'id': 1, 'id': 2, 'id': 3}</code> and 
+            This means that for example <code>{'id': 1, 'id': 2, 'id': 3}</code> and
             <code>{'id': [1, 2, 3]}</code> result in the same output.
             </remarks>
             <param name="json">The JSON string to parse.</param>
@@ -1346,7 +1346,7 @@
         </member>
         <member name="T:SendGrid.SendGridClientOptions">
             <summary>
-            Defines the options to use with the SendGrid client
+            Defines the options to use with the Twilio SendGrid client
             </summary>
         </member>
         <member name="M:SendGrid.SendGridClientOptions.#ctor">
@@ -1361,12 +1361,12 @@
         </member>
         <member name="P:SendGrid.SendGridClientOptions.ApiKey">
             <summary>
-            Gets or sets the SendGrid API key
+            Gets or sets the Twilio SendGrid API key
             </summary>
         </member>
         <member name="P:SendGrid.SendGridClientOptions.RequestHeaders">
             <summary>
-            Gets or sets the request headers to use on HttpRequests sent to SendGrid
+            Gets or sets the request headers to use on HttpRequests sent to Twilio SendGrid
             </summary>
         </member>
         <member name="P:SendGrid.SendGridClientOptions.Host">

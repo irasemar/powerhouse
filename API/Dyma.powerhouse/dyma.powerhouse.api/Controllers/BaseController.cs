@@ -7,11 +7,13 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace dyma.powerhouse.api.Controllers
 {
     public class BaseController : ApiController
     {
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public string GetConnectionString()
         {
             return System.Configuration.ConfigurationManager.ConnectionStrings["sitDB"].ToString();

@@ -10,7 +10,5 @@
         [Required]
         public decimal Precio { get; set; }
         [Required]
-        public string DescripcionExpiracion { get; set; }
-
         public int ExpiracionDias { get; set; }
-    }}
+    }}
