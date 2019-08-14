@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container"  *ngIf="welcome">
   <div class="row">
     <div class="col-md-3 mb-5">
       <app-userdata></app-userdata>
@@ -14,20 +14,19 @@
     <div class="col-md-7">
       <h2 class="h2 orange text-center">{{title}}</h2>
       <hr class="line--orange">
-      <h3 class="h1 mt-5 mb-5 text-center">¡Has tomado 2 clases!</h3>
+      <h3 class="h1 mt-5 mb-5 text-center" *ngIf="Reservas.length === 0">¡No Has tomado clases!</h3>
+      <h3 class="h1 mt-5 mb-5 text-center" *ngIf="Reservas.length > 0">¡Has tomado {{ Reservas.length }} clases!</h3>
       <h3 class="h3">Clases recientes</h3>
       <hr>
-      <ul class="line-list">
-        <li class="line-list__item">
-          <h4 class="h4">Sábado Nov 18 - 10:30AM</h4>
-          <p>Power Pryramid por <a href="#">Tere Mtz</a> Bici/HIIT 12</p>
+      <button class="btn btn-outline-primary--orange" (click)="ReservarHiit();">¡Reserva Mas Clases! Ride</button>&nbsp;&nbsp;&nbsp;&nbsp;
+      <button class="btn btn-outline-primary--aqua" (click)="ReservarTrain();">¡Reserva Mas Clases! Train</button>
+      <hr>
+      <ul class="line-list" *ngIf="Reservas.length > 0">
+        <li class="line-list__item" *ngFor="let clase of Reservas">
+          <h4 class="h4">{{ clase.Fecha }}</h4>
+          <p>{{ clase.Clase }} por <a href="#">T{{ clase.Instructor }}</a></p>
         </li>
-        <li class="line-list__item">
-          <h4 class="h4">Viernes Dic 22 - 7:00PM</h4>
-          <p>Duro Ride por<a href="#">Mely</a> y <a href="#">Analu</a> Bici 15</p>
-        </li>
-      </ul>
-      <button class="btn btn-primary">¡Reserva más clases!</button>
+      </ul>      
     </div>
   </div>
 </div>

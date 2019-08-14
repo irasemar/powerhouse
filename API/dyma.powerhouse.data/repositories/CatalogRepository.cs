@@ -2292,6 +2292,45 @@ namespace dyma.powerhouse.data.repositories
                     }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
                 return resp;
             }
+        }        public List<vwSaldo> Obtener_Saldo(int NFK_Usuario)
+        {
+            var resp = new List<vwSaldo>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwSaldo>("SP_Obtener_Saldo",
+                    new
+                    {
+                        NFK_Usuario = NFK_Usuario
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }        public List<vwHistoriaReserva> Mis_Reservas(int NFK_Usuario)
+        {
+            var resp = new List<vwHistoriaReserva>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwHistoriaReserva>("SP_Mis_Reservas",
+                    new
+                    {
+                        NFK_Usuario = NFK_Usuario
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }        public List<vwHistoriaReserva> Mi_Historia(int NFK_Usuario)
+        {
+            var resp = new List<vwHistoriaReserva>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwHistoriaReserva>("SP_Mi_Historia",
+                    new
+                    {
+                        NFK_Usuario = NFK_Usuario
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
         }
     }
 }

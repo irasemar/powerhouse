@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPaymentComponent } from '../modal-payment/modal-payment.component';
 import { CatalogsService,VentaCarro,PagoForm } from "../services/catalogs.service";
 import { AuthService } from "../services/auth.services";
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -12,44 +12,22 @@ import { AuthService } from "../services/auth.services";
 export class CartComponent implements OnInit {
 
   items: VentaCarro[];
-  payment: object;
+  payment: any;
   total: any;
   tax: any;
   totalcantidad: any;
 
-  constructor(private modalService: NgbModal, private catalog: CatalogsService, private authservice: AuthService) { }
+  constructor(private modalService: NgbModal, private catalog: CatalogsService, private authservice: AuthService, private router: Router) { }
 
   ngOnInit() {
-    /* this.items = [
-      {
-        qty: 50,
-        price: 100,
-        desc: 'Clases',
-        exp: 30
-      },
-      {
-        qty: 10,
-        price: 100,
-        desc: 'Clases 2',
-        exp: 30
-      },
-      {
-        qty: 50,
-        price: 100,
-        desc: 'Clases',
-        exp: 30
-      }
-    ] */
-    
-    
-    this.payment = {
+    /* this.payment = {
       brand: 'Amex',
       digits: 4444,
       expiration: '10/21',
       name: 'Ana Lucia Valderrama',
       address: 'Rio Mayo, Monterrey 66269 MX',
       email: 'nahluciavn@gmail.com'
-    } 
+    }  */
     
   }
   ngAfterViewInit() {
@@ -88,7 +66,7 @@ export class CartComponent implements OnInit {
     modalRef.componentInstance.items = this.items;
     modalRef.componentInstance.total = this.total;
     modalRef.componentInstance.tax = this.tax;
-    modalRef.componentInstance.payment = this.payment;
+    modalRef.componentInstance.payment = this.total + this.tax;
     modalRef.result.then((result) => {
       if (result) {
         console.log(result);
@@ -104,14 +82,15 @@ export class CartComponent implements OnInit {
           Venta.DireccionTitular = result.DireccionTitular;
           Venta.CorreoElectronico = result.CorreoElectronico;
           Venta.NumAutorizacion = result.NumAutorizacion;
-          this.catalog.letVentaUsuarioPago(Venta).subscribe(respuesta => { 
+          /* this.catalog.letVentaUsuarioPago(Venta).subscribe(respuesta => { 
             this.catalog.getVentaCarrro().subscribe(ventas =>{
               this.items = ventas;
               this.total = this.calculateTotal(this.items);
               this.tax = this.calculateTax(this.total);
               this.totalcantidad = this.calculateTotalCantidad(this.items);
             });
-          });
+          }); */
+          this.router.navigate(['/proximas-clases/']);
         }
       }
     });    

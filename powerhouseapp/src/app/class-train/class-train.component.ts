@@ -4,6 +4,7 @@ import { AuthService } from "../services/auth.services";
 import { ActivatedRoute } from '@angular/router';
 import { ModalReservaComponent}  from '../modal-reserva/modal-reserva.component'
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-class',
@@ -21,7 +22,8 @@ export class ClassTrainComponent implements OnInit {
   NPK_Usuario = 0;
   TengoClase = 0;
 
-  constructor(private catalog: CatalogsService, private authservice: AuthService, private route: ActivatedRoute, private modalService: NgbModal,) { }
+  constructor(private catalog: CatalogsService, private authservice: AuthService, private route: ActivatedRoute, private modalService: NgbModal,
+    private router: Router) { }
 
   ngOnInit() {
     this.NPK_Usuario = this.authservice.getAccount().NPK_Usuario;
@@ -63,6 +65,7 @@ export class ClassTrainComponent implements OnInit {
     modalRef.result.then((result) => {      
       if (result === 'Separado') {
         this.llenaDatos();
+        this.router.navigate(['/proximas-clases/']);
       }     
     });
   }

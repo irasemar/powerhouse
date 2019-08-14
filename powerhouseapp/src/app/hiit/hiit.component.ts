@@ -3,6 +3,7 @@ import { CatalogsService,VentaForm, PaqueteForm } from "../services/catalogs.ser
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { agregarventaComponent } from '../agregarventa/agregarventa.component';
 import { AuthService } from "../services/auth.services";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hiit',
@@ -12,71 +13,9 @@ export class HiitComponent implements OnInit {
 
   cupons: PaqueteForm[];
 
-  constructor(private catalog: CatalogsService, private modalService: NgbModal, private authservice: AuthService,) { }
+  constructor(private catalog: CatalogsService, private modalService: NgbModal, private authservice: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.cupons = [
-      /* {
-        title: 'Powerhouse',
-        text: 'Tu 1er clase',
-        price: '$150',
-        expiration: '*Expira en 30 dias'
-      },
-      {
-        title: 'Powerhouse',
-        text: 'Tu 1er clase',
-        price: '$150',
-        expiration: '*Expira en 30 dias'
-      },
-      {
-        title: 'Powerhouse',
-        text: 'Tu 1er clase',
-        price: '$150',
-        expiration: '*Expira en 30 dias'
-      },
-      {
-        title: 'Powerhouse',
-        text: 'Tu 1er clase',
-        price: '$150',
-        expiration: '*Expira en 30 dias'
-      },
-      {
-        title: 'Powerhouse',
-        text: 'Tu 1er clase',
-        price: '$150',
-        expiration: '*Expira en 30 dias'
-      },
-      {
-        title: 'Powerhouse',
-        text: 'Tu 1er clase',
-        price: '$150',
-        expiration: '*Expira en 30 dias'
-      },
-      {
-        title: 'Powerhouse',
-        text: 'Tu 1er clase',
-        price: '$150',
-        expiration: '*Expira en 30 dias'
-      },
-      {
-        title: 'Powerhouse',
-        text: 'Tu 1er clase',
-        price: '$150',
-        expiration: '*Expira en 30 dias'
-      },
-      {
-        title: 'Powerhouse',
-        text: 'Tu 1er clase',
-        price: '$150',
-        expiration: '*Expira en 30 dias'
-      },
-      {
-        title: 'Powerhouse',
-        text: 'Tu 1er clase',
-        price: '$150',
-        expiration: '*Expira en 30 dias'
-      }, */
-    ]
   }
   ngAfterViewInit() {
 		setTimeout(() => {
@@ -84,15 +23,16 @@ export class HiitComponent implements OnInit {
     });
   }
   comprar(paquete){
-    this.modalService.open(agregarventaComponent).result.then((result) => {    
-      console.log(result);  
+    this.modalService.open(agregarventaComponent).result.then((result) => { 
       if (result === 'Aceptar') {
         var Venta= {} as VentaForm;
         const acc = this.authservice.getAccount();
         Venta.NFK_Paquete = paquete.NPK_Paquete;
         Venta.NFK_Usuario = acc.NPK_Usuario;
         Venta.Cantidad = 1;
-        this.catalog.letVentaUsuario(Venta).subscribe(respuesta =>{console.log(respuesta);});
+        this.catalog.letVentaUsuario(Venta).subscribe(respuesta =>{
+          this.router.navigate(['/cart/']);
+        });
       }
     }, (reason) => {
       alert(reason);

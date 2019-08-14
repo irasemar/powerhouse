@@ -60,10 +60,10 @@ export class ProfileComponent implements OnInit {
         "title": "Mis historial",
         "url": "/historial"
       },
-      {
+      /* {
         "title": "Power awards",
         "url": "/awards"
-      }
+      } */
     ]
   }
   ngAfterViewInit() {
@@ -106,7 +106,7 @@ export class ProfileComponent implements OnInit {
       usuario.QuieroOfertas = 0;
     }
     this.authservice.UpdateProfile(usuario).subscribe(resp => {
-      this.router.navigateByUrl('perfil');
+      this.router.navigateByUrl('home');
     });
   }
 }

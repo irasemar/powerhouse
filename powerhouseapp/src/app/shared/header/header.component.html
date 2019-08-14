@@ -6,19 +6,19 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link header__navbar--link" href="/nuevo">¿Eres nuevo?</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link header__navbar--link" href="/estudio">Estudio</a>
-      </li>
+      </li>      
       <li class="nav-item">
         <a class="nav-link header__navbar--link" href="./team">Power Team</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link header__navbar--link" href="/estudio">Contacto</a>
       </li>
       <li class="nav-item">
           <div ngbDropdown class="d-inline-block">
               <button type="button" class="btn nav-link header__navbar--link" id="Classes" style="color: #f04c22; font-weight: 600;" ngbDropdownToggle> Reservar Clases</button>
               <div ngbDropdownMenu aria-labelledby="Classes" >
-                <a class="header__navbar--items" href="/indoor-calendar" ngbDropdownItem>Indoor cycling</a>
-                <a class="header__navbar--items" href="/hiit-calendar" ngbDropdownItem>Hiit</a>
+                <a class="header__navbar--items" href="/indoor-calendar" ngbDropdownItem>Ride</a>
+                <a class="header__navbar--items" href="/hiit-calendar" ngbDropdownItem>Train</a>
               </div>
             </div>
       </li>
@@ -32,13 +32,13 @@
     <div ngbDropdown class="d-inline-block">
       <button type="button" class="btn header__dropdown" id="dropdownBasic1" ngbDropdownToggle>Bienvenido,
         {{username}}</button>
-        <div class="header__cart-items"><a href="/cart">{{CantidadCarro}}</a></div>
+        <div class="header__cart-items">{{CantidadCarro}}</div>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <h4 class="header__dropdown-title">Mi cuenta</h4>
         <a href="/perfil" ngbDropdownItem>Mi perfil</a>
-        <button ngbDropdownItem>Mis próximas clases</button>
-        <button ngbDropdownItem>Mi historial</button>
-        <button ngbDropdownItem>Power Points</button>
+        <button ngbDropdownItem (click)="ProximasClases();">Mis próximas clases</button>
+        <button ngbDropdownItem (click)="MiHistoria();">Mi historial</button>
+        <!-- <button ngbDropdownItem>Power Points</button> -->
         <button ngbDropdownItem (click)="logOut()">Cerrar sesión</button>
       </div>
     </div>

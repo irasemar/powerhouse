@@ -479,6 +479,21 @@ namespace dyma.powerhouse.data.actions
             repo.ReservaLugar(NFK_CalendarioClase, NFK_Usuario, NFK_Salon, NFK_SalonLugar);
             return "";
         }
+        public List<vwSaldo>  Obtener_Saldo(int NFK_Usuario)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Obtener_Saldo(NFK_Usuario);
+        }
+        public List<vwHistoriaReserva> Mis_Reservas(int NFK_Usuario)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Mis_Reservas(NFK_Usuario);
+        }
+        public List<vwHistoriaReserva> Mi_Historia(int NFK_Usuario)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Mi_Historia(NFK_Usuario);
+        }
         #endregion      
     }
 }

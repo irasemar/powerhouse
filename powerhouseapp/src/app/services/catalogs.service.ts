@@ -207,6 +207,27 @@ export class CatalogsService {
     //head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.post<PagoForm>(`${this.config.apiEndpoint}/v1/powerhouse/ReservaLugar/${NFK_CalendarioClase}/${NFK_Usuario}/${NFK_Salon}/${NFK_SalonLugar}`, { headers: head });
   }
+  getMiSaldo(NPK_Usuario) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<Saldo[]>(`${this.config.apiEndpoint}/v1/powerhouse/Obtener_Saldo/${NPK_Usuario}`, { headers: head });
+  }
+  getMisReservas(NPK_Usuario) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<HistoriaReserva[]>(`${this.config.apiEndpoint}/v1/powerhouse/Mis_Reservas/${NPK_Usuario}`, { headers: head });
+  }
+  getMiHistoria(NPK_Usuario) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<HistoriaReserva[]>(`${this.config.apiEndpoint}/v1/powerhouse/Mi_Historia/${NPK_Usuario}`, { headers: head });
+  }
   
 }
 export interface GeneroForm {
@@ -423,4 +444,19 @@ export interface ClaseReserva {
   NPK_CalendarioClase: number;
   Estatus: boolean;
   NFK_Usuario : number;
+}
+export interface Saldo {  
+  SaldoTotal : number;
+  Saldo: number;
+  ReservadoHoy: number;
+  TotalAsistencia: number;
+  TotalReservasPerdidos: number;
+}
+export interface HistoriaReserva {  
+  NPK_ReservaClase : number;
+  NPK_CalendarioClase: number;
+  NFK_Instructor: number;
+  Instructor: string;
+  Fecha: string;
+  Clase: string;
 }

@@ -170,4 +170,21 @@ namespace dyma.powerhouse.data.views
         public int NFK_Usuario { get; set; }
         
     }
+    public class vwSaldo
+    {
+        public int SaldoTotal { get; set; }
+        public int Saldo { get; set; }
+        public int ReservadoHoy { get; set; }
+        public int TotalAsistencia { get; set; }
+        public int TotalReservasPerdidos { get; set; }
+    }
+    public class vwHistoriaReserva
+    {
+        public int NPK_ReservaClase { get; set; }
+        public int NPK_CalendarioClase { get; set; }
+        public int NFK_Instructor { get; set; }
+        public string Instructor { get; set; }
+        public string Fecha { get; set; }
+        public string Clase { get; set; }
+    }
 }
