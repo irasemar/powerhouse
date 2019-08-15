@@ -458,6 +458,11 @@ namespace dyma.powerhouse.data.actions
             repo.VentaUsuarioPago(datos);
             return "";
         }
+        public List<vwClasesDisponiblesWeeks> ClasesDisponiblesPorInstructor(int NFK_Instructor)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.ClasesDisponiblesPorInstructor(NFK_Instructor);
+        }
         public List<vwClasesDisponiblesWeeks> ClasesDisponibles(int NFK_Clase)
         {
             var repo = new CatalogRepository(ClientConnectionString);
@@ -477,6 +482,12 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new UserRepository(ClientConnectionString);
             repo.ReservaLugar(NFK_CalendarioClase, NFK_Usuario, NFK_Salon, NFK_SalonLugar);
+            return "";
+        }
+        public string CancelarReservaLugar(int NPK_ReservaClase, int NFK_Usuario)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            repo.CancelarReservaLugar(NPK_ReservaClase, NFK_Usuario);
             return "";
         }
         public List<vwSaldo>  Obtener_Saldo(int NFK_Usuario)

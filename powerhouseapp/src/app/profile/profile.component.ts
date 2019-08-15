@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
         "url": "/proximas-clases"
       },
       {
-        "title": "Mis historial",
+        "title": "Mi historial",
         "url": "/historial"
       },
       /* {
@@ -105,6 +105,7 @@ export class ProfileComponent implements OnInit {
     } else {
       usuario.QuieroOfertas = 0;
     }
+    console.log(usuario);
     this.authservice.UpdateProfile(usuario).subscribe(resp => {
       this.router.navigateByUrl('home');
     });

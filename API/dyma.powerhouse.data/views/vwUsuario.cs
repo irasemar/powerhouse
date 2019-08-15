@@ -147,6 +147,8 @@ namespace dyma.powerhouse.data.views
         public string Instructor { get; set; }
         public string Duracion { get; set; }
         public bool Reservado { get; set; }
+        public string Clase { get; set; }
+        
     }
     public class vwClaseHeader
     {
@@ -186,5 +188,15 @@ namespace dyma.powerhouse.data.views
         public string Instructor { get; set; }
         public string Fecha { get; set; }
         public string Clase { get; set; }
+        public string Color { get; set; }
+        public int SalonLugar { get; set; }
+        public int NFK_Semana { get; set; }
+        public int NFK_Clase { get; set; }
+        public string Dia { get; set; }
+        public int PuedeCancelar { get; set; }
+        public string HoraParaCancelar { get; set; }
+        public int Asistencia { get; set; }
+
+
     }
 }

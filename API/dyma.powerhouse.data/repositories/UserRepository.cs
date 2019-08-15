@@ -323,5 +323,34 @@ namespace dyma.powerhouse.data.repositories
 
             return "";
         }
+        public string CancelarReservaLugar(int NPK_ReservaClase, int NFK_Usuario)
+        {
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+
+                        var affectedRows = connection.Execute("SP_Cancelar_Reserva_Lugar",
+                            new
+                            {
+                                NPK_ReservaClase = NPK_ReservaClase,
+                                NFK_Usuario = NFK_Usuario
+                            }, tran, null, commandType: System.Data.CommandType.StoredProcedure);
+                        tran.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return "";
+        }
     }
 }

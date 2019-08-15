@@ -28,7 +28,7 @@ export class HistoryComponent implements OnInit {
         "url": "/proximas-clases"
       },
       {
-        "title": "Mis historial",
+        "title": "Mi historial",
         "url": "/historial"
       },
       /* {

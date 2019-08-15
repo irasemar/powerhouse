@@ -7,6 +7,6 @@ export interface AppConfig {
 }
 
 export const AppConfigImpl: AppConfig = {    
-    apiEndpoint : "http://localhost:59228/api",
-    //apiEndpoint : "http://74.208.86.247/pwhapi/api",
+    //apiEndpoint : "http://localhost:59228/api",
+    apiEndpoint : "http://74.208.86.247/pwhapi/api",
 };

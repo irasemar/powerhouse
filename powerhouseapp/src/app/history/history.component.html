@@ -24,7 +24,7 @@
       <ul class="line-list" *ngIf="Reservas.length > 0">
         <li class="line-list__item" *ngFor="let clase of Reservas">
           <h4 class="h4">{{ clase.Fecha }}</h4>
-          <p>{{ clase.Clase }} por <a href="#">T{{ clase.Instructor }}</a></p>
+          <p>{{ clase.Clase }} por <a href="#">{{ clase.Instructor }}</a> Lugar: {{ clase.SalonLugar }}</p>
         </li>
       </ul>      
     </div>

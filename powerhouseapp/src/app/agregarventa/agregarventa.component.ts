@@ -11,9 +11,11 @@ import { Router } from '@angular/router';
 })
 export class agregarventaComponent implements OnInit {  
   errorDesc : string;
+  Usuario : string;
   constructor(public activeModal: NgbActiveModal, private auth: AuthService, private fb: FormBuilder, private router: Router, ) { }
 
   ngOnInit() {    
+    this.Usuario = this.auth.getAccount().Nombre + ' ' + this.auth.getAccount().Apellidos;
   }
   aceptar() {
     this.activeModal.close("Aceptar");

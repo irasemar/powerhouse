@@ -179,6 +179,13 @@ export class CatalogsService {
     //head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<MesForm[]>(`${this.config.apiEndpoint}/v1/catalogos/Mes/${Activo}`, { headers: head } );
   }
+  getClasesDisponiblesPorInstructor(NFK_Instructor) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<ClasesDisponiblesWeeks[]>(`${this.config.apiEndpoint}/v1/powerhouse/ClasesDisponiblesPorInstructor/${NFK_Instructor}`, { headers: head });
+  }
   getClasesDisponibles(NFK_Clase) {
     //const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
@@ -206,6 +213,13 @@ export class CatalogsService {
     head = head.append('Content-Type', 'application/json');
     //head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.post<PagoForm>(`${this.config.apiEndpoint}/v1/powerhouse/ReservaLugar/${NFK_CalendarioClase}/${NFK_Usuario}/${NFK_Salon}/${NFK_SalonLugar}`, { headers: head });
+  }
+  letCancelarReservaLugar(NPK_ReservaClase, NFK_Usuario) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.post<PagoForm>(`${this.config.apiEndpoint}/v1/powerhouse/CancelarReservaLugar/${NPK_ReservaClase}/${NFK_Usuario}`, { headers: head });
   }
   getMiSaldo(NPK_Usuario) {
     //const acc = this.auth.getAccount();
@@ -425,6 +439,7 @@ export interface ClasesDisponibles {
   FechaInicio: string;
   FechaFin: string;
   Reservado : number;
+  Clase: string;
 }
 export interface ClaseHeader {  
   NPK_CalendarioClase : number;
@@ -459,4 +474,10 @@ export interface HistoriaReserva {
   Instructor: string;
   Fecha: string;
   Clase: string;
+  NFK_Semana: number;
+  NFK_Clase: number;
+  Dia: string;
+  PuedeCancelar: number;
+  HoraParaCancelar: string;
+  Asistencia: number;
 }

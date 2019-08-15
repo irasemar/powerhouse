@@ -4,6 +4,7 @@ import { ModalPaymentComponent } from '../modal-payment/modal-payment.component'
 import { CatalogsService,VentaCarro,PagoForm } from "../services/catalogs.service";
 import { AuthService } from "../services/auth.services";
 import { Router } from '@angular/router';
+import { UpdateService } from '../services/loader.service'
 
 @Component({
   selector: 'app-cart',
@@ -17,7 +18,8 @@ export class CartComponent implements OnInit {
   tax: any;
   totalcantidad: any;
 
-  constructor(private modalService: NgbModal, private catalog: CatalogsService, private authservice: AuthService, private router: Router) { }
+  constructor(private modalService: NgbModal, private catalog: CatalogsService, private authservice: AuthService, private router: Router,
+    private updateService: UpdateService) { }
 
   ngOnInit() {
     /* this.payment = {
@@ -82,14 +84,9 @@ export class CartComponent implements OnInit {
           Venta.DireccionTitular = result.DireccionTitular;
           Venta.CorreoElectronico = result.CorreoElectronico;
           Venta.NumAutorizacion = result.NumAutorizacion;
-          /* this.catalog.letVentaUsuarioPago(Venta).subscribe(respuesta => { 
-            this.catalog.getVentaCarrro().subscribe(ventas =>{
-              this.items = ventas;
-              this.total = this.calculateTotal(this.items);
-              this.tax = this.calculateTax(this.total);
-              this.totalcantidad = this.calculateTotalCantidad(this.items);
-            });
-          }); */
+          this.catalog.letVentaUsuarioPago(Venta).subscribe(respuesta => { 
+            this.updateService.UpdateSaldo();            
+          });
           this.router.navigate(['/proximas-clases/']);
         }
       }

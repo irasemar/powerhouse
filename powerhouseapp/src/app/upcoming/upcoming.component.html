@@ -16,13 +16,22 @@
       <hr class="line--orange">
       <h3 class="h1 mt-5 mb-5 text-center" *ngIf="Reservas.length > 0">¡tienes {{ Reservas.length }} clases reservadas!</h3>
       <h3 class="h1 mt-5 mb-5" *ngIf="Reservas.length === 0">No tienes clases reservadas</h3>
-      <button class="btn btn-outline-primary--orange" (click)="ReservarHiit();" *ngIf="Reservas.length > 0" >Reserva ya! Ride</button>&nbsp;&nbsp;&nbsp;&nbsp;
-      <button class="btn btn-outline-primary--aqua" (click)="ReservarTrain();" *ngIf="Reservas.length > 0" >Reserva ya! Train</button>
+      <button class="btn btn-outline-primary--orange" (click)="ReservarHiit();" >Reserva ya! Ride</button>&nbsp;&nbsp;&nbsp;&nbsp;
+      <button class="btn btn-outline-primary--aqua" (click)="ReservarTrain();" >Reserva ya! Train</button>
       <hr>
       <ul class="line-list" *ngIf="Reservas.length > 0">
         <li class="line-list__item" *ngFor="let clase of Reservas">
-          <h4 class="h4">{{ clase.Fecha }}</h4>
-          <p>{{ clase.Clase }} por <a href="#">{{ clase.Instructor }}</a> </p>
+          <table><tr>
+          
+          <td width="60%"><h4 class="h4">{{ clase.Fecha }}</h4>
+          <p>{{ clase.Clase }} por <a href="#">{{ clase.Instructor }}</a> Lugar: {{ clase.SalonLugar }}</p>
+          </td>
+          <td style="text-align: right;align-content: right;vertical-align: middle;">  
+          <button class="btn btn-outline-primary--orange" (click)="CancelarReserva(clase);" *ngIf="Reservas.PuedeCancelar != 1">Cancelar</button>&nbsp;&nbsp;&nbsp;&nbsp;
+          <button class="btn btn-outline-primary--{{clase.Color}}" (click)="CambiarLugarReserva(clase);" >Cambiar Lugar</button>
+          </td>
+          </tr>
+          </table>
         </li>
       </ul>
       

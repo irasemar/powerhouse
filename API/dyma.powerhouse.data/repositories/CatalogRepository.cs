@@ -2226,7 +2226,40 @@ namespace dyma.powerhouse.data.repositories
             }
 
             return datos;
-        }        public List<vwClasesDisponiblesWeeks> ClasesDisponibles(int NFK_Clase)
+        }        public List<vwClasesDisponiblesWeeks> ClasesDisponiblesPorInstructor(int NFK_Instructor)
+        {
+            var semanas = new List<vwClasesDisponiblesWeeks>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                var query = @"  Select	b.DiaSemana,b.Dia,b.Clase,b.Anio,b.FechaInicio,b.FechaFin,b.NPK_CalendarioClase,b.NFK_Instructor,b.Instructor,
+		                                b.HoraInicio,b.Duracion,b.Reservado
+                                From	vwClasesDisponibles b WITH (NOLOCK) 
+                                Where   b.NFK_Semana = @NFK_Semana
+                                        And b.Dia = @Dia
+                                        And b.NFK_Instructor = @NFK_Instructor
+                                Order by [Date]";
+                semanas = connection.Query<vwClasesDisponiblesWeeks>("Select	Distinct a.NumeroSemana,a.NFK_Semana, a.Anio, a.NFK_Clase From vwClasesDisponiblesWeeks a WITH (NOLOCK) Where a.NFK_Instructor = @NFK_Instructor Order by a.Anio,a.NumeroSemana", new { NFK_Instructor }).ToList();
+
+                foreach (vwClasesDisponiblesWeeks week in semanas)
+                {
+                    var diassemana = new List<vwClasesDisponiblesDia>();
+                    diassemana = connection.Query<vwClasesDisponiblesDia>("select Distinct b.DiaSemana,b.Dia from vwClasesDisponibles b WITH (NOLOCK) Where b.NFK_Semana = @NFK_Semana And b.NFK_Instructor = @NFK_Instructor Order by b.Dia", new { week.NFK_Semana, NFK_Instructor }).ToList();
+                    foreach (vwClasesDisponiblesDia dia in diassemana)
+                    {
+                        var clases = new List<vwClasesDisponibles>();
+                        clases = connection.Query<vwClasesDisponibles>(query, new { week.NFK_Semana, dia.Dia, NFK_Instructor }).ToList();
+                        dia.classes = clases;
+                    }
+                    week.days = diassemana;
+                }
+                //
+
+
+                //var resultList = lookup.Values;
+                return semanas;
+            }
+        }        public List<vwClasesDisponiblesWeeks> ClasesDisponibles(int NFK_Clase)
         {
             var semanas = new List<vwClasesDisponiblesWeeks>();
             using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from 'src/app/login/login.component';
 import { AuthService, Usuario,} from '../../services/auth.services';
 import { Router } from '@angular/router';
 import { CatalogsService,VentaCarro,Saldo } from "../../services/catalogs.service";
+import { UpdateService } from '../../services/loader.service'
 
 @Component({
   selector: 'app-header',
@@ -19,9 +20,17 @@ export class HeaderComponent implements OnInit {
   itemscarro: VentaCarro[];
   CantidadCarro : number = 0;
   Saldo : Saldo[];
-
-  constructor(private modalService: NgbModal, public auth: AuthService, private catalog: CatalogsService, private router: Router,) { }
-
+  saldo = '';
+  constructor(private modalService: NgbModal, public auth: AuthService, private catalog: CatalogsService, private router: Router,
+    private updateService: UpdateService) { 
+      updateService.getLoggedInName.subscribe(name => this.changeSaldo());
+    }
+    private changeSaldo(): void {
+      this.catalog.getMiSaldo(this.auth.getAccount().NPK_Usuario).subscribe(saldo =>{
+        this.Saldo = saldo;
+        this.CantidadCarro = this.Saldo[0].Saldo;
+      });
+  }
   ngOnInit() {
     
   }
@@ -33,10 +42,6 @@ export class HeaderComponent implements OnInit {
         if (this.session.NPK_Usuario > 0) {
           this.logged = true;
           this.username = this.session.Nombre;
-          /* this.catalog.getVentaCarrro().subscribe(ventas => {
-            this.itemscarro = ventas;
-            this.CantidadCarro = ventas.length;
-          }); */
           this.catalog.getMiSaldo(this.auth.getAccount().NPK_Usuario).subscribe(saldo =>{
             this.Saldo = saldo;
             this.CantidadCarro = this.Saldo[0].Saldo;
@@ -75,6 +80,9 @@ export class HeaderComponent implements OnInit {
   }
   MiHistoria(){
     this.router.navigate(['/historial/']);
+  }
+  displayCounter(count) {
+    console.log(count);
   }
 
 }

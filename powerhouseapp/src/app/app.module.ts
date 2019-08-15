@@ -25,6 +25,7 @@ import { ClassComponent } from './class/class.component';
 import { CartComponent } from './cart/cart.component';
 import { ModalPaymentComponent } from './modal-payment/modal-payment.component';
 import { ModalReservaComponent } from './modal-reserva/modal-reserva.component';
+import { ModalCancelarReservaComponent } from './modal-cancelarreserva/modal-cancelarreserva.component';
 import { InstructorsComponent } from './instructors/instructors.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
 import { TeamMusicComponent } from './team-music/team-music.component';
@@ -48,6 +49,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoaderService } from './services/loader.service';
 
 import { Component } from '@angular/core';
+import { UpdateService } from './services/loader.service'
 
 
 
@@ -73,6 +75,7 @@ registerLocaleData(localemx);
     CartComponent,
     ModalPaymentComponent,
     ModalReservaComponent,
+    ModalCancelarReservaComponent,
     InstructorsComponent,
     TeamDetailComponent,
     TeamMusicComponent,
@@ -106,7 +109,8 @@ registerLocaleData(localemx);
     ModalPaymentComponent,
     LoginComponent,
     agregarventaComponent,
-    ModalReservaComponent
+    ModalReservaComponent,
+    ModalCancelarReservaComponent
   ],
   providers: [
     /* { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }, */
@@ -117,6 +121,7 @@ registerLocaleData(localemx);
     }, */
     { provide: APP_CONFIG, useValue: AppConfigImpl },
     { provide: LOCALE_ID, useValue: 'es-MX'},
+    UpdateService
   ],
   bootstrap: [AppComponent]
 })
