@@ -17,6 +17,8 @@ import { HomeComponent } from './home/home.component';
 import { HiitCalendarComponent } from './hiit-calendar/hiit-calendar.component';
 import { NewComponent } from './new/new.component';
 import { ClassTrainComponent } from './class-train/class-train.component';
+import { FaqComponent } from './faq/faq.component';
+import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home',pathMatch: 'full'},
@@ -36,7 +38,10 @@ const routes: Routes = [
   { path: 'estudio',      component: StudioComponent },
   { path: 'nuevo',      component: NewComponent },
   { path: 'comprar-clase',      component: HiitComponent },
-  { path: 'train/:NFK_Semana/:NFK_Clase/:Dia/:NPK_CalendarioClase',      component: ClassTrainComponent }
+  { path: 'train/:NFK_Semana/:NFK_Clase/:Dia/:NPK_CalendarioClase',      component: ClassTrainComponent },
+  { path: 'faq', component: FaqComponent},
+  { path: 'terms-and-conditions', component: TermsAndConditionsComponent}
+  
  
 
 

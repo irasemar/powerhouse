@@ -49,7 +49,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoaderService } from './services/loader.service';
 
 import { Component } from '@angular/core';
-import { UpdateService } from './services/loader.service'
+import { UpdateService } from './services/loader.service';
+import { FaqComponent } from './faq/faq.component';
+import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component'
 
 
 
@@ -89,6 +91,8 @@ registerLocaleData(localemx);
     NewComponent,
     ClassTrainComponent,
     agregarventaComponent,
+    FaqComponent,
+    TermsAndConditionsComponent,
 
   ],
   imports: [
