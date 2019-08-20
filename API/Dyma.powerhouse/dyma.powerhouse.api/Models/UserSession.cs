@@ -15,4 +15,10 @@ namespace dyma.powerhouse.api.Models
         public int AnioInicio { get; set; }
         public int CantidadClasesTomadas { get; set; }
     }
+    public class ResponseMessage
+    {
+        public int NumError { get; set; }
+        public string Message { get; set; }
+        public bool IsError { get; set; }
+    }
 }

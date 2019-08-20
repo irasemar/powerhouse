@@ -17,7 +17,8 @@ using dyma.powerhouse.data.entity;
 
 namespace dyma.powerhouse.api.Controllers
 {
-    [EnableCors("*", "*", "GET,POST,PUT,DELETE, OPTIONS")]
+    //[EnableCors(origins: "*", headers: "*",  methods: "*", SupportsCredentials = true )]//"*", "*", "GET,POST,PUT,DELETE, OPTIONS"
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/v1/auth")]
     public class AuthController : BaseController
     {
@@ -44,8 +45,8 @@ namespace dyma.powerhouse.api.Controllers
                         Usuario = user.Usuario,
                         NPK_Usuario = user.NPK_Usuario,
                         Token = token,
-                        AnioInicio = user.AnioInicio,
-                        CantidadClasesTomadas = user.CantidadClasesTomadas
+                        //AnioInicio = user.AnioInicio,
+                        //CantidadClasesTomadas = user.CantidadClasesTomadas
                     };
                     return Request.CreateResponse(HttpStatusCode.OK, sesion);
                 }
@@ -233,17 +234,17 @@ namespace dyma.powerhouse.api.Controllers
                         Apellidos = user.Apellidos,
                         Usuario = user.Usuario,
                         Contrasena = user.Contrasena,
-                        Telefono = user.Telefono,
-                        FechaNacimiento = user.FechaNacimiento.ToString(),
-                        Genero = user.Genero,
-                        ContactoEmergencia = user.ContactoEmergencia,
-                        TelefonoContacto = user.TelefonoContacto,
-                        BikeSetupAlturaAsiento = user.BikeSetupAlturaAsiento,
-                        BikeSetupDistanciaAsiento = user.BikeSetupDistanciaAsiento,
-                        BikeSetupDistanciaManubrio = user.BikeSetupDistanciaManubrio,
-                        BikeSetupAlturaManubrio = user.BikeSetupAlturaManubrio,
-                        TallaZapato = user.TallaZapato,
-                        QuieroOfertas = user.QuieroOfertas
+                        Telefono = (String.IsNullOrEmpty(user.Telefono) ? "" : user.Telefono.ToString()),
+                        FechaNacimiento = (String.IsNullOrEmpty(user.FechaNacimiento) ? "" : user.FechaNacimiento.ToString()),
+                        Genero = (String.IsNullOrEmpty(user.Genero) ? "" : user.Genero.ToString()),
+                        ContactoEmergencia = (String.IsNullOrEmpty(user.ContactoEmergencia) ? "" : user.ContactoEmergencia.ToString()),
+                        TelefonoContacto = (String.IsNullOrEmpty(user.TelefonoContacto) ? "" : user.TelefonoContacto.ToString()),
+                        BikeSetupAlturaAsiento = (String.IsNullOrEmpty(user.BikeSetupAlturaAsiento) ? "" : user.BikeSetupAlturaAsiento.ToString()),
+                        BikeSetupDistanciaAsiento = (String.IsNullOrEmpty(user.BikeSetupDistanciaAsiento) ? "" : user.BikeSetupDistanciaAsiento.ToString()),
+                        BikeSetupDistanciaManubrio = (String.IsNullOrEmpty(user.BikeSetupDistanciaManubrio) ? "" : user.BikeSetupDistanciaManubrio.ToString()),
+                        BikeSetupAlturaManubrio = (String.IsNullOrEmpty(user.BikeSetupAlturaManubrio) ? "" : user.BikeSetupAlturaManubrio.ToString()),
+                        TallaZapato = (String.IsNullOrEmpty(user.TallaZapato) ? "" : user.TallaZapato.ToString()),
+                        QuieroOfertas = (String.IsNullOrEmpty(user.QuieroOfertas.ToString()) ? 0 : user.QuieroOfertas),
                     };
                     return Request.CreateResponse(HttpStatusCode.OK, sesion);
                 }
@@ -265,6 +266,8 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+
+        
 
         [AllowAnonymous]
         [Route("UpdateProfile"), HttpPost, ResponseType(typeof(List<Models.UserSession>))]

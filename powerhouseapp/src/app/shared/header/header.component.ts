@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from 'src/app/login/login.component';
 import { AuthService, Usuario,} from '../../services/auth.services';
 import { Router } from '@angular/router';
+import { CatalogsService,VentaCarro,Saldo } from "../../services/catalogs.service";
+import { UpdateService } from '../../services/loader.service'
 
 @Component({
   selector: 'app-header',
@@ -15,18 +17,39 @@ export class HeaderComponent implements OnInit {
   welcome = false;
   LoginResult: string;
   session = {} as Usuario;
-
-  constructor(private modalService: NgbModal, public auth: AuthService, private router: Router,) { }
-
-  ngOnInit() {
-    this.LoginResult = 'Valid User';
-    this.session = this.auth.getAccount();
-    if (this.session) {
-      if(this.session.NPK_Usuario > 0) {
-        this.logged = true;
-        this.username = this.session.Nombre;
-      }
+  itemscarro: VentaCarro[];
+  CantidadCarro : number = 0;
+  Saldo : Saldo[];
+  saldo = '';
+  constructor(private modalService: NgbModal, public auth: AuthService, private catalog: CatalogsService, private router: Router,
+    private updateService: UpdateService) { 
+      updateService.getLoggedInName.subscribe(name => this.changeSaldo());
     }
+    private changeSaldo(): void {
+      this.catalog.getMiSaldo(this.auth.getAccount().NPK_Usuario).subscribe(saldo =>{
+        this.Saldo = saldo;
+        this.CantidadCarro = this.Saldo[0].Saldo;
+      });
+  }
+  ngOnInit() {
+    
+  }
+  ngAfterViewInit() {
+		setTimeout(() => {
+      this.LoginResult = 'Valid User';
+      this.session = this.auth.getAccount();
+      if (this.session) {
+        if (this.session.NPK_Usuario > 0) {
+          this.logged = true;
+          this.username = this.session.Nombre;
+          this.catalog.getMiSaldo(this.auth.getAccount().NPK_Usuario).subscribe(saldo =>{
+            this.Saldo = saldo;
+            this.CantidadCarro = this.Saldo[0].Saldo;
+          });
+        }
+      }
+
+    });
   }
 
   login(){    
@@ -37,6 +60,7 @@ export class HeaderComponent implements OnInit {
         if(this.session.NPK_Usuario > 0) {
           this.logged = true;
           this.username = this.session.Nombre;
+          this.router.navigate(['/proximas-clases/']);
         }
       }
       
@@ -49,7 +73,16 @@ export class HeaderComponent implements OnInit {
   logOut() {
     this.auth.logout();
     this.logged = false;
-    this.router.navigate(['/']);
+    this.router.navigate(['/home/']);
+  }
+  ProximasClases(){
+    this.router.navigate(['/proximas-clases/']);
+  }
+  MiHistoria(){
+    this.router.navigate(['/historial/']);
+  }
+  displayCounter(count) {
+    console.log(count);
   }
 
 }

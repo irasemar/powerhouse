@@ -1032,7 +1032,7 @@ namespace dyma.powerhouse.data.repositories
             }
 
             return datos;
-        }
+        }
 
         public List<vwPowerHouse> TraerPowerHouses(int? Activo)
         {
@@ -1894,6 +1894,476 @@ namespace dyma.powerhouse.data.repositories
             }
 
             return datos;
-        }
+        }
+
+        public List<vwAñoTarjeta> TraerAñoTarjetas(int? Activo)
+        {
+            var resp = new List<vwAñoTarjeta>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwAñoTarjeta>("Select * From vwAñoTarjeta with(nolock) Where Activo = IsNull(@Activo, Activo) order by Anio", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public AñoTarjetaCatalogo GuardarAñoTarjeta(AñoTarjetaCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("AñoTarjeta Datos requeridos");
+
+            if (datos.NPK_AñoTarjeta == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_AñoTarjeta = connection.Insert<AñoTarjetaCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_AñoTarjeta = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<AñoTarjetaCatalogo>(datos.NPK_AñoTarjeta, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<AñoTarjetaCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_AñoTarjeta = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public AñoTarjetaCatalogo GuardarAñoTarjetaActivo(long NPK_AñoTarjeta, int Activo, int NFK_User)
+        {
+            AñoTarjetaCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<AñoTarjetaCatalogo>(NPK_AñoTarjeta, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<AñoTarjetaCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+
+        public List<vwMes> TraerMess(int? Activo)
+        {
+            var resp = new List<vwMes>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwMes>("Select * From vwMes with(nolock) Where Activo = IsNull(@Activo, Activo) order by NumeroMes", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public MesCatalogo GuardarMes(MesCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("Mes Datos requeridos");
+
+            if (datos.NPK_Mes == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_Mes = connection.Insert<MesCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Mes = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<MesCatalogo>(datos.NPK_Mes, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<MesCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Mes = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public MesCatalogo GuardarMesActivo(long NPK_Mes, int Activo, int NFK_User)
+        {
+            MesCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<MesCatalogo>(NPK_Mes, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<MesCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+        public List<vwTipoTarjeta> TraerTipoTarjetas(int? Activo)
+        {
+            var resp = new List<vwTipoTarjeta>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwTipoTarjeta>("Select * From vwTipoTarjeta with(nolock) Where Activo = IsNull(@Activo, Activo) order by TipoTarjeta", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public TipoTarjetaCatalogo GuardarTipoTarjeta(TipoTarjetaCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("TipoTarjeta Datos requeridos");
+
+            if (datos.NPK_TipoTarjeta == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_TipoTarjeta = connection.Insert<TipoTarjetaCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_TipoTarjeta = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<TipoTarjetaCatalogo>(datos.NPK_TipoTarjeta, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<TipoTarjetaCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_TipoTarjeta = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public TipoTarjetaCatalogo GuardarTipoTarjetaActivo(long NPK_TipoTarjeta, int Activo, int NFK_User)
+        {
+            TipoTarjetaCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<TipoTarjetaCatalogo>(NPK_TipoTarjeta, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<TipoTarjetaCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }        public List<vwClasesDisponiblesWeeks> ClasesDisponiblesPorInstructor(int NFK_Instructor)
+        {
+            var semanas = new List<vwClasesDisponiblesWeeks>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                var query = @"  Select	b.DiaSemana,b.Dia,b.Clase,b.Anio,b.FechaInicio,b.FechaFin,b.NPK_CalendarioClase,b.NFK_Instructor,b.Instructor,
+		                                b.HoraInicio,b.Duracion,b.Reservado
+                                From	vwClasesDisponibles b WITH (NOLOCK) 
+                                Where   b.NFK_Semana = @NFK_Semana
+                                        And b.Dia = @Dia
+                                        And b.NFK_Instructor = @NFK_Instructor
+                                Order by [Date]";
+                semanas = connection.Query<vwClasesDisponiblesWeeks>("Select	Distinct a.NumeroSemana,a.NFK_Semana, a.Anio, a.NFK_Clase From vwClasesDisponiblesWeeks a WITH (NOLOCK) Where a.NFK_Instructor = @NFK_Instructor Order by a.Anio,a.NumeroSemana", new { NFK_Instructor }).ToList();
+
+                foreach (vwClasesDisponiblesWeeks week in semanas)
+                {
+                    var diassemana = new List<vwClasesDisponiblesDia>();
+                    diassemana = connection.Query<vwClasesDisponiblesDia>("select Distinct b.DiaSemana,b.Dia from vwClasesDisponibles b WITH (NOLOCK) Where b.NFK_Semana = @NFK_Semana And b.NFK_Instructor = @NFK_Instructor Order by b.Dia", new { week.NFK_Semana, NFK_Instructor }).ToList();
+                    foreach (vwClasesDisponiblesDia dia in diassemana)
+                    {
+                        var clases = new List<vwClasesDisponibles>();
+                        clases = connection.Query<vwClasesDisponibles>(query, new { week.NFK_Semana, dia.Dia, NFK_Instructor }).ToList();
+                        dia.classes = clases;
+                    }
+                    week.days = diassemana;
+                }
+                //
+
+
+                //var resultList = lookup.Values;
+                return semanas;
+            }
+        }        public List<vwClasesDisponiblesWeeks> ClasesDisponibles(int NFK_Clase)
+        {
+            var semanas = new List<vwClasesDisponiblesWeeks>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                var query = @"  Select	b.DiaSemana,b.Dia,b.Clase,b.Anio,b.FechaInicio,b.FechaFin,b.NPK_CalendarioClase,b.NFK_Instructor,b.Instructor,
+		                                b.HoraInicio,b.Duracion,b.Reservado
+                                From	vwClasesDisponibles b WITH (NOLOCK) 
+                                Where   b.NFK_Semana = @NFK_Semana
+                                        And b.Dia = @Dia
+                                        And b.NFK_Clase = @NFK_Clase
+                                Order by [Date]";
+                semanas = connection.Query<vwClasesDisponiblesWeeks>("Select	Distinct a.NumeroSemana,a.NFK_Semana, a.Anio, a.NFK_Clase From vwClasesDisponiblesWeeks a WITH (NOLOCK) Where a.NFK_Clase = @NFK_Clase Order by a.Anio,a.NumeroSemana", new { NFK_Clase }).ToList();
+
+                foreach (vwClasesDisponiblesWeeks week in semanas)
+                {
+                    var diassemana = new List<vwClasesDisponiblesDia>();
+                    diassemana = connection.Query<vwClasesDisponiblesDia>("select Distinct b.DiaSemana,b.Dia from vwClasesDisponibles b WITH (NOLOCK) Where b.NFK_Semana = @NFK_Semana And b.NFK_Clase = @NFK_Clase Order by b.Dia", new { week.NFK_Semana, NFK_Clase }).ToList();
+                    foreach (vwClasesDisponiblesDia dia in diassemana)
+                    {
+                        var clases = new List<vwClasesDisponibles>();
+                        clases = connection.Query<vwClasesDisponibles>(query, new { week.NFK_Semana, dia.Dia, NFK_Clase }).ToList();
+                        dia.classes = clases;
+                    }
+                    week.days = diassemana;
+                }
+                //
+
+
+                //var resultList = lookup.Values;
+                return semanas;
+            }
+        }        public List<vwClaseHeader> Estatus_Salon_PorDia_Header(int NFK_Clase, int NFK_Semana, int Dia, int NPK_CalendarioClase, int NFK_Usuario)
+        {
+            var resp = new List<vwClaseHeader>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwClaseHeader>("SP_Estatus_Salon_PorDia_Header",
+                    new
+                    {
+                        NFK_Clase = NFK_Clase,
+                        NFK_Semana = NFK_Semana,
+                        Dia = Dia,
+                        NPK_CalendarioClase = NPK_CalendarioClase,
+                        NFK_Usuario = NFK_Usuario
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();                
+                return resp;
+            }
+        }        public List<vwClaseReserva> Estatus_Salon_PorDia(int NFK_Clase, int NFK_Semana, int Dia, int NPK_CalendarioClase)
+        {
+            var resp = new List<vwClaseReserva>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwClaseReserva>("SP_Estatus_Salon_PorDia",
+                    new
+                    {
+                        NFK_Clase = NFK_Clase,
+                        NFK_Semana = NFK_Semana,
+                        Dia = Dia,
+                        NPK_CalendarioClase = NPK_CalendarioClase
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }        public List<vwSaldo> Obtener_Saldo(int NFK_Usuario)
+        {
+            var resp = new List<vwSaldo>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwSaldo>("SP_Obtener_Saldo",
+                    new
+                    {
+                        NFK_Usuario = NFK_Usuario
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }        public List<vwHistoriaReserva> Mis_Reservas(int NFK_Usuario)
+        {
+            var resp = new List<vwHistoriaReserva>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwHistoriaReserva>("SP_Mis_Reservas",
+                    new
+                    {
+                        NFK_Usuario = NFK_Usuario
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }        public List<vwHistoriaReserva> Mi_Historia(int NFK_Usuario)
+        {
+            var resp = new List<vwHistoriaReserva>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwHistoriaReserva>("SP_Mi_Historia",
+                    new
+                    {
+                        NFK_Usuario = NFK_Usuario
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }
     }
 }

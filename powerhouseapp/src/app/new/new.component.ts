@@ -25,7 +25,7 @@ export class NewComponent implements OnInit {
         "url": "./home"
       },
       {
-        "title": "Classes",
+        "title": "Clases",
         "url": "./classes"
       },
       {

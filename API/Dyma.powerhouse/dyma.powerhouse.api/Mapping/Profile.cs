@@ -10,11 +10,11 @@ namespace dyma.powerhouse.api.Mapping
     {
         public Profile()
         {
-            this.CreateMap<long, DateTime>().ConvertUsing(new LongDatetimeConverter());
-            this.CreateMap<DateTime, long>().ConvertUsing(new DateTimeTypeConverter());
-            this.CreateMap<long?, DateTime?>().ConvertUsing(new LongDatetimeConverterNull());
-            this.CreateMap<DateTime?, long?>().ConvertUsing(new DateTimeTypeConverterNull());
-            this.CreateMap<DateTime?, object>().ConvertUsing(new DateTimeToObjectTypeConverter());
+            //this.CreateMap<long, DateTime>().ConvertUsing(new LongDatetimeConverter());
+            //this.CreateMap<DateTime, long>().ConvertUsing(new DateTimeTypeConverter());
+            //this.CreateMap<long?, DateTime?>().ConvertUsing(new LongDatetimeConverterNull());
+            //this.CreateMap<DateTime?, long?>().ConvertUsing(new DateTimeTypeConverterNull());
+            //this.CreateMap<DateTime?, object>().ConvertUsing(new DateTimeToObjectTypeConverter());
             //this.CreateMap<DateTime?, DateTime>().ConvertUsing(new DateTimeToDatetimeTypeConverterNull());
             //this.CreateMap<DateTime, DateTime?>().ConvertUsing(new DateTimeToDatetimeNullTypeConverterNull());
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using Dapper.Contrib.Extensions;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace dyma.powerhouse.data.views
 {
@@ -77,7 +78,125 @@ namespace dyma.powerhouse.data.views
         public DateTime? FechaModificacion { get; set; }
 
         public short Activo { get; set; }
+        //public int AnioInicio { get; set; }
+        //public int CantidadClasesTomadas { get; set; }
+    }
+    public class vwUsuarioDatos
+    {
+        [Key]
+        public long NPK_Usuario { get; set; }
+
         public int AnioInicio { get; set; }
         public int CantidadClasesTomadas { get; set; }
+        public string NombreCompleto { get; set; }
+    }
+    public class vwVenta
+    {
+        [Key]
+        public long NFK_Usuario { get; set; }
+
+        public int NFK_Paquete { get; set; }
+        public int Cantidad { get; set; }
+    }
+    public class vwVentaCarro
+    {
+        public int NFK_Usuario { get; set; }
+        public int NFK_Paquete { get; set; }
+        public int Cantidad { get; set; }
+        public decimal PrecioVenta { get; set; }
+        public string FechaVenta { get; set; }
+        public string FechaPago { get; set; }
+        public string Paquete { get; set; }
+        public int CantidadClases { get; set; }
+        public int ExpiracionDias { get; set; }
+    }
+    public class vwVentaCarroPago
+    {
+        public int NFK_Usuario { get; set; }
+        public string TipoTarjeta { get; set; }
+        public string NumeroTarjeta { get; set; }
+        public string Titular { get; set; }
+        public string CorreoElectronico { get; set; }
+        public string NumAutorizacion { get; set; }
+    }
+    public class vwClasesDisponiblesWeeks
+    {
+        public int NumeroSemana { get; set; }
+        public int NPK_Calendario { get; set; }
+        public int NFK_Semana { get; set; }
+        public int Anio { get; set; }
+        public int NFK_Clase { get; set; }
+        public List<vwClasesDisponiblesDia> days { get; set; }
+    }
+    public class vwClasesDisponiblesDia
+    {
+        public string DiaSemana { get; set; }
+        public int Dia { get; set; }
+        public List<vwClasesDisponibles> classes { get; set; }
+    }
+    public class vwClasesDisponibles
+    {
+        public int NFK_Calendario { get; set; }
+        public string Fecha { get; set; }
+        public int Anio { get; set; }
+        public string FechaInicio { get; set; }
+        public string FechaFin { get; set; }
+        public int NPK_CalendarioClase { get; set; }
+        public int NFK_Instructor { get; set; }
+        public string HoraInicio { get; set; }
+        public string Instructor { get; set; }
+        public string Duracion { get; set; }
+        public bool Reservado { get; set; }
+        public string Clase { get; set; }
+        
+    }
+    public class vwClaseHeader
+    {
+        public int NPK_CalendarioClase { get; set; }
+        public int NFK_Instructor { get; set; }
+        public string Instructor { get; set; }        
+        public string Fecha { get; set; }
+        public string Clase { get; set; }
+        public string Fotografia { get; set; }
+        public int TengoClase { get; set; }
+    }
+    public class vwClaseReserva
+    {
+        public int NPK_Salon { get; set; }
+        public string Salon { get; set; }
+        public int NPK_SalonLugar { get; set; }
+        public string LugarSalon { get; set; }
+        public int NPK_ReservaClase { get; set; }
+        public int NPK_CalendarioClase { get; set; }
+        public bool Estatus { get; set; }
+        public int NFK_Usuario { get; set; }
+        
+    }
+    public class vwSaldo
+    {
+        public int SaldoTotal { get; set; }
+        public int Saldo { get; set; }
+        public int ReservadoHoy { get; set; }
+        public int TotalAsistencia { get; set; }
+        public int TotalReservasPerdidos { get; set; }
+    }
+    public class vwHistoriaReserva
+    {
+        public int NPK_ReservaClase { get; set; }
+        public int NPK_CalendarioClase { get; set; }
+        public int NFK_Instructor { get; set; }
+        public string Instructor { get; set; }
+        public string Fecha { get; set; }
+        public string Clase { get; set; }
+        public string Color { get; set; }
+        public int SalonLugar { get; set; }
+        public int NFK_Semana { get; set; }
+        public int NFK_Clase { get; set; }
+        public string Dia { get; set; }
+        public int PuedeCancelar { get; set; }
+        public string HoraParaCancelar { get; set; }
+        public int Asistencia { get; set; }
+
+
     }
 }
