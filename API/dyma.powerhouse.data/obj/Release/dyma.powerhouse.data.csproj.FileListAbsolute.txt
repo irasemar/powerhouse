@@ -21,3 +21,4 @@ C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\System.Security.Cryptogra
 C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\System.Security.Cryptography.Encoding.dll
 C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\System.Security.Cryptography.Primitives.dll
 C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\System.Security.Cryptography.X509Certificates.dll
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Release\Openpay.dll

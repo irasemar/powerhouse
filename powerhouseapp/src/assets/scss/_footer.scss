@@ -1,9 +1,13 @@
 .footer{
     background-color:$orange;
     color:#FFF;
-    padding:calculateRem(30px);
+    padding-top:calculateRem(10px);
+    padding-bottom:calculateRem(0px);
+    padding-left:calculateRem(10px);
+    padding-right:calculateRem(10px);
     &__copyright{
         text-transform: uppercase;
+        letter-spacing: 0.034rem;
         font-family:$font;
         font-size:calculateRem(13px);
         font-weight: 500;
@@ -13,6 +17,7 @@
         list-style:none;
         padding-left: 0;
         font-size:calculateRem(13px);
+        letter-spacing: 0.034rem;
         @include md{
             display: block;
         }

@@ -300,7 +300,8 @@ namespace dyma.powerhouse.api.Controllers
                         Activo = 1,
                         Correo = datos.Correo
                     };
-                    var user = proxy.UpdateProfileUser(resp);
+                    var user = proxy.UpdateProfileUser(resp, System.Configuration.ConfigurationManager.AppSettings["APIKEY"].ToString(),
+                        System.Configuration.ConfigurationManager.AppSettings["MERCHANT_ID"].ToString(), Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["PRODPAY"]));
                     if (user == null)
                         throw new data.exceptions.BusinessRuleValidationException("Usuario Ya Existe");
 

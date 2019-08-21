@@ -2,6 +2,7 @@
     &__nav-link{
         padding-left:calculateRem(5px);
         font-size:calculateRem(13px);
+        letter-spacing: 0.034rem;
         &--active{
             color: $orange !important;
             border-bottom:1px solid $orange;
@@ -9,4 +10,8 @@
             font-weight: 500;
         }
     }
+}.line-list__item {
+    padding-top: 1.25rem;
+    border-bottom: 1px solid #ced4da;
+    letter-spacing: 0.034rem;
 }

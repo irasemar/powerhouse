@@ -120,3 +120,4 @@ C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\bin\es\System.Web.Razo
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\bin\es\System.Web.WebPages.resources.dll
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\bin\Openpay.dll

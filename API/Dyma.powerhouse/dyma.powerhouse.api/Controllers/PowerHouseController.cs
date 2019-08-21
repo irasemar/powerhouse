@@ -107,7 +107,9 @@ namespace dyma.powerhouse.api.Controllers
             try
             {
                 var proxy = new Tasks(this.GetConnectionString());
-                return Request.CreateResponse(HttpStatusCode.OK, proxy.VentaUsuarioPago(datos));
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.VentaUsuarioPago(datos, System.Configuration.ConfigurationManager.AppSettings["APIKEY"].ToString(),
+                    System.Configuration.ConfigurationManager.AppSettings["MERCHANT_ID"].ToString(), Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["PRODPAY"]),
+                    System.Configuration.ConfigurationManager.AppSettings["DEVICESESSIONID"].ToString()));
             }
             catch (data.exceptions.BusinessRuleValidationException ex)
             {

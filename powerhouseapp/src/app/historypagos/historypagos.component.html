@@ -17,13 +17,16 @@
       <h3 class="h1 mt-5 mb-5 text-center" *ngIf="MisPagos.length > 0">¡Nos Has Realizado {{ MisPagos.length }} Pagos!</h3>
       <h3 class="h3">Clases recientes</h3>
       <hr>
-      <button class="btn btn-outline-primary--orange" (click)="ReservarHiit();">¡Reserva Mas Clases! Ride</button>&nbsp;&nbsp;&nbsp;&nbsp;
-      <button class="btn btn-outline-primary--aqua" (click)="ReservarTrain();">¡Reserva Mas Clases! Train</button>
+      <button class="btn btn-outline-primary--orange" (click)="ReservarHiit();">¡Reserva Más Clases Ride !</button>&nbsp;&nbsp;&nbsp;&nbsp;
+      <button class="btn btn-outline-primary--aqua" (click)="ReservarTrain();">¡Reserva Más Clases Train !</button>
       <hr>
       <ul class="line-list" *ngIf="MisPagos.length > 0">
         <li class="line-list__item" *ngFor="let pago of MisPagos">
-          <h4 class="h4">{{ pago.FechaPago }} Monto: {{ pago.MontoPago }}</h4>
-          <p>Tarjeta: {{ pago.NumeroTarjeta }}, Tipo Tarjeta: {{ pago.TipoTarjeta }}, Num. Autorizacion: {{ pago.NumAutorizacion }}</p>
+          <h4 class="h4">{{ pago.FechaPago }}</h4>
+          <p> Monto: {{ pago.MontoPago }} </p>
+          <p>Tarjeta: {{ pago.NumeroTarjeta }} </p>
+          <p> Tipo Tarjeta: {{ pago.TipoTarjeta }}</p>
+          <p> Num. Autorizacion: {{ pago.NumAutorizacion }}</p>
         </li>
       </ul>      
     </div>

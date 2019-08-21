@@ -81,6 +81,10 @@ export class HeaderComponent implements OnInit {
   MiHistoria(){
     this.router.navigate(['/historial/']);
   }
+  MisPagos(){
+    this.router.navigate(['/historialPagos/']);
+  }
+
   displayCounter(count) {
     console.log(count);
   }

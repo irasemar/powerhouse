@@ -141,7 +141,7 @@ namespace dyma.powerhouse.data.repositories
             return datos;
         }
 
-        public CatalogoUsuario UpdateProfileUser(CatalogoUsuario datos)
+        public CatalogoUsuario UpdateProfileUser(CatalogoUsuario datos, string APIKEY, string MERCHANT_ID, bool PRODPAY)
         {
             if (datos == null)
                 throw new exceptions.BusinessRuleValidationException("Usuario Datos requeridos");
@@ -181,7 +181,7 @@ namespace dyma.powerhouse.data.repositories
                     var exist = connection.Get<CatalogoUsuario>(datos.NPK_Usuario);
                     #region AgregarCliente OpenPay
                     if (String.IsNullOrEmpty(exist.id)) { 
-                        OpenpayAPI api = new OpenpayAPI("sk_6c75115d49194e00a788d215f0097ada", "m4wyhzcthgtdspj11hiz");
+                        OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);
                         Customer request = new Customer();
                         request.ExternalId = "PWH-" + datos.NPK_Usuario.ToString();
                         request.Name = exist.Nombre;
@@ -283,7 +283,7 @@ namespace dyma.powerhouse.data.repositories
             }
             return resp;
         }
-        public RespuestaPago VentaUsuarioPago(vwVentaCarroPago datos)
+        public RespuestaPago VentaUsuarioPago(vwVentaCarroPago datos, string APIKEY, string MERCHANT_ID, bool PRODPAY, string DeviceSessionId)
         {
             var Respuesta = new RespuestaPago();
             if (datos == null)
@@ -336,7 +336,8 @@ namespace dyma.powerhouse.data.repositories
                     {
                         try
                         {
-                            OpenpayAPI api = new OpenpayAPI("sk_6c75115d49194e00a788d215f0097ada", "m4wyhzcthgtdspj11hiz");
+                            
+                            OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);                            
                             Card request = new Card();
                             request.HolderName = datos.Nombre;
                             request.CardNumber = datos.Numero;
@@ -411,7 +412,7 @@ namespace dyma.powerhouse.data.repositories
                         #region Pagar Tarjeta OpenPay
                         try
                         {
-                            OpenpayAPI api = new OpenpayAPI("sk_6c75115d49194e00a788d215f0097ada", "m4wyhzcthgtdspj11hiz",false);
+                            OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);
                             Customer customer = new Customer();
                             customer.Name = tarjetas[0].Nombre;
                             customer.LastName = tarjetas[0].Apellidos;
@@ -426,7 +427,7 @@ namespace dyma.powerhouse.data.repositories
                             request.Description = "Pago Por Paquete:" + tarjetas[0].Paquete;
                             request.OrderId = "pago-" + tarjetas[0].NPK_Venta.ToString();
                             //request.Capture = false;
-                            request.DeviceSessionId = "kR1MiQhz2otdIuUlQkbEyitIqVMiI16f";
+                            request.DeviceSessionId = DeviceSessionId;// "kR1MiQhz2otdIuUlQkbEyitIqVMiI16f";
                             //request.Customer = customer;
 
 
