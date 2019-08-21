@@ -15,7 +15,9 @@ Go
 Drop Procedure [dbo].[SP_Proc_Venta_Carro_Pago]
 Go
 Create Procedure [dbo].[SP_Proc_Venta_Carro_Pago]
+	@NPK_Venta		Int,
 	@NFK_Usuario	Int,
+	@NPK_Tarjeta	Int,
 	@TipoTarjeta	varchar(100),
 	@NumeroTarjeta	varchar(4),
 	@Titular		varchar(200),
@@ -30,10 +32,12 @@ As
 			Titular = @Titular,
 			CorreoElectronico = @CorreoElectronico,
 			NumAutorizacion = @NumAutorizacion,
-			Cerrado = 0
+			Cerrado = 0,
+			NFK_Tarjeta = @NPK_Tarjeta
 	
 	Where	NFK_Usuario = @NFK_Usuario
 			And FechaPago Is NUll
+			And NPK_Venta = @NPK_Venta
 	
 
 GO
@@ -138,8 +142,7 @@ AS
 			End As Dia,
 			Calendario.NFK_Semana,
 			0 As Reservado,
-			NFK_Clase,
-			Clase.Clase
+			NFK_Clase
 	From	Calendario with(nolock)
 			Inner Join Año with(nolock) On NFK_Año = NPK_Año
 			Inner Join Semana with(nolock) On NFK_Semana = NPK_Semana
@@ -500,6 +503,101 @@ AS
 	Select * From @SalonOcupacion Order by LugarSalon
 
 Go
+Drop Procedure [dbo].[SP_Proc_DireccionUsuario]
+Go
+Create Procedure [dbo].[SP_Proc_DireccionUsuario]
+	@NFK_Usuario	Int,
+	@NPK_Tarjeta	Int = 0,
+	@Nombre			varchar(100),
+	@Numero	varchar(20),
+	@CVV	varchar(3),
+	@Mes	varchar(2),
+	@Anio	varchar(2),
+	@Ciudad	varchar(100),
+	@Pais	varchar(10),
+	@Estado	varchar(100),
+	@CP	varchar(5),
+	@Direccion	varchar(200)
+As
+	If @NPK_Tarjeta = 0
+	Begin
+		Insert Into UsuarioDireccion (NFK_Usuario,Nombre,Numero,CVV,Mes,Anio,Ciudad,Pais,Estado,CP,Direccion)
+		Values (@NFK_Usuario,@Nombre,@Numero,@CVV,@Mes,@Anio,@Ciudad,@Pais,@Estado,@CP,@Direccion)
+	End	
+
+GO
+Drop Procedure [dbo].[SP_Mis_Tarjetas]
+go
+CREATE Procedure [dbo].[SP_Mis_Tarjetas]
+	@NFK_Usuario			Int
+AS
+	select NPK_Tarjeta,NFK_Usuario,Nombre,Numero,'' As CVV,Mes,Anio,Ciudad,Pais,Estado,CP,Direccion from UsuarioDireccion with(nolock) Where NFK_Usuario = @NFK_Usuario And id Is Not Null
+	Union 
+	Select 0,@NFK_Usuario,'Nueva Tarjeta','' As Numero,'' As CVV,'' As Mes,'' As Anio,'' As Ciudad,'' As Pais,'' As Estado,'' As CP,'' As Direccion
+	Order by NPK_Tarjeta desc
+	
+Go
+Drop Procedure [dbo].[SP_Traer_Tarjeta]
+go
+CREATE Procedure [dbo].[SP_Traer_Tarjeta]
+	@NPK_Tarjeta			Int
+AS
+	select	NPK_Tarjeta,NFK_Usuario,Usuario.Nombre,Usuario.Apellidos,usuario.Telefono,Usuario.Correo,Numero,UsuarioDireccion.id,
+			(Select Top 1 NPK_Venta From Venta with(nolock) Where Venta.NFK_Usuario = UsuarioDireccion.NFK_Usuario And FechaPago Is Null Order by FechaCreacion desc) As NPK_Venta,
+			(Select Top 1 Paquete.Paquete From Venta with(nolock) Inner Join Paquete with(nolock) On NFK_Paquete = NPK_Paquete Where Venta.NFK_Usuario = UsuarioDireccion.NFK_Usuario And FechaPago Is Null Order by Venta.FechaCreacion desc) As Paquete,
+			Usuario.id As IdOpen
+	from	UsuarioDireccion with(nolock) 
+				Inner Join Usuario with(nolock) On UsuarioDireccion.NFK_Usuario = NPK_Usuario
+	Where	NPK_Tarjeta = @NPK_Tarjeta
+	
+Go
+Drop Procedure [dbo].[SP_Ins_Tarjeta]
+go
+CREATE Procedure [dbo].[SP_Ins_Tarjeta]
+	@NFK_Usuario			Int,
+	@Nombre			varchar(100),
+	@Numero	varchar(20),
+	@CVV	varchar(3),
+	@Mes	varchar(2),
+	@Anio	varchar(2),
+	@Ciudad	varchar(100),
+	@Pais	varchar(10),
+	@Estado	varchar(100),
+	@CP	varchar(5),
+	@Direccion	varchar(200)
+	
+AS
+	Insert Into UsuarioDireccion (NFK_Usuario,Nombre,Numero,CVV,Mes,Anio,Ciudad,Pais,Estado,CP,Direccion)
+	Values (@NFK_Usuario,@Nombre,@Numero,@CVV,@Mes,@Anio,@Ciudad,@Pais,@Estado,@CP,@Direccion)
+
+	Select	NPK_Tarjeta,NFK_Usuario,UsuarioDireccion.Nombre,Numero,'' As CVV,Mes,Anio,Ciudad,Pais,Estado,CP,Direccion,
+			Usuario.id As IdOpen,UsuarioDireccion.id
+	From	UsuarioDireccion with(nolock) 
+				Inner Join Usuario with(nolock) On NFK_Usuario = NPK_Usuario
+	Where	Numero = @Numero And NFK_Usuario = @NFK_Usuario
+	
+Go
+Drop Procedure [dbo].[SP_Del_Tarjeta]
+go
+CREATE Procedure [dbo].[SP_Del_Tarjeta]
+	@NPK_Tarjeta			Int
+	
+AS
+	Delete UsuarioDireccion Where NPK_Tarjeta = @NPK_Tarjeta
+	
+Go
+Drop Procedure [dbo].[SP_Upd_Id_Tarjeta]
+go
+CREATE Procedure [dbo].[SP_Upd_Id_Tarjeta]
+	@NPK_Tarjeta			Int,
+	@Id	Varchar(500)
+	
+AS
+	Update UsuarioDireccion Set Id = @Id Where NPK_Tarjeta = @NPK_Tarjeta
+	
+Go
+SP_Mis_Tarjetas 6
+
 --SP_Estatus_Salon_PorDia_Header 1,1,12,2,4
 --Go
 --SP_Estatus_Salon_PorDia 1,1,12,2
@@ -533,13 +631,5 @@ Go
 --Go
 --SP_Mi_Historia 6
 --Select * From vwUsuario with(nolock)
-Select * From Instructor with(nolock)
-Select	Distinct a.NumeroSemana,a.NFK_Semana, a.Anio, a.NFK_Clase From vwClasesDisponiblesWeeks a WITH (NOLOCK) Where a.NFK_Instructor = 7 Order by a.Anio,a.NumeroSemana
-select Distinct b.DiaSemana,b.Dia from vwClasesDisponibles b WITH (NOLOCK) Where b.NFK_Semana = 1 And b.NFK_Instructor = 7 Order by b.Dia
-Select	b.DiaSemana,b.Dia,b.Clase,b.Anio,b.FechaInicio,b.FechaFin,b.NPK_CalendarioClase,b.NFK_Instructor,b.Instructor,
-		                                b.HoraInicio,b.Duracion,b.Reservado
-                                From	vwClasesDisponibles b WITH (NOLOCK) 
-                                Where   b.NFK_Semana = 1
-                                        And b.Dia = 16
-                                        And b.NFK_Instructor = 7
-                                Order by [Date]
+Go
+SP_Traer_Tarjeta 3

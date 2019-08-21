@@ -8,6 +8,9 @@ using Dapper.Contrib.Extensions;
 using System.Data;
 using dyma.powerhouse.data.entity;
 using dyma.powerhouse.data.views;
+using Openpay;
+using Openpay.Entities.Request;
+using Openpay.Entities;
 
 namespace dyma.powerhouse.data.repositories
 {
@@ -175,6 +178,31 @@ namespace dyma.powerhouse.data.repositories
                 using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
                 {
                     connection.Open();
+                    var exist = connection.Get<CatalogoUsuario>(datos.NPK_Usuario);
+                    #region AgregarCliente OpenPay
+                    if (String.IsNullOrEmpty(exist.id)) { 
+                        OpenpayAPI api = new OpenpayAPI("sk_6c75115d49194e00a788d215f0097ada", "m4wyhzcthgtdspj11hiz");
+                        Customer request = new Customer();
+                        request.ExternalId = "PWH-" + datos.NPK_Usuario.ToString();
+                        request.Name = exist.Nombre;
+                        request.LastName = exist.Apellidos;
+                        request.Email = exist.Correo;
+                        request.PhoneNumber = exist.Telefono;
+                        request.RequiresAccount = false;
+                        Address address = new Address();
+                        address.City = "San Pedro Garza García";
+                        address.CountryCode = "MX";
+                        address.State = "Nuevo Leon";
+                        address.PostalCode = "66254";
+                        address.Line1 = "Av. Roberto Garza Sada #101";
+                        address.Line2 = "";
+                        address.Line3 = "San Pedro Garza García N.L.";
+                        request.Address = address;
+
+                        request = api.CustomerService.Create(request);
+                        exist.id = request.Id;
+                    }
+                    #endregion
 
                     using (var tran = connection.BeginTransaction())
                     {
@@ -185,6 +213,7 @@ namespace dyma.powerhouse.data.repositories
                             datos.ModificadoPor = 0;
                             datos.CreadoPor = fab.CreadoPor;
                             datos.FechaCreacion = fab.FechaCreacion;
+                            datos.id = exist.id;
                             connection.Update<CatalogoUsuario>(datos, tran);
                             tran.Commit();
                         }
@@ -254,43 +283,214 @@ namespace dyma.powerhouse.data.repositories
             }
             return resp;
         }
-        public string VentaUsuarioPago(vwVentaCarroPago datos)
+        public RespuestaPago VentaUsuarioPago(vwVentaCarroPago datos)
         {
-
+            var Respuesta = new RespuestaPago();
             if (datos == null)
                 throw new exceptions.BusinessRuleValidationException("Venta Pago List Data requiered");
 
 
             using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
             {
-                connection.Open();
-                using (var tran = connection.BeginTransaction())
+                var resp = new List<vwMisTarjetas>();
+                if (datos.NPK_Tarjeta == 0)
                 {
-                    try
+                    connection.Open();
+                    using (var tran = connection.BeginTransaction())
                     {
+                        try
+                        {
 
-                        var affectedRows = connection.Execute("SP_Proc_Venta_Carro_Pago",
-                            new
-                            {
-                                NFK_Usuario = datos.NFK_Usuario,
-                                TipoTarjeta = datos.TipoTarjeta,
-                                NumeroTarjeta = datos.NumeroTarjeta,
-                                Titular = datos.Titular,
-                                CorreoElectronico = datos.CorreoElectronico,
-                                NumAutorizacion = datos.NumAutorizacion
-                            }, tran, null, commandType: System.Data.CommandType.StoredProcedure);
-                        tran.Commit();
+                            resp = connection.Query<vwMisTarjetas>("SP_Ins_Tarjeta",
+                                new
+                                {
+                                    NFK_Usuario = datos.NFK_Usuario,
+                                    Nombre = datos.Nombre,
+                                    Numero = datos.Numero,
+                                    CVV = datos.CVV,
+                                    Mes = datos.Mes,
+                                    Anio = datos.Anio,
+                                    Ciudad = datos.Ciudad,
+                                    Pais = datos.Pais,
+                                    Estado = datos.Estado,
+                                    CP = datos.CP,
+                                    Direccion = datos.Direccion
+                                },tran, true, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                            tran.Commit();
+                            datos.NPK_Tarjeta = resp[0].NPK_Tarjeta;
+                        }
+                        catch (Exception ex)
+                        {
+                            tran.Rollback();
+                            Respuesta.Error = 2;
+                            Respuesta.Desc_Error = ex.ToString();
+                            return Respuesta;
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        tran.Rollback();
-                        throw ex;
-                    }
-
                 }
+                #region Agregar Tarjeta OpenPay
+                if (datos.NPK_Tarjeta != 0)
+                {
+                    var tarjetas = connection.Query<vwMisTarjetas>("SP_Traer_Tarjeta", new { NPK_Tarjeta = datos.NPK_Tarjeta }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                    if (tarjetas[0].id.Length == 0)
+                    {
+                        try
+                        {
+                            OpenpayAPI api = new OpenpayAPI("sk_6c75115d49194e00a788d215f0097ada", "m4wyhzcthgtdspj11hiz");
+                            Card request = new Card();
+                            request.HolderName = datos.Nombre;
+                            request.CardNumber = datos.Numero;
+                            request.Cvv2 = datos.CVV;
+                            request.ExpirationMonth = datos.Mes;
+                            request.ExpirationYear = datos.Anio;
+                            //request.DeviceSessionId = "kR1MiQhz2otdIuUlQkbEyitIqVMiI16f";
+                            Address address = new Address();
+                            address.City = datos.Ciudad;
+                            address.CountryCode = datos.Pais;
+                            address.State = datos.Estado;
+                            address.PostalCode = datos.CP;
+                            address.Line1 = datos.Direccion;
+                            address.Line2 = "";
+                            address.Line3 = "";
+                            request.Address = address;
+
+                            request = api.CardService.Create(resp[0].IdOpen, request);                            
+                            using (var tran = connection.BeginTransaction())
+                            {
+                                try
+                                {
+                                    var affectedRows = connection.Execute("SP_Upd_Id_Tarjeta",
+                                        new
+                                        {
+                                            NPK_Tarjeta = datos.NPK_Tarjeta,
+                                            Id = request.Id
+                                        }, tran, null, commandType: System.Data.CommandType.StoredProcedure);
+                                    tran.Commit();
+                                    tarjetas = connection.Query<vwMisTarjetas>("SP_Traer_Tarjeta", new { NPK_Tarjeta = datos.NPK_Tarjeta }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                                }
+                                catch (Exception ex2)
+                                {
+                                    datos.NPK_Tarjeta = 0;
+                                    tran.Rollback();
+                                    Respuesta.Error = 4;
+                                    Respuesta.Desc_Error = ex2.ToString();
+                                    return Respuesta;
+                                }
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            using (var tran = connection.BeginTransaction())
+                            {
+                                try
+                                {
+                                    var affectedRows = connection.Execute("SP_Del_Tarjeta",
+                                        new
+                                        {
+                                            NPK_Tarjeta = datos.NPK_Tarjeta
+                                        }, tran, null, commandType: System.Data.CommandType.StoredProcedure);
+                                    tran.Commit();
+                                }
+                                catch (Exception ex2)
+                                {
+                                    datos.NPK_Tarjeta = 0;
+                                    tran.Rollback();
+                                    
+                                    throw ex2;
+                                }
+
+                            }
+                            Respuesta.Error = 10;
+                            Respuesta.Desc_Error = ex.ToString();
+                            return Respuesta;
+                        }
+                    }
+                    if (tarjetas[0].id.Length > 0)
+                    {
+                        #region Pagar Tarjeta OpenPay
+                        try
+                        {
+                            OpenpayAPI api = new OpenpayAPI("sk_6c75115d49194e00a788d215f0097ada", "m4wyhzcthgtdspj11hiz",false);
+                            Customer customer = new Customer();
+                            customer.Name = tarjetas[0].Nombre;
+                            customer.LastName = tarjetas[0].Apellidos;
+                            customer.PhoneNumber = tarjetas[0].Telefono;
+                            customer.Email = tarjetas[0].Correo;
+                            customer.Id = tarjetas[0].IdOpen;
+
+                            ChargeRequest request = new ChargeRequest();
+                            request.Method = "card";
+                            request.SourceId = tarjetas[0].id;
+                            request.Amount = datos.Monto;// new Decimal();
+                            request.Description = "Pago Por Paquete:" + tarjetas[0].Paquete;
+                            request.OrderId = "pago-" + tarjetas[0].NPK_Venta.ToString();
+                            //request.Capture = false;
+                            request.DeviceSessionId = "kR1MiQhz2otdIuUlQkbEyitIqVMiI16f";
+                            //request.Customer = customer;
+
+
+                            Charge charge = api.ChargeService.Create(tarjetas[0].IdOpen, request);
+                            Respuesta.Desc_Error = charge.ErrorMessage;
+                            Respuesta.NumeroTransaccion = charge.Authorization;
+                            Respuesta.Monto = charge.Amount.ToString();
+                            Respuesta.NumeroTarjeta = charge.Card.CardNumber;
+                            Respuesta.description = charge.Description;
+                            Respuesta.operation_date = charge.CreationDate.ToString();
+
+                            using (var connection2 = util.DbManager.ConnectionFactory(sqlConnectionString))
+                            {
+                                connection2.Open();
+                                using (var tran = connection2.BeginTransaction())
+                                {
+                                    try
+                                    {
+                                        var affectedRows = connection2.Execute("SP_Proc_Venta_Carro_Pago",
+                                            new
+                                            {
+                                                NPK_Venta = tarjetas[0].NPK_Venta,
+                                                NPK_Tarjeta = tarjetas[0].NPK_Tarjeta,
+                                                NFK_Usuario = tarjetas[0].NFK_Usuario,
+                                                TipoTarjeta = charge.PaymentMethod + " " + charge.Card.BankName,
+                                                NumeroTarjeta = charge.Card.CardNumber,
+                                                Titular = charge.Card.HolderName,
+                                                CorreoElectronico = charge.Card.Brand,
+                                                NumAutorizacion = charge.Authorization,
+                                                MontoPago = charge.Amount
+                                            }, tran, null, commandType: System.Data.CommandType.StoredProcedure);
+                                        tran.Commit();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        tran.Rollback();
+                                        Respuesta.Error = 2;
+                                        Respuesta.Desc_Error = ex.ToString();
+                                        return Respuesta;
+                                    }
+                                    finally
+                                    {
+                                        connection2.Close();
+                                    }
+
+                                }
+                            }
+                        }
+                        catch (Exception expago)
+                        {
+                            datos.NPK_Tarjeta = 0;
+                            Respuesta.Error = 1;
+                            Respuesta.Desc_Error = expago.ToString();
+                            return Respuesta;
+                        }
+                        #endregion
+                    }
+                }
+                #endregion
+                //connection.Open();
+                
             }
 
-            return "";
+            return Respuesta;
         }
         public string ReservaLugar(int NFK_CalendarioClase, int NFK_Usuario, int NFK_Salon, int NFK_SalonLugar)
         {
@@ -340,6 +540,35 @@ namespace dyma.powerhouse.data.repositories
                                 NFK_Usuario = NFK_Usuario
                             }, tran, null, commandType: System.Data.CommandType.StoredProcedure);
                         tran.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return "";
+        }
+        public string PagarPaquete(int NPK_Paquete, int NFK_Usuario)
+        {
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+
+                        //var affectedRows = connection.Execute("SP_Cancelar_Reserva_Lugar",
+                        //    new
+                        //    {
+                        //        NPK_ReservaClase = NPK_ReservaClase,
+                        //        NFK_Usuario = NFK_Usuario
+                        //    }, tran, null, commandType: System.Data.CommandType.StoredProcedure);
+                        //tran.Commit();
                     }
                     catch (Exception ex)
                     {

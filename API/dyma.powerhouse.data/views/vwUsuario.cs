@@ -41,6 +41,8 @@ namespace dyma.powerhouse.data.views
         public DateTime? FechaModificacion { get; set; }
 
         public short Activo { get; set; }
+        public string id { get; set; }
+        public string Correo { get; set; }
     }
     [Table("vwUsuario")]
     public class vwUsuario
@@ -78,6 +80,7 @@ namespace dyma.powerhouse.data.views
         public DateTime? FechaModificacion { get; set; }
 
         public short Activo { get; set; }
+        public string Correo { get; set; }
         //public int AnioInicio { get; set; }
         //public int CantidadClasesTomadas { get; set; }
     }
@@ -112,12 +115,24 @@ namespace dyma.powerhouse.data.views
     }
     public class vwVentaCarroPago
     {
-        public int NFK_Usuario { get; set; }
         public string TipoTarjeta { get; set; }
-        public string NumeroTarjeta { get; set; }
-        public string Titular { get; set; }
-        public string CorreoElectronico { get; set; }
+        public int NPK_Tarjeta { get; set; }
+        public int NFK_Usuario { get; set; }
+        public string Nombre { get; set; }
+        public string Numero { get; set; }
+        public string CVV { get; set; }
+        public string Mes { get; set; }
+        public string Anio { get; set; }
+        public string Ciudad { get; set; }
+        public string Pais { get; set; }
+        public string Estado { get; set; }
+        public string CP { get; set; }
+        public string Direccion { get; set; }
+        public string IdOpen { get; set; }
+        public string id { get; set; }
         public string NumAutorizacion { get; set; }
+        public string CorreoElectronico { get; set; }
+        public decimal Monto { get; set; }
     }
     public class vwClasesDisponiblesWeeks
     {
@@ -198,5 +213,48 @@ namespace dyma.powerhouse.data.views
         public int Asistencia { get; set; }
 
 
+    }
+    public class vwMisTarjetas
+    {
+        public int NPK_Tarjeta { get; set; }
+        public int NFK_Usuario { get; set; }
+        public string Nombre { get; set; }
+        public string Numero { get; set; }
+        public string CVV { get; set; }
+        public string Mes { get; set; }
+        public string Anio { get; set; }
+        public string Ciudad { get; set; }
+        public string Pais { get; set; }
+        public string Estado { get; set; }
+        public string CP { get; set; }
+        public string Direccion { get; set; }
+        public string IdOpen { get; set; }
+        public string id { get; set; }
+        public string CorreoElectronico { get; set; }
+        public string Apellidos { get; set; }
+        public string Telefono { get; set; }
+        public string Correo { get; set; }
+        public string NPK_Venta { get; set; }
+        public string Paquete { get; set; }
+    }
+    public class RespuestaPago
+    {
+        public int Error { get; set; }
+        public string Desc_Error { get; set; }
+        public string Error_Code { get; set; }
+        public string NumeroTransaccion { get; set; }
+        public string Monto { get; set; }
+        public string NumeroTarjeta { get; set; }
+        public string description { get; set; }
+        public string operation_date { get; set; }
+    }
+    public class vwHistoriaPagos
+    {
+        public string FechaPago { get; set; }
+        public string Paquete { get; set; }
+        public decimal MontoPago { get; set; }
+        public string TipoTarjeta { get; set; }
+        public string NumeroTarjeta { get; set; }
+        public string NumAutorizacion { get; set; }
     }
 }

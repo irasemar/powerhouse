@@ -5,6 +5,7 @@ import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
 import {UpcomingComponent} from './upcoming/upcoming.component';
 import {HistoryComponent} from './history/history.component';
+import {HistoryPagosComponent} from './historypagos/historypagos.component';
 import {AwardsComponent} from './awards/awards.component';
 import {HiitComponent} from './hiit/hiit.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'perfil',      component: ProfileComponent },
   { path: 'proximas-clases',      component: UpcomingComponent },
   { path: 'historial',      component: HistoryComponent },
+  { path: 'historialPagos',      component: HistoryPagosComponent },
   { path: 'awards',      component: AwardsComponent },
   { path: 'hiit-calendar',      component: HiitCalendarComponent },
   { path: 'indoor-calendar',      component: CalendarComponent },

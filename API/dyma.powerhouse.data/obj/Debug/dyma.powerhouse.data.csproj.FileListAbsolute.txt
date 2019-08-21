@@ -21,3 +21,4 @@ C:\Miguel\Irasema\API\dyma.powerhouse.data\obj\Debug\dyma.powerhouse.data.csproj
 C:\Miguel\Irasema\API\dyma.powerhouse.data\obj\Debug\dyma.powerhouse.data.csproj.CopyComplete
 C:\Miguel\Irasema\API\dyma.powerhouse.data\obj\Debug\dyma.sit.data.dll
 C:\Miguel\Irasema\API\dyma.powerhouse.data\obj\Debug\dyma.sit.data.pdb
+C:\Miguel\Irasema\API\dyma.powerhouse.data\bin\Debug\Openpay.dll

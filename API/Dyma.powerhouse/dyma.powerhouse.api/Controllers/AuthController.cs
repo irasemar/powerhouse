@@ -245,6 +245,7 @@ namespace dyma.powerhouse.api.Controllers
                         BikeSetupAlturaManubrio = (String.IsNullOrEmpty(user.BikeSetupAlturaManubrio) ? "" : user.BikeSetupAlturaManubrio.ToString()),
                         TallaZapato = (String.IsNullOrEmpty(user.TallaZapato) ? "" : user.TallaZapato.ToString()),
                         QuieroOfertas = (String.IsNullOrEmpty(user.QuieroOfertas.ToString()) ? 0 : user.QuieroOfertas),
+                        Correo = (String.IsNullOrEmpty(user.Correo.ToString()) ? "" : user.Correo)
                     };
                     return Request.CreateResponse(HttpStatusCode.OK, sesion);
                 }
@@ -296,7 +297,8 @@ namespace dyma.powerhouse.api.Controllers
                         BikeSetupAlturaManubrio = datos.BikeSetupAlturaManubrio,
                         TallaZapato = datos.TallaZapato,
                         QuieroOfertas = datos.QuieroOfertas,
-                        Activo = 1
+                        Activo = 1,
+                        Correo = datos.Correo
                     };
                     var user = proxy.UpdateProfileUser(resp);
                     if (user == null)

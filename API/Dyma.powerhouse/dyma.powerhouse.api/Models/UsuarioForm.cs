@@ -33,4 +33,5 @@
         public string TallaZapato { get; set; }
 
         public int QuieroOfertas { get; set; }
+        public string Correo { get; set; }
     }}

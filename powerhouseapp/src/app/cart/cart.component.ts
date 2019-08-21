@@ -17,7 +17,6 @@ export class CartComponent implements OnInit {
   total: any;
   tax: any;
   totalcantidad: any;
-
   constructor(private modalService: NgbModal, private catalog: CatalogsService, private authservice: AuthService, private router: Router,
     private updateService: UpdateService) { }
 
@@ -45,6 +44,7 @@ export class CartComponent implements OnInit {
   }
 
   calculateTotal(arr:any[]) {
+    
     let newArr = [];
     arr.map(item => {
       newArr.push((item.Cantidad * item.PrecioVenta))
@@ -64,7 +64,7 @@ export class CartComponent implements OnInit {
   }
 
   pay() {
-    const modalRef = this.modalService.open(ModalPaymentComponent);
+    const modalRef = this.modalService.open(ModalPaymentComponent,{size:'lg'});
     modalRef.componentInstance.items = this.items;
     modalRef.componentInstance.total = this.total;
     modalRef.componentInstance.tax = this.tax;
@@ -72,21 +72,8 @@ export class CartComponent implements OnInit {
     modalRef.result.then((result) => {
       if (result) {
         console.log(result);
-        if (result.NFK_Usuario === 1) {
-          var Venta = {} as PagoForm;
-          const acc = this.authservice.getAccount();
-          Venta.NFK_Usuario = acc.NPK_Usuario;
-          Venta.TipoTarjeta = result.TipoTarjeta;
-          Venta.NumeroTarjeta = result.NumeroTarjeta;
-          Venta.ExpiraMes = result.ExpiraMes;
-          Venta.ExpiraAño = result.ExpiraAño;
-          Venta.NombreTitular = result.NombreTitular;
-          Venta.DireccionTitular = result.DireccionTitular;
-          Venta.CorreoElectronico = result.CorreoElectronico;
-          Venta.NumAutorizacion = result.NumAutorizacion;
-          this.catalog.letVentaUsuarioPago(Venta).subscribe(respuesta => { 
-            this.updateService.UpdateSaldo();            
-          });
+        if (result.Error === 0){
+          this.updateService.UpdateSaldo();
           this.router.navigate(['/proximas-clases/']);
         }
       }

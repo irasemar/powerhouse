@@ -452,11 +452,10 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.GuardarTipoTarjetaActivo(NPK_TipoTarjeta, Activo, NFK_User);
-        }        public string VentaUsuarioPago(vwVentaCarroPago datos)
+        }        public RespuestaPago VentaUsuarioPago(vwVentaCarroPago datos)
         {
             var repo = new UserRepository(ClientConnectionString);
-            repo.VentaUsuarioPago(datos);
-            return "";
+            return repo.VentaUsuarioPago(datos);
         }
         public List<vwClasesDisponiblesWeeks> ClasesDisponiblesPorInstructor(int NFK_Instructor)
         {
@@ -504,6 +503,22 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.Mi_Historia(NFK_Usuario);
+        }
+        public List<vwHistoriaPagos> Mi_HistoriaPagos(int NFK_Usuario)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Mi_HistoriaPagos(NFK_Usuario);
+        }
+        public string PagarPaquete(int NPK_Paquete, int NFK_Usuario)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            repo.PagarPaquete(NPK_Paquete, NFK_Usuario);
+            return "";
+        }
+        public List<vwMisTarjetas> Obtener_Tarjetas(int NFK_Usuario)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Obtener_Tarjetas(NFK_Usuario);
         }
         #endregion      
     }

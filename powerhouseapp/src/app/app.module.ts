@@ -18,6 +18,7 @@ import { SidenavComponent } from './shared/sidenav/sidenav.component';
 import { UserdataComponent } from './shared/userdata/userdata.component';
 import { UpcomingComponent } from './upcoming/upcoming.component';
 import { HistoryComponent } from './history/history.component';
+import { HistoryPagosComponent } from './historypagos/historypagos.component';
 import { AwardsComponent } from './awards/awards.component';
 import { HiitComponent } from './hiit/hiit.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -68,6 +69,7 @@ registerLocaleData(localemx);
     UserdataComponent,
     UpcomingComponent,
     HistoryComponent,
+    HistoryPagosComponent,
     AwardsComponent,
     HiitComponent,
     CalendarComponent,

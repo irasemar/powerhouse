@@ -1,0 +1,31 @@
+<div class="container"  *ngIf="welcome">
+  <div class="row">
+    <div class="col-md-3 mb-5">
+      <app-userdata></app-userdata>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <app-sidenav [active]="active" [list]="list"></app-sidenav>
+    </div>
+    <div class="col-md-1">
+     
+    </div>
+    <div class="col-md-7">
+      <h2 class="h2 orange text-center">{{title}}</h2>
+      <hr class="line--orange">
+      <h3 class="h1 mt-5 mb-5 text-center" *ngIf="MisPagos.length > 0">¡Nos Has Realizado {{ MisPagos.length }} Pagos!</h3>
+      <h3 class="h3">Clases recientes</h3>
+      <hr>
+      <button class="btn btn-outline-primary--orange" (click)="ReservarHiit();">¡Reserva Mas Clases! Ride</button>&nbsp;&nbsp;&nbsp;&nbsp;
+      <button class="btn btn-outline-primary--aqua" (click)="ReservarTrain();">¡Reserva Mas Clases! Train</button>
+      <hr>
+      <ul class="line-list" *ngIf="MisPagos.length > 0">
+        <li class="line-list__item" *ngFor="let pago of MisPagos">
+          <h4 class="h4">{{ pago.FechaPago }} Monto: {{ pago.MontoPago }}</h4>
+          <p>Tarjeta: {{ pago.NumeroTarjeta }}, Tipo Tarjeta: {{ pago.TipoTarjeta }}, Num. Autorizacion: {{ pago.NumAutorizacion }}</p>
+        </li>
+      </ul>      
+    </div>
+  </div>
+</div>

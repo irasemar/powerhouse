@@ -120,3 +120,4 @@ C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\obj\Debug\dyma.powerho
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\obj\Debug\dyma.powerhouse.api.csproj.CopyComplete
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\obj\Debug\dyma.powerhouse.api.dll
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\obj\Debug\dyma.powerhouse.api.pdb
+C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\bin\Openpay.dll

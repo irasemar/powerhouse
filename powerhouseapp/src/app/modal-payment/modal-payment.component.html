@@ -35,56 +35,74 @@
             <p class="orange">Información de pago</p>
             <div class="form-row">
               <div class="form-group col-md-12">
-                <label>Tipo de Tarjeta</label>
-                <select class="form-control" name="singleSelect" formControlName="TipoTarjeta" required>
+                <label>Tarjeta</label>
+                <select class="form-control" name="singleSelect" formControlName="NPK_Tarjeta" required (change)="changeTarjeta($event);">
                   <option [value]="0">Seleccione</option>
-                  <option *ngFor="let tarjeta of Tarjetas" [value]="tarjeta.TipoTarjeta">{{tarjeta.TipoTarjeta}}
+                  <option *ngFor="let tarjeta of Tarjetas" [value]="tarjeta.NPK_Tarjeta">{{tarjeta.Nombre}} -- {{tarjeta.Numero}}
                   </option>
                 </select>
               </div>
             </div>
-            <div class="form-row">
+            <div class="form-row" *ngIf="TarjetaExistente">
               <div class="form-group col-md-12">
                 <label>Numero de Tarjeta</label>
-                <input type="number" class="form-control" formControlName="NumeroTarjeta" maxlength="16" required>
+                <input type="number" class="form-control" formControlName="Numero" maxlength="19" required>
               </div>
             </div>
-            <div class="form-row col-md-12">
+            <div class="form-row" *ngIf="TarjetaExistente">
+              <div class="form-group col-md-12">
+                <label>CVV</label>
+                <input type="number" class="form-control" formControlName="CVV" maxlength="2" required>
+              </div>
+            </div>
+            <div class="form-row col-md-12" *ngIf="TarjetaExistente">
               <p class="orange">Vigencia</p>
             </div>
-            <div class="form-row col-md-12">
-              <!-- <div class="col-md-12"> -->
+            <div class="form-row col-md-12" *ngIf="TarjetaExistente">
               <div class="form-group col-md-7">
                 <label>Año</label>
-                <select class="form-control" name="singleSelect" formControlName="ExpiraAño" required>
+                <select class="form-control" name="singleSelect" formControlName="Anio" required>
                   <option [value]="0">Seleccione</option>
                   <option *ngFor="let anio of Anios" [value]="anio.Anio">{{anio.Anio}}
                   </option>
                 </select>
               </div>
-              <div class="form-group col-md-5">
-                  <label>Mes</label>
-                  <select class="form-control" name="singleSelect" formControlName="ExpiraMes" required>
-                    <option [value]="0">Seleccione</option>
-                    <option *ngFor="let mes of Meses" [value]="mes.MesDescripcion">{{mes.MesDescripcion}}
-                    </option>
-                  </select>
-                </div>
-            <!-- </div> -->
+              <div class="form-group col-md-5" *ngIf="TarjetaExistente">
+                <label>Mes</label>
+                <select class="form-control" name="singleSelect" formControlName="Mes" required>
+                  <option [value]="0">Seleccione</option>
+                  <option *ngFor="let mes of Meses" [value]="mes.MesDescripcion">{{mes.MesDescripcion}}
+                  </option>
+                </select>
+              </div>
             </div>
-            <div class="form-row">
+            <div class="form-row" *ngIf="TarjetaExistente">
               <div class="form-group col-md-12">
                 <label>Titular</label>
-                <input type="text" class="form-control" formControlName="NombreTitular" required>
+                <input type="text" class="form-control" formControlName="Nombre" required>
               </div>
             </div>
-            <div class="form-row">
+            <div class="form-row" *ngIf="TarjetaExistente">
               <div class="form-group col-md-12">
                 <label>Domicilio del Titular</label>
-                <input type="text" class="form-control" formControlName="DireccionTitular" required>
+                <input type="text" class="form-control" formControlName="Direccion" required>
               </div>
             </div>
-            <div class="form-row">
+            <div class="form-row" *ngIf="TarjetaExistente">
+              <div class="form-group col-md-12">
+                <label>Ciudad</label>
+                <input type="text" class="form-control" formControlName="Ciudad" required>
+              </div>
+              <div class="form-group col-md-12">
+                <label>Estado</label>
+                <input type="text" class="form-control" formControlName="Estado" required>
+              </div>
+              <div class="form-group col-md-12">
+                <label>CP</label>
+                <input type="text" class="form-control" formControlName="CP" required>
+              </div>
+            </div>
+            <div class="form-row" *ngIf="TarjetaExistente">
               <div class="form-group col-md-12">
                 <label class="orange">Correo</label>
                 <input type="text" class="form-control" formControlName="CorreoElectronico" required>
@@ -103,6 +121,13 @@
     </div>
   </div>
 </div>
-<div class="modal-footer">
+<div class="modal-footer" *ngIf="TarjetaExistente">
+  <button type="button" class="btn btn-outline-primary--orange" (click)="cancelPay();">Cancelar</button>
+  <p *ngIf="MostrarErrorPago">{{MensageError}}</p>
   <button type="button" class="btn btn-outline-primary--orange" (click)="closePay();" [disabled]="!form.valid">Aceptar</button>
+</div>
+<div class="modal-footer" *ngIf="!TarjetaExistente">
+  <button type="button" class="btn btn-outline-primary--orange" (click)="cancelPay();">Cancelar</button>
+  <p *ngIf="MostrarErrorPago">{{MensageError}}</p>
+  <button type="button" class="btn btn-outline-primary--orange" (click)="closePaytarjetaExistente();">Aceptar</button>
 </div>

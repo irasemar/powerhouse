@@ -2338,6 +2338,19 @@ namespace dyma.powerhouse.data.repositories
                     }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
                 return resp;
             }
+        }        public List<vwMisTarjetas> Obtener_Tarjetas(int NFK_Usuario)
+        {
+            var resp = new List<vwMisTarjetas>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwMisTarjetas>("SP_Mis_Tarjetas",
+                    new
+                    {
+                        NFK_Usuario = NFK_Usuario
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
         }        public List<vwHistoriaReserva> Mis_Reservas(int NFK_Usuario)
         {
             var resp = new List<vwHistoriaReserva>();
@@ -2358,6 +2371,19 @@ namespace dyma.powerhouse.data.repositories
             {
                 connection.Open();
                 resp = connection.Query<vwHistoriaReserva>("SP_Mi_Historia",
+                    new
+                    {
+                        NFK_Usuario = NFK_Usuario
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }        public List<vwHistoriaPagos> Mi_HistoriaPagos(int NFK_Usuario)
+        {
+            var resp = new List<vwHistoriaPagos>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwHistoriaPagos>("SP_Mi_Historia_Pagos",
                     new
                     {
                         NFK_Usuario = NFK_Usuario

@@ -31,6 +31,10 @@ export class HistoryComponent implements OnInit {
         "title": "Mi historial",
         "url": "/historial"
       },
+      {
+        "title": "Mis Pagos",
+        "url": "/historialPagos"
+      },
       /* {
         "title": "Power awards",
         "url": "/awards"

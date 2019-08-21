@@ -94,6 +94,7 @@ export interface UsuarioForm {
     TallaZapato : string
     QuieroOfertas : number
     Activo : number
+    Correo : string;
 }
 
 interface LoginForm {

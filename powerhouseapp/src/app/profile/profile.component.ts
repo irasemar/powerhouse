@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit {
     TallaZapato : "",
     QuieroOfertas : 0,
     ContrasenaConfirma : "",
+    Correo: ""
   });
   list: Array<Object>;
   title: string;
@@ -59,6 +60,10 @@ export class ProfileComponent implements OnInit {
       {
         "title": "Mi historial",
         "url": "/historial"
+      },
+      {
+        "title": "Mis Pagos",
+        "url": "/historialPagos"
       },
       /* {
         "title": "Power awards",
@@ -93,6 +98,7 @@ export class ProfileComponent implements OnInit {
           TallaZapato : [user.TallaZapato || ''],
           QuieroOfertas : [user.QuieroOfertas || false],
           ContrasenaConfirma : [user.Contrasena || ''],
+          Correo : [user.Correo || ''],
         });
         console.log(this.form);
       });

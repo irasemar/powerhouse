@@ -146,7 +146,7 @@ export class CatalogsService {
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
     //head = head.append('Authorization', `Bearer ${acc.Token}`);
-    return this.http.post<PagoForm>(`${this.config.apiEndpoint}/v1/powerhouse/VentaUsuarioPago`, Venta, { headers: head });
+    return this.http.post<RespuestaPago>(`${this.config.apiEndpoint}/v1/powerhouse/VentaUsuarioPago`, Venta, { headers: head });
   }
   getVentaCarrro() {
     const acc = this.auth.getAccount();
@@ -241,6 +241,20 @@ export class CatalogsService {
     head = head.append('Content-Type', 'application/json');
     //head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<HistoriaReserva[]>(`${this.config.apiEndpoint}/v1/powerhouse/Mi_Historia/${NPK_Usuario}`, { headers: head });
+  }
+  getMisTarjetas(NPK_Usuario) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<MisTarjetas[]>(`${this.config.apiEndpoint}/v1/powerhouse/Obtener_Tarjetas/${NPK_Usuario}`, { headers: head } );
+  }
+  getMiHistoriaPagos(NPK_Usuario) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<MisPagos[]>(`${this.config.apiEndpoint}/v1/powerhouse/Mi_HistoriaPagos/${NPK_Usuario}`, { headers: head });
   }
   
 }
@@ -400,15 +414,23 @@ export interface MesForm {
   Activo: number;
 }
 export interface PagoForm {
-  NFK_Usuario : number;
-  TipoTarjeta : string;
-  NumeroTarjeta : string;
-  ExpiraMes : string;
-  ExpiraAño : string;
-  NombreTitular : string;
-  DireccionTitular : string;
-  CorreoElectronico : string;
-  NumAutorizacion : string;
+  NPK_Tarjeta: number;
+  NFK_Usuario: number;
+  Nombre: string;
+  Numero: string;
+  CVV: string;
+  Mes: string;
+  Anio: string;
+  Ciudad : string;
+  Pais: string;
+  Estado: string;
+  CP: string;
+  Direccion: string;
+  TipoTarjeta : string,
+  CorreoElectronico: string;
+  NumAutorizacion: string
+  Monto: number
+  
 }
 
 export interface ClasesDisponiblesWeeks {
@@ -481,3 +503,35 @@ export interface HistoriaReserva {
   HoraParaCancelar: string;
   Asistencia: number;
 }
+export interface MisTarjetas {  
+  NPK_Tarjeta: number;
+  NFK_Usuario: number;
+  Nombre: string;
+  Numero: string;
+  CVV: string;
+  Mes: string;
+  Anio: string;
+  Ciudad : string;
+  Pais: string;
+  Estado: string;
+  CP: string;
+  Direccion: string;
+}
+export interface RespuestaPago {
+  Error: number;
+  Desc_Error: string;
+  Error_Code: string;
+  NumeroTransaccion: string;
+  Monto: string;
+  NumeroTarjeta: string;
+  description: string;
+  operation_date: string;
+  }
+  export interface MisPagos {
+    FechaPago: string;
+    Paquete: string;
+    MontoPago: number;
+    TipoTarjeta: string;
+    NumeroTarjeta: string;
+    NumAutorizacion: string;
+  }
