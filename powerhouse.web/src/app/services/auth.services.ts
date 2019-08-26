@@ -4,7 +4,7 @@ import { Observable, BehaviorSubject, pipe } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
 import { from } from 'rxjs/observable/from';
 import { APP_CONFIG, AppConfig } from "../app.config";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const ACCOUNT_LIST = "auth:account:list";
 const CURRENT_ACCOUNT = "auth:account:current";
@@ -26,13 +26,18 @@ export class AuthService {
         console.log(loginForm);
         return this.httpClient.post<Account>(`${this.config.apiEndpoint}/v1/auth/login`, loginForm);
     }
+    
+    
+
     loginAdmin(email: string, password: string) {
         const loginForm = {
             username : email,
             password : password,
         }
         console.log(loginForm);
-        return this.httpClient.post<Account>(`${this.config.apiEndpoint}/v1/auth/loginAdmin`, loginForm);
+        let head: HttpHeaders = new HttpHeaders();
+        head = head.append('Content-Type', 'application/json');
+        return this.httpClient.post<Account>(`${this.config.apiEndpoint}/v1/auth/loginAdmin`, loginForm, { headers: head });
     }
     getAccount() : Account{
         return JSON.parse(localStorage.getItem(CURRENT_ACCOUNT));

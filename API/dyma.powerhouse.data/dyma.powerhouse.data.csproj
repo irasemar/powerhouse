@@ -86,11 +86,15 @@
     <Compile Include="Class1.cs" />
     <Compile Include="crypto\security.cs" />
     <Compile Include="entity\AlturaAsiento.cs" />
+    <Compile Include="entity\Año.cs" />
     <Compile Include="entity\DistanciaAsiento.cs" />
     <Compile Include="entity\AlturaManubrio.cs" />
     <Compile Include="entity\DistanciaManubrio.cs" />
     <Compile Include="entity\Clase.cs" />
     <Compile Include="entity\AñoTarjeta.cs" />
+    <Compile Include="entity\Calendario.cs" />
+    <Compile Include="entity\CalendarioClase.cs" />
+    <Compile Include="entity\Semana.cs" />
     <Compile Include="entity\TipoTarjeta.cs" />
     <Compile Include="entity\Mes.cs" />
     <Compile Include="entity\InstructorRedSocial.cs" />
@@ -116,6 +120,10 @@
     <Compile Include="views\vwAlturaAsiento.cs" />
     <Compile Include="views\vwAlturaManubrio.cs" />
     <Compile Include="views\vwAñoTarjeta.cs" />
+    <Compile Include="views\vwAño.cs" />
+    <Compile Include="views\vwCalendarioClase.cs" />
+    <Compile Include="views\vwSemana.cs" />
+    <Compile Include="views\vwCalendario.cs" />
     <Compile Include="views\vwTipoTarjeta.cs" />
     <Compile Include="views\vwMes.cs" />
     <Compile Include="views\vwInstructorRedSocial.cs" />

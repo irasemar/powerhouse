@@ -12,16 +12,15 @@ export class AppComponent {
     const menu: SidenavItem[] = [];
 
      menu.push({
-      name: 'APPS',
-      position: 5,
+      name: 'POWER HOUSE',
+      position: 0,
       type: 'subheading',
       customClass: 'first-subheading'
-    });
-
+    });    
     menu.push({
       name: 'Dashboard',
       routeOrFunction: '/dashboard',
-      icon: 'dashboard',
+      icon: 'assessment',
       position: 10,
       pathMatchExact: true
     });
@@ -285,28 +284,69 @@ export class AppComponent {
       position: 13,
       routeOrFunction: 'SalonLugar',
     };
-    const NIVEL1CATALOGOS = {
-      name: 'CATALOGOS',
-      icon: 'menu',
-      position: 1,
-      subItems: [
-        ]
+    const NIVEL1CATAnios = {
+      name: 'Años',
+      position: 14,
+      routeOrFunction: 'Anios',
     };
-    menu.push({
-      name: 'CONFIGURACION',
-      icon: 'settings',
-      position: 1,
-      subItems: [NIVEL1CATGenero, NIVEL1CATAlturaAsiento, NIVEL1CATDistanciaAsiento, NIVEL1CATAlturaManubrio, NIVEL1CATTallaZapato, NIVEL1CATClase, 
-        NIVEL1CATInstructor, NIVEL1CATPaquete, NIVEL1CATPowerHouse, NIVEL1CATRedSocial, NIVEL1CATPowerHouseRedSocial, NIVEL1CATSalon, NIVEL1CATSalonLugar]
-    }/* ,
-     {
-      name: 'MANTENIMIENTO',
-      icon: 'build',
+    const NIVEL1CATSemana = {
+      name: 'Semanas',
+      position: 15,
+      routeOrFunction: 'Semana',
+    };
+    const NIVEL1CATCalendario = {
+      name: 'Calendario',
+      position: 16,
+      routeOrFunction: 'Calendario',
+    };
+    //NIVEL1CATAlturaAsiento, NIVEL1CATDistanciaAsiento, NIVEL1CATAlturaManubrio, NIVEL1CATTallaZapato,
+    menu.push(
+      {
+        name: 'CONFIGURACION',
+        icon: 'settings',
+        position: 1,
+        subItems: [NIVEL1CATGenero, NIVEL1CATClase,
+          NIVEL1CATInstructor, NIVEL1CATPaquete, NIVEL1CATPowerHouse, NIVEL1CATRedSocial, NIVEL1CATPowerHouseRedSocial,
+          NIVEL1CATAnios, NIVEL1CATSemana]
+      },
+      {
+        name: 'PROGRAMAR CLASES',
+        icon: 'insert_invitation',
+        position: 2,
+        subItems: [NIVEL1CATCalendario]
+      },
+      {
+        name: 'CONFIGURAR SALON',
+        icon: 'location_city',
+        position: 3,
+        subItems: [NIVEL1CATSalon, NIVEL1CATSalonLugar,]
+      },
+    );
+    const CATClientesPagos = {
+      name: 'Pagos',
       position: 2,
-      subItems: [NIVELMANTENIMIENTO]
-    }, */
+      routeOrFunction: 'Calendario',
+    };
+    const CATClientesConsulta = {
+      name: 'Consulta',
+      position: 1,
+      routeOrFunction: 'Usuario',
+    };
+    menu.push(
+      {
+        name: 'CLIENTES',
+        icon: 'directions_run',
+        position:5,
+        subItems: [CATClientesConsulta,CATClientesPagos]
+      }
     );
 
+    menu.push({
+      name: 'Material Icons',
+      routeOrFunction: '/icons',
+      icon: 'grade',
+      position: 75
+    });
     // Send all created Items to SidenavService
     menu.forEach(item => sidenavService.addItem(item));
   }

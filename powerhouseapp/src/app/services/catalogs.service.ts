@@ -502,6 +502,7 @@ export interface HistoriaReserva {
   PuedeCancelar: number;
   HoraParaCancelar: string;
   Asistencia: number;
+  SalonLugar: string;
 }
 export interface MisTarjetas {  
   NPK_Tarjeta: number;

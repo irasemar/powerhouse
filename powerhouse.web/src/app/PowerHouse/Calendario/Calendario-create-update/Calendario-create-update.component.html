@@ -1,0 +1,64 @@
+<div class="padding">
+  <h2 mat-dialog-title>Calendario</h2>
+  
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+  
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Año</mat-label>
+            <mat-select placeholder="Año"  formControlName="NFK_Anio" required>
+          <mat-option>Seleccione</mat-option>
+                <mat-option *ngFor="let anio of Anios" [value]="anio.NPK_Anio">
+                  {{anio.Anio}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Semana</mat-label>
+            <mat-select placeholder="Semana"  formControlName="NFK_Semana" required>
+          <mat-option>Seleccione</mat-option>
+                <mat-option *ngFor="let semana of Semanas" [value]="semana.NPK_Semana">
+                  {{semana.NumeroSemana}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="Fecha_Inicio1" formControlName="Date" required>
+            <mat-datepicker-toggle matSuffix [for]="Fecha_Inicio1"></mat-datepicker-toggle>
+            <mat-datepicker #Fecha_Inicio1></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Clase</mat-label>
+            <mat-select placeholder="Clase"  formControlName="NFK_Clase" required>
+          <mat-option>Seleccione</mat-option>
+                <mat-option *ngFor="let clase of Clases" [value]="clase.NPK_Clase">
+                  {{clase.Clase}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+  
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button *ngIf="isCreateMode()" mat-button [disabled]="!form.valid">CREAR CALENDARIO</button>
+      <button *ngIf="isUpdateMode()" mat-button [disabled]="!form.valid">ACTUALIZAR CALENDARIO</button>
+    </mat-dialog-actions>
+  </form>
+  </div>
+  

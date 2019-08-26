@@ -194,6 +194,10 @@ namespace dyma.powerhouse.data.views
         public int ReservadoHoy { get; set; }
         public int TotalAsistencia { get; set; }
         public int TotalReservasPerdidos { get; set; }
+        public int ReservasHoyRide { get; set; }
+        public int ReservasHoyTrain { get; set; }
+        public int TotalAsistenciaRide { get; set; }
+        public int TotalAsistenciaTrain { get; set; }
     }
     public class vwHistoriaReserva
     {

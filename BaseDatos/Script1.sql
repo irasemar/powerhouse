@@ -163,6 +163,9 @@ CREATE Procedure [dbo].[SP_Obtener_Saldo]
 AS
 	Declare @Saldo Int = 0
 	Declare	@ReservasHoy Int = 0
+	Declare	@ReservasHoyTrain Int = 0 --NFK_Clase = 2
+	Declare	@ReservasHoyRide Int = 0 --NFK_Clase = 1
+	--select * from Clase
 
 	Update	A Set A.Cerrado = 1
 	From	Venta A Inner Join Paquete On A.NFK_Paquete = NPK_Paquete 
@@ -183,14 +186,41 @@ AS
 				Inner Join CalendarioClase with(nolock) On ReservaClase.NFK_CalendarioClase = NPK_CalendarioClase
 				Inner Join Calendario with(nolock) On CalendarioClase.NFK_Calendario = NPK_Calendario
 	Where	NFK_Usuario = @NFK_Usuario 
-			And Convert(Datetime,Format(Getdate(),'yyyy-MM-dd')) = [Date]
+			--And Convert(Datetime,Format(Getdate(),'yyyy-MM-dd')) = [Date]
+			And [Date] + Cast(HoraInicio As Datetime) >= Getdate()
+
+	Select	@ReservasHoyRide = Count(NPK_ReservaClase) 
+	From	ReservaClase with(nolock)
+				Inner Join CalendarioClase with(nolock) On ReservaClase.NFK_CalendarioClase = NPK_CalendarioClase
+				Inner Join Calendario with(nolock) On CalendarioClase.NFK_Calendario = NPK_Calendario
+	Where	NFK_Usuario = @NFK_Usuario 
+			And [Date] + Cast(HoraInicio As Datetime) >= Getdate()
+			And Calendario.NFK_Clase = 1
+
+	Select	@ReservasHoyTrain = Count(NPK_ReservaClase) 
+	From	ReservaClase with(nolock)
+				Inner Join CalendarioClase with(nolock) On ReservaClase.NFK_CalendarioClase = NPK_CalendarioClase
+				Inner Join Calendario with(nolock) On CalendarioClase.NFK_Calendario = NPK_Calendario
+	Where	NFK_Usuario = @NFK_Usuario 
+			And [Date] + Cast(HoraInicio As Datetime) >= Getdate()
+			And Calendario.NFK_Clase = 2
 			
 	
 										
 	Select	IsNull(Sum(A.SaldoTotal),0) As SaldoTotal,
 			IsNull(Sum(A.Saldo),0) As Saldo,			
 			@ReservasHoy As ReservadoHoy,
+			@ReservasHoyRide As ReservasHoyRide,
+			@ReservasHoyTrain As ReservasHoyTrain,
 			(Select Count(NPK_ReservaClase) From ReservaClase with(nolock) Where NFK_Usuario = @NFK_Usuario And Asistencia = 1) As TotalAsistencia,
+			(	Select Count(NPK_ReservaClase) From ReservaClase with(nolock) 
+					Inner Join CalendarioClase with(nolock) On ReservaClase.NFK_CalendarioClase = NPK_CalendarioClase
+					Inner Join Calendario with(nolock) On CalendarioClase.NFK_Calendario = NPK_Calendario
+				Where NFK_Usuario = @NFK_Usuario And Asistencia = 1 And Calendario.NFK_Clase = 1) As TotalAsistenciaRide,
+			(	Select Count(NPK_ReservaClase) From ReservaClase with(nolock) 
+					Inner Join CalendarioClase with(nolock) On ReservaClase.NFK_CalendarioClase = NPK_CalendarioClase
+					Inner Join Calendario with(nolock) On CalendarioClase.NFK_Calendario = NPK_Calendario
+				Where NFK_Usuario = @NFK_Usuario And Asistencia = 1 And Calendario.NFK_Clase = 2) As TotalAsistenciaTrain,
 			0 As TotalReservasPerdidos
 	From	(
 				Select	CantidadClases - (Select Count(NPK_ReservaClase) From ReservaClase with(nolock) Where NFK_Usuario = @NFK_Usuario And NFK_Venta = NPK_Venta) As SaldoTotal,

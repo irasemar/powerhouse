@@ -9,4 +9,5 @@
         public string DescripcionClase { get; set; }
         [Required]
         public int Tiempo { get; set; }
+        public string Color { get; set; }
     }}

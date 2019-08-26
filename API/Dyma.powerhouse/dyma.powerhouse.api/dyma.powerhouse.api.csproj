@@ -208,6 +208,10 @@
     <Compile Include="Models\AlturaAsientoForm.cs" />
     <Compile Include="Models\AlturaManubrioForm.cs" />
     <Compile Include="Models\AñoTarjetaForm.cs" />
+    <Compile Include="Models\AñoForm.cs" />
+    <Compile Include="Models\CalendarioClaseForm.cs" />
+    <Compile Include="Models\SemanaForm.cs" />
+    <Compile Include="Models\CalendarioForm.cs" />
     <Compile Include="Models\TipoTarjetaForm.cs" />
     <Compile Include="Models\MesForm.cs" />
     <Compile Include="Models\InstructorRedSocialForm.cs" />

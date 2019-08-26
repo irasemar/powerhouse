@@ -38,8 +38,8 @@ namespace dyma.powerhouse.api.Controllers
         {
             var usuario = HttpContext.Current.User.Identity as ClaimsIdentity;
             var npk = 0;
-            if (usuario != null)
-                npk = int.Parse(usuario.Claims.Where(r => r.Type == ClaimTypes.Sid).FirstOrDefault().Value);
+            //if (usuario != null)
+            //    npk = int.Parse(usuario.Claims.Where(r => r.Type == ClaimTypes.Sid).FirstOrDefault().Value);
             return npk;
 
         }

@@ -303,6 +303,11 @@ namespace dyma.powerhouse.data.actions
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.UpdateInstructorFotografia(NPK_Instructor, FotografiaURL, NFK_User);
         }
+        public InstructorCatalogo UpdateInstructorFotografia2(int NPK_Instructor, string FotografiaURL, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.UpdateInstructorFotografia2(NPK_Instructor, FotografiaURL, NFK_User);
+        }
         public RedSocialCatalogo UpdateRedSocialFotografia(int NPK_RedSocial, string FotografiaURL, int NFK_User)
         {
             var repo = new CatalogRepository(ClientConnectionString);
@@ -345,7 +350,85 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.EliminarInstructorRedSocial(NPK_InstructorRedSocial);
-        }
+        }
+        public List<vwCalendario> TraerCalendarios(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            if (Activo < 2)
+                return repo.TraerCalendarios(Activo);
+            else
+                return repo.TraerCalendarios(null);
+        }
+        public CalendarioCatalogo GuardarCalendario(CalendarioCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarCalendario(datos, NFK_User);
+        }
+        public CalendarioCatalogo GuardarCalendarioActivo(long NPK_Calendario, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarCalendarioActivo(NPK_Calendario, Activo, NFK_User);
+        }
+        public List<vwAño> TraerAños(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            if (Activo < 2)
+                return repo.TraerAños(Activo);
+            else
+                return repo.TraerAños(null);
+        }
+        public AñoCatalogo GuardarAño(AñoCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarAño(datos, NFK_User);
+        }
+        public AñoCatalogo GuardarAñoActivo(long NPK_Año, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarAñoActivo(NPK_Año, Activo, NFK_User);
+        }
+        public List<vwSemana> TraerSemanas(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            if (Activo < 2)
+                return repo.TraerSemanas(Activo);
+            else
+                return repo.TraerSemanas(null);
+        }
+        public SemanaCatalogo GuardarSemana(SemanaCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarSemana(datos, NFK_User);
+        }
+        public SemanaCatalogo GuardarSemanaActivo(long NPK_Semana, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarSemanaActivo(NPK_Semana, Activo, NFK_User);
+        }
+        public List<vwCalendarioClase> TraerCalendarioClases(int NFK_Calendario)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.TraerCalendarioClases(NFK_Calendario);
+        }
+        public CalendarioClaseCatalogo GuardarCalendarioClase(CalendarioClaseCatalogo datos, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            datos.Activo = 1;
+            return repo.GuardarCalendarioClase(datos, NFK_User);
+        }
+        public CalendarioClaseCatalogo GuardarCalendarioClaseActivo(long NPK_CalendarioClase, int Activo, int NFK_User)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.GuardarCalendarioClaseActivo(NPK_CalendarioClase, Activo, NFK_User);
+        }
+        public List<vwUsuario> TraerUsuarios(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.TraerUsuarios(null);
+        }
         #endregion       
 
         #region USERS
@@ -520,6 +603,7 @@ namespace dyma.powerhouse.data.actions
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.Obtener_Tarjetas(NFK_Usuario);
         }
+
         #endregion      
     }
 }

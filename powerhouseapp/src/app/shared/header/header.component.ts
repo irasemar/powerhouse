@@ -88,5 +88,7 @@ export class HeaderComponent implements OnInit {
   displayCounter(count) {
     console.log(count);
   }
-
+  team(){
+    this.router.navigate(['/team/']);
+  }
 }

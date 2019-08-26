@@ -20,4 +20,5 @@
         public int? ModificadoPor { get; set; }
 
         public DateTime? FechaModificacion { get; set; }
+        public string Color { get; set; }
     }}

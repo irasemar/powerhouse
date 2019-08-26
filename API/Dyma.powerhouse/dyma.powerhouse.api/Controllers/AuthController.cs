@@ -17,8 +17,7 @@ using dyma.powerhouse.data.entity;
 
 namespace dyma.powerhouse.api.Controllers
 {
-    //[EnableCors(origins: "*", headers: "*",  methods: "*", SupportsCredentials = true )]//"*", "*", "GET,POST,PUT,DELETE, OPTIONS"
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors("*", "*", "GET,POST,PUT,DELETE, OPTIONS")]
     [RoutePrefix("api/v1/auth")]
     public class AuthController : BaseController
     {
@@ -45,8 +44,6 @@ namespace dyma.powerhouse.api.Controllers
                         Usuario = user.Usuario,
                         NPK_Usuario = user.NPK_Usuario,
                         Token = token,
-                        //AnioInicio = user.AnioInicio,
-                        //CantidadClasesTomadas = user.CantidadClasesTomadas
                     };
                     return Request.CreateResponse(HttpStatusCode.OK, sesion);
                 }
@@ -97,6 +94,7 @@ namespace dyma.powerhouse.api.Controllers
                     log.Error(ModelState);
                     return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
+
             }
             catch (data.exceptions.BusinessRuleValidationException ex)
             {

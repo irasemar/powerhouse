@@ -70,7 +70,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Genero"), HttpPost, ResponseType(typeof(Models.GeneroForm))]
         public HttpResponseMessage GuardarGenero(Models.GeneroForm datos)
         {
@@ -99,7 +99,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Genero/{NPK_Genero:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.GeneroForm))]
         public HttpResponseMessage UpdateActivateGenero(long NPK_Genero, int Activo)
         {
@@ -145,7 +145,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("AlturaAsiento"), HttpPost, ResponseType(typeof(Models.AlturaAsientoForm))]
         public HttpResponseMessage GuardarAlturaAsiento(Models.AlturaAsientoForm datos)
         {
@@ -174,7 +174,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("AlturaAsiento/{NPK_AlturaAsiento:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.AlturaAsientoForm))]
         public HttpResponseMessage UpdateActivateAlturaAsiento(long NPK_AlturaAsiento, int Activo)
         {
@@ -219,7 +219,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("DistanciaAsiento"), HttpPost, ResponseType(typeof(Models.DistanciaAsientoForm))]
         public HttpResponseMessage GuardarDistanciaAsiento(Models.DistanciaAsientoForm datos)
         {
@@ -248,7 +248,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("DistanciaAsiento/{NPK_DistanciaAsiento:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.DistanciaAsientoForm))]
         public HttpResponseMessage UpdateActivateDistanciaAsiento(long NPK_DistanciaAsiento, int Activo)
         {
@@ -293,7 +293,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("AlturaManubrio"), HttpPost, ResponseType(typeof(Models.AlturaManubrioForm))]
         public HttpResponseMessage GuardarAlturaManubrio(Models.AlturaManubrioForm datos)
         {
@@ -322,7 +322,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("AlturaManubrio/{NPK_AlturaManubrio:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.AlturaManubrioForm))]
         public HttpResponseMessage UpdateActivateAlturaManubrio(long NPK_AlturaManubrio, int Activo)
         {
@@ -367,7 +367,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("DistanciaManubrio"), HttpPost, ResponseType(typeof(Models.DistanciaManubrioForm))]
         public HttpResponseMessage GuardarDistanciaManubrio(Models.DistanciaManubrioForm datos)
         {
@@ -396,7 +396,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("DistanciaManubrio/{NPK_DistanciaManubrio:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.DistanciaManubrioForm))]
         public HttpResponseMessage UpdateActivateDistanciaManubrio(long NPK_DistanciaManubrio, int Activo)
         {
@@ -441,7 +441,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("TallaZapato"), HttpPost, ResponseType(typeof(Models.TallaZapatoForm))]
         public HttpResponseMessage GuardarTallaZapato(Models.TallaZapatoForm datos)
         {
@@ -470,7 +470,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("TallaZapato/{NPK_TallaZapato:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.TallaZapatoForm))]
         public HttpResponseMessage UpdateActivateTallaZapato(long NPK_TallaZapato, int Activo)
         {
@@ -515,7 +515,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Clase"), HttpPost, ResponseType(typeof(Models.ClaseForm))]
         public HttpResponseMessage GuardarClase(Models.ClaseForm datos)
         {
@@ -546,7 +546,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Clase/{NPK_Clase:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.ClaseForm))]
         public HttpResponseMessage UpdateActivateClase(long NPK_Clase, int Activo)
         {
@@ -635,7 +635,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Instructor"), HttpPost, ResponseType(typeof(Models.InstructorForm))]
         public HttpResponseMessage GuardarInstructor(Models.InstructorForm datos)
         {
@@ -672,7 +672,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Instructor/{NPK_Instructor:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.InstructorForm))]
         public HttpResponseMessage UpdateActivateInstructor(long NPK_Instructor, int Activo)
         {
@@ -716,7 +716,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Paquete"), HttpPost, ResponseType(typeof(Models.PaqueteForm))]
         public HttpResponseMessage GuardarPaquete(Models.PaqueteForm datos)
         {
@@ -748,7 +748,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Paquete/{NPK_Paquete:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.PaqueteForm))]
         public HttpResponseMessage UpdateActivatePaquete(long NPK_Paquete, int Activo)
         {
@@ -792,7 +792,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("PowerHouse"), HttpPost, ResponseType(typeof(Models.PowerHouseForm))]
         public HttpResponseMessage GuardarPowerHouse(Models.PowerHouseForm datos)
         {
@@ -824,7 +824,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("PowerHouse/{NPK_PowerHouse:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.PowerHouseForm))]
         public HttpResponseMessage UpdateActivatePowerHouse(long NPK_PowerHouse, int Activo)
         {
@@ -869,7 +869,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("RedSocial"), HttpPost, ResponseType(typeof(Models.RedSocialForm))]
         public HttpResponseMessage GuardarRedSocial(Models.RedSocialForm datos)
         {
@@ -899,7 +899,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("RedSocial/{NPK_RedSocial:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.RedSocialForm))]
         public HttpResponseMessage UpdateActivateRedSocial(long NPK_RedSocial, int Activo)
         {
@@ -920,7 +920,7 @@ namespace dyma.powerhouse.api.Controllers
                 var httpError = new HttpError(ex, true);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
-        }        [JwtAuthentication]
+        }        [AllowAnonymous]
         [Route("RedSocial/{NPK_RedSocial:int}/fileRedSocial"), HttpPost]
         public async System.Threading.Tasks.Task<HttpResponseMessage> UpdateRedSocialFotografia(int NPK_RedSocial)
         {
@@ -973,7 +973,7 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("PowerHouseRedSocial/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwPowerHouseRedSocial>))]
         public HttpResponseMessage TraerPowerHouseRedSocials(int activo)
         {
@@ -998,7 +998,7 @@ namespace dyma.powerhouse.api.Controllers
 
         
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("PowerHouseRedSocial"), HttpPost, ResponseType(typeof(Models.PowerHouseRedSocialForm))]
         public HttpResponseMessage GuardarPowerHouseRedSocial(Models.PowerHouseRedSocialForm datos)
         {
@@ -1028,7 +1028,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("PowerHouseRedSocial/{NPK_PowerHouseRedSocial:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.PowerHouseRedSocialForm))]
         public HttpResponseMessage UpdateActivatePowerHouseRedSocial(long NPK_PowerHouseRedSocial, int Activo)
         {
@@ -1073,7 +1073,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Salon"), HttpPost, ResponseType(typeof(Models.SalonForm))]
         public HttpResponseMessage GuardarSalon(Models.SalonForm datos)
         {
@@ -1102,7 +1102,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Salon/{NPK_Salon:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.SalonForm))]
         public HttpResponseMessage UpdateActivateSalon(long NPK_Salon, int Activo)
         {
@@ -1124,7 +1124,7 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("SalonLugar/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwSalonLugar>))]
         public HttpResponseMessage TraerSalonLugars(int activo)
         {
@@ -1177,7 +1177,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("SalonLugar/{NPK_SalonLugar:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.SalonLugarForm))]
         public HttpResponseMessage UpdateActivateSalonLugar(long NPK_SalonLugar, int Activo)
         {
@@ -1199,7 +1199,7 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Instructor/{NPK_Instructor:int}/filefotoInstructor"), HttpPost]
         public async System.Threading.Tasks.Task<HttpResponseMessage> UpdateInstructorFotografia(int NPK_Instructor)
         {
@@ -1253,7 +1253,61 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
+        [Route("Instructor/{NPK_Instructor:int}/filefotoInstructor2"), HttpPost]
+        public async System.Threading.Tasks.Task<HttpResponseMessage> UpdateInstructorFotografia2(int NPK_Instructor)
+        {
+            try
+            {
+                if (!Request.Content.IsMimeMultipartContent())
+                    throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+
+                var task = new Tasks(this.GetConnectionString());
+
+
+                var provider = new MultipartMemoryStreamProvider();
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                string baseUrl = string.Concat(Request.RequestUri.Scheme, "://", Request.RequestUri.Authority, HttpContext.Current.Request.ApplicationPath);
+
+                var path = HttpContext.Current.Server.MapPath(string.Format("~/Files/Instructores/{0}/", NPK_Instructor));
+                var urlPath = string.Format("/Files/Instructores/{0}/", NPK_Instructor);
+                var newFilename = "";
+                foreach (var file in provider.Contents)
+                {
+
+                    var filename = file.Headers.ContentDisposition.FileName.Replace("\"", string.Empty);
+                    if (filename.IndexOf('.') < 0)
+                        throw new data.exceptions.BusinessRuleValidationException("Invalid Request Format (Headers.ContentDisposition.FileName)");
+
+                    var extension = filename.Split('.').Last();
+                    var name = filename.Split('.').First();
+                    var buffer = await file.ReadAsByteArrayAsync();
+                    newFilename = name + Path.GetExtension(filename).ToLower();
+                    CreateDirectoryIfNotExists(path);
+                    File.WriteAllBytes(path + newFilename, buffer);
+                    break;
+                }
+
+                var urlfile = baseUrl + urlPath + newFilename;
+                var result = task.UpdateInstructorFotografia2(NPK_Instructor, urlfile, GetNpkUser());
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
         [Route("InstructorMusica/{NFK_Instructor:int}"), HttpGet, ResponseType(typeof(List<data.views.vwInstructorMusica>))]
         public HttpResponseMessage TraerInstructorMusicas(int NFK_Instructor)
         {
@@ -1298,7 +1352,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("InstructorMusica"), HttpPost, ResponseType(typeof(Models.InstructorMusicaForm))]
 
         public HttpResponseMessage GuardarInstructorMusica(Models.InstructorMusicaForm datos)
@@ -1330,7 +1384,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("InstructorMusica/{NPK_InstructorMusica:long}/Eliminar"), HttpPost, ResponseType(typeof(Models.InstructorMusicaForm))]
         public HttpResponseMessage EliminarInstructorMusica(long NPK_InstructorMusica)
         {
@@ -1351,7 +1405,7 @@ namespace dyma.powerhouse.api.Controllers
                 var httpError = new HttpError(ex, true);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
-        }        [JwtAuthentication]
+        }        [AllowAnonymous]
         [Route("InstructorMusica/{NPK_InstructorMusica:int}/filefotoInstructorMusica"), HttpPost]
         public async System.Threading.Tasks.Task<HttpResponseMessage> UpdateFotografiaInstructorMusica(int NPK_InstructorMusica)
         {
@@ -1403,7 +1457,7 @@ namespace dyma.powerhouse.api.Controllers
                 var httpError = new HttpError(ex, true);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
-        }        [JwtAuthentication]
+        }        [AllowAnonymous]
         [Route("InstructorRedSocial/{NFK_Instructor:int}"), HttpGet, ResponseType(typeof(List<data.views.vwInstructorRedSocial>))]
         public HttpResponseMessage TraerInstructorRedSocials(int NFK_Instructor)
         {
@@ -1449,7 +1503,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("InstructorRedSocial"), HttpPost, ResponseType(typeof(Models.InstructorRedSocialForm))]
         public HttpResponseMessage GuardarInstructorRedSocial(Models.InstructorRedSocialForm datos)
         {
@@ -1480,7 +1534,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("InstructorRedSocial/{NPK_InstructorRedSocial:long}/Eliminar"), HttpPost, ResponseType(typeof(Models.InstructorRedSocialForm))]
         public HttpResponseMessage EliminarInstructorRedSocial(long NPK_InstructorRedSocial)
         {
@@ -1524,7 +1578,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("AñoTarjeta"), HttpPost, ResponseType(typeof(Models.AñoTarjetaForm))]
         public HttpResponseMessage GuardarAñoTarjeta(Models.AñoTarjetaForm datos)
         {
@@ -1553,7 +1607,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("AñoTarjeta/{NPK_AñoTarjeta:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.AñoTarjetaForm))]
         public HttpResponseMessage UpdateActivateAñoTarjeta(long NPK_AñoTarjeta, int Activo)
         {
@@ -1598,7 +1652,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Mes"), HttpPost, ResponseType(typeof(Models.MesForm))]
         public HttpResponseMessage GuardarMes(Models.MesForm datos)
         {
@@ -1628,7 +1682,7 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        [JwtAuthentication]
+        [AllowAnonymous]
         [Route("Mes/{NPK_Mes:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.MesForm))]
         public HttpResponseMessage UpdateActivateMes(long NPK_Mes, int Activo)
         {
@@ -1746,5 +1800,330 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+
+        [AllowAnonymous]
+        [Route("Calendario/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwCalendario>))]
+        public HttpResponseMessage TraerCalendarios(int activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerCalendarios(activo));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("Calendario"), HttpPost, ResponseType(typeof(Models.CalendarioForm))]
+        public HttpResponseMessage GuardarCalendario(Models.CalendarioForm datos)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                var resp = new CalendarioCatalogo()
+                {
+                    NPK_Calendario = datos.NPK_Calendario,
+                    NFK_Año = datos.NFK_Anio,
+                    NFK_Semana = datos.NFK_Semana,
+                    Date = Convert.ToDateTime(datos.Date),
+                    NFK_Clase = datos.NFK_Clase
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarCalendario(resp, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("Calendario/{NPK_Calendario:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.CalendarioForm))]
+        public HttpResponseMessage UpdateActivateCalendario(long NPK_Calendario, int Activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarCalendarioActivo(NPK_Calendario, Activo, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }        [AllowAnonymous]
+        [Route("Anio/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwAño>))]
+        public HttpResponseMessage TraerAnios(int activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerAños(activo));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("Anio"), HttpPost, ResponseType(typeof(Models.AñoForm))]
+        public HttpResponseMessage GuardarAño(Models.AñoForm datos)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                var resp = new AñoCatalogo()
+                {
+                    NPK_Año = datos.NPK_Anio,
+                    Año = datos.Anio
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarAño(resp, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("Anio/{NPK_Año:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.AñoForm))]
+        public HttpResponseMessage UpdateActivateAño(long NPK_Año, int Activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarAñoActivo(NPK_Año, Activo, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }        [AllowAnonymous]
+        [Route("Semana/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwSemana>))]
+        public HttpResponseMessage TraerSemanas(int activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerSemanas(activo));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("Semana"), HttpPost, ResponseType(typeof(Models.SemanaForm))]
+        public HttpResponseMessage GuardarSemana(Models.SemanaForm datos)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                var resp = new SemanaCatalogo()
+                {
+                    NPK_Semana = datos.NPK_Semana,
+                    NFK_Año = datos.NFK_Anio,
+                    NumeroSemana = datos.NumeroSemana,
+                    FechaInicio = Convert.ToDateTime(datos.FechaInicio),
+                    FechaFin = Convert.ToDateTime(datos.FechaFin)
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarSemana(resp, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("Semana/{NPK_Semana:long}/{Activo:int}/Activar"), HttpPost, ResponseType(typeof(Models.SemanaForm))]
+        public HttpResponseMessage UpdateActivateSemana(long NPK_Semana, int Activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarSemanaActivo(NPK_Semana, Activo, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }        [AllowAnonymous]
+        [Route("CalendarioClase/{NFK_Calendario:long}"), HttpGet, ResponseType(typeof(List<data.views.vwCalendarioClase>))]
+        public HttpResponseMessage TraerCalendarioClases(int NFK_Calendario)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerCalendarioClases(NFK_Calendario));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("CalendarioClase"), HttpPost, ResponseType(typeof(Models.CalendarioClaseForm))]
+        public HttpResponseMessage GuardarCalendarioClase(Models.CalendarioClaseForm datos)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                var resp = new CalendarioClaseCatalogo()
+                {
+                    NPK_CalendarioClase = datos.NPK_CalendarioClase,
+                    NFK_Calendario = datos.NFK_Calendario,
+                    NFK_Instructor = datos.NFK_Instructor,
+                    HoraInicio = datos.HoraInicio,
+                    Duracion = datos.Duracion,
+                    Actividad = datos.Actividad
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarCalendarioClase(resp, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("CalendarioClase/{NPK_CalendarioClase:long}/Eliminar"), HttpPost, ResponseType(typeof(Models.CalendarioClaseForm))]
+        public HttpResponseMessage UpdateActivateCalendarioClase(long NPK_CalendarioClase, int Activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarCalendarioClaseActivo(NPK_CalendarioClase, Activo, this.GetNpkUser()));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }        [AllowAnonymous]
+        [Route("Usuario/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwUsuario>))]
+        public HttpResponseMessage TraerUsuarios(int activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerUsuarios(activo));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
     }
 }

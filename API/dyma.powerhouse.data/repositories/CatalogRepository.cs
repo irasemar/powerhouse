@@ -1620,6 +1620,36 @@ namespace dyma.powerhouse.data.repositories
 
             return datos;
         }
+        public InstructorCatalogo UpdateInstructorFotografia2(int NPK_Instructor, string FotografiaURL, int NFK_User)
+        {
+            InstructorCatalogo datos = new InstructorCatalogo();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        datos = connection.Get<InstructorCatalogo>(NPK_Instructor, tran);
+                        datos.FechaModificacion = DateTime.Now;
+                        datos.ModificadoPor = NFK_User;
+                        datos.Fotografia2 = FotografiaURL;
+                        connection.Update<InstructorCatalogo>(datos, tran);
+                        tran.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
         public RedSocialCatalogo UpdateRedSocialFotografia(int NPK_RedSocial, string FotografiaURL, int NFK_User)
         {
             RedSocialCatalogo datos = new RedSocialCatalogo();
@@ -2390,6 +2420,463 @@ namespace dyma.powerhouse.data.repositories
                     }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
                 return resp;
             }
+        }
+        public List<vwCalendario> TraerCalendarios(int? Activo)
+        {
+            var resp = new List<vwCalendario>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwCalendario>("Select * From vwCalendario with(nolock) Where Activo = IsNull(@Activo, Activo) order by Date", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public CalendarioCatalogo GuardarCalendario(CalendarioCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("Calendario Datos requeridos");
+
+            if (datos.NPK_Calendario == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_Calendario = connection.Insert<CalendarioCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Calendario = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<CalendarioCatalogo>(datos.NPK_Calendario, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<CalendarioCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Calendario = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public CalendarioCatalogo GuardarCalendarioActivo(long NPK_Calendario, int Activo, int NFK_User)
+        {
+            CalendarioCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<CalendarioCatalogo>(NPK_Calendario, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<CalendarioCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+        public List<vwAño> TraerAños(int? Activo)
+        {
+            var resp = new List<vwAño>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwAño>("Select * From vwAño with(nolock) Where Activo = IsNull(@Activo, Activo) order by Anio", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public AñoCatalogo GuardarAño(AñoCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("Año Datos requeridos");
+
+            if (datos.NPK_Año == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_Año = connection.Insert<AñoCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Año = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<AñoCatalogo>(datos.NPK_Año, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<AñoCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Año = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public AñoCatalogo GuardarAñoActivo(long NPK_Año, int Activo, int NFK_User)
+        {
+            AñoCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<AñoCatalogo>(NPK_Año, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<AñoCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+        public List<vwSemana> TraerSemanas(int? Activo)
+        {
+            var resp = new List<vwSemana>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwSemana>("Select * From vwSemana with(nolock) Where Activo = IsNull(@Activo, Activo) order by NumeroSemana", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public SemanaCatalogo GuardarSemana(SemanaCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("Semana Datos requeridos");
+
+            if (datos.NPK_Semana == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_Semana = connection.Insert<SemanaCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Semana = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<SemanaCatalogo>(datos.NPK_Semana, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<SemanaCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Semana = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public SemanaCatalogo GuardarSemanaActivo(long NPK_Semana, int Activo, int NFK_User)
+        {
+            SemanaCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<SemanaCatalogo>(NPK_Semana, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<SemanaCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+        public List<vwCalendarioClase> TraerCalendarioClases(int NFK_Calendario)
+        {
+            var resp = new List<vwCalendarioClase>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwCalendarioClase>("Select * From vwCalendarioClase with(nolock) Where NFK_Calendario = @NFK_Calendario order by HoraInicio", new { NFK_Calendario }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+
+        public CalendarioClaseCatalogo GuardarCalendarioClase(CalendarioClaseCatalogo datos, int NFK_User)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("CalendarioClase Datos requeridos");
+
+            if (datos.NPK_CalendarioClase == 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            datos.Activo = 1;
+                            datos.FechaCreacion = DateTime.Now;
+                            datos.CreadoPor = NFK_User;
+                            datos.NPK_CalendarioClase = connection.Insert<CalendarioClaseCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_CalendarioClase = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<CalendarioClaseCatalogo>(datos.NPK_CalendarioClase, tran);
+                            datos.FechaModificacion = DateTime.Now;
+                            datos.ModificadoPor = NFK_User;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            connection.Update<CalendarioClaseCatalogo>(datos, tran);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_CalendarioClase = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+
+        public CalendarioClaseCatalogo GuardarCalendarioClaseActivo(long NPK_CalendarioClase, int Activo, int NFK_User)
+        {
+            CalendarioClaseCatalogo datos;
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var fab = connection.Get<CalendarioClaseCatalogo>(NPK_CalendarioClase, tran);
+                        fab.FechaModificacion = DateTime.Now;
+                        fab.ModificadoPor = NFK_User;
+                        fab.Activo = Activo;
+                        connection.Update<CalendarioClaseCatalogo>(fab, tran);
+                        tran.Commit();
+                        datos = fab;
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return datos;
+        }
+        public List<vwUsuario> TraerUsuarios(int? Activo)
+        {
+            var resp = new List<vwUsuario>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwUsuario>("Select NPK_Usuario,Nombre,Apellidos,Usuario,Contrasena,Telefono,Format(FechaNacimiento,'dd/MM/yyyy') As FechaNacimiento,Genero,ContactoEmergencia,TelefonoContacto,Activo,CreadoPor,FechaCreacion,ModificadoPor,FechaModificacion,Administrador,id,Correo From Usuario with(nolock) Where IsNull(Administrador,0) = 0 order by Usuario", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
         }
     }
 }

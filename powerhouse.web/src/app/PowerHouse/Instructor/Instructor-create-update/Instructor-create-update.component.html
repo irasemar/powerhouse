@@ -96,6 +96,26 @@
             <img class="avatar-lg" [src]="imgURL" *ngIf="imgURL">
           </div>
         </div>
+        <input type="file" #fileImage2 style="display: none" (change)="onFilesAddedImage2()" multiple required/>
+        <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+          <div flex>
+            <button [disabled]="uploading || uploadSuccessful" mat-raised-button color="primary" class="add-files-btn"
+              (click)="addFilesImage2()">
+              Cargar Imagen
+            </button>
+            <mat-list>
+              <mat-list-item *ngFor="let file of filesImage2">
+        
+                <h4 mat-line>{{file.name}}</h4>
+                <mat-progress-bar *ngIf="progressAcuse" mode="determinate" [value]="progressAcuse[file.name].progress | async">
+                </mat-progress-bar>
+        
+        
+              </mat-list-item>
+            </mat-list>
+            <img class="avatar-lg" [src]="imgURL" *ngIf="imgURL">
+          </div>
+        </div>
   
     </mat-dialog-content>
     <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">

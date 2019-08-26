@@ -1,0 +1,99 @@
+/* START OF Change the font/size/color of the Slider Titles */
+/* Change Slider Titles (2em) font-size, (Garamond) family, (red) color */
+/* Title text */
+.carousel-caption h3 {
+  color:          black !important;
+  }
+  /* Description text */
+  
+  .carousel-caption p {
+    position:absolute;
+    /* left:0px; */
+    bottom:-20px;
+    background:#000;
+    color:#fff;
+    width:100%;
+    /* z-index:8; */
+    padding: 5px 10px;
+    opacity: 0.8;
+    /*overflow: hidden;
+    display: none;
+    -moz-opacity: 0.8;
+    filter:alpha(opacity=8);*/
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 200px !important;
+  }
+  .sizeImg{
+    object-fit: fill; /*this makes de image in src fit to the size of specified below*/
+    /* width: 190px !important; */
+    height: 200px !important;
+  }
+  mat-card img{
+    object-fit: fill; /*this makes de image in src fit to the size of specified below*/
+    width: 100%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+    height: 100%;
+  }
+  mat-card h5{
+    font-size: 0.8rem;
+  }
+  .alerta {
+    background-color: #d9e0e8;
+      font-size: 0.9rem;
+      padding: 10px;
+  }
+  .margin {
+    margin-right: 12px !important;
+  }
+  .amarillo {
+    background-color: #f1be01;
+    text-transform: uppercase;
+  }
+  
+  
+  .naranja{
+    background-color: #ff935a;
+   text-transform: uppercase;
+  }
+  
+  .verde{
+    background-color: #3aa442;
+   text-transform: uppercase;
+  }
+  
+  
+  .ambar{
+    background-color: #e7bb64;
+   text-transform: uppercase;
+  }
+  
+.Title {
+  width: 30%;
+  text-align: left;
+  font-weight: bold;
+}
+.Date {
+  width: 20%;
+  text-align: left;
+}
+.From {
+  width: 40%;
+  text-align: left;
+}
+.IconRead {
+  width: 10%;
+  text-align: right;
+}
+.Message {
+  text-align: left;
+}
+.Titleh1 {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+.imagephoto {
+  margin-right :8px;
+}
+  /* END OF Change the font/size/color of the Slider Titles */

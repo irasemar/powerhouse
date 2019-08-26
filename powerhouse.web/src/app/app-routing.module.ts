@@ -136,6 +136,30 @@ const routes: Routes = [
         path: 'SalonLugar',
         loadChildren: 'app/PowerHouse/SalonLugar/SalonLugar.module#SalonLugarModule',
       },
+      {
+        path: 'Anios',
+        loadChildren: 'app/PowerHouse/Anio/Anio.module#AnioModule',
+      },
+      {
+        path: 'Semana',
+        loadChildren: 'app/PowerHouse/Semana/Semana.module#SemanaModule',
+      },
+      {
+        path: 'Calendario',
+        loadChildren: 'app/PowerHouse/Calendario/Calendario.module#CalendarioModule',
+      },
+      {
+        path: 'CalendarioClase/:npk_calendario/:calendario',
+        loadChildren: 'app/PowerHouse/CalendarioClase/CalendarioClase.module#CalendarioClaseModule',
+      },
+      {
+        path: 'Usuario',
+        loadChildren: 'app/PowerHouse/Usuario/Usuario.module#UsuarioModule',
+      },
+      {
+        path: 'DetalleUsuario/:npk_usuario/:usuario',
+        loadChildren: 'app/PowerHouse/DetalleUsuario/DetalleUsuario.module#DetalleUsuarioModule',
+      },
       /* {
         path: 'ActividadMantenimiento/:npk_mantenimiento/:mantenimiento',
         loadChildren: 'app/Sit/ActividadMantenimiento/ActividadMantenimiento.module#ActividadMantenimientoModule',

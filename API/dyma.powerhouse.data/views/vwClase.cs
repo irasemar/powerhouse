@@ -8,6 +8,7 @@
         public string Clase { get; set; }
 
         public string DescripcionClase { get; set; }
+        public string Color { get; set; }
 
         public int Tiempo { get; set; }
 

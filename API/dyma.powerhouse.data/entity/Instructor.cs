@@ -33,4 +33,5 @@
 
         public DateTime? FechaModificacion { get; set; }
         public string Fotografia { get; set; }
+        public string Fotografia2 { get; set; }
     }}

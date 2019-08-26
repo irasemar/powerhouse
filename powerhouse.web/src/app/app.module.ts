@@ -22,7 +22,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MainPipe } from './pipes/main-pipe.module';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { NgxUpperCaseDirectiveModule } from 'ngx-upper-case-directive';
 import { ExcelService } from './services/excel.services';
 
