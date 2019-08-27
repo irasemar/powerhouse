@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   googleMapsApiKey: '',
-  backend: 'http://localhost:4200' // Put your backend here
+  backend: '' // Put your backend here
 };

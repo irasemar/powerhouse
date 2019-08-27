@@ -1,0 +1,34 @@
+.team-detail{
+    &.container{
+        padding-top:calculateRem(20px);
+        padding-bottom:0;
+    }
+    &__profile-name{
+        position: absolute;
+        z-index: 100;
+        color: #FFF;
+        font-size:calculateRem(90px);
+        margin-top:calculateRem(250px);
+        left:calculateRem(20px);
+    }
+    .h4{
+        font-size:calculateRem(12px);
+        font-weight: 300;
+        margin-bottom: 0;
+    }
+    .h3{
+        font-size: calculateRem(22px);
+        margin-top:0;
+    }
+    .carousel-item{
+        min-height: initial;
+    }
+    .carousel-indicators{
+        margin-left: initial;
+        margin-right: initial;
+    }
+
+    .carousel.slide{
+        width: 89%;
+    }
+}

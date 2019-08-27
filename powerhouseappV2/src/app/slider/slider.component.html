@@ -1,0 +1,16 @@
+<div class="slider">
+  <ngb-carousel *ngIf="images" [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
+    <ng-template ngbSlide *ngFor="let image of images">
+      <img [src]="image.src" alt="Random slide">
+      <div class="carousel-caption">
+        <h3>{{image.title}}</h3>
+        <!-- <p>{{image.description}}</p> -->
+        <button class="btn btn-outline-primary--orange" (click)="ReservarHiit();" *ngIf="TieneSaldo">¡Reserva! Ride</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-outline-primary--aqua" (click)="ReservarTrain();" *ngIf="TieneSaldo">¡Reserva! Train</button>
+        <button class="btn btn-outline-primary--orange" (click)="ComprarClases();" *ngIf="EstaLogeado && saldo===0">¡Compra Clases!</button>
+      </div>
+    </ng-template>
+  </ngb-carousel>
+  
+</div>
+<div>Pruebas</div>

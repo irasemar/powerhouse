@@ -1,0 +1,54 @@
+<div class="container cart">
+  <div class="row">
+    <div class="col-12">
+      <table class="table">
+      <thead>
+        <tr>
+            <th class="col-md-4">Tu carrito</th>
+            <th class="col-md-4">Precio</th>
+            <!-- <th class="col-md-3">Cantidad</th> -->
+            <th class="col-md-4">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <td class="col-md-4">
+              <div class="cart__qty">{{item.CantidadClases}}</div>
+              <div class="cart__desc"><strong>{{item.Paquete}}</strong><br><span class="cart__exp">*Expira en {{item.ExpiracionDias}} días</span></div>
+          </td>
+          <td class="col-md-4 no-wrap">
+            ${{item.PrecioVenta}} pesos
+          </td>
+          <!-- <td class="col-md-3">
+            <input type="number" [(ngModel)]="item.Cantidad" class="form-control">
+          </td> -->
+          <td class="col-md-4"> $ {{item.Cantidad * item.PrecioVenta}}</td>
+        </tr>
+        <tr>
+          <!-- <td></td> -->
+          <td></td>
+          <td class="no-wrap"><strong>Total {{totalcantidad}}</strong></td>
+          <td>$ {{total}} pesos</td>
+        </tr>
+        <tr>
+          <td>&nbsp;
+            <!-- <p><strong>¿Tiénes algún código de descuento?</strong></p>
+            <div class="form-group mt-4 mb-4 ">
+              <input type="text" class="form-control col-md-5" placeholder="Código">
+
+            </div>
+            <button class="btn btn-outline-primary--orange col-md-5">Aplicar</button> -->
+          </td>
+          <td colspan="3">
+            <p class="cart__terms"> “Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequun- tur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet consectetur adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam ali- quam quaerat voluptatem. Ut enim ad minima veniam, quis nos-</p>
+            <div class="radio">
+                <label class="orange"><input type="radio" name="optradio" checked> <strong>  Acepto términos y condiciones</strong></label>
+            </div>
+            <button class="btn d-block btn-primary" (click)="pay()">Pagar</button>
+          </td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>

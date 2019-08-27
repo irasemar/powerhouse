@@ -1,0 +1,165 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 mb-5">
+      <app-userdata></app-userdata>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <app-sidenav [active]="active" [list]="list"></app-sidenav>
+    </div>
+    <div class="col-md-1">
+      
+    </div>
+    <div class="col-md-7">
+      <h2 class="h2 orange text-center">{{title}}</h2>
+      <p>Para darte la mejor experiencia en Power House, compártenos un poco más sobre ti.</p>
+      <hr class="line--orange">
+      <form [formGroup]="form">
+        <h3 class="h3">Cumpleaños</h3>
+        <hr>
+        <div class="form-group">
+          <div class="d-inline-block">
+            <input type="text" class="form-control" formControlName="FechaNacimiento" required placeholder="yyyy-MM-dd" required />
+          </div>
+        </div>
+        <h3 class="h3">Género</h3>
+        <hr>
+        <div class="form-group">
+            <div ngbDropdown class="d-inline-block">
+              <select class="form-control" name="singleSelect" formControlName="Genero" required>
+                <option [value]="0">Seleccione</option>
+                <option *ngFor="let genero of Generos" [value]="genero.NPK_Genero" >{{genero.Genero}}</option>
+              </select>
+            </div>
+        </div>
+        <h3 class="h3">Información personal</h3>
+        <hr>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="Nombre" hidden>Nombre</label>
+            <input type="text" class="form-control" placeholder="Nombre" formControlName="Nombre" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="Apellido" hidden>Apellido</label>
+            <input type="text" class="form-control" placeholder="Apellido" formControlName="Apellidos" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="Correo" hidden>Email</label>
+            <input type="text" class="form-control" placeholder="Correo" formControlName="Correo" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="Usuario" hidden>Usuario</label>
+            <input type="text" class="form-control" placeholder="Usuario" formControlName="Usuario" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="Telefono" hidden>Telefono</label>
+            <input type="number" class="form-control" placeholder="+52" formControlName="Telefono">
+          </div>
+        </div>
+        <h3 class="h3">Cambiar contraseña</h3>
+        <hr>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="Contraseña" hidden>Contraseña</label>
+            <input type="text" class="form-control" formControlName="Contrasena">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="Confirmar" hidden>Confirmar contraseña</label>
+            <input type="text" class="form-control" formControlName="ContrasenaConfirma">
+          </div>
+        </div>
+        <h3 class="h3">Contacto de emergencia</h3>
+        <hr>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="Contacto" hidden>Contacto de emergencia</label>
+            <input type="text" class="form-control" formControlName="ContactoEmergencia">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="TelC" hidden>Telefono contacto</label>
+            <input type="number" class="form-control" formControlName="TelefonoContacto">
+          </div>
+        </div>
+        <!-- <h3 class="h3">Información de pago</h3>
+        <hr>
+        <p>************1004</p>
+        <p><a href="">Editar Información de pago <i class="fas fa-chevron-right"></i></a></p>
+        <h3 class="h3">Bike Set-Up</h3>
+        <hr>
+        <div class="form-row">
+          <div class="col-md-3">
+            <label for="" class="">Altura del asiento</label>
+          </div>
+          <div class="col-md-3 form-group">
+              <div ngbDropdown class="d-inline-block">
+                <select class="form-control" name="singleSelect" formControlName="BikeSetupAlturaAsiento">
+                  <option [value]="0">Seleccione</option>
+                  <option *ngFor="let alturaasiento of AlturaAsientos" [value]="alturaasiento.AlturaAsiento" >{{alturaasiento.AlturaAsiento}}</option>
+                </select>
+              </div>
+          </div>
+          <div class="col-md-3">
+            <label for="" class="">Distancia de asiento</label>
+          </div>
+          <div class="col-md-3 form-group">
+              <div ngbDropdown class="d-inline-block">
+                <select class="form-control" name="singleSelect" formControlName="BikeSetupDistanciaAsiento">
+                  <option [value]="0">Seleccione</option>
+                  <option *ngFor="let distanciaasiento of DistanciaAsientos" [value]="distanciaasiento.DistanciaAsiento" >{{distanciaasiento.DistanciaAsiento}}</option>
+                </select>
+              </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-3">
+            <label for="" class="">Altura de manubrio</label>
+          </div>
+          <div class="col-md-3 form-group">
+              <div ngbDropdown class="d-inline-block">
+                <select class="form-control" name="singleSelect" formControlName="BikeSetupAlturaManubrio">
+                  <option [value]="0">Seleccione</option>
+                  <option *ngFor="let altmanubrio of AlturaManubrios" [value]="altmanubrio.AlturaManubrio" >{{altmanubrio.AlturaManubrio}}</option>
+                </select>
+              </div>
+          </div>
+          <div class="col-md-3">
+            <label for="" class="">Distacia de manubrio</label>
+          </div>
+          <div class="col-md-3 form-group">
+              <div ngbDropdown class="d-inline-block">
+                <select class="form-control" name="singleSelect" formControlName="BikeSetupDistanciaManubrio">
+                  <option [value]="0">Seleccione</option>
+                  <option *ngFor="let distmanubrio of DistanciaManubrios" [value]="distmanubrio.DistanciaManubrio" >{{distmanubrio.DistanciaManubrio}}</option>
+                </select>
+              </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-3 offset-md-6">
+            <label for="" class="">Talla de zapato</label>
+          </div>
+          <div class="col-md-3 form-group">
+              <div ngbDropdown class="d-inline-block">
+                <select class="form-control" name="singleSelect" formControlName="TallaZapato">
+                  <option [value]="0">Seleccione</option>
+                  <option *ngFor="let tallazapato of TallaZapatos" [value]="tallazapato.TallaZapato" >{{tallazapato.TallaZapato}}</option>
+                </select>
+              </div>
+          </div>
+        </div>
+        <hr> -->
+        <div class="row">
+          <div class="col-md-6">
+            <a href="">Borrar cuenta</a>
+          </div>
+          <div class="col-md-6 text-right">
+            <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid">Guardar cambios</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

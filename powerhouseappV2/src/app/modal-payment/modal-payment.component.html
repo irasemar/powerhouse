@@ -1,0 +1,133 @@
+
+<div class="modal-body">
+  <h2 class="h2 orange text-center">¡Gracias por tu compra!</h2>
+  <div class="small orange text-center">Revisa tu correo para tu confirmación</div>
+  <hr clas="line--orange"> 
+  <div class="row">
+    <div class="col-md-6">
+      <strong class="orange">Resumen de la orden:</strong>
+      <ul class="cart__list mt-4 mb-4">
+        <li *ngFor="let item of items">
+          <div class="row">
+            <div class="col-md-1">
+                <div class="cart__list--qty">{{item.Cantidad}}</div>
+            </div>
+            <div class="col-md-10">
+                <p class="cart__list--desc">{{item.CantidadClases}}</p>
+                <p class="cart__list--price">${{item.PrecioVenta}} mx</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="row">
+        <div class="col-md-6"><span class="orange">Tax:</span></div>
+        <div class="col-md-6"><strong>${{tax}} mx</strong></div>
+      </div>
+      <div class="row">
+          <div class="col-md-6"><span class="orange">Total estimado:</span></div>
+          <div class="col-md-6"><strong>${{payment}} mx</strong></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="col-md-12">
+            <p class="orange">Información de pago</p>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label>Tarjeta</label>
+                <select class="form-control" name="singleSelect" formControlName="NPK_Tarjeta" required (change)="changeTarjeta($event);">
+                  <option [value]="0">Seleccione</option>
+                  <option *ngFor="let tarjeta of Tarjetas" [value]="tarjeta.NPK_Tarjeta">{{tarjeta.Nombre}} -- {{tarjeta.Numero}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row" *ngIf="TarjetaExistente">
+              <div class="form-group col-md-12">
+                <label>Numero de Tarjeta</label>
+                <input type="number" class="form-control" formControlName="Numero" maxlength="19" required>
+              </div>
+            </div>
+            <div class="form-row" *ngIf="TarjetaExistente">
+              <div class="form-group col-md-12">
+                <label>CVV</label>
+                <input type="number" class="form-control" formControlName="CVV" maxlength="2" required>
+              </div>
+            </div>
+            <div class="form-row col-md-12" *ngIf="TarjetaExistente">
+              <p class="orange">Vigencia</p>
+            </div>
+            <div class="form-row col-md-12" *ngIf="TarjetaExistente">
+              <div class="form-group col-md-7">
+                <label>Año</label>
+                <select class="form-control" name="singleSelect" formControlName="Anio" required>
+                  <option [value]="0">Seleccione</option>
+                  <option *ngFor="let anio of Anios" [value]="anio.Anio">{{anio.Anio}}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group col-md-5" *ngIf="TarjetaExistente">
+                <label>Mes</label>
+                <select class="form-control" name="singleSelect" formControlName="Mes" required>
+                  <option [value]="0">Seleccione</option>
+                  <option *ngFor="let mes of Meses" [value]="mes.MesDescripcion">{{mes.MesDescripcion}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row" *ngIf="TarjetaExistente">
+              <div class="form-group col-md-12">
+                <label>Titular</label>
+                <input type="text" class="form-control" formControlName="Nombre" required>
+              </div>
+            </div>
+            <div class="form-row" *ngIf="TarjetaExistente">
+              <div class="form-group col-md-12">
+                <label>Domicilio del Titular</label>
+                <input type="text" class="form-control" formControlName="Direccion" required>
+              </div>
+            </div>
+            <div class="form-row" *ngIf="TarjetaExistente">
+              <div class="form-group col-md-12">
+                <label>Ciudad</label>
+                <input type="text" class="form-control" formControlName="Ciudad" required>
+              </div>
+              <div class="form-group col-md-12">
+                <label>Estado</label>
+                <input type="text" class="form-control" formControlName="Estado" required>
+              </div>
+              <div class="form-group col-md-12">
+                <label>CP</label>
+                <input type="text" class="form-control" formControlName="CP" required>
+              </div>
+            </div>
+            <div class="form-row" *ngIf="TarjetaExistente">
+              <div class="form-group col-md-12">
+                <label class="orange">Correo</label>
+                <input type="text" class="form-control" formControlName="CorreoElectronico" required>
+              </div>
+            </div>
+            <!-- <p>{{payment.brand}} **** **** **** {{payment.digits}}</p>
+                  <p>Expira: {{payment.expiration}}</p>
+                  <p>{{payment.name}}</p>
+                  <p>{{payment.address}}</p>
+                  <p class="orange">Correo</p>
+                  <p>{{payment.email}}</p> -->
+          </div>
+        </div>
+    
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal-footer" *ngIf="TarjetaExistente">
+  <button type="button" class="btn btn-outline-primary--orange" (click)="cancelPay();">Cancelar</button>
+  <p *ngIf="MostrarErrorPago">{{MensageError}}</p>
+  <button type="button" class="btn btn-outline-primary--orange" (click)="closePay();" [disabled]="!form.valid">Aceptar</button>
+</div>
+<div class="modal-footer" *ngIf="!TarjetaExistente">
+  <button type="button" class="btn btn-outline-primary--orange" (click)="cancelPay();">Cancelar</button>
+  <p *ngIf="MostrarErrorPago">{{MensageError}}</p>
+  <button type="button" class="btn btn-outline-primary--orange" (click)="closePaytarjetaExistente();">Aceptar</button>
+</div>

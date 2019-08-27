@@ -17,7 +17,7 @@ using dyma.powerhouse.data.entity;
 
 namespace dyma.powerhouse.api.Controllers
 {
-    [EnableCors("*", "*", "GET,POST,PUT,DELETE, OPTIONS")]
+   [EnableCors("*", "*", "GET,POST,PUT,DELETE, OPTIONS")]
     [RoutePrefix("api/v1/auth")]
     public class AuthController : BaseController
     {
