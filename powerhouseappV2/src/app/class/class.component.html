@@ -1,10 +1,10 @@
 <ngb-alert type="custom"  class="over" [dismissible]="false" *ngIf="welcome">
     <h2 class="h2">Para reservar tu lugar, compra una clase.</h2>
 </ngb-alert>
-<div class="container" *ngIf="welcome">
+<div class="container-lugares" *ngIf="welcome">
     <div class="row mb-5">
         <div class="col-md-12 text-center">
-            <h1 class="classes__heading">Indoor Cycling</h1>
+            <h1 class="classes__heading">Ride</h1>
             
             <h2 class="classes__date mt-3 mb-3">{{class.Fecha}}</h2>
             <p class="classes__coach">Coach: <a [href]="class.NFK_Instructor">{{class.Instructor}}</a></p>
