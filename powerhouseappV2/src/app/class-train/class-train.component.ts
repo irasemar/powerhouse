@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalReservaComponent}  from '../modal-reserva/modal-reserva.component'
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { ModalMensageLoginComponent } from '../modal-mensagelogin/modal-mensagelogin.component';
 
 @Component({
   selector: 'app-class',
@@ -26,7 +27,9 @@ export class ClassTrainComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.NPK_Usuario = this.authservice.getAccount().NPK_Usuario;
+    if (String(this.authservice.getAccount()) != 'null'){
+      this.NPK_Usuario = this.authservice.getAccount().NPK_Usuario;
+    }
     this.welcome = false;
     this.NFK_Clase = parseInt(this.route.snapshot.paramMap.get("NFK_Clase"));
     this.NFK_Semana = parseInt(this.route.snapshot.paramMap.get("NFK_Semana"));
@@ -52,22 +55,26 @@ export class ClassTrainComponent implements OnInit {
     });
   }
   public select(bike:any){
-    console.log(bike);
-    const modalRef = this.modalService.open(ModalReservaComponent);
-    modalRef.componentInstance.NPK_Salon = bike.NPK_Salon;
-    modalRef.componentInstance.NPK_SalonLugar = bike.NPK_SalonLugar;
-    modalRef.componentInstance.LugarSalon = bike.LugarSalon;
-    modalRef.componentInstance.NPK_ReservaClase = bike.NPK_ReservaClase;
-    modalRef.componentInstance.NPK_CalendarioClase = this.class.NPK_CalendarioClase;
-    modalRef.componentInstance.NFK_Usuario = bike.NFK_Usuario;
-    modalRef.componentInstance.Usuario = this.authservice.getAccount().Nombre + ' ' + this.authservice.getAccount().Apellidos;
-    modalRef.componentInstance.TengoClase = this.TengoClase;
-    modalRef.result.then((result) => {      
-      if (result === 'Separado') {
-        this.llenaDatos();
-        this.router.navigate(['/proximas-clases/']);
-      }     
-    });
+    if (String(this.authservice.getAccount()) === 'null'){
+      const modalLogin = this.modalService.open(ModalMensageLoginComponent);
+    }
+    else {
+      const modalRef = this.modalService.open(ModalReservaComponent);
+      modalRef.componentInstance.NPK_Salon = bike.NPK_Salon;
+      modalRef.componentInstance.NPK_SalonLugar = bike.NPK_SalonLugar;
+      modalRef.componentInstance.LugarSalon = bike.LugarSalon;
+      modalRef.componentInstance.NPK_ReservaClase = bike.NPK_ReservaClase;
+      modalRef.componentInstance.NPK_CalendarioClase = this.class.NPK_CalendarioClase;
+      modalRef.componentInstance.NFK_Usuario = bike.NFK_Usuario;
+      modalRef.componentInstance.Usuario = this.authservice.getAccount().Nombre + ' ' + this.authservice.getAccount().Apellidos;
+      modalRef.componentInstance.TengoClase = this.TengoClase;
+      modalRef.result.then((result) => {      
+        if (result === 'Separado') {
+          this.llenaDatos();
+          this.router.navigate(['/proximas-clases/']);
+        }     
+      });
+    }
   }
 
 }

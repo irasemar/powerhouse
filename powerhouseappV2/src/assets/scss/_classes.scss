@@ -51,6 +51,8 @@
     &__avatar{
         border-radius: 50%;
         border: 1px solid #e9e9e9;
+        max-width: 50%;
+        max-height: 50%;
     }
     &__date{
         font-size:calculateRem(24px);
@@ -114,4 +116,11 @@
 
     }
 
+}
+
+.container-lugares {
+    padding-top: 6.25rem;
+    padding-bottom: 2.5rem;
+    width: 40%;;
+    margin: 0 auto;
 }

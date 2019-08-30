@@ -40,8 +40,8 @@
     &__cart-items{
         background: #FFF;
         border-radius: 50%;
-        width: calculateRem(25px);
-        height: calculateRem(25px);
+        width: calculateRem(40px);
+        height: calculateRem(40px);
         color:$midgray;
         text-align: center;
         border:1px solid $midgray;
@@ -49,7 +49,7 @@
         font-weight: 400;
         margin-right: 5px;
         display: inline-block;
-        line-height: 21px;
+        line-height: 40px;
     }
 }
 

@@ -27,6 +27,7 @@ import { CartComponent } from './cart/cart.component';
 import { ModalPaymentComponent } from './modal-payment/modal-payment.component';
 import { ModalReservaComponent } from './modal-reserva/modal-reserva.component';
 import { ModalCancelarReservaComponent } from './modal-cancelarreserva/modal-cancelarreserva.component';
+import { ModalMensageLoginComponent } from './modal-mensagelogin/modal-mensagelogin.component';
 import { InstructorsComponent } from './instructors/instructors.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
 import { TeamMusicComponent } from './team-music/team-music.component';
@@ -92,6 +93,7 @@ registerLocaleData(localemx);
     NewComponent,
     ClassTrainComponent,
     agregarventaComponent,
+    ModalMensageLoginComponent
 
   ],
   imports: [
@@ -113,7 +115,8 @@ registerLocaleData(localemx);
     LoginComponent,
     agregarventaComponent,
     ModalReservaComponent,
-    ModalCancelarReservaComponent
+    ModalCancelarReservaComponent,
+    ModalMensageLoginComponent
   ],
   providers: [
     /* { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }, */

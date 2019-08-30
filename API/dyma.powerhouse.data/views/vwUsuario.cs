@@ -147,6 +147,7 @@ namespace dyma.powerhouse.data.views
     {
         public string DiaSemana { get; set; }
         public int Dia { get; set; }
+        public string DescDia { get; set; }
         public List<vwClasesDisponibles> classes { get; set; }
     }
     public class vwClasesDisponibles

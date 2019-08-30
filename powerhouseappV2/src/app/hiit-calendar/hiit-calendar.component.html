@@ -10,13 +10,13 @@
                       <div class="card calendar__card" *ngFor="let day of week.days">
                         <div class="card-title calendar__card--title" [ngClass]="{'active': day.Reservado}">
                           <span>{{day.day}}</span>
-                          <span class="calendar__card--number"><strong>{{day.Dia}}</strong></span>
+                          <span class="calendar__card--number"><strong>{{day.DescDia}}</strong></span>
                         </div>
                           <div class="card calendar__card--child" *ngFor="let class of day.classes" (click)="Reservar(week.NFK_Semana,week.NFK_Clase,day.Dia,class.NPK_CalendarioClase);">
                               <div class="card-body">
                                 <h5 class="card-title calendar__card--child--time">{{class.HoraInicio}}</h5>
-                                <!-- <p class="card-text"><a class="calendar__card--child--instructor"[href]="'instructor/' +  class.instructorId">{{class.instructor}}</a></p>
-                                <p class="card-text calendar__card--child--duration">{{class.duration}}</p> -->
+                                <p class="card-text"><a class="calendar__card--child--instructor"[href]="'instructor/' +  class.instructorId">{{class.Instructor}}</a></p>
+                                <p class="card-text calendar__card--child--duration">{{class.Duracion}}</p>
                               </div>
                             </div>
                       </div>

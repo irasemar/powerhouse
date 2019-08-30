@@ -446,6 +446,7 @@ export interface ClasesDisponiblesWeeks {
 export interface ClasesDisponiblesDia {  
   DiaSemana : string;
   Dia: number;
+  DescDia : string;
   classes: Array<ClasesDisponibles>
 }
 export interface ClasesDisponibles {  

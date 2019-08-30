@@ -14,11 +14,13 @@
     <div class="col-md-7">
       <h2 class="h2 orange text-center">{{title}}</h2>
       <hr class="line--orange">
+      <div style="text-align: center;">
+      <button class="btn btn-outline-primary--orange" (click)="ReservarHiit();">¡Reserva Mas Clases! Ride</button>&nbsp;&nbsp;&nbsp;&nbsp;
+      <button class="btn btn-outline-primary--aqua" (click)="ReservarTrain();">¡Reserva Mas Clases! Train</button>
+      </div>
+      <hr>
       <h3 class="h1 mt-5 mb-5 text-center" *ngIf="MisPagos.length > 0">¡Nos Has Realizado {{ MisPagos.length }} Pagos!</h3>
       <h3 class="h3">Clases recientes</h3>
-      <hr>
-      <button class="btn btn-outline-primary--orange" (click)="ReservarHiit();">¡Reserva Más Clases Ride !</button>&nbsp;&nbsp;&nbsp;&nbsp;
-      <button class="btn btn-outline-primary--aqua" (click)="ReservarTrain();">¡Reserva Más Clases Train !</button>
       <hr>
       <ul class="line-list" *ngIf="MisPagos.length > 0">
         <li class="line-list__item" *ngFor="let pago of MisPagos">

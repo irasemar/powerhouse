@@ -10,8 +10,9 @@
         margin-right: 0 !important;
         border-left:0 !important;
         border:0;
+        background-color: #fafafa;
         &--title{
-            background: #e9e9e9;
+            background: #fafafa;
             text-align: center;
             margin-bottom: 0;
             padding:calculateRem(20px) calculateRem(15px);
@@ -33,7 +34,9 @@
             border-bottom:0;
             margin-left:0 !important;
             margin-right: 0 !important;
-            border: 10px solid #e9e9e9;
+            border: 10px solid #fafafa;
+            min-height: 150px;
+            max-height: 150px;
             &--duration{
                 text-transform: uppercase;
                 font-weight: 600;

@@ -26,13 +26,13 @@ export class HiitCalendarComponent implements OnInit {
         });
   }
   Reservar(NFK_Semana, NFK_Clase, Dia, NPK_CalendarioClase) {
-    this.catalog.getMiSaldo(this.authservice.getAccount().NPK_Usuario).subscribe(saldo =>{
+    /* this.catalog.getMiSaldo(this.authservice.getAccount().NPK_Usuario).subscribe(saldo =>{
       this.Saldo = saldo;
       if (this.Saldo[0].Saldo > 0 || this.Saldo[0].ReservadoHoy > 0) {
         this.router.navigate(['/train/' + NFK_Semana + '/' + NFK_Clase + '/' + Dia + '/' + NPK_CalendarioClase]);
       }
-    });
-    
+    }); */
+    this.router.navigate(['/train/' + NFK_Semana + '/' + NFK_Clase + '/' + Dia + '/' + NPK_CalendarioClase]);
   }
 
 

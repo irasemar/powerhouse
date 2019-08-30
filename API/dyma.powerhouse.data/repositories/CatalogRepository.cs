@@ -931,7 +931,7 @@ namespace dyma.powerhouse.data.repositories
                 try
                 {
                     connection.Open();
-                    resp = connection.Query<vwPaquete>("Select * From vwPaquete with(nolock) Where Activo = IsNull(@Activo, Activo) order by Paquete", new { Activo }).ToList();
+                    resp = connection.Query<vwPaquete>("Select * From vwPaquete with(nolock) Where Activo = IsNull(@Activo, Activo) order by CantidadClases", new { Activo }).ToList();
                 }
                 catch (Exception ex)
                 {
@@ -2301,13 +2301,13 @@ namespace dyma.powerhouse.data.repositories
                                 Where   b.NFK_Semana = @NFK_Semana
                                         And b.Dia = @Dia
                                         And b.NFK_Clase = @NFK_Clase
-                                Order by [Date]";
+                                Order by [Date],b.HoraInicio";
                 semanas = connection.Query<vwClasesDisponiblesWeeks>("Select	Distinct a.NumeroSemana,a.NFK_Semana, a.Anio, a.NFK_Clase From vwClasesDisponiblesWeeks a WITH (NOLOCK) Where a.NFK_Clase = @NFK_Clase Order by a.Anio,a.NumeroSemana", new { NFK_Clase }).ToList();
 
                 foreach (vwClasesDisponiblesWeeks week in semanas)
                 {
                     var diassemana = new List<vwClasesDisponiblesDia>();
-                    diassemana = connection.Query<vwClasesDisponiblesDia>("select Distinct b.DiaSemana,b.Dia from vwClasesDisponibles b WITH (NOLOCK) Where b.NFK_Semana = @NFK_Semana And b.NFK_Clase = @NFK_Clase Order by b.Dia", new { week.NFK_Semana, NFK_Clase }).ToList();
+                    diassemana = connection.Query<vwClasesDisponiblesDia>("select Distinct b.DiaSemana,b.Dia, b.DescDia,b.Date from vwClasesDisponibles b WITH (NOLOCK) Where b.NFK_Semana = @NFK_Semana And b.NFK_Clase = @NFK_Clase Order by b.Date", new { week.NFK_Semana, NFK_Clase }).ToList();
                     foreach (vwClasesDisponiblesDia dia in diassemana)
                     {
                         var clases = new List<vwClasesDisponibles>();

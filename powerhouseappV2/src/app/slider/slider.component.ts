@@ -39,16 +39,19 @@ export class SliderComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.auth.getAccount().NPK_Usuario > 0){
+    console.log(String(this.auth.getAccount()) != 'null');
+    if (String(this.auth.getAccount()) != 'null'){
       this.EstaLogeado = true;
     }
-    this.catalog.getMiSaldo(this.auth.getAccount().NPK_Usuario).subscribe(saldo =>{
-      this.Saldo = saldo;
-      if (this.Saldo[0].Saldo > 0){
-        this.saldo = this.Saldo[0].Saldo;
-        this.TieneSaldo = true;
-      }
-    });
+    if (this.EstaLogeado) {
+      this.catalog.getMiSaldo(this.auth.getAccount().NPK_Usuario).subscribe(saldo =>{
+        this.Saldo = saldo;
+        if (this.Saldo[0].Saldo > 0){
+          this.saldo = this.Saldo[0].Saldo;
+          this.TieneSaldo = true;
+        }
+      });
+    }
   }
   ReservarHiit() {
     this.router.navigate(['/indoor-calendar/']);

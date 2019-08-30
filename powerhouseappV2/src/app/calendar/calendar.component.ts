@@ -4,6 +4,8 @@ import { CatalogsService,ClasesDisponibles,ClasesDisponiblesWeeks,Saldo } from "
 import { AuthService } from "../services/auth.services";
 import { Router } from '@angular/router';
 
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -14,7 +16,8 @@ export class CalendarComponent implements OnInit {
   showNavigationArrows: boolean = true;
   showNavigationIndicators: boolean = true;
 
-  constructor(config: NgbCarouselConfig, private catalog: CatalogsService, private authservice: AuthService, private router: Router ) {
+  constructor(config: NgbCarouselConfig, private catalog: CatalogsService, private authservice: AuthService, private router: Router,
+     ) {
     config.showNavigationArrows = true;
     config.showNavigationIndicators = true;
   }
@@ -26,12 +29,13 @@ export class CalendarComponent implements OnInit {
     });
   } 
   Reservar(NFK_Semana, NFK_Clase, Dia, NPK_CalendarioClase) {
-    this.catalog.getMiSaldo(this.authservice.getAccount().NPK_Usuario).subscribe(saldo =>{
+    /* this.catalog.getMiSaldo(this.authservice.getAccount().NPK_Usuario).subscribe(saldo =>{
       this.Saldo = saldo;
       if (this.Saldo[0].Saldo > 0 || this.Saldo[0].ReservadoHoy > 0) {
         this.router.navigate(['/clase/' + NFK_Semana + '/' + NFK_Clase + '/' + Dia + '/' + NPK_CalendarioClase]);
       }
-    });
+    }); */
+    this.router.navigate(['/clase/' + NFK_Semana + '/' + NFK_Clase + '/' + Dia + '/' + NPK_CalendarioClase]);
     
   }
 }
