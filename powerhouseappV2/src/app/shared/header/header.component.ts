@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from '../../login/login.component';
+import { CambiarcontrasenaComponent } from '../../cambiarcontrasena/cambiarcontrasena.component';
 import { AuthService, Usuario,} from '../../services/auth.services';
 import { Router } from '@angular/router';
 import { CatalogsService,VentaCarro,Saldo } from "../../services/catalogs.service";
@@ -69,6 +70,19 @@ export class HeaderComponent implements OnInit {
       this.logged = false;
     });
     setTimeout(() => this.welcome = false, 5000);
+  }
+  cambiarcontrasena(){
+    this.session = this.auth.getAccount();
+    if (this.session) {
+      if(this.session.NPK_Usuario > 0) {
+        this.modalService.open(CambiarcontrasenaComponent).result.then((result) => {
+          console.log(result);
+        }, (reason) => {
+          this.LoginResult = 'Invalid';
+          this.logged = false;
+        });
+      }
+    }
   }
   logOut() {
     this.auth.logout();

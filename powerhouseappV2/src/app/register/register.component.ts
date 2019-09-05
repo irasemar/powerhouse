@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
       }
       else {
         this.authservice.letRegistro(this.nuevoregistro).subscribe(resp => {
-          this.router.navigateByUrl('perfil');
+          this.router.navigate(['/home/']);
         });
       }
     });

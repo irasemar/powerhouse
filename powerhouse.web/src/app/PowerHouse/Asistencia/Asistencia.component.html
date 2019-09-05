@@ -1,0 +1,37 @@
+<div class="dashboard padding" fxLayout="column">
+    <div fxFlex="100" class="alerta">Reservas</div>
+   
+      
+      <div fxFlex="100" class="table-container route-animations-elements" furyScrollbar>
+        <table class="table" [class.table-hover]="tableHover" [class.table-striped]="tableStriped"
+          [class.table-condensed]="tableCondensed" [class.table-bordered]="tableBordered">
+          <thead>
+            <tr>
+              <th>SALON</th>
+              <th>LUGAR</th>
+              <th>CLIENTE</th>
+              <th>ASISTENCIA</th>
+              <th>REGISTRAR ASISTENCIA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of Reservas">
+              <td>{{ row.Salon }}</td>
+              <td>{{ row.SalonLugar }}</td>
+              <td>{{ row.Cliente }}</td>
+              <td>
+                  <span>
+                      <mat-icon *ngIf="row.Asistencia == 0" color="warn">highlight_off</mat-icon>
+                      <mat-icon *ngIf="row.Asistencia == 1" color="accent">beenhere</mat-icon></span>
+              </td>
+              <td><button mat-button (click)="RegistrarAsistencia(row)">Registrar Asistencia</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+   
+ 
+ 
+ 
+</div>
+

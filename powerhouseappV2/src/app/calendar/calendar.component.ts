@@ -26,6 +26,7 @@ export class CalendarComponent implements OnInit {
     //Arreglo semanas
     this.catalog.getClasesDisponibles(1).subscribe(clases =>{
       this.ClasesWeeks = clases;
+      console.log(this.ClasesWeeks);
     });
   } 
   Reservar(NFK_Semana, NFK_Clase, Dia, NPK_CalendarioClase) {

@@ -1,6 +1,6 @@
-﻿using System;using Dapper.Contrib.Extensions;namespace dyma.sit.data.views{
-    [Table("vwUsuario")]
-    public class vwUsuario
+﻿using System;using Dapper.Contrib.Extensions;namespace dyma.powerhouse.data.entity{
+    [Table("Usuario")]
+    public class UsuarioCatalogo
     {
         [Key]
         public long NPK_Usuario { get; set; }

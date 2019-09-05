@@ -235,6 +235,13 @@ export class CatalogsService {
     //head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<HistoriaReserva[]>(`${this.config.apiEndpoint}/v1/powerhouse/Mis_Reservas/${NPK_Usuario}`, { headers: head });
   }
+  getMisReservas_Clase(NPK_Usuario, NPK_CalendarioClase) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<HistoriaReserva[]>(`${this.config.apiEndpoint}/v1/powerhouse/Mis_Reservas_Clase/${NPK_Usuario}/${NPK_CalendarioClase}`, { headers: head });
+  }
   getMiHistoria(NPK_Usuario) {
     //const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
@@ -307,11 +314,13 @@ export interface InstructorForm {
   Frase: string;
   DescripcionSuClase: string;
   Activo: number;
+  TipoInstructor: string;
 }
 export interface InstructorView extends InstructorForm {
   Fotografia: string;
   name: string;
   image: string;
+  image2: string;
 }
 export interface PaqueteForm {
   NPK_Paquete: number;
@@ -537,3 +546,9 @@ export interface RespuestaPago {
     NumeroTarjeta: string;
     NumAutorizacion: string;
   }
+  export interface RespuestaView {
+    NPK_Respuesta: number;
+    Respuesta: string;
+    DescError: string;
+    Error: number;
+    }

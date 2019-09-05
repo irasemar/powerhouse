@@ -19,6 +19,9 @@ import { AuthService } from "../../services/auth.services";
 import { NgbModule,NgbCarouselConfig, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { APP_CONFIG, AppConfig } from "../../app.config";
+import { CatalogsService, Saldo, MisPagos, ReservasPWHHoyView, ReservaDashboardView } from '../../services/catalogs.service';
+import { AsistenciaComponent } from '../../../app/PowerHouse/Asistencia/Asistencia.component'
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'fury-dashboard',
@@ -28,14 +31,24 @@ import { APP_CONFIG, AppConfig } from "../../app.config";
 })
 export class DashboardComponent implements OnInit {
   
-  MiDashboardMantenimiento = [];
-  DashboardMantenimiento = [];
-  MiDashboardFalla = [];
-  DashboardFalla = [];
+  tableHover = true;
+	tableStriped = true;
+	tableCondensed = true;
+	tableBordered = true;
+	Saldo : Saldo[];
+  MisPagos : MisPagos[];
+  MisPagosHoy : MisPagos[];
+  ReservasHoy : ReservasPWHHoyView[];
+  ReservasAPartirHoy: ReservasPWHHoyView[];
+  ReservasDashboard: ReservaDashboardView[];
+	
+  CantPagos : number = 0;
+  CantPagosHoy: number = 0;
   constructor(
     private router: Router,
-    public auth: AuthService,
+    public auth: AuthService, private catalog: CatalogsService,
     config: NgbCarouselConfig, private _http: HttpClient, 
+    private dialog: MatDialog,
     @Inject(APP_CONFIG) private configimages: AppConfig,
     ) {
     /**
@@ -66,4 +79,52 @@ export class DashboardComponent implements OnInit {
     else
       this.router.navigate(['/dashboard']);
   }  
+  ngAfterViewInit() {
+    setTimeout(() => {
+      /* this.catalog.getMiSaldo(this.npk_usuario).subscribe(saldo => {
+        this.Saldo = saldo;
+        this.SaldoClases = this.Saldo[0].Saldo;
+        this.ReservasHoyRide = this.Saldo[0].ReservasHoyRide;
+        this.ReservasHoyTrain = this.Saldo[0].ReservasHoyTrain;
+        this.TotalAsistenciaRide = this.Saldo[0].TotalAsistenciaRide;
+        this.TotalAsistenciaTrain = this.Saldo[0].TotalAsistenciaTrain;
+      }); */
+      this.catalog.getMiHistoriaPagos_PWH().subscribe(pagos => {
+        this.MisPagos = pagos;
+        this.CantPagos = this.MisPagos.length;
+      });
+      this.catalog.getMiHistoriaPagos_PWHHOY().subscribe(pagos => {
+        this.MisPagosHoy = pagos;
+        this.CantPagosHoy = this.MisPagosHoy.length;
+      });
+      this.catalog.getReservasPWHHoy().subscribe(reservas => {
+        this.ReservasHoy = reservas;
+      });
+      this.catalog.getReservasPWHApartirHoy().subscribe(reservas => {
+        this.ReservasAPartirHoy = reservas;
+      });
+      this.catalog.getReservasDashBoard().subscribe(reservas => {
+        this.ReservasDashboard = reservas;
+      });
+      
+      
+      /* this.catalog.getMiHistoria(this.npk_usuario).subscribe(clases => {
+        this.HistoriaClases = clases;
+        this.CantClasesTomadas = this.HistoriaClases.length;
+      });
+      this.catalog.getMisReservas(this.npk_usuario).subscribe(reservas => {
+        this.Reservas = reservas;
+        this.CantClasesReservadas = this.Reservas.length;
+      }); */
+    });
+  }
+  verDetalle(CalendarioClase){
+    console.log(CalendarioClase);
+    this.dialog.open(AsistenciaComponent, {
+			data: CalendarioClase,height: "500px",width: "800px",}).afterClosed().subscribe((genero) => {			
+		});
+  }
+  col(colAmount: number) {
+    return `1 1 calc(${100 / colAmount}% - ${this._gap - (this._gap / colAmount)}px)`;
+  }
 }

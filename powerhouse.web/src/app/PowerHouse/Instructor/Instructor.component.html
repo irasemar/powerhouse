@@ -51,11 +51,8 @@
             <button type="button" mat-icon-button [matMenuTriggerFor]="actionsMenu" (click)="$event.stopPropagation()">
               <mat-icon>more_horiz</mat-icon>
             </button>
-
             <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">
-              <button (click)="updateInstructor(row)" mat-menu-item>
-                <span>Actualizar</span>
-              </button>
+              <button (click)="updateInstructor(row)" mat-menu-item><span>Actualizar</span></button>
               <button *ngIf="row.Activo == 0" (click)="activateInstructor(row,1)" mat-menu-item><span>Activar</span></button>
               <button *ngIf="row.Activo == 1" (click)="activateInstructor(row,0)" mat-menu-item><span>DesActivar</span></button>
               <button (click)="verMusica(row)" mat-menu-item><span>Musica</span></button>

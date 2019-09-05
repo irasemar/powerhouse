@@ -1,0 +1,34 @@
+<div class="container mid-margin">
+  <div class="col-md-12">
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      <h2 class="h2 orange text-center">Cambiar Contraseña</h2>
+      <hr class="line--orange" >
+      <div [formGroup]="form" *ngIf="!validchangepass">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Contraseña actual:</label>
+          <input type="email" class="form-control" formControlName="passwordantes" placeholder="Contraseña actual" aria-describedby="emailHelp" required>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Contraseña nueva</label>
+          <input type="password" class="form-control" formControlName="password" placeholder="Contraseña nueva" required>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Confirmar contraseña nueva</label>
+          <input type="password" class="form-control" formControlName="confirmarpassword" placeholder="Confirmar contraseña nueva" required>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-gray" (click)="salir();">Cancelar</button>
+          <button type="submit" class="btn btn-gray" (click)="enviarcontrasena();" [disabled]="!form.valid">Cambiar contraseña</button>
+        </div>
+        <div class="alert alert-primary" role="alert" *ngIf="validLogin">
+          {{ errorDesc }}
+        </div>
+      </div>
+      <div class="alert alert-primary" role="alert" *ngIf="validchangepass">
+        <p>{{ errorDesc }}</p>
+        <button type="submit" class="btn btn-gray" (click)="salir();">Salir</button>
+      </div>
+  </div>
+</div>

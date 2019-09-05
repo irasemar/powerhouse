@@ -1,17 +1,44 @@
 
 <div class="modal-body">
   <h2 class="h2 orange text-center">{{ Usuario }}</h2>
-  <h2 class="h2 orange text-center" *ngIf="TengoClase > 0">¿Quieres cambiar de lugar?</h2>
-  <hr clas="line--orange"> 
+  <h2 class="h2 orange text-center" *ngIf="TengoClase > 0">¡Tienes Reservas en esta Clase!</h2>
+  <hr clas="line--orange">
+  <ul class="line-list">
+    <li class="line-list__item" *ngFor="let clase of Reservas">
+      <table width="100%">
+        <tr>
+  
+          <td width="60%">
+            <h4 class="h4">{{ clase.Fecha }}</h4>
+            <p>{{ clase.Clase }} por <a href="#">{{ clase.Instructor }}</a> Lugar: {{ clase.SalonLugar }}</p>
+          </td>
+          <td width="40%" style="text-align:center" *ngIf="clase.PuedeCancelar === 1">
+            <button class="btn btn-outline-primary--orange" (click)="CancelarReserva(clase);">Cancelar</button>
+          </td>
+          <td width="40%" style="text-align:center" *ngIf="clase.PuedeCancelar === 0">
+            &nbsp;
+          </td>
+          <!-- <td style="text-align: right;align-content: right;vertical-align: middle;">  
+            <button class="btn btn-outline-primary--{{clase.Color}}" (click)="CambiarLugarReserva(clase);" >Cambiar Lugar</button>
+            </td> -->
+        </tr>
+      </table>
+    </li>
+  </ul>
+  <div class="row">
+  <hr clas="line--orange">
+  </div>
+  <hr clas="line--orange">  
   <div class="row">
     <div class="col-md-6">
       <strong class="orange">Lugar: {{ LugarSalon }}</strong>
     </div>
-    <div class="col-md-6">      
+    <div class="col-md-6">  
+        <button type="button" class="btn btn-outline-primary--orange" (click)="reservar();" ng-disabled="disabled" >Reservar</button>    
     </div>
   </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-primary--orange" (click)="reservar();" >Reservar</button>
-  <button type="button" class="btn btn-outline-primary--orange" (click)="cancelar();" >Cancelar</button>
+  
+  <button type="button" class="btn btn-outline-primary--orange" (click)="cancelar();" >Salir</button>
 </div>

@@ -19,6 +19,20 @@
       <div>
         <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
           <mat-form-field fxFlex>
+            <mat-label>Instructor 2</mat-label>
+            <mat-select placeholder="Instructor"  formControlName="NFK_InstructorAdjunto">
+          <mat-option>Seleccione</mat-option>
+                <mat-option *ngFor="let instructor of Instructors" [value]="instructor.NPK_Instructor">
+                  {{instructor.Nombre + ' ' + instructor.Apellidos}}  
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
             <mat-label>Hora Inicio</mat-label>
             <!-- <input type="text" formControlName="HoraInicio" matInput required > -->
             <input matInput placeholder="HH:mm" aria-label="24hr format" formControlName="HoraInicio" [ngxTimepicker]="fullTime"

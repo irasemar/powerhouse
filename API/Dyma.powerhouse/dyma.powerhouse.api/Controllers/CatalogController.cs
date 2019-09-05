@@ -653,7 +653,8 @@ namespace dyma.powerhouse.api.Controllers
                     AnimalFavorito = datos.AnimalFavorito,
                     PeliculaFavorito = datos.PeliculaFavorito,
                     Frase = datos.Frase,
-                    DescripcionSuClase = datos.DescripcionSuClase
+                    DescripcionSuClase = datos.DescripcionSuClase,
+                    TipoInstructor = datos.TipoInstructor,
                 };
 
                 return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarInstructor(resp, this.GetNpkUser()));
@@ -2061,6 +2062,7 @@ namespace dyma.powerhouse.api.Controllers
                     NPK_CalendarioClase = datos.NPK_CalendarioClase,
                     NFK_Calendario = datos.NFK_Calendario,
                     NFK_Instructor = datos.NFK_Instructor,
+                    NFK_InstructorAdjunto = datos.NFK_InstructorAdjunto,
                     HoraInicio = datos.HoraInicio,
                     Duracion = datos.Duracion,
                     Actividad = datos.Actividad

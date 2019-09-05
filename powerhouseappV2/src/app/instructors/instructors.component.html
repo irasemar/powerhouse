@@ -15,7 +15,9 @@
         <a [routerLink]="['/team-detail', instructor.NPK_Instructor]" >
           <img class="card-img-top" [src]="instructor.image" alt="{{instructor.name}}">
           <h5 class="card-title instructors__card--title">{{instructor.name}}</h5>
+          <p class="card-title2 instructors__card--title2">{{instructor.TipoInstructor}}</p>
         </a>
+        
       </div>
     </div>
   </div>

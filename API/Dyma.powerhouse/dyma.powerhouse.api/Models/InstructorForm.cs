@@ -21,4 +21,6 @@
         public string Frase { get; set; }
         [Required]
         public string DescripcionSuClase { get; set; }
+        [Required]
+        public string TipoInstructor { get; set; }
     }}

@@ -1,85 +1,169 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>  
-
-
-  <!-- FIRST ROW -->
-  <!-- <div fxFlex="noshrink" fxLayout="column" [fxLayoutGap]="gap"
-       fxLayout.gt-lg="row">
-    <div fxLayout="column" [fxLayoutGap]="gap" [fxFlex]="col(2)"
-         fxLayout.gt-sm="row">
-
-      <div furyAspectRatio="2:1" furyAspectRatio.sm="3:1"
-           fxFlex="auto" [fxFlex.gt-sm]="col(4)">
-        <fury-bar-chart-widget furyAspectRatioContent class="widget route-animations-elements"
-                               [data]="salesData$ | async"
-                               [options]="totalSalesOptions"></fury-bar-chart-widget>
+<mat-tab-group>
+   <mat-tab label="Clases de Hoy">
+      <h1>Estatus de clases para hoy</h1>
+      <div class="padding">
+         <div fxLayout="row wrap">
+            <mat-card *ngFor="let row of ReservasHoy" [style.background]="row.Color === 'orange' ? '#f04c22':'#1dcbce'">
+               <mat-card-header>
+                  <img mat-card-avatar src="{{ row.Fotografia }}">
+                  <mat-card-subtitle>{{row.Instructor}}</mat-card-subtitle>
+                  <mat-card-title>{{row.Clase}}</mat-card-title>
+               </mat-card-header>
+               <mat-card-content>
+                  <p>{{row.Fecha}}</p>
+               </mat-card-content>
+               <mat-divider></mat-divider>
+               <p>Cant Lugares: {{row.CantLugares}}, Reservados: {{row.CantLugaresSeparados}}, Asistencia:
+                  {{row.CantLugaresAsistencia}}</p>
+               <mat-card-actions>
+                  <div fxLayout="row">
+                     <button mat-icon-button (click)="verDetalle(row)">
+                        <mat-icon>check_box</mat-icon>
+                     </button>
+                  </div>
+               </mat-card-actions>
+            </mat-card>
+         </div>
       </div>
-
-      <div furyAspectRatio="2:1" furyAspectRatio.sm="3:1"
-           fxFlex="auto" [fxFlex.gt-sm]="col(4)">
-        <fury-line-chart-widget furyAspectRatioContent class="widget route-animations-elements"
-                                [data]="visitsData$ | async"
-                                [options]="totalVisitsOptions"></fury-line-chart-widget>
+   </mat-tab>
+   <mat-tab label="Clases a partir de Hoy">
+      <h1>Estatus de clases apartir de hoy</h1>
+      <div class="padding">
+         <div fxLayout="row wrap">
+            <mat-card *ngFor="let row of ReservasAPartirHoy" [style.background]="row.Color === 'orange' ? '#f04c22':'#1dcbce'">
+               <mat-card-header>
+                  <img mat-card-avatar src="{{ row.Fotografia }}">
+                  <mat-card-subtitle>{{row.Instructor}}</mat-card-subtitle>
+                  <mat-card-title>{{row.Clase}}</mat-card-title>
+               </mat-card-header>
+               <mat-card-content>
+                  <p>{{row.Fecha}}</p>
+               </mat-card-content>
+               <mat-divider></mat-divider>
+               <p>Cant Lugares: {{row.CantLugares}}, Reservados: {{row.CantLugaresSeparados}}, Asistencia:
+                  {{row.CantLugaresAsistencia}}</p>
+               <mat-card-actions>
+                  <div fxLayout="row">
+                     <button mat-icon-button (click)="verDetalle(row)">
+                        <mat-icon>check_box</mat-icon>
+                     </button>
+                  </div>
+               </mat-card-actions>
+            </mat-card>
+         </div>
       </div>
-
-    </div>
-
-    <div fxLayout="column" [fxLayoutGap]="gap" [fxFlex]="col(2)"
-         fxLayout.gt-sm="row">
-
-      <div furyAspectRatio="2:1" furyAspectRatio.sm="3:1"
-           fxFlex="auto" [fxFlex.gt-sm]="col(4)">
-        <fury-line-chart-widget class="route-animations-elements" furyAspectRatioContent [data]="clicksData$ | async"
-                                [options]="totalClicksOptions"></fury-line-chart-widget>
+   </mat-tab>
+   <mat-tab label="Pagos de Hoy">
+      <h1>Pagos Realizados el Dia de Hoy</h1>
+      <div fxFlex="100" class="padding">
+         <div fxFlex="100" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1"
+            furyAspectRatio.sm="1.5:1" fxFlex="column">
+            <div fxFlex="100" class="alerta">Pagos de HOY Has Recibido {{ CantPagosHoy }}</div>
+            <div fxFlex="100" class="table-container route-animations-elements" furyScrollbar>
+               <table class="table" [class.table-hover]="tableHover" [class.table-striped]="tableStriped"
+                  [class.table-condensed]="tableCondensed" [class.table-bordered]="tableBordered">
+                  <thead>
+                     <tr>
+                        <th>CLIENTE</th>
+                        <th>FECHA PAGO</th>
+                        <th>MONTO</th>
+                        <th>TARJETA</th>
+                        <th>TIPO DE TARJETA</th>
+                        <th>NUM. AUTORIZACION</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let row of MisPagosHoy">
+                        <td>{{ row.Cliente}}</td>
+                        <td>{{ row.FechaPago}}</td>
+                        <td>{{ row.MontoPago }}</td>
+                        <td>{{ row.NumeroTarjeta }}</td>
+                        <td>{{ row.TipoTarjeta }}</td>
+                        <td>{{ row.NumAutorizacion }}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
       </div>
-
-      <div furyAspectRatio="2:1" furyAspectRatio.sm="3:1"
-           fxFlex="auto" [fxFlex.gt-sm]="col(4)">
-        <fury-line-chart-widget class="route-animations-elements" furyAspectRatioContent
-                                [data]="conversionsData$ | async"
-                                [options]="conversionsOptions"></fury-line-chart-widget>
+   </mat-tab>
+   <mat-tab label="Pagos Ultimos 30 dias">
+      <h1>Pagos de los ultimos 30 dias</h1>
+      <div fxFlex="100" class="padding">
+         <div fxFlex="100" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1"
+            furyAspectRatio.sm="1.5:1" fxFlex="column">
+            <div fxFlex="100" class="alerta">Historia Pagos Has Recibido {{ CantPagos }} Pagos en los utlimos 30 Dias
+            </div>
+            <div fxFlex="100" class="table-container route-animations-elements" furyScrollbar>
+               <table class="table" [class.table-hover]="tableHover" [class.table-striped]="tableStriped"
+                  [class.table-condensed]="tableCondensed" [class.table-bordered]="tableBordered">
+                  <thead>
+                     <tr>
+                        <th>CLIENTE</th>
+                        <th>FECHA PAGO</th>
+                        <th>MONTO</th>
+                        <th>TARJETA</th>
+                        <th>TIPO DE TARJETA</th>
+                        <th>NUM. AUTORIZACION</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let row of MisPagos">
+                        <td>{{ row.Cliente}}</td>
+                        <td>{{ row.FechaPago}}</td>
+                        <td>{{ row.MontoPago }}</td>
+                        <td>{{ row.NumeroTarjeta }}</td>
+                        <td>{{ row.TipoTarjeta }}</td>
+                        <td>{{ row.NumAutorizacion }}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
       </div>
-
-    </div>
-  </div> -->
-  
-
-
-  
-<!-- 
-    <div fxLayout="column" [fxLayoutGap]="gap" [fxFlex]="col(2)"
-         fxLayout.gt-sm="row">
-
-      <div [furyAspectRatio.xs]="'1:2-' + gap" [furyAspectRatio]="'1.5:1-' + gap"
-           [furyAspectRatio.gt-md]="'2:1-' + gap" [furyAspectRatio.gt-lg]="'1.5:1-' + gap"
-           fxFlex="grow">
-        <fury-audience-overview-widget class="route-animations-elements" furyAspectRatioContent
-                                       [options]="audienceOverviewOptions"></fury-audience-overview-widget>
+    </mat-tab>
+    <mat-tab label="Listado de Reservas">
+      <h1>Listado de Reservas a Partir de Hoy</h1>
+      <div fxFlex="100" class="padding">
+         <div fxFlex="100" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1"
+            furyAspectRatio.sm="1.5:1" fxFlex="column">
+            <div fxFlex="100" class="table-container route-animations-elements" furyScrollbar>
+               <table class="table" [class.table-hover]="tableHover" [class.table-striped]="tableStriped"
+                  [class.table-condensed]="tableCondensed" [class.table-bordered]="tableBordered">
+                  <thead>
+                     <tr>
+                        <th>CLASE</th>
+                        <th>FECHA CLASE</th>
+                        <th>INSTRUCTOR</th>
+                        <th>SALON</th>
+                        <th>LUGAR</th>
+                        <th>CLIENTE</th>
+                        <th>ASISTENCIA</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let row of ReservasDashboard">
+                        <td>{{ row.Clase}}</td>
+                        <td>{{ row.Fecha}}</td>
+                        <td>{{ row.Instructor }}</td>
+                        <td>{{ row.Salon }}</td>
+                        <td>{{ row.SalonLugar }}</td>
+                        <td>{{ row.Cliente }}</td>
+                        <td>
+                           <span>
+                               <mat-icon *ngIf="row.Asistencia == 0" color="warn">highlight_off</mat-icon>
+                               <mat-icon *ngIf="row.Asistencia == 1" color="accent">beenhere</mat-icon></span>
+                       </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
       </div>
+    </mat-tab>
+ </mat-tab-group>
 
-    </div>
+<div class="dashboard padding" fxLayout="column" [fxLayoutGap]="gap">      
 
-    <div fxLayout="column" [fxLayoutGap]="gap" [fxFlex]="col(2)"
-         fxLayout.gt-sm="row">
-
-      <div fxLayout="column" [fxLayoutGap]="gap" fxFlex="grow">
-        <div furyAspectRatio="1:1" furyAspectRatio.sm="1.5:1" fxFlex="grow">
-          <fury-sales-summary-widget class="route-animations-elements" furyAspectRatioContent
-                                     [data]="salesSummaryData$ | async"
-                                     [options]="salesSummaryOptions"></fury-sales-summary-widget>
-        </div>
--->
-
-<!-- 
-      <div furyAspectRatio.xs="1:1.1" furyAspectRatio.sm="1.5:1" furyAspectRatio.gt-sm="1:1.32" fxFlex="grow">
-        <fury-realtime-users-widget class="route-animations-elements" furyAspectRatioContent
-                                    [data$]="realtimeUsersData$"
-                                    [pages$]="realtimeUsersPages$"></fury-realtime-users-widget>
-      </div>
-
-    </div>-->
-  
-
- <!--  END FIRST ROW -->
-<div class="dashboard padding" fxLayout="row" [fxLayoutGap]="gap" fxLayout.gt-sm="row">
   
 </div>

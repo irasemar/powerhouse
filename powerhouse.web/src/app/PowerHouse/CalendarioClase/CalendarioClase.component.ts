@@ -27,6 +27,7 @@ export class CalendarioClaseComponent implements OnInit, AfterViewInit, OnDestro
 		{ name: 'NFK_Calendario', property: 'NFK_Calendario', visible: false, isModelProperty: true },
 		{ name: 'NFK_Instructor', property: 'NFK_Instructor', visible: false, isModelProperty: true },
 		{ name: 'Instructor', property: 'Instructor', visible: true, isModelProperty: true },
+		{ name: 'Instructor 2', property: 'InstructorAdjunto', visible: true, isModelProperty: true },
 		{ name: 'Hora Inicio', property: 'HoraInicio', visible: true, isModelProperty: true },
 		{ name: 'Duracion', property: 'Duracion', visible: true, isModelProperty: true },
 		{ name: 'Actividad', property: 'Actividad', visible: true, isModelProperty: true },

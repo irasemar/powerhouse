@@ -1,0 +1,55 @@
+<div class="padding">
+  <h2 mat-dialog-title>Paquete</h2>
+  
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+  
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Paquete</mat-label>
+            <input type="text" formControlName="Paquete" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Cantidad de Clases</mat-label>
+            <input type="text" formControlName="CantidadClases" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Precio</mat-label>
+            <input type="text" formControlName="Precio" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Descripcion de Expiracion</mat-label>
+            <input type="text" formControlName="DescripcionExpiracion" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Expiracion en Dias</mat-label>
+            <input type="text" formControlName="ExpiracionDias" matInput  >
+          </mat-form-field>
+        </div>
+      </div>
+  
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button *ngIf="isCreateMode()" mat-button [disabled]="!form.valid">CREAR PAQUETE</button>
+      <button *ngIf="isUpdateMode()" mat-button [disabled]="!form.valid">ACTUALIZAR PAQUETE</button>
+    </mat-dialog-actions>
+  </form>
+  </div>
+  

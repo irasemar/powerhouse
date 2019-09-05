@@ -1,3 +1,4 @@
+C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\obj\Debug\dyma.powerhouse.api.csproj.CoreCompileInputs.cache
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\bin\dyma.powerhouse.api.dll.config
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\bin\dyma.powerhouse.api.dll
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\bin\dyma.powerhouse.api.pdb
@@ -117,7 +118,6 @@ C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\bin\es\System.Web.WebP
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\bin\es\System.Web.WebPages.Razor.resources.dll
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\obj\Debug\dyma.powerhouse.api.csprojAssemblyReference.cache
-C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\obj\Debug\dyma.powerhouse.api.csproj.CoreCompileInputs.cache
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\obj\Debug\dyma.powerhouse.api.csproj.CopyComplete
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\obj\Debug\dyma.powerhouse.api.dll
 C:\Miguel\Irasema\API\Dyma.powerhouse\dyma.powerhouse.api\obj\Debug\dyma.powerhouse.api.pdb

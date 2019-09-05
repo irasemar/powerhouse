@@ -41,6 +41,7 @@ export class CalendarioClaseCreateUpdateComponent implements OnInit {
       NPK_CalendarioClase: [this.defaults.NPK_CalendarioClase || ''],
       NFK_Calendario: [this.nfk_calendario || ''],
       NFK_Instructor: [this.defaults.NFK_Instructor || ''],
+      NFK_InstructorAdjunto: [this.defaults.NFK_InstructorAdjunto || ''],
       HoraInicio: [this.defaults.HoraInicio || ''],
       Duracion: [this.defaults.Duracion || ''],
       Actividad: [this.defaults.Actividad || ''],

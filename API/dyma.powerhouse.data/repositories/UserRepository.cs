@@ -11,6 +11,7 @@ using dyma.powerhouse.data.views;
 using Openpay;
 using Openpay.Entities.Request;
 using Openpay.Entities;
+using System.Net.Mail;
 
 namespace dyma.powerhouse.data.repositories
 {
@@ -21,15 +22,15 @@ namespace dyma.powerhouse.data.repositories
 
         }
 
-        public vwUsuario AuthenticateUser(string username, string password)
+        public UsuarioCatalogo AuthenticateUser(string username, string password)
         {
-            var resp = new vwUsuario();
+            var resp = new UsuarioCatalogo();
             using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
             {
                 try
                 {
                     connection.Open();
-                    resp = connection.Query<vwUsuario>("Select * From vwUsuario with(nolock) Where Activo = 1 AND Usuario = @username AND Contrasena = @password", new { username, password }).FirstOrDefault();
+                    resp = connection.Query<UsuarioCatalogo>("Select * From vwUsuario with(nolock) Where Activo = 1 AND Usuario = @username AND Contrasena = @password", new { username, password }).FirstOrDefault();
                 }
                 catch (Exception ex)
                 {
@@ -38,15 +39,98 @@ namespace dyma.powerhouse.data.repositories
             }
             return resp;
         }
-        public vwUsuario AuthenticateUserAdmin(string username, string password)
+        public vwRespuesta RecuperarPass(string username,string ServidorSMTP, int puerto, string smtusuario, string smtpcontrasena)
         {
-            var resp = new vwUsuario();
+            var resp = new vwRespuesta();
             using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
             {
                 try
                 {
                     connection.Open();
-                    resp = connection.Query<vwUsuario>("Select * From vwUsuario with(nolock) Where Activo = 1 AND Usuario = @username AND Contrasena = @password And Administrador = 1", new { username, password }).FirstOrDefault();
+                    var usuario = connection.Query<vwUsuario>("Select NPK_Usuario, Nombre, Apellidos, Usuario,isnull(Correo,Usuario) as Correo,Contrasena From Usuario with(nolock) Where Usuario = @username Or isnull(Correo,Usuario) =  @username ", new { username }).FirstOrDefault();
+                    if (usuario == null)
+                    {
+                        resp.Error = 1;
+                        resp.DescError = "El usuario y/o contraseña actual no existen, Consulte a su administrador o Recupere su contraseña.";
+                    }
+                    else
+                    {
+                        MailMessage mensajeSoporteCSAM = new MailMessage();
+                        SmtpClient smtpClienteCSAM = new SmtpClient();
+                        smtpClienteCSAM.Host = ServidorSMTP;
+                        smtpClienteCSAM.Port = puerto;
+                        smtpClienteCSAM.Credentials = new System.Net.NetworkCredential(smtusuario, smtpcontrasena);
+                        try
+                        {
+                            mensajeSoporteCSAM.From = new System.Net.Mail.MailAddress(smtusuario);
+                            mensajeSoporteCSAM.To.Add(usuario.Correo);
+                            mensajeSoporteCSAM.Body = "PowerHouse le envia su contraseña actual: " + usuario.Contrasena;
+                            mensajeSoporteCSAM.Subject = "Recuperación de contraseña";
+                            smtpClienteCSAM.Send(mensajeSoporteCSAM);
+                            mensajeSoporteCSAM.Dispose();
+                        }
+                        catch (Exception errorCorreoCSAM)
+                        {
+                            resp.Error = 1;
+                            resp.DescError = errorCorreoCSAM.ToString();
+                        }
+                        finally
+                        {
+                            mensajeSoporteCSAM.Dispose();
+                        }
+                        resp.Error = 0;
+                        resp.DescError = "La contraseña se envio a su correo registrado exitosamente.";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    resp.Error = 1;
+                    resp.DescError = "El usuario y/o contraseña actual no existen, Consulte a su administrador o Recupere su contraseña.";
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+        public vwRespuesta ChangePass(string Usuario, string contrasenaactual, string contrasenanueva)
+        {
+            var resp = new vwRespuesta();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    var existe = connection.Query<vwUsuario>("Select * From vwUsuario with(nolock) Where Activo = 1 AND Usuario = @Usuario AND Contrasena = @contrasenaactual", new { Usuario, contrasenaactual }).FirstOrDefault();
+
+                    if (existe == null)
+                    {
+                        resp.Error = 1;
+                        resp.DescError = "El usuario y/o contraseña actual no existen, Consulte a su administrador o Recupere su contraseña.";
+                    }
+                    else
+                    {                        
+                        connection.Query("Update Usuario Set Contrasena = @contrasenanueva Where Usuario = @Usuario", new { @contrasenanueva,Usuario });
+                        resp.Error = 0;
+                        resp.DescError = "La contraseña se actualizo exitosamente.";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    resp.Error = 1;
+                    resp.DescError = "El usuario y/o contraseña actual no existen, Consulte a su administrador o Recupere su contraseña.";
+                    throw ex;
+                }
+            }
+            return resp;
+        }
+        public UsuarioCatalogo AuthenticateUserAdmin(string username, string password)
+        {
+            var resp = new UsuarioCatalogo();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<UsuarioCatalogo>("Select * From vwUsuario with(nolock) Where Activo = 1 AND Usuario = @username AND Contrasena = @password And Administrador = 1", new { username, password }).FirstOrDefault();
                 }
                 catch (Exception ex)
                 {
@@ -106,7 +190,7 @@ namespace dyma.powerhouse.data.repositories
             }
             return resp;
         }
-        public vwUsuario RegisterUser(vwUsuario datos)
+        public UsuarioCatalogo RegisterUser(UsuarioCatalogo datos)
         {
             if (datos == null)
                 throw new exceptions.BusinessRuleValidationException("Usuario Datos requeridos");
@@ -125,7 +209,7 @@ namespace dyma.powerhouse.data.repositories
                             datos.FechaCreacion = DateTime.Now;
                             datos.FechaNacimiento = null;
                             datos.CreadoPor = 0;
-                            datos.NPK_Usuario = connection.Insert<vwUsuario>(datos, tran);
+                            datos.NPK_Usuario = connection.Insert<UsuarioCatalogo>(datos, tran);
                             tran.Commit();
                         }
                         catch (Exception ex)
@@ -186,7 +270,7 @@ namespace dyma.powerhouse.data.repositories
                         request.ExternalId = "PWH-" + datos.NPK_Usuario.ToString();
                         request.Name = exist.Nombre;
                         request.LastName = exist.Apellidos;
-                        request.Email = exist.Correo;
+                        request.Email = datos.Correo;
                         request.PhoneNumber = exist.Telefono;
                         request.RequiresAccount = false;
                         Address address = new Address();
@@ -214,6 +298,7 @@ namespace dyma.powerhouse.data.repositories
                             datos.CreadoPor = fab.CreadoPor;
                             datos.FechaCreacion = fab.FechaCreacion;
                             datos.id = exist.id;
+                            datos.Contrasena = fab.Contrasena;
                             connection.Update<CatalogoUsuario>(datos, tran);
                             tran.Commit();
                         }
@@ -432,6 +517,7 @@ namespace dyma.powerhouse.data.repositories
 
 
                             Charge charge = api.ChargeService.Create(tarjetas[0].IdOpen, request);
+                            Respuesta.Error = 0;
                             Respuesta.Desc_Error = charge.ErrorMessage;
                             Respuesta.NumeroTransaccion = charge.Authorization;
                             Respuesta.Monto = charge.Amount.ToString();
@@ -493,7 +579,7 @@ namespace dyma.powerhouse.data.repositories
 
             return Respuesta;
         }
-        public string ReservaLugar(int NFK_CalendarioClase, int NFK_Usuario, int NFK_Salon, int NFK_SalonLugar)
+        public string ReservaLugar(int NFK_CalendarioClase, int NFK_Usuario, int NFK_Salon, int NFK_SalonLugar, string ServidorSMTP, int puerto, string smtusuario, string smtpcontrasena)
         {
             using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
             {
@@ -503,15 +589,41 @@ namespace dyma.powerhouse.data.repositories
                     try
                     {
 
-                        var affectedRows = connection.Execute("SP_Reserva_Lugar",
+                        var reserva = connection.Query<vwReservaRespuesta>("SP_Reserva_Lugar",
                             new
                             {
                                 NFK_CalendarioClase = NFK_CalendarioClase,
                                 NFK_Usuario = NFK_Usuario,
                                 NFK_Salon = NFK_Salon,
                                 NFK_SalonLugar = NFK_SalonLugar
-                            }, tran, null, commandType: System.Data.CommandType.StoredProcedure);
+                            }, tran,commandType: System.Data.CommandType.StoredProcedure).ToList();
                         tran.Commit();
+                        var resp = new vwRespuesta();
+                        var usuario = connection.Query<vwUsuario>("Select NPK_Usuario, Nombre, Apellidos, Usuario,isnull(Correo,Usuario) as Correo,Contrasena From Usuario with(nolock) Where NPK_Usuario = @NFK_Usuario ", new { NFK_Usuario }).FirstOrDefault();
+                        MailMessage mensajeSoporteCSAM = new MailMessage();
+                        SmtpClient smtpClienteCSAM = new SmtpClient();
+                        smtpClienteCSAM.Host = ServidorSMTP;
+                        smtpClienteCSAM.Port = puerto;
+                        smtpClienteCSAM.Credentials = new System.Net.NetworkCredential(smtusuario, smtpcontrasena);
+                        try
+                        {
+                            mensajeSoporteCSAM.From = new System.Net.Mail.MailAddress(smtusuario);
+                            mensajeSoporteCSAM.To.Add(usuario.Correo);
+                            mensajeSoporteCSAM.Body = "Hola " + usuario.Nombre + " Tienes una Reserva Nueva en PowerHouse en la clase: " + reserva[0].Clase + " para el dia : " + reserva[0].DescDia + " hora : " + reserva[0].HoraInicio + 
+                                " Con el instructor: " + reserva[0].Instructor + ", TE ESPERAMOS!!";
+                            mensajeSoporteCSAM.Subject = "Reserva Powerhouse Realizada";
+                            smtpClienteCSAM.Send(mensajeSoporteCSAM);
+                            mensajeSoporteCSAM.Dispose();
+                        }
+                        catch (Exception errorCorreoCSAM)
+                        {
+                            resp.Error = 1;
+                            resp.DescError = errorCorreoCSAM.ToString();
+                        }
+                        finally
+                        {
+                            mensajeSoporteCSAM.Dispose();
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -524,7 +636,7 @@ namespace dyma.powerhouse.data.repositories
 
             return "";
         }
-        public string CancelarReservaLugar(int NPK_ReservaClase, int NFK_Usuario)
+        public string CancelarReservaLugar(int NPK_ReservaClase, int NFK_Usuario, string ServidorSMTP, int puerto, string smtusuario, string smtpcontrasena)
         {
             using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
             {
@@ -534,13 +646,39 @@ namespace dyma.powerhouse.data.repositories
                     try
                     {
 
-                        var affectedRows = connection.Execute("SP_Cancelar_Reserva_Lugar",
+                        var reserva = connection.Query<vwReservaRespuesta>("SP_Cancelar_Reserva_Lugar",
                             new
                             {
                                 NPK_ReservaClase = NPK_ReservaClase,
                                 NFK_Usuario = NFK_Usuario
-                            }, tran, null, commandType: System.Data.CommandType.StoredProcedure);
+                            }, tran, commandType: System.Data.CommandType.StoredProcedure).ToList();
                         tran.Commit();
+                        var resp = new vwRespuesta();
+                        var usuario = connection.Query<vwUsuario>("Select NPK_Usuario, Nombre, Apellidos, Usuario,isnull(Correo,Usuario) as Correo,Contrasena From Usuario with(nolock) Where NPK_Usuario = @NFK_Usuario ", new { NFK_Usuario }).FirstOrDefault();
+                        MailMessage mensajeSoporteCSAM = new MailMessage();
+                        SmtpClient smtpClienteCSAM = new SmtpClient();
+                        smtpClienteCSAM.Host = ServidorSMTP;
+                        smtpClienteCSAM.Port = puerto;
+                        smtpClienteCSAM.Credentials = new System.Net.NetworkCredential(smtusuario, smtpcontrasena);
+                        try
+                        {
+                            mensajeSoporteCSAM.From = new System.Net.Mail.MailAddress(smtusuario);
+                            mensajeSoporteCSAM.To.Add(usuario.Correo);
+                            mensajeSoporteCSAM.Body = "Hola " + usuario.Nombre + " Cancelaste una Reserva en PowerHouse en la clase: " + reserva[0].Clase + " para el dia : " + reserva[0].DescDia + " hora : " + reserva[0].HoraInicio +
+                                " Con el instructor: " + reserva[0].Instructor + ", NO PIERDAS TUS CLASES, VUELVE A RESERVAR. TE ESPERAMOS!!";
+                            mensajeSoporteCSAM.Subject = "Cancelación de Reserva Powerhouse";
+                            smtpClienteCSAM.Send(mensajeSoporteCSAM);
+                            mensajeSoporteCSAM.Dispose();
+                        }
+                        catch (Exception errorCorreoCSAM)
+                        {
+                            resp.Error = 1;
+                            resp.DescError = errorCorreoCSAM.ToString();
+                        }
+                        finally
+                        {
+                            mensajeSoporteCSAM.Dispose();
+                        }
                     }
                     catch (Exception ex)
                     {

@@ -93,6 +93,7 @@ export class ModalPaymentComponent implements OnInit {
       Venta.Estado = pago.Estado;
       Venta.CP = pago.CP;
       Venta.Monto = parseFloat(this.payment);
+      this.MensageError = 'Espere porfavor, estamos realizando su pago.......';
       this.catalog.letVentaUsuarioPago(Venta).subscribe(respuesta => { 
         var resp = {} as RespuestaPago;
         resp = respuesta;
@@ -138,6 +139,7 @@ export class ModalPaymentComponent implements OnInit {
       Venta.Estado = pago.Estado;
       Venta.CP = pago.CP;
       Venta.Monto = parseFloat(this.payment);
+      this.MensageError = 'Espere porfavor, estamos realizando su pago.......';
       this.catalog.letVentaUsuarioPago(Venta).subscribe(respuesta => { 
         var resp = {} as RespuestaPago;
         resp = respuesta;

@@ -17,6 +17,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardService } from './dashboard.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AsistenciaModule } from '../../../app/PowerHouse/Asistencia/Asistencia.module';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MapsWidgetModule,
     MarketWidgetModule,
     NgbModule,
+    AsistenciaModule
   ],
   declarations: [DashboardComponent],
   providers: [DashboardService]

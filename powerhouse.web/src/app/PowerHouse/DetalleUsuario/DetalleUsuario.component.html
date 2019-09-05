@@ -58,6 +58,25 @@
         </table>
       </div>
     </div>
+    <div fxFlex="49" fxLayout="row" [fxLayoutGap]="gap" >     
+      <div fxFlex="100" class="table-container route-animations-elements" furyScrollbar>
+          <mat-dialog-content>
+              <form [formGroup]="form">
+                <div fxLayout="column">                  
+                  <mat-form-field fxFlex>
+                    <mat-label>Cantidad de Clases a Regalar</mat-label>
+                    <input matInput type="number" formControlName="Cantidad" required>
+                  </mat-form-field>
+                </div>
+              </form>
+            </mat-dialog-content>
+            <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+              <button mat-button mat-raised-button color="warn" (click)="save()" [disabled]="!form.valid">
+                <mat-icon class="fas fa-exclamation"></mat-icon>Regalar Clases
+              </button>
+            </mat-dialog-actions>
+      </div>
+    </div>
   </div>
   
   <div fxFlex="100">

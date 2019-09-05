@@ -12,6 +12,14 @@
             bottom:calculateRem(100px);
             font-size:calculateRem(38px);
         }
+        &--title2{
+            position: absolute;
+            z-index:100;
+            color:#FFF;
+            left:calculateRem(20px);
+            bottom:calculateRem(50px);
+            font-size:calculateRem(28px);
+        }
     }
     .col-md-4, .col-md-6{
         padding-right: 5px !important;

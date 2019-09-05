@@ -66,6 +66,71 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
         [AllowAnonymous]
+        [Route("CambiarPassword"), HttpPost, ResponseType(typeof(dyma.powerhouse.data.views.vwRespuesta))]
+        public HttpResponseMessage CambiarPassword(Models.ChangePassForm datos)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var proxy = new Tasks(this.GetConnectionString());
+                    var user = proxy.ChangePass(datos.username, datos.passwordactual, datos.passwordnuevo);
+                    
+                    return Request.CreateResponse(HttpStatusCode.OK, user);
+                }
+                else
+                {
+                    log.Error(ModelState);
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
+        [Route("RecuperarPass"), HttpPost, ResponseType(typeof(dyma.powerhouse.data.views.vwRespuesta))]
+        public HttpResponseMessage RecuperarPass(Models.recuperarPassForm datos)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var proxy = new Tasks(this.GetConnectionString());
+                    var user = proxy.RecuperarPass(datos.username, System.Configuration.ConfigurationManager.AppSettings["SMTP"].ToString(),
+                        Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["PUERTO"].ToString()),
+                        System.Configuration.ConfigurationManager.AppSettings["CUENTACORREO"].ToString(),
+                        System.Configuration.ConfigurationManager.AppSettings["CONTRASENA"].ToString());
+
+                    return Request.CreateResponse(HttpStatusCode.OK, user);
+                }
+                else
+                {
+                    log.Error(ModelState);
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
         [Route("loginAdmin"), HttpPost, ResponseType(typeof(List<Models.UserSession>))]
         public HttpResponseMessage LoginAdmin(Models.LoginForm datos)
         {
@@ -168,7 +233,7 @@ namespace dyma.powerhouse.api.Controllers
                 if (ModelState.IsValid)
                 {
                     var proxy = new Tasks(this.GetConnectionString());
-                    var resp = new data.views.vwUsuario()
+                    var resp = new UsuarioCatalogo()
                     {
                         Nombre = datos.Nombre,
                         Apellidos = datos.Apellidos,
@@ -218,8 +283,8 @@ namespace dyma.powerhouse.api.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
+                //if (ModelState.IsValid)
+                //{
                     var proxy = new Tasks(this.GetConnectionString());
                     var user = proxy.GetUser(datos.username);
                     if (user == null)
@@ -237,21 +302,21 @@ namespace dyma.powerhouse.api.Controllers
                         Genero = (String.IsNullOrEmpty(user.Genero) ? "" : user.Genero.ToString()),
                         ContactoEmergencia = (String.IsNullOrEmpty(user.ContactoEmergencia) ? "" : user.ContactoEmergencia.ToString()),
                         TelefonoContacto = (String.IsNullOrEmpty(user.TelefonoContacto) ? "" : user.TelefonoContacto.ToString()),
-                        BikeSetupAlturaAsiento = (String.IsNullOrEmpty(user.BikeSetupAlturaAsiento) ? "" : user.BikeSetupAlturaAsiento.ToString()),
-                        BikeSetupDistanciaAsiento = (String.IsNullOrEmpty(user.BikeSetupDistanciaAsiento) ? "" : user.BikeSetupDistanciaAsiento.ToString()),
-                        BikeSetupDistanciaManubrio = (String.IsNullOrEmpty(user.BikeSetupDistanciaManubrio) ? "" : user.BikeSetupDistanciaManubrio.ToString()),
-                        BikeSetupAlturaManubrio = (String.IsNullOrEmpty(user.BikeSetupAlturaManubrio) ? "" : user.BikeSetupAlturaManubrio.ToString()),
-                        TallaZapato = (String.IsNullOrEmpty(user.TallaZapato) ? "" : user.TallaZapato.ToString()),
-                        QuieroOfertas = (String.IsNullOrEmpty(user.QuieroOfertas.ToString()) ? 0 : user.QuieroOfertas),
-                        Correo = (String.IsNullOrEmpty(user.Correo.ToString()) ? "" : user.Correo)
+                        //BikeSetupAlturaAsiento = (String.IsNullOrEmpty(user.BikeSetupAlturaAsiento) ? "" : user.BikeSetupAlturaAsiento.ToString()),
+                        //BikeSetupDistanciaAsiento = (String.IsNullOrEmpty(user.BikeSetupDistanciaAsiento) ? "" : user.BikeSetupDistanciaAsiento.ToString()),
+                        //BikeSetupDistanciaManubrio = (String.IsNullOrEmpty(user.BikeSetupDistanciaManubrio) ? "" : user.BikeSetupDistanciaManubrio.ToString()),
+                        //BikeSetupAlturaManubrio = (String.IsNullOrEmpty(user.BikeSetupAlturaManubrio) ? "" : user.BikeSetupAlturaManubrio.ToString()),
+                        //TallaZapato = (String.IsNullOrEmpty(user.TallaZapato) ? "" : user.TallaZapato.ToString()),
+                        //QuieroOfertas = (String.IsNullOrEmpty(user.QuieroOfertas.ToString()) ? 0 : user.QuieroOfertas),
+                        Correo = (String.IsNullOrEmpty(user.Correo.ToString()) ? user.Usuario : user.Correo)
                     };
                     return Request.CreateResponse(HttpStatusCode.OK, sesion);
-                }
-                else
-                {
-                    log.Error(ModelState);
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
+                //}
+                //else
+                //{
+                //    log.Error(ModelState);
+                //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                //}
             }
             catch (data.exceptions.BusinessRuleValidationException ex)
             {
@@ -274,8 +339,8 @@ namespace dyma.powerhouse.api.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
+                //if (ModelState.IsValid)
+                //{
                     var proxy = new Tasks(this.GetConnectionString());
                     var resp = new data.views.CatalogoUsuario()
                     {
@@ -289,12 +354,12 @@ namespace dyma.powerhouse.api.Controllers
                         Genero = datos.Genero,
                         ContactoEmergencia = datos.ContactoEmergencia,
                         TelefonoContacto = datos.TelefonoContacto,
-                        BikeSetupAlturaAsiento = datos.BikeSetupAlturaAsiento,
-                        BikeSetupDistanciaAsiento = datos.BikeSetupDistanciaAsiento,
-                        BikeSetupDistanciaManubrio = datos.BikeSetupDistanciaManubrio,
-                        BikeSetupAlturaManubrio = datos.BikeSetupAlturaManubrio,
-                        TallaZapato = datos.TallaZapato,
-                        QuieroOfertas = datos.QuieroOfertas,
+                        //BikeSetupAlturaAsiento = datos.BikeSetupAlturaAsiento,
+                        //BikeSetupDistanciaAsiento = datos.BikeSetupDistanciaAsiento,
+                        //BikeSetupDistanciaManubrio = datos.BikeSetupDistanciaManubrio,
+                        //BikeSetupAlturaManubrio = datos.BikeSetupAlturaManubrio,
+                        //TallaZapato = datos.TallaZapato,
+                        //QuieroOfertas = datos.QuieroOfertas,
                         Activo = 1,
                         Correo = datos.Correo
                     };
@@ -303,7 +368,7 @@ namespace dyma.powerhouse.api.Controllers
                     if (user == null)
                         throw new data.exceptions.BusinessRuleValidationException("Usuario Ya Existe");
 
-                    var usertoken = new data.views.vwUsuario()
+                    var usertoken = new UsuarioCatalogo()
                     {
                         NPK_Usuario = datos.NPK_Usuario,
                         Nombre = datos.Nombre,
@@ -322,12 +387,12 @@ namespace dyma.powerhouse.api.Controllers
                         Token = token
                     };
                     return Request.CreateResponse(HttpStatusCode.OK, sesion);
-                }
-                else
-                {
-                    log.Error(ModelState);
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
+                //}
+                //else
+                //{
+                //    log.Error(ModelState);
+                //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                //}
             }
             catch (data.exceptions.BusinessRuleValidationException ex)
             {

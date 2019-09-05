@@ -67,8 +67,8 @@ export class CartComponent implements OnInit {
     const modalRef = this.modalService.open(ModalPaymentComponent,{size:'lg'});
     modalRef.componentInstance.items = this.items;
     modalRef.componentInstance.total = this.total;
-    modalRef.componentInstance.tax = this.tax;
-    modalRef.componentInstance.payment = this.total + this.tax;
+    modalRef.componentInstance.tax = 0;
+    modalRef.componentInstance.payment = this.total;
     modalRef.result.then((result) => {
       if (result) {
         console.log(result);

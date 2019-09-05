@@ -45,18 +45,14 @@
               <mat-icon>more_horiz</mat-icon>
             </button>
 
-            <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">
-              <button (click)="updateCalendarioClase(row)" mat-menu-item>
-                <span>Actualizar</span>
-              </button>
+            <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">              
               <button (click)="eliminarCalendarioClase(row,1)" mat-menu-item><span>Eliminar Clase</span></button>
             </mat-menu>
           </mat-cell>
         </ng-container> 
 
         <mat-header-row *matHeaderRowDef="visibleColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: visibleColumns;" (click)="updateCalendarioClase(row)"
-                 class="clickable route-animations-elements"></mat-row>
+        <mat-row *matRowDef="let row; columns: visibleColumns;" class="clickable route-animations-elements"></mat-row>
       </mat-table>
 
       <mat-paginator class="paginator" [pageSize]="pageSize"></mat-paginator>

@@ -432,17 +432,27 @@ namespace dyma.powerhouse.data.actions
         #endregion       
 
         #region USERS
-        public vwUsuario AuthenticateUser(string username, string password)
+        public UsuarioCatalogo AuthenticateUser(string username, string password)
         {
             var repo = new UserRepository(ClientConnectionString);
             return repo.AuthenticateUser(username, password);
         }
-        public vwUsuario AuthenticateUserAdmin(string username, string password)
+        public vwRespuesta ChangePass(string Usuario, string contrasenaactual, string contrasenanueva)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            return repo.ChangePass(Usuario, contrasenaactual, contrasenanueva);
+        }
+        public vwRespuesta RecuperarPass(string Usuario, string ServidorSMTP, int puerto, string smtusuario, string smtpcontrasena)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            return repo.RecuperarPass(Usuario, ServidorSMTP, puerto, smtusuario, smtpcontrasena);
+        }
+        public UsuarioCatalogo AuthenticateUserAdmin(string username, string password)
         {
             var repo = new UserRepository(ClientConnectionString);
             return repo.AuthenticateUserAdmin(username, password);
         }
-        public vwUsuario RegisterUser(vwUsuario datos)
+        public UsuarioCatalogo RegisterUser(UsuarioCatalogo datos)
         {
             var repo = new UserRepository(ClientConnectionString);
             return repo.RegisterUser(datos);
@@ -560,16 +570,16 @@ namespace dyma.powerhouse.data.actions
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.Estatus_Salon_PorDia(NFK_Clase, NFK_Semana, Dia, NPK_CalendarioClase);
         }
-        public string ReservaLugar(int NFK_CalendarioClase, int NFK_Usuario, int NFK_Salon, int NFK_SalonLugar)
+        public string ReservaLugar(int NFK_CalendarioClase, int NFK_Usuario, int NFK_Salon, int NFK_SalonLugar, string ServidorSMTP, int puerto, string smtusuario, string smtpcontrasena)
         {
             var repo = new UserRepository(ClientConnectionString);
-            repo.ReservaLugar(NFK_CalendarioClase, NFK_Usuario, NFK_Salon, NFK_SalonLugar);
+            repo.ReservaLugar(NFK_CalendarioClase, NFK_Usuario, NFK_Salon, NFK_SalonLugar, ServidorSMTP, puerto, smtusuario, smtpcontrasena);
             return "";
         }
-        public string CancelarReservaLugar(int NPK_ReservaClase, int NFK_Usuario)
+        public string CancelarReservaLugar(int NPK_ReservaClase, int NFK_Usuario, string ServidorSMTP, int puerto, string smtusuario, string smtpcontrasena)
         {
             var repo = new UserRepository(ClientConnectionString);
-            repo.CancelarReservaLugar(NPK_ReservaClase, NFK_Usuario);
+            repo.CancelarReservaLugar(NPK_ReservaClase, NFK_Usuario, ServidorSMTP, puerto, smtusuario, smtpcontrasena);
             return "";
         }
         public List<vwSaldo>  Obtener_Saldo(int NFK_Usuario)
@@ -582,6 +592,11 @@ namespace dyma.powerhouse.data.actions
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.Mis_Reservas(NFK_Usuario);
         }
+        public List<vwHistoriaReserva> Mis_Reservas_Clase(int NFK_Usuario, int NPK_CalendarioClase)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Mis_Reservas_Clase(NFK_Usuario, NPK_CalendarioClase);
+        }
         public List<vwHistoriaReserva> Mi_Historia(int NFK_Usuario)
         {
             var repo = new CatalogRepository(ClientConnectionString);
@@ -591,6 +606,46 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.Mi_HistoriaPagos(NFK_Usuario);
+        }
+        public List<vwHistoriaPagos> Mi_HistoriaPagosPWH()
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Mi_HistoriaPagosPWH();
+        }
+        public List<vwHistoriaPagos> Mi_HistoriaPagosPWHHOY()
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Mi_HistoriaPagosPWHHOY();
+        }
+        public List<vwReservasPWHHoy> Reservas_PWH_Hoy()
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Reservas_PWH_Hoy();
+        }
+        public List<vwReservasPWHHoy> Reservas_PWH_ApartirHoy()
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Reservas_PWH_ApartirHoy();
+        }
+        public List<vwReservasAsistencia> Reservas_Asistencia(int NFK_CalendarioClase)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Reservas_Asistencia(NFK_CalendarioClase);
+        }
+        public List<vwReservasDashboard> Reservas_Dashboard()
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Reservas_Dashboard();
+        }
+        public List<vwReservasAsistencia> Reservas_Asistencia_Registrar(int NFK_CalendarioClase, int NPK_ReservaClase)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Reservas_Asistencia_Registrar(NFK_CalendarioClase, NPK_ReservaClase);
+        }
+        public vwRespuesta Regalar_Clases(int NFK_Usuario, int Cantidad, int CreadoPor)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Regalar_Clases(NFK_Usuario, Cantidad, CreadoPor);
         }
         public string PagarPaquete(int NPK_Paquete, int NFK_Usuario)
         {

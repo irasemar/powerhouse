@@ -54,6 +54,7 @@ export class InstructorCreateUpdateComponent implements OnInit {
       Frase: [this.defaults.Frase || ''],
       DescripcionSuClase: [this.defaults.DescripcionSuClase || ''],
       Activo: [this.defaults.Activo || 0],
+      TipoInstructor: [this.defaults.TipoInstructor || ''],
     });
   }
 
@@ -98,14 +99,6 @@ export class InstructorCreateUpdateComponent implements OnInit {
     return this.mode === 'update';
   }
 
-  /* createPolicyAreaImage(instructor) {    
-    if (this.filesImage.size > 0)
-        this.uploadImage(instructor);
-    else  this.uploadSuccessful = true;
-    if (this.uploadSuccessful) {
-      this.dialogRef.close(instructor);
-    }
-  } */
   onFilesAddedImage() {
     const files: { [key: string]: File } = this.fileImage.nativeElement.files;
     for (let key in files) {
@@ -177,6 +170,7 @@ export class InstructorCreateUpdateComponent implements OnInit {
   }
   uploadImage2(datos: any) {
     this.uploading = true;
+    alert("uploadImage2");
     this.progress = this.uploadService.uploadFotografiaInstructor2(this.filesImage2, datos.NPK_Instructor);
     console.log(this.progress);
     for (const key in this.progress) {

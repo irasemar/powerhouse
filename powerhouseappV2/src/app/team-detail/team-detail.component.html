@@ -2,6 +2,8 @@
   <div class="row">
       <div class="team-detail__profile-pic">
           <h1 class="team-detail__profile-name">{{instructor_name}}</h1>
+          <br><br><br>
+          <h4 class="team-detail__profile-name">{{TipoInstructor}}</h4>
           <img [src]="instructor_image" alt="">
         </div>
   </div>
@@ -28,7 +30,7 @@
       <h4 class="h4 upper">Artista favorito:</h4>
       <h3 class="h3 mb-4">{{instructor_ArtistaFavorito}}</h3>
 
-      <h4 class="h4 upper">Animal favorito:</h4>
+      <h4 class="h4 upper">Hobby:</h4>
       <h3 class="h3 mb-4">{{instructor_AnimalFavorito}}</h3>
 
       <h4 class="h4 upper">Película favorita</h4>
@@ -38,7 +40,7 @@
   <hr class="line">
   <div class="row">
     <div class="col-md-12">
-        <h2 class="h3 orange mb-3">Próximas clases de Tere Mtz</h2>
+        <h2 class="h3 orange mb-3">Próximas clases de {{instructor_name}}</h2>
     </div>
   </div>
 </div>

@@ -25,6 +25,7 @@ export class TeamDetailComponent implements OnInit {
   instructor_facebook : string = '';
   instructor_instagram : string = '';
   instructor_youtube : string = '';
+  TipoInstructor: string = '';
 
   constructor( private catalog: CatalogsService, private route:ActivatedRoute) { }
 
@@ -37,8 +38,9 @@ export class TeamDetailComponent implements OnInit {
           this.instructors = instructores;
           this.catalog.getDetalleInstructorRedesSocialesPublico(this.id).subscribe(instructoresredsocial =>{
             console.log(this.instructors);
-            this.instructor_image = instructores[0].image;
+            this.instructor_image = instructores[0].image2;
             this.instructor_name = instructores[0].name;
+            this.TipoInstructor = instructores[0].TipoInstructor
             this.instructor_NPK_Instructor = instructores[0].NPK_Instructor;
             this.instructor_Nombre = instructores[0].Nombre;
             this.instructor_Apellidos = instructores[0].Apellidos;

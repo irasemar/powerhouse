@@ -28,7 +28,10 @@ export class ProfileComponent implements OnInit {
     TallaZapato : "",
     QuieroOfertas : 0,
     ContrasenaConfirma : "",
-    Correo: ""
+    Correo: "",
+    Mes: "",
+    Dia: "",
+    Anio: 0
   });
   list: Array<Object>;
   title: string;
@@ -40,7 +43,9 @@ export class ProfileComponent implements OnInit {
   DistanciaManubrios = [];
   TallaZapatos = [];
   Usuario = "";
-  constructor(private fb: FormBuilder,private catalog: CatalogsService,private authservice: AuthService,private router: Router,) { }
+  FechaNacimiento = "";
+  Dia : string = "01";
+  constructor(private fb: FormBuilder,private catalog: CatalogsService,private authservice: AuthService,private router: Router) { }
 
   ngOnInit() {
     const acc = this.authservice.getAccount();
@@ -70,6 +75,14 @@ export class ProfileComponent implements OnInit {
         "url": "/awards"
       } */
     ]
+    this.form.value.Dia = "01";
+    this.form.value.Mes = "01";
+    this.form.value.Anio = "2019";
+    var x: Date = new Date();
+    var fecha = x || 'MM/dd/yyyy';
+    this.form.value.Dia = String(fecha).split('/')[1];
+    this.form.value.Mes = String(fecha).split('/')[0];
+    this.form.value.Anio = String(fecha).split('/')[2];
   }
   ngAfterViewInit() {
 		setTimeout(() => {
@@ -89,29 +102,21 @@ export class ProfileComponent implements OnInit {
           Telefono : [user.Telefono || ''],
           FechaNacimiento : [user.FechaNacimiento || 'MM/dd/yyyy'],
           Genero : [user.Genero || ''],
-          ContactoEmergencia : [user.ContactoEmergencia || ''],
-          TelefonoContacto : [user.TelefonoContacto || ''],
-          BikeSetupAlturaAsiento : [user.BikeSetupAlturaAsiento || ''],
-          BikeSetupDistanciaAsiento : [user.BikeSetupDistanciaAsiento || ''],
-          BikeSetupDistanciaManubrio : [user.BikeSetupDistanciaManubrio || ''],
-          BikeSetupAlturaManubrio : [user.BikeSetupAlturaManubrio || ''],
-          TallaZapato : [user.TallaZapato || ''],
-          QuieroOfertas : [user.QuieroOfertas || false],
+          ContactoEmergencia : [user.ContactoEmergencia || ''],          
           ContrasenaConfirma : [user.Contrasena || ''],
           Correo : [user.Correo || ''],
+          TelefonoContacto : [user.TelefonoContacto || ''],
+          Mes: [Number(String(user.FechaNacimiento).split('-')[1])],
+          Dia: [Number(String(user.FechaNacimiento).split('-')[2]) || ''],
+          Anio: [Number(String(user.FechaNacimiento).split('-')[0])]
         });
-        console.log(this.form);
       });
     });
   }
   save() {
     var usuario = this.form.value;
-    if (this.form.value.QuieroOfertas){
-      usuario.QuieroOfertas = 1;
-    } else {
-      usuario.QuieroOfertas = 0;
-    }
-    console.log(usuario);
+    usuario.FechaNacimiento = String(usuario.Anio) + '-' + String(usuario.Mes) + '-' + String(usuario.Dia);
+    usuario.QuieroOfertas = 0;
     this.authservice.UpdateProfile(usuario).subscribe(resp => {
       this.router.navigateByUrl('home');
     });

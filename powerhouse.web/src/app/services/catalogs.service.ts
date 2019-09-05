@@ -478,6 +478,62 @@ getMiHistoriaPagos(NPK_Usuario) {
   //head = head.append('Authorization', `Bearer ${acc.Token}`);
   return this.http.get<MisPagos[]>(`${this.config.apiEndpoint}/v1/powerhouse/Mi_HistoriaPagos/${NPK_Usuario}`, { headers: head });
 }
+getMiHistoriaPagos_PWH() {
+  //const acc = this.auth.getAccount();
+  let head: HttpHeaders = new HttpHeaders();
+  head = head.append('Content-Type', 'application/json');
+  //head = head.append('Authorization', `Bearer ${acc.Token}`);
+  return this.http.get<MisPagos[]>(`${this.config.apiEndpoint}/v1/powerhouse/Mi_HistoriaPagosPWH`, { headers: head });
+}
+getMiHistoriaPagos_PWHHOY() {
+  //const acc = this.auth.getAccount();
+  let head: HttpHeaders = new HttpHeaders();
+  head = head.append('Content-Type', 'application/json');
+  //head = head.append('Authorization', `Bearer ${acc.Token}`);
+  return this.http.get<MisPagos[]>(`${this.config.apiEndpoint}/v1/powerhouse/Mi_HistoriaPagosPWHHOY`, { headers: head });
+}
+getReservasPWHHoy() {
+  //const acc = this.auth.getAccount();
+  let head: HttpHeaders = new HttpHeaders();
+  head = head.append('Content-Type', 'application/json');
+  //head = head.append('Authorization', `Bearer ${acc.Token}`);
+  return this.http.get<ReservasPWHHoyView[]>(`${this.config.apiEndpoint}/v1/powerhouse/Reservas_PWH_Hoy`, { headers: head });
+}
+getReservasPWHApartirHoy() {
+  //const acc = this.auth.getAccount();
+  let head: HttpHeaders = new HttpHeaders();
+  head = head.append('Content-Type', 'application/json');
+  //head = head.append('Authorization', `Bearer ${acc.Token}`);
+  return this.http.get<ReservasPWHHoyView[]>(`${this.config.apiEndpoint}/v1/powerhouse/Reservas_PWH_ApartirHoy`, { headers: head });
+}
+getAsistencias(NFK_CalendarioClase) {
+  //const acc = this.auth.getAccount();
+  let head: HttpHeaders = new HttpHeaders();
+  head = head.append('Content-Type', 'application/json');
+  //head = head.append('Authorization', `Bearer ${acc.Token}`);
+  return this.http.get<AsistenciaView[]>(`${this.config.apiEndpoint}/v1/powerhouse/Reservas_Asistencia/${NFK_CalendarioClase}`, { headers: head });
+}
+getRegistrarAsistencias(NFK_CalendarioClase, NPK_ReservaClase) {
+  //const acc = this.auth.getAccount();
+  let head: HttpHeaders = new HttpHeaders();
+  head = head.append('Content-Type', 'application/json');
+  //head = head.append('Authorization', `Bearer ${acc.Token}`);
+  return this.http.get<AsistenciaView[]>(`${this.config.apiEndpoint}/v1/powerhouse/Reservas_Asistencia_Registrar/${NFK_CalendarioClase}/${NPK_ReservaClase}`, { headers: head });
+}
+getRegistrarRegalar_Clases(NFK_Usuario, Cantidad, CreadoPor) {
+  //const acc = this.auth.getAccount();
+  let head: HttpHeaders = new HttpHeaders();
+  head = head.append('Content-Type', 'application/json');
+  //head = head.append('Authorization', `Bearer ${acc.Token}`);
+  return this.http.get<RespuestaView>(`${this.config.apiEndpoint}/v1/powerhouse/Regalar_Clases/${NFK_Usuario}/${Cantidad}/${CreadoPor}`, { headers: head });
+}
+getReservasDashBoard() {
+  //const acc = this.auth.getAccount();
+  let head: HttpHeaders = new HttpHeaders();
+  head = head.append('Content-Type', 'application/json');
+  //head = head.append('Authorization', `Bearer ${acc.Token}`);
+  return this.http.get<ReservaDashboardView[]>(`${this.config.apiEndpoint}/v1/powerhouse/Reservas_Dashboard`, { headers: head });
+}
 }
 export interface Saldo {  
   SaldoTotal : number;
@@ -552,6 +608,7 @@ export interface InstructorForm {
   Frase: string;
   DescripcionSuClase: string;
   Activo: number;
+  TipoInstructor: string;
 }
 export interface PaqueteForm {
   NPK_Paquete: number;
@@ -657,12 +714,16 @@ export interface CalendarioClaseForm {
 	HoraInicio: string;
 	Duracion: number;
 	Actividad: string;
-	Activo: number;
+  Activo: number;
+  NFK_InstructorAdjunto: number;
 }
 export interface CalendarioClaseView extends CalendarioClaseForm {
   Instructor : string;
+  InstructorAdjunto : string;
+
 }
 export interface MisPagos {
+  Cliente: string;
   FechaPago: string;
   Paquete: string;
   MontoPago: number;
@@ -709,4 +770,62 @@ export interface HistoriaReserva {
   HoraParaCancelar: string;
   Asistencia: number;
   SalonLugar: string;
+}
+export interface ReservasPWHHoyView {  
+  NPK_Calendario : number;
+  NPK_CalendarioClase: number;
+  NFK_Instructor: number;
+  Instructor: string;
+  Fecha: string;
+  Clase: string;
+  FechaClase: string;
+  Color: string;
+  Dia: string;
+  CantLugares: number;
+  CantLugaresSeparados: number;
+  CantLugaresAsistencia: number;
+  Fotografia: string;
+}
+export interface AsistenciaView {  
+  NPK_ReservaClase : number;
+  NFK_Usuario: number;
+  NFK_Salon: number;
+  NFK_SalonLugar: number;
+  Asistencia: number;
+  Cliente: string;
+  Salon: string;
+  SalonLugar: string;
+}
+export interface AsistenciaView {  
+  NPK_ReservaClase : number;
+  NFK_Usuario: number;
+  NFK_Salon: number;
+  NFK_SalonLugar: number;
+  Asistencia: number;
+  Cliente: string;
+  Salon: string;
+  SalonLugar: string;
+}
+export interface RespuestaView {  
+  NPK_Respuesta : number;
+  Error: number;
+  Respuesta: string;
+  DescError: string;
+}
+export interface ReservaDashboardView {  
+  NPK_ReservaClase : number;
+  Cliente: string;
+  NFK_Salon: number;
+  Salon: string;
+  NFK_SalonLugar: number;
+  SalonLugar: string;
+  Asistencia: number;
+  Instructor: string;
+  Fecha: string;
+  Clase: string;
+  FechaClase: string;
+  Color: string;
+  Dia: string;
+  Fotografia: string;
+  
 }

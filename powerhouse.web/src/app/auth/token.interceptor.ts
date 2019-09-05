@@ -14,12 +14,13 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(public auth: AuthService,private router: Router) {}
-  
+  constructor(public auth: AuthService, private router: Router) { }
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const acc = this.auth.getAccount();
-    
-    if (acc) {
+
+    /* if (acc) {
+
       if (request.url.indexOf("login") === -1) {
         request = request.clone({
           setHeaders: {
@@ -34,11 +35,11 @@ export class TokenInterceptor implements HttpInterceptor {
           }
         });
       }
-      else{
+      else {
         request = request.clone({
           setHeaders: {
             //Authorization: `Bearer ${acc.Token}`,
-            'Content-Type' : 'application/json'
+            'Content-Type': 'application/json'
           }
         });
       }
@@ -48,15 +49,15 @@ export class TokenInterceptor implements HttpInterceptor {
           'Content-Type': 'application/json'
         }
       });
-    }
-    
+    } */
+
     return next.handle(request).do((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
         // do stuff with response if you want
       }
-    }, (err: any) => {      
+    }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
-        if (err.status === 401) {  
+        if (err.status === 401) {
           this.router.navigate(['/']);
         }
       }

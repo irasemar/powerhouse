@@ -30,6 +30,24 @@ export class AuthService {
         return this.httpClient.post<Account>(`${this.config.apiEndpoint}/v1/auth/login`,loginForm)
         
     }
+    changepass(email : string,password:string,newpassword:string){
+        let loginForm = {
+            username : email,
+            passwordactual : password,
+            passwordnuevo : newpassword
+        }
+        console.log(loginForm);
+        return this.httpClient.post<Respuesta>(`${this.config.apiEndpoint}/v1/auth/CambiarPassword`,loginForm)
+        
+    }
+    recuperapass(email : string){
+        let loginForm = {
+            username : email
+        }
+        console.log(loginForm);
+        return this.httpClient.post<Respuesta>(`${this.config.apiEndpoint}/v1/auth/RecuperarPass`,loginForm)
+        
+    }
     
     
     getAccount() : Usuario{

@@ -22,15 +22,20 @@
       <hr>
       <ul class="line-list" *ngIf="Reservas.length > 0">
         <li class="line-list__item" *ngFor="let clase of Reservas">
-          <table><tr>
+          <table width="100%"><tr>
           
           <td width="60%"><h4 class="h4">{{ clase.Fecha }}</h4>
           <p>{{ clase.Clase }} por <a href="#">{{ clase.Instructor }}</a> Lugar: {{ clase.SalonLugar }}</p>
           </td>
-          <td style="text-align: right;align-content: right;vertical-align: middle;">  
-          <button class="btn btn-outline-primary--orange" (click)="CancelarReserva(clase);" *ngIf="Reservas.PuedeCancelar != 1">Cancelar</button>&nbsp;&nbsp;&nbsp;&nbsp;
-          <button class="btn btn-outline-primary--{{clase.Color}}" (click)="CambiarLugarReserva(clase);" >Cambiar Lugar</button>
+          <td width="40%" style="text-align:center" *ngIf="clase.PuedeCancelar === 1"> 
+            <button class="btn btn-outline-primary--orange" (click)="CancelarReserva(clase);" >Cancelar</button>
           </td>
+          <td width="40%" style="text-align:center" *ngIf="clase.PuedeCancelar === 0">  
+            &nbsp;
+          </td>
+          <!-- <td style="text-align: right;align-content: right;vertical-align: middle;">  
+            <button class="btn btn-outline-primary--{{clase.Color}}" (click)="CambiarLugarReserva(clase);" >Cambiar Lugar</button>
+            </td> -->
           </tr>
           </table>
         </li>

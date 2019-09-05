@@ -1,0 +1,36 @@
+<div class="padding">
+  <h2 mat-dialog-title>PowerHouseRedSocial</h2>
+  
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+  
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Tipo de Red Social</mat-label>
+            <mat-select placeholder="RedSocial"  formControlName="NFK_RedSocial" required>
+          <mat-option>Seleccione</mat-option>
+                <mat-option *ngFor="let redsocial of RedSocials" [value]="redsocial.NPK_RedSocial">
+                  {{redsocial.RedSocial}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Red Social</mat-label>
+            <input type="text" formControlName="RedSocial" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+  
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button *ngIf="isCreateMode()" mat-button [disabled]="!form.valid">CREAR POWERHOUSE RED SOCIAL</button>
+      <button *ngIf="isUpdateMode()" mat-button [disabled]="!form.valid">ACTUALIZAR POWERHOUSE RED SOCIAL</button>
+    </mat-dialog-actions>
+  </form>
+  </div>
+  

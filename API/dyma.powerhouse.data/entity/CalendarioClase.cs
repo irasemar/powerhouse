@@ -8,6 +8,7 @@
         public int NFK_Calendario { get; set; }
 
         public int NFK_Instructor { get; set; }
+        public int NFK_InstructorAdjunto { get; set; }
 
         public string HoraInicio { get; set; }
 

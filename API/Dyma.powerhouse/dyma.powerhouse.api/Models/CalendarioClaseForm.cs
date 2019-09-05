@@ -13,4 +13,5 @@
         public int Duracion { get; set; }
         [Required]
         public string Actividad { get; set; }
+        public int NFK_InstructorAdjunto { get; set; }
     }}

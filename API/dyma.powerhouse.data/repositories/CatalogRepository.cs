@@ -847,6 +847,7 @@ namespace dyma.powerhouse.data.repositories
                             datos.FechaCreacion = DateTime.Now;
                             datos.CreadoPor = NFK_User;
                             datos.Fotografia = "";
+                            datos.Fotografia2 = "";
                             datos.NPK_Instructor = connection.Insert<InstructorCatalogo>(datos, tran);
                             tran.Commit();
                         }
@@ -876,6 +877,7 @@ namespace dyma.powerhouse.data.repositories
                             datos.CreadoPor = fab.CreadoPor;
                             datos.FechaCreacion = fab.FechaCreacion;
                             datos.Fotografia = fab.Fotografia;
+                            datos.Fotografia2 = fab.Fotografia2;
                             connection.Update<InstructorCatalogo>(datos, tran);
                             tran.Commit();
                         }
@@ -2267,14 +2269,14 @@ namespace dyma.powerhouse.data.repositories
                                 From	vwClasesDisponibles b WITH (NOLOCK) 
                                 Where   b.NFK_Semana = @NFK_Semana
                                         And b.Dia = @Dia
-                                        And b.NFK_Instructor = @NFK_Instructor
+                                        And (b.NFK_Instructor = @NFK_Instructor Or b.NFK_InstructorAdjunto = @NFK_Instructor)
                                 Order by [Date]";
-                semanas = connection.Query<vwClasesDisponiblesWeeks>("Select	Distinct a.NumeroSemana,a.NFK_Semana, a.Anio, a.NFK_Clase From vwClasesDisponiblesWeeks a WITH (NOLOCK) Where a.NFK_Instructor = @NFK_Instructor Order by a.Anio,a.NumeroSemana", new { NFK_Instructor }).ToList();
+                semanas = connection.Query<vwClasesDisponiblesWeeks>("Select	Distinct a.NumeroSemana,a.NFK_Semana, a.Anio, a.NFK_Clase From vwClasesDisponiblesWeeks a WITH (NOLOCK) Where a.NFK_Instructor = @NFK_Instructor Or a.NFK_InstructorAdjunto = @NFK_Instructor Order by a.Anio,a.NumeroSemana", new { NFK_Instructor }).ToList();
 
                 foreach (vwClasesDisponiblesWeeks week in semanas)
                 {
                     var diassemana = new List<vwClasesDisponiblesDia>();
-                    diassemana = connection.Query<vwClasesDisponiblesDia>("select Distinct b.DiaSemana,b.Dia from vwClasesDisponibles b WITH (NOLOCK) Where b.NFK_Semana = @NFK_Semana And b.NFK_Instructor = @NFK_Instructor Order by b.Dia", new { week.NFK_Semana, NFK_Instructor }).ToList();
+                    diassemana = connection.Query<vwClasesDisponiblesDia>("select Distinct b.DiaSemana,b.Dia from vwClasesDisponibles b WITH (NOLOCK) Where b.NFK_Semana = @NFK_Semana And (b.NFK_Instructor = @NFK_Instructor Or b.NFK_InstructorAdjunto = @NFK_Instructor) Order by b.Dia", new { week.NFK_Semana, NFK_Instructor }).ToList();
                     foreach (vwClasesDisponiblesDia dia in diassemana)
                     {
                         var clases = new List<vwClasesDisponibles>();
@@ -2394,6 +2396,20 @@ namespace dyma.powerhouse.data.repositories
                     }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
                 return resp;
             }
+        }        public List<vwHistoriaReserva> Mis_Reservas_Clase(int NFK_Usuario, int NPK_CalendarioClase)
+        {
+            var resp = new List<vwHistoriaReserva>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwHistoriaReserva>("SP_Mis_Reservas_Clase",
+                    new
+                    {
+                        NFK_Usuario = NFK_Usuario,
+                        NPK_CalendarioClase = NPK_CalendarioClase
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
         }        public List<vwHistoriaReserva> Mi_Historia(int NFK_Usuario)
         {
             var resp = new List<vwHistoriaReserva>();
@@ -2419,6 +2435,121 @@ namespace dyma.powerhouse.data.repositories
                         NFK_Usuario = NFK_Usuario
                     }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
                 return resp;
+            }
+        }
+        public List<vwHistoriaPagos> Mi_HistoriaPagosPWH()
+        {
+            var resp = new List<vwHistoriaPagos>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwHistoriaPagos>("SP_Mi_Historia_Pagos_PWH",
+                    new
+                    {
+                        
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }
+        public List<vwHistoriaPagos> Mi_HistoriaPagosPWHHOY()
+        {
+            var resp = new List<vwHistoriaPagos>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwHistoriaPagos>("SP_Mi_Historia_Pagos_PWH_Hoy",
+                    new
+                    {
+
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }
+        public List<vwReservasPWHHoy> Reservas_PWH_Hoy()
+        {
+            var resp = new List<vwReservasPWHHoy>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwReservasPWHHoy>("SP_Reservas_PWH_Hoy",
+                    new
+                    {
+
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }
+        public List<vwReservasPWHHoy> Reservas_PWH_ApartirHoy()
+        {
+            var resp = new List<vwReservasPWHHoy>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwReservasPWHHoy>("SP_Reservas_PWH_APatirHoy",
+                    new
+                    {
+
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }
+        public List<vwReservasAsistencia> Reservas_Asistencia(int NFK_CalendarioClase)
+        {
+            var resp = new List<vwReservasAsistencia>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwReservasAsistencia>("SP_Reservas_Asistencia",
+                    new
+                    {
+                        NFK_CalendarioClase = NFK_CalendarioClase
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }
+        public List<vwReservasDashboard> Reservas_Dashboard()
+        {
+            var resp = new List<vwReservasDashboard>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwReservasDashboard>("SP_Reservas_Dashboard",
+                    new
+                    {
+                       
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }
+        public List<vwReservasAsistencia> Reservas_Asistencia_Registrar(int NFK_CalendarioClase, int NPK_ReservaClase)
+        {
+            var resp = new List<vwReservasAsistencia>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwReservasAsistencia>("SP_Registrar_Reservas_Asistencia",
+                    new
+                    {
+                        NFK_CalendarioClase = NFK_CalendarioClase,
+                        NPK_ReservaClase = NPK_ReservaClase
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }
+        public vwRespuesta Regalar_Clases(int NFK_Usuario, int Cantidad, int CreadoPor)
+        {
+            var resp = new List<vwRespuesta>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwRespuesta>("SP_Registrar_VentaGratis",
+                    new
+                    {
+                        NFK_Usuario = NFK_Usuario,
+                        Cantidad = Cantidad,
+                        CreadoPor = CreadoPor
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp[0];
             }
         }
         public List<vwCalendario> TraerCalendarios(int? Activo)

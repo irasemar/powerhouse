@@ -1,0 +1,56 @@
+<div class="padding">
+  <h2 mat-dialog-title>Semana</h2>
+  
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+  
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Año</mat-label>
+            <mat-select placeholder="Año"  formControlName="NFK_Anio" required>
+          <mat-option>Seleccione</mat-option>
+                <mat-option *ngFor="let anio of Anios" [value]="anio.NPK_Anio">
+                  {{anio.Anio}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>NumeroSemana</mat-label>
+            <input type="text" formControlName="NumeroSemana" matInput required >
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Fecha de Inicio</mat-label>
+            <input matInput [matDatepicker]="Fecha_Inicio1" formControlName="FechaInicio" required>
+            <mat-datepicker-toggle matSuffix [for]="Fecha_Inicio1"></mat-datepicker-toggle>
+            <mat-datepicker #Fecha_Inicio1></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Fecha Final</mat-label>
+            <input matInput [matDatepicker]="FechaFin1" formControlName="FechaFin" required>
+            <mat-datepicker-toggle matSuffix [for]="FechaFin1"></mat-datepicker-toggle>
+            <mat-datepicker #FechaFin1></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+  
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button *ngIf="isCreateMode()" mat-button [disabled]="!form.valid">CREAR SEMANA</button>
+      <button *ngIf="isUpdateMode()" mat-button [disabled]="!form.valid">ACTUALIZAR SEMANA</button>
+    </mat-dialog-actions>
+  </form>
+  </div>
+  

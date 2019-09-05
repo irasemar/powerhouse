@@ -20,7 +20,7 @@ namespace dyma.powerhouse.api.Jwt
         private static string Issuer = ConfigurationManager.AppSettings["issuer"];
         private static string minutesToExpire = ConfigurationManager.AppSettings["tokenMinutesToExpire"];
 
-        public static string GenerateToken(vwUsuario user)
+        public static string GenerateToken(UsuarioCatalogo user)
         {
             var symmetricKey = Convert.FromBase64String(Secret);
             var tokenHandler = new JwtSecurityTokenHandler();

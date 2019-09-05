@@ -28,6 +28,7 @@ import { ModalPaymentComponent } from './modal-payment/modal-payment.component';
 import { ModalReservaComponent } from './modal-reserva/modal-reserva.component';
 import { ModalCancelarReservaComponent } from './modal-cancelarreserva/modal-cancelarreserva.component';
 import { ModalMensageLoginComponent } from './modal-mensagelogin/modal-mensagelogin.component';
+import { ModalMensageSaldoComponent } from './modal-mensagesaldo/modal-mensagesaldo.component';
 import { InstructorsComponent } from './instructors/instructors.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
 import { TeamMusicComponent } from './team-music/team-music.component';
@@ -43,6 +44,7 @@ import localemx from '@angular/common/locales/es-MX';
 
 import {BrowserAnimationsModule,NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
+import { CambiarcontrasenaComponent } from './cambiarcontrasena/cambiarcontrasena.component';
 import { agregarventaComponent } from './agregarventa/agregarventa.component';
 import { HiitCalendarComponent } from './hiit-calendar/hiit-calendar.component';
 import { NewComponent } from './new/new.component';
@@ -89,11 +91,13 @@ registerLocaleData(localemx);
     RidesComponent,
     StudioSliderComponent,
     LoginComponent,
+    CambiarcontrasenaComponent,
     HiitCalendarComponent,
     NewComponent,
     ClassTrainComponent,
     agregarventaComponent,
-    ModalMensageLoginComponent
+    ModalMensageLoginComponent,
+    ModalMensageSaldoComponent
 
   ],
   imports: [
@@ -113,10 +117,12 @@ registerLocaleData(localemx);
   entryComponents: [
     ModalPaymentComponent,
     LoginComponent,
+    CambiarcontrasenaComponent,
     agregarventaComponent,
     ModalReservaComponent,
     ModalCancelarReservaComponent,
-    ModalMensageLoginComponent
+    ModalMensageLoginComponent,
+    ModalMensageSaldoComponent
   ],
   providers: [
     /* { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }, */

@@ -9,6 +9,8 @@
 
         public int NFK_Instructor { get; set; }
         public string Instructor { get; set; }
+        public int NFK_InstructorAdjunto { get; set; }
+        public string InstructorAdjunto { get; set; }
 
         public string HoraInicio { get; set; }
 

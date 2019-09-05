@@ -341,12 +341,12 @@ export class AppComponent {
       }
     );
 
-    menu.push({
+    /* menu.push({
       name: 'Material Icons',
       routeOrFunction: '/icons',
       icon: 'grade',
       position: 75
-    });
+    }); */
     // Send all created Items to SidenavService
     menu.forEach(item => sidenavService.addItem(item));
   }

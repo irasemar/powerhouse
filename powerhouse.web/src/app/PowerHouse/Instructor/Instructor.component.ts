@@ -25,6 +25,7 @@ export class InstructorComponent implements OnInit, AfterViewInit, OnDestroy {
 		{ name: 'imagen', property: 'imagen', visible: true },
 		{ name: 'Nombre', property: 'Nombre', visible: true, isModelProperty: true },
 		{ name: 'Apellidos', property: 'Apellidos', visible: true, isModelProperty: true },
+		{ name: 'Tipo de Instructor', property: 'TipoInstructor', visible: true, isModelProperty: true },
 		{ name: 'Paso Favorito de Bici', property: 'PasoFavoritoBici', visible: true, isModelProperty: true },
 		{ name: 'Paso Favorito de Hiit', property: 'PasoFavoritoHiit', visible: true, isModelProperty: true },
 		{ name: 'Artista Favorito', property: 'ArtistaFavorito', visible: true, isModelProperty: true },
@@ -75,6 +76,7 @@ export class InstructorComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 	fillGrid(){
 		this.catalog.getInstructors(2).subscribe(instructorlist =>{
+			console.log(instructorlist);
 			this.instructors = instructorlist;
 			this.subject$.next(instructorlist);
 	})

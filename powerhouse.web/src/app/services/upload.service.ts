@@ -28,16 +28,14 @@ export class UploadService {
     ): { [key: string]: { progress: Observable<number> } } {
         // this will be the our resulting map
         const status: { [key: string]: { progress: Observable<number> } } = {};
-
+        console.log(files);
         files.forEach(file => {
             // create a new multipart-form for every file
             const formData: FormData = new FormData();
             formData.append("file", file, file.name);
-            console.log(file.name);
             // create a http-post request and pass the form
             // tell it to report the upload progress
             var url = `${this.config.apiEndpoint}/v1/catalogos/Instructor/${NPK}/filefotoInstructor`;
-            console.log(formData);
             const req = new HttpRequest("POST", url, formData, {
                 reportProgress: true
             });
