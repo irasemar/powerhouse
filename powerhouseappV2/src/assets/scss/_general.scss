@@ -68,13 +68,10 @@ a, a:hover, a:visited{
 .orange{
     color: $orange !important;
 }
-.orangecenter{
-    color: $orange !important;
-    text-align: center;
-}
 
 .aqua{
     color: $aqua !important;
+    margin-right: .2rem;
 }
 
 
@@ -286,3 +283,37 @@ a, a:hover, a:visited{
     padding-top:50px !important;
 }
 
+.classes__bikes-row {
+    margin-left: 10px;
+}
+
+    
+@media only screen and (min-width: 360px) {
+    .slider-img {
+        vertical-align: middle;
+        border-style: none;
+        object-fit: contain !important;
+    }
+}
+    
+    
+    
+@media only screen and (min-width: 410px) {
+    .carousel-caption h3 {
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size:1rem !important;
+        line-height: .4rem !important;
+        font-family: "Karelia Web Black";
+    }
+}
+        
+@media only screen and (min-width: 350px) {
+    .carousel-caption h3 {
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size:1rem !important;
+        line-height: .4rem !important;
+        font-family: "Karelia Web Black";
+    }
+}

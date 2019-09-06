@@ -36,6 +36,8 @@ export class CalendarComponent implements OnInit {
         this.router.navigate(['/clase/' + NFK_Semana + '/' + NFK_Clase + '/' + Dia + '/' + NPK_CalendarioClase]);
       }
     }); */
+    /* alert(NPK_CalendarioClase);
+    return; */
     this.router.navigate(['/clase/' + NFK_Semana + '/' + NFK_Clase + '/' + Dia + '/' + NPK_CalendarioClase]);
     
   }

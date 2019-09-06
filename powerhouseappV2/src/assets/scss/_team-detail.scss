@@ -32,3 +32,23 @@
         width: 89%;
     }
 }
+@media only screen and (min-width: 400px) {
+    .team-detail__profile-name{
+        position: absolute;
+        z-index: 100;
+        color: #FFF;
+        font-size:calculateRem(30px);
+        margin-top:calculateRem(200px);
+        left:calculateRem(20px);
+    }
+  }
+  @media only screen and (min-width: 360px) {
+    .team-detail__profile-name{
+        position: absolute;
+        z-index: 100;
+        color: #FFF;
+        font-size:calculateRem(30px);
+        margin-top:calculateRem(200px);
+        left:calculateRem(20px);
+    }
+  }

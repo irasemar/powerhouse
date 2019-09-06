@@ -2962,9 +2962,9 @@ namespace dyma.powerhouse.data.repositories
             return datos;
         }
 
-        public CalendarioClaseCatalogo GuardarCalendarioClaseActivo(long NPK_CalendarioClase, int Activo, int NFK_User)
+        public CalendarioClase GuardarCalendarioClaseActivo(long NPK_CalendarioClase, int NFK_User)
         {
-            CalendarioClaseCatalogo datos;
+            CalendarioClase datos;
 
             using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
             {
@@ -2973,11 +2973,8 @@ namespace dyma.powerhouse.data.repositories
                 {
                     try
                     {
-                        var fab = connection.Get<CalendarioClaseCatalogo>(NPK_CalendarioClase, tran);
-                        fab.FechaModificacion = DateTime.Now;
-                        fab.ModificadoPor = NFK_User;
-                        fab.Activo = Activo;
-                        connection.Update<CalendarioClaseCatalogo>(fab, tran);
+                        var fab = connection.Get<CalendarioClase>(NPK_CalendarioClase, tran);
+                        connection.Delete<CalendarioClase>(fab, tran);
                         tran.Commit();
                         datos = fab;
                     }

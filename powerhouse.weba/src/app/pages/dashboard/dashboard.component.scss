@@ -1,0 +1,40 @@
+/* START OF Change the font/size/color of the Slider Titles */
+/* Change Slider Titles (2em) font-size, (Garamond) family, (red) color */
+/* Title text */
+.carousel-caption h3 {
+  color:          black !important;
+  }
+  /* Description text */
+  
+  .carousel-caption p {
+    position:absolute;
+    /* left:0px; */
+    bottom:-20px;
+    background:#000;
+    color:#fff;
+    width:100%;
+    /* z-index:8; */
+    padding: 5px 10px;
+    opacity: 0.8;
+    /*overflow: hidden;
+    display: none;
+    -moz-opacity: 0.8;
+    filter:alpha(opacity=8);*/
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .h4{
+    font-size: 15px;
+  }
+  .box {
+    border: 4px solid #e4e0e0;
+    border-radius: 3px;
+    padding: 5px 10px;
+  }
+  .boxheader {
+    border: 4px solid #e4e0e0;
+    border-radius: 5px;
+    padding: 1px 5px;
+  }
+  /* END OF Change the font/size/color of the Slider Titles */

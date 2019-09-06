@@ -20,7 +20,7 @@ export class HistoryComponent implements OnInit {
     this.title = 'Mi historial';
     this.list = [
       {
-        "title": "Mi Perfil",
+        "title": "Mi perfil",
         "url": "/perfil"
       },
       {
@@ -32,7 +32,7 @@ export class HistoryComponent implements OnInit {
         "url": "/historial"
       },
       {
-        "title": "Mis Pagos",
+        "title": "Mis pagos",
         "url": "/historialPagos"
       },
       /* {

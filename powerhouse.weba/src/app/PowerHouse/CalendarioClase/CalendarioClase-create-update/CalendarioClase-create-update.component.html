@@ -1,0 +1,54 @@
+<div class="padding">
+  <h2 mat-dialog-title>CalendarioClase</h2>
+  
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Instructor</mat-label>
+            <mat-select placeholder="Instructor"  formControlName="NFK_Instructor" required>
+          <mat-option>Seleccione</mat-option>
+                <mat-option *ngFor="let instructor of Instructors" [value]="instructor.NPK_Instructor">
+                  {{instructor.Nombre + ' ' + instructor.Apellidos}}  
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Hora Inicio</mat-label>
+            <!-- <input type="text" formControlName="HoraInicio" matInput required > -->
+            <input matInput placeholder="HH:mm" aria-label="24hr format" formControlName="HoraInicio" [ngxTimepicker]="fullTime"
+              [format]="24" readonly [(ngModel)]="Hora24" required> 
+            <ngx-material-timepicker #fullTime></ngx-material-timepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Duracion</mat-label>
+            <input type="text" formControlName="Duracion" matInput>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxLayout="column"  fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px"> 
+          <mat-form-field fxFlex>
+            <mat-label>Actividad</mat-label>
+            <input type="text" formControlName="Actividad" matInput>
+          </mat-form-field>
+        </div>
+      </div>
+  
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button *ngIf="isCreateMode()" mat-button [disabled]="!form.valid">CREAR CLASE</button>
+      <button *ngIf="isUpdateMode()" mat-button [disabled]="!form.valid">ACTUALIZAR CLASE</button>
+    </mat-dialog-actions>
+  </form>
+  </div>
+  

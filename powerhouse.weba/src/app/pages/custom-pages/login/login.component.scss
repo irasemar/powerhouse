@@ -1,0 +1,30 @@
+@import "var";
+
+.page {
+  display: block;
+  /*background: url("../../../../assets/img/login/2desierto.jpg") no-repeat center center fixed;*/
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+  
+}
+
+.card {
+  width: 380px;
+  background: url('../../../../assets/img/backgrounds/bg-trans.png') repeat ;
+  
+
+  @include media-xs {
+    width: 300px;
+  }
+
+  .header {
+    background: rgba(255, 255, 255, 0.7);
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+  }
+}

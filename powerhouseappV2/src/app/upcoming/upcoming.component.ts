@@ -26,7 +26,7 @@ export class UpcomingComponent implements OnInit {
     this.title = "Mis próximas clases";
     this.list = [
       {
-        "title": "Mi Perfil",
+        "title": "Mi perfil",
         "url": "/perfil"
       },
       {
@@ -38,7 +38,7 @@ export class UpcomingComponent implements OnInit {
         "url": "/historial"
       },
       {
-        "title": "Mis Pagos",
+        "title": "Mis pagos",
         "url": "/historialPagos"
       },
       /* {

@@ -46,7 +46,7 @@
             </button>
 
             <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">              
-              <button (click)="eliminarCalendarioClase(row,1)" mat-menu-item><span>Eliminar Clase</span></button>
+              <button (click)="eliminarCalendarioClase(row,1)" mat-menu-item *ngIf="row.PuedeEliminar == 1"><span>Eliminar Clase</span></button>
             </mat-menu>
           </mat-cell>
         </ng-container> 

@@ -20,8 +20,8 @@ export class AnioComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input()
   columns: ListColumn[] = [
-		{ name: '#Año', property:' NPK_Año', visible: false, isModelProperty: true },
-		{ name: 'Año', property: 'Año', visible: true, isModelProperty: true },
+		{ name: '#Año', property:'NPK_Anio', visible: false, isModelProperty: true },
+		{ name: 'Año', property: 'Anio', visible: true, isModelProperty: true },
 		{ name: 'Activo', property: 'Activo', visible: true, isModelProperty: true },
 	{ name: 'Actions', property: 'actions', visible: true },
   ] as ListColumn[];

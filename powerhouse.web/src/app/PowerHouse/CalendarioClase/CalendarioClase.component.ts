@@ -31,7 +31,8 @@ export class CalendarioClaseComponent implements OnInit, AfterViewInit, OnDestro
 		{ name: 'Hora Inicio', property: 'HoraInicio', visible: true, isModelProperty: true },
 		{ name: 'Duracion', property: 'Duracion', visible: true, isModelProperty: true },
 		{ name: 'Actividad', property: 'Actividad', visible: true, isModelProperty: true },
-		
+		{ name: 'Cantidad de Reservas', property: 'CantReservas', visible: true, isModelProperty: true },
+		{ name: 'Se Puede Eliminar', property: 'DescPuedeEliminar', visible: true, isModelProperty: true },	
 
 	{ name: 'Actions', property: 'actions', visible: true },
   ] as ListColumn[];
@@ -80,6 +81,7 @@ export class CalendarioClaseComponent implements OnInit, AfterViewInit, OnDestro
 	fillGrid(pNFK_Calendario){
 		this.catalog.getCalendarioClases(pNFK_Calendario).subscribe(CalendarioClaselist =>{
 			this.CalendarioClases = CalendarioClaselist;
+			console.log(this.CalendarioClases);
 			this.subject$.next(CalendarioClaselist);
 	})
 

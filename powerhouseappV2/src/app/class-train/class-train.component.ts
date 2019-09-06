@@ -40,24 +40,36 @@ export class ClassTrainComponent implements OnInit {
     setTimeout(() => { this.llenaDatos(); });    
   }
   llenaDatos() {
-    this.catalog.getMiSaldo(this.authservice.getAccount().NPK_Usuario).subscribe(saldo => {
-      this.Saldo = saldo;
-      this.catalog.getEstatus_Salon_PorDia(this.NFK_Clase, this.NFK_Semana, this.Dia, this.NPK_CalendarioClase).subscribe(lugares => {
-        this.bikes = lugares;
-        console.log(lugares);
-        this.catalog.getEstatus_Salon_PorDia_Header(this.NFK_Clase, this.NFK_Semana, this.Dia, this.NPK_CalendarioClase, this.NPK_Usuario).subscribe(clases => {
-          console.log(clases);
-          this.class.Fecha = clases[0].Fecha;
-          this.class.Clase = clases[0].Clase;
-          this.class.Instructor = clases[0].Instructor;
-          this.class.NPK_CalendarioClase = clases[0].NPK_CalendarioClase;
-          this.class.NFK_Instructor = clases[0].NFK_Instructor;
-          this.class.Fotografia = clases[0].Fotografia;
-          this.TengoClase = clases[0].TengoClase;
-          this.welcome = true;
+    if (String(this.authservice.getAccount()) != 'null') {
+      this.catalog.getMiSaldo(this.authservice.getAccount().NPK_Usuario).subscribe(saldo => {
+        this.Saldo = saldo;
+        this.catalog.getEstatus_Salon_PorDia(this.NFK_Clase, this.NFK_Semana, this.Dia, this.NPK_CalendarioClase).subscribe(lugares => {
+          this.bikes = lugares;
+          this.catalog.getEstatus_Salon_PorDia_Header(this.NFK_Clase, this.NFK_Semana, this.Dia, this.NPK_CalendarioClase, this.NPK_Usuario).subscribe(clases => {
+            this.class.Fecha = clases[0].Fecha;
+            this.class.Clase = clases[0].Clase;
+            this.class.Instructor = clases[0].Instructor;
+            this.class.NPK_CalendarioClase = clases[0].NPK_CalendarioClase;
+            this.class.NFK_Instructor = clases[0].NFK_Instructor;
+            this.class.Fotografia = clases[0].Fotografia;
+            this.TengoClase = clases[0].TengoClase;
+            this.welcome = true;
+          });
         });
       });
-    });
+    }
+    else {
+      this.catalog.getEstatus_Salon_PorDia_Header(this.NFK_Clase, this.NFK_Semana, this.Dia, this.NPK_CalendarioClase, this.NPK_Usuario).subscribe(clases => {
+        this.class.Fecha = clases[0].Fecha;
+        this.class.Clase = clases[0].Clase;
+        this.class.Instructor = clases[0].Instructor;
+        this.class.NPK_CalendarioClase = clases[0].NPK_CalendarioClase;
+        this.class.NFK_Instructor = clases[0].NFK_Instructor;
+        this.class.Fotografia = clases[0].Fotografia;
+        this.TengoClase = clases[0].TengoClase;
+        this.welcome = true;
+      });
+    }
   }
   public select(bike:any){
     if (this.Saldo[0].Saldo <= 0) {

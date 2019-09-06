@@ -720,7 +720,9 @@ export interface CalendarioClaseForm {
 export interface CalendarioClaseView extends CalendarioClaseForm {
   Instructor : string;
   InstructorAdjunto : string;
-
+  PuedeEliminar : number;
+  CantReservas: number;
+  DescPuedeEliminar: string;
 }
 export interface MisPagos {
   Cliente: string;

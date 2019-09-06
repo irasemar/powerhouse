@@ -14,9 +14,10 @@
     <div class="col-md-7 text-center">
       <h2 class="h2 orange">{{title}}</h2>
       <hr class="line--orange">
-      <button class="btn btn-outline-primary--orange" (click)="ReservarHiit();" >Reserva ya! Ride</button>&nbsp;&nbsp;&nbsp;&nbsp;
-      <button class="btn btn-outline-primary--aqua" (click)="ReservarTrain();" >Reserva ya! Train</button>
-      <h3 class="h1 mt-5 mb-5 text-center" *ngIf="Reservas.length > 0">¡tienes {{ Reservas.length }} clases reservadas!</h3>
+      <button class="btn btn-outline-primary--orange" (click)="ReservarHiit();" >Reserva Ride</button>&nbsp;&nbsp;&nbsp;&nbsp;
+      <button class="btn btn-outline-primary--aqua" (click)="ReservarTrain();" >Reserva Train</button>
+      <h3 class="h1 mt-5 mb-5 text-center" *ngIf="Reservas.length == 1">¡Tiene {{ Reservas.length }} clase reservada!</h3>
+      <h3 class="h1 mt-5 mb-5 text-center" *ngIf="Reservas.length > 1">¡Tienes {{ Reservas.length }} clases reservadas!</h3>
       <h3 class="h1 mt-5 mb-5" *ngIf="Reservas.length === 0">No tienes clases reservadas</h3>
       
       <hr>

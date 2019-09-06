@@ -419,10 +419,10 @@ namespace dyma.powerhouse.data.actions
             datos.Activo = 1;
             return repo.GuardarCalendarioClase(datos, NFK_User);
         }
-        public CalendarioClaseCatalogo GuardarCalendarioClaseActivo(long NPK_CalendarioClase, int Activo, int NFK_User)
+        public CalendarioClase GuardarCalendarioClaseActivo(long NPK_CalendarioClase, int NFK_User)
         {
             var repo = new CatalogRepository(ClientConnectionString);
-            return repo.GuardarCalendarioClaseActivo(NPK_CalendarioClase, Activo, NFK_User);
+            return repo.GuardarCalendarioClaseActivo(NPK_CalendarioClase, NFK_User);
         }
         public List<vwUsuario> TraerUsuarios(int Activo)
         {

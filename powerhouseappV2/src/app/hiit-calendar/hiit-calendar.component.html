@@ -2,7 +2,7 @@
   <div class="row">
       <div class="col-md-12">
         <h1 class="h1 aqua big-title text-center">Train</h1>
-        <p class="text-center aqua small">High Intensity Interval Training</p>
+        <p class="text-center aqua small">Strength Rhythmic Training</p>
           <ngb-carousel class="calendar aqua" *ngIf="ClasesWeeks" data-interval="false" [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
               <ng-template ngbSlide *ngFor="let week of ClasesWeeks">
                 <h2 class="h3 gray text-center mt-4 mb-5">SEMANA {{week.NumeroSemana}}, {{week.Anio}}</h2>
@@ -15,7 +15,7 @@
                           <div class="card calendar__card--child" *ngFor="let class of day.classes" (click)="Reservar(week.NFK_Semana,week.NFK_Clase,day.Dia,class.NPK_CalendarioClase);">
                               <div class="card-body">
                                 <h5 class="card-title calendar__card--child--time">{{class.HoraInicio}}</h5>
-                                <p class="card-text"><a class="calendar__card--child--instructor"[href]="'instructor/' +  class.instructorId">{{class.Instructor}}</a></p>
+                                <p class="card-text">{{class.Instructor}}</p>
                                 <p class="card-text calendar__card--child--duration">{{class.Duracion}}</p>
                               </div>
                             </div>

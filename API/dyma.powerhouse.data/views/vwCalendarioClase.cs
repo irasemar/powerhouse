@@ -23,4 +23,7 @@
         public int? ModificadoPor { get; set; }
         public DateTime? FechaModificacion { get; set; }
         public short Activo { get; set; }
+        public int PuedeEliminar { get; set; }
+        public int CantReservas { get; set; }
+        public string DescPuedeEliminar { get; set; }
     }}

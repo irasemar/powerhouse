@@ -20,7 +20,7 @@ export class HistoryPagosComponent implements OnInit {
     this.title = 'Mi historial de Pagos';
     this.list = [
       {
-        "title": "Mi Perfil",
+        "title": "Mi perfil",
         "url": "/perfil"
       },
       {
@@ -31,10 +31,10 @@ export class HistoryPagosComponent implements OnInit {
         "title": "Mi historial",
         "url": "/historial"
       },
-      /* {
-        "title": "Power awards",
-        "url": "/awards"
-      } */
+      {
+        "title": "Mis pagos",
+        "url": "/historialPagos"
+      },
     ]
     setTimeout(() => { 
       this.catalog.getMiHistoriaPagos(this.authservice.getAccount().NPK_Usuario).subscribe(pagos =>{

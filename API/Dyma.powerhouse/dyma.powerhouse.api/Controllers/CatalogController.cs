@@ -2086,12 +2086,12 @@ namespace dyma.powerhouse.api.Controllers
 
         [AllowAnonymous]
         [Route("CalendarioClase/{NPK_CalendarioClase:long}/Eliminar"), HttpPost, ResponseType(typeof(Models.CalendarioClaseForm))]
-        public HttpResponseMessage UpdateActivateCalendarioClase(long NPK_CalendarioClase, int Activo)
+        public HttpResponseMessage UpdateActivateCalendarioClase(long NPK_CalendarioClase)
         {
             try
             {
                 var proxy = new Tasks(this.GetConnectionString());
-                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarCalendarioClaseActivo(NPK_CalendarioClase, Activo, this.GetNpkUser()));
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.GuardarCalendarioClaseActivo(NPK_CalendarioClase, this.GetNpkUser()));
             }
             catch (data.exceptions.BusinessRuleValidationException ex)
             {
