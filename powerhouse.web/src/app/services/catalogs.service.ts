@@ -562,7 +562,8 @@ export interface UsuarioView {
 	Activo: number;
 	Administrador: number;
 	id: string;
-	Correo: string;
+  Correo: string;
+  FechaCreacion: string;
 }
 export interface GeneroForm {
   NPK_Genero: number;
@@ -732,6 +733,7 @@ export interface MisPagos {
   TipoTarjeta: string;
   NumeroTarjeta: string;
   NumAutorizacion: string;
+  CantidadClases: number;
 }
 export interface MisTarjetas {  
   NPK_Tarjeta: number;

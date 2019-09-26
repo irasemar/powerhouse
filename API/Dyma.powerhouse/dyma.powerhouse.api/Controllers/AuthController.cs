@@ -308,8 +308,9 @@ namespace dyma.powerhouse.api.Controllers
                         //BikeSetupAlturaManubrio = (String.IsNullOrEmpty(user.BikeSetupAlturaManubrio) ? "" : user.BikeSetupAlturaManubrio.ToString()),
                         //TallaZapato = (String.IsNullOrEmpty(user.TallaZapato) ? "" : user.TallaZapato.ToString()),
                         //QuieroOfertas = (String.IsNullOrEmpty(user.QuieroOfertas.ToString()) ? 0 : user.QuieroOfertas),
-                        Correo = (String.IsNullOrEmpty(user.Correo.ToString()) ? user.Usuario : user.Correo)
+                        
                     };
+                sesion.Correo = (user.Correo == null ? user.Usuario : user.Correo);
                     return Request.CreateResponse(HttpStatusCode.OK, sesion);
                 //}
                 //else

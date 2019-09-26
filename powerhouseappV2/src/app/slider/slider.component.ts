@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService, Usuario,} from '../services/auth.services';
 import { CatalogsService,VentaCarro,Saldo } from "../services/catalogs.service";
 
+declare const OpenPay: any;
+
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
@@ -59,6 +61,7 @@ export class SliderComponent implements OnInit {
   ReservarHiit() {
     this.router.navigate(['/indoor-calendar/']);
   }
+  
   ReservarTrain() {
     this.router.navigate(['/hiit-calendar/']);
   }

@@ -1,10 +1,12 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { CatalogsService,HistoriaReserva,Saldo } from "../services/catalogs.service";
+import { CatalogsService,HistoriaReserva,Saldo, VentaPagoOpenView } from "../services/catalogs.service";
 import { AuthService } from "../services/auth.services";
 import { Router } from '@angular/router';
 import { ModalCancelarReservaComponent }  from '../modal-cancelarreserva/modal-cancelarreserva.component'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UpdateService } from '../services/loader.service'
+import { UpdateService } from '../services/loader.service';
+import { ActivatedRoute } from "@angular/router";
+import { ModalMensageComponent } from '../modal-mensage/modal-mensage.component';
 
 @Component({
   selector: 'app-upcoming',
@@ -19,7 +21,24 @@ export class UpcomingComponent implements OnInit {
   public welcome = false;
   @Output() valueChange = new EventEmitter();
   constructor( private catalog: CatalogsService, private authservice: AuthService, private router: Router, private modalService: NgbModal,
-    private updateService: UpdateService) { }
+    private updateService: UpdateService, private route: ActivatedRoute) { 
+      this.route.queryParams.subscribe(params => {
+          console.log(params);
+          if (String(params.id).length > 0) {
+            var pago = {} as VentaPagoOpenView;
+            pago.IDPagoOpenPay = String(params.id);
+            this.catalog.letVentaUsuarioPago_Aplicar(pago).subscribe(respuesta => {        
+              var resp = respuesta;        
+              if (resp.Error === 0) {
+                this.updateService.UpdateSaldo();
+                const modalMensage = this.modalService.open(ModalMensageComponent);
+                modalMensage.componentInstance.Mensage = "Reserva tus clases.";
+                modalMensage.componentInstance.Titulo = "Tu pago se ha realizado con éxito";
+              }
+            });
+          }
+      });
+    }
 
   ngOnInit() {
     this.welcome = false;
@@ -47,6 +66,7 @@ export class UpcomingComponent implements OnInit {
       } */
     ]
     setTimeout(() => { 
+      this.updateService.UpdateSaldo();
       this.catalog.getMisReservas(this.authservice.getAccount().NPK_Usuario).subscribe(reservas =>{
         this.Reservas = reservas;
         this.welcome = true;     

@@ -28,13 +28,18 @@ import { ModalPaymentComponent } from './modal-payment/modal-payment.component';
 import { ModalReservaComponent } from './modal-reserva/modal-reserva.component';
 import { ModalCancelarReservaComponent } from './modal-cancelarreserva/modal-cancelarreserva.component';
 import { ModalMensageLoginComponent } from './modal-mensagelogin/modal-mensagelogin.component';
+import { ModalMensagePagoOfflineComponent } from './modal-mensagepagoffline/modal-mensagepagoffline.component';
+import { ModalMensageComponent } from './modal-mensage/modal-mensage.component';
 import { ModalMensageSaldoComponent } from './modal-mensagesaldo/modal-mensagesaldo.component';
+import { ModalMensageProfileComponent } from './modal-mensageprofile/modal-mensageprofile.component';
 import { InstructorsComponent } from './instructors/instructors.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
 import { TeamMusicComponent } from './team-music/team-music.component';
 import { TeamCalendarComponent } from './team-calendar/team-calendar.component';
 import { StudioComponent } from './studio/studio.component';
 import { HomeComponent } from './home/home.component';
+import { FaqComponent } from './faq/faq.component';
+import { AvisoPrivacidadComponent } from './avisoprivacidad/avisoprivacidad.component';
 import { RidesComponent } from './rides/rides.component';
 import { StudioSliderComponent } from './studio-slider/studio-slider.component';
 import { APP_CONFIG, AppConfigImpl } from './app.config';
@@ -55,6 +60,8 @@ import { LoaderService } from './services/loader.service';
 import { Component } from '@angular/core';
 import { UpdateService } from './services/loader.service'
 import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
+ 
 
 
 
@@ -88,6 +95,8 @@ registerLocaleData(localemx);
     TeamCalendarComponent,
     StudioComponent,
     HomeComponent,
+    FaqComponent,
+    AvisoPrivacidadComponent,
     RidesComponent,
     StudioSliderComponent,
     LoginComponent,
@@ -97,7 +106,10 @@ registerLocaleData(localemx);
     ClassTrainComponent,
     agregarventaComponent,
     ModalMensageLoginComponent,
-    ModalMensageSaldoComponent
+    ModalMensageSaldoComponent,
+    ModalMensageProfileComponent,
+    ModalMensagePagoOfflineComponent,
+    ModalMensageComponent
 
   ],
   imports: [
@@ -109,6 +121,7 @@ registerLocaleData(localemx);
     HttpClientModule,
     NoopAnimationsModule,
     BrowserAnimationsModule,
+    NgxPageScrollModule
   ],
   exports: [
     ModalPaymentComponent,
@@ -122,15 +135,18 @@ registerLocaleData(localemx);
     ModalReservaComponent,
     ModalCancelarReservaComponent,
     ModalMensageLoginComponent,
-    ModalMensageSaldoComponent
+    ModalMensageSaldoComponent,
+    ModalMensageProfileComponent,
+    ModalMensagePagoOfflineComponent,
+    ModalMensageComponent
   ],
   providers: [
     /* { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }, */
-    /* {
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    // }, */
+     },
     //{provide : LocationStrategy , useClass: HashLocationStrategy},
     { provide: APP_CONFIG, useValue: AppConfigImpl },
     { provide: LOCALE_ID, useValue: 'es-MX'},

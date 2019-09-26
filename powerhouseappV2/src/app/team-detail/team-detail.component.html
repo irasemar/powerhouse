@@ -1,10 +1,10 @@
 <div class="container-fluid team-detail">
-  <div class="row">
+  <div class="row" >
       <div class="team-detail__profile-pic">
           <h1 class="team-detail__profile-name">{{instructor_name}}</h1>
           <br><br><br>
           <h4 class="team-detail__profile-name">{{TipoInstructor}}</h4>
-          <img [src]="instructor_image" alt="">
+          <img [src]="instructor_image" alt="" style="min-width: 100%;">
         </div>
   </div>
 </div>
@@ -15,17 +15,17 @@
       <app-team-music></app-team-music>
       <h3 class="h2 orange mt-5 mb-5">"{{instructor_Frase}}”</h3>
       <p>{{instructor_DescripcionSuClase}}</p>
-      <ul class="social">
+      <!-- <ul class="social">
         <li class="social__item"><a href="http:https://www.facebook.com/{{instructor_facebook}}"><i class="fab fa-facebook-f"></i>{{instructor_facebook}}</a></li>
         <li class="social__item"><a href="instructor_instagram"><i class="fab fa-instagram"></i>{{instructor_instagram}}</a></li>
         <li class="social__item"><a href="instructor_youtube"><i class="fab fa-youtube"></i>{{instructor_youtube}}</a></li>
-      </ul>
+      </ul> -->
     </div>
     <div class="col-md-4">
       <h4 class="h4 upper mt-5">Su paso favorito arriba de la bici:</h4>
       <h3 class="h3 mb-4">{{instructor_PasoFavoritoBici}}</h3>
 
-      <h4 class="h4 upper">Su paso favorito en hiit:</h4>
+      <h4 class="h4 upper">Su paso favorito en train:</h4>
       <h3 class="h3 mb-4">{{instructor_PasoFavoritoHiit}}</h3>
       <h4 class="h4 upper">Artista favorito:</h4>
       <h3 class="h3 mb-4">{{instructor_ArtistaFavorito}}</h3>

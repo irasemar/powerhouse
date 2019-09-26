@@ -270,7 +270,7 @@ namespace dyma.powerhouse.data.repositories
                         request.ExternalId = "PWH-" + datos.NPK_Usuario.ToString();
                         request.Name = exist.Nombre;
                         request.LastName = exist.Apellidos;
-                        request.Email = datos.Correo;
+                        request.Email = "admin@mypowerhouse.mx";
                         request.PhoneNumber = exist.Telefono;
                         request.RequiresAccount = false;
                         Address address = new Address();
@@ -368,7 +368,7 @@ namespace dyma.powerhouse.data.repositories
             }
             return resp;
         }
-        public RespuestaPago VentaUsuarioPago(vwVentaCarroPago datos, string APIKEY, string MERCHANT_ID, bool PRODPAY, string DeviceSessionId)
+        public RespuestaPago VentaUsuarioPago(vwVentaCarroPago datos, string APIKEY, string MERCHANT_ID, bool PRODPAY, string DeviceSessionId, string RedirectUrl)
         {
             var Respuesta = new RespuestaPago();
             if (datos == null)
@@ -381,6 +381,50 @@ namespace dyma.powerhouse.data.repositories
                 if (datos.NPK_Tarjeta == 0)
                 {
                     connection.Open();
+                    var exist = connection.Get<CatalogoUsuario>(datos.NFK_Usuario);
+                    #region AgregarCliente OpenPay Si no Existe
+                    if (String.IsNullOrEmpty(exist.id))
+                    {
+                        OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);
+                        Customer request = new Customer();
+                        request.ExternalId = "PWH-" + datos.NFK_Usuario.ToString();
+                        request.Name = exist.Nombre;
+                        request.LastName = exist.Apellidos;
+                        request.Email = "admin@mypowerhouse.mx";
+                        request.PhoneNumber = exist.Telefono;
+                        request.RequiresAccount = false;
+                        Address address = new Address();
+                        address.City = "San Pedro Garza García";
+                        address.CountryCode = "MX";
+                        address.State = "Nuevo Leon";
+                        address.PostalCode = "66254";
+                        address.Line1 = "Av. Roberto Garza Sada #101";
+                        address.Line2 = "";
+                        address.Line3 = "San Pedro Garza García N.L.";
+                        request.Address = address;
+
+                        request = api.CustomerService.Create(request);
+                        exist.id = request.Id;
+                    
+                        using (var tran = connection.BeginTransaction())
+                        {
+                            try
+                            {
+                                var fab = connection.Get<CatalogoUsuario>(datos.NFK_Usuario, tran);
+                                fab.id = exist.id;
+                                connection.Update<CatalogoUsuario>(fab, tran);
+                                tran.Commit();
+                            }
+                            catch (Exception ex)
+                            {
+                                datos.NFK_Usuario = 0;
+                                tran.Rollback();
+                                throw ex;
+                            }
+
+                        }
+                    }
+                    #endregion
                     using (var tran = connection.BeginTransaction())
                     {
                         try
@@ -392,14 +436,15 @@ namespace dyma.powerhouse.data.repositories
                                     NFK_Usuario = datos.NFK_Usuario,
                                     Nombre = datos.Nombre,
                                     Numero = datos.Numero,
-                                    CVV = datos.CVV,
-                                    Mes = datos.Mes,
-                                    Anio = datos.Anio,
-                                    Ciudad = datos.Ciudad,
-                                    Pais = datos.Pais,
-                                    Estado = datos.Estado,
-                                    CP = datos.CP,
-                                    Direccion = datos.Direccion
+                                    CVV = "",
+                                    Mes = "",
+                                    Anio = "",
+                                    Ciudad = "",
+                                    Pais = "",
+                                    Estado = "",
+                                    CP = "",
+                                    Direccion = "",
+                                    TokenID = datos.TOKENid
                                 },tran, true, commandType: System.Data.CommandType.StoredProcedure).ToList();
                             tran.Commit();
                             datos.NPK_Tarjeta = resp[0].NPK_Tarjeta;
@@ -424,23 +469,9 @@ namespace dyma.powerhouse.data.repositories
                             
                             OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);                            
                             Card request = new Card();
-                            request.HolderName = datos.Nombre;
-                            request.CardNumber = datos.Numero;
-                            request.Cvv2 = datos.CVV;
-                            request.ExpirationMonth = datos.Mes;
-                            request.ExpirationYear = datos.Anio;
-                            //request.DeviceSessionId = "kR1MiQhz2otdIuUlQkbEyitIqVMiI16f";
-                            Address address = new Address();
-                            address.City = datos.Ciudad;
-                            address.CountryCode = datos.Pais;
-                            address.State = datos.Estado;
-                            address.PostalCode = datos.CP;
-                            address.Line1 = datos.Direccion;
-                            address.Line2 = "";
-                            address.Line3 = "";
-                            request.Address = address;
-
-                            request = api.CardService.Create(resp[0].IdOpen, request);                            
+                            request.TokenId = datos.TOKENid;
+                            request.DeviceSessionId = datos.REQUESTid;
+                            request = api.CardService.Create(resp[0].IdOpen, request);
                             using (var tran = connection.BeginTransaction())
                             {
                                 try
@@ -488,7 +519,8 @@ namespace dyma.powerhouse.data.repositories
 
                             }
                             Respuesta.Error = 10;
-                            Respuesta.Desc_Error = ex.ToString();
+                            Respuesta.Desc_Error = ex.Message;
+                            //Respuesta.Error_Code = ex.Err
                             return Respuesta;
                         }
                     }
@@ -497,23 +529,17 @@ namespace dyma.powerhouse.data.repositories
                         #region Pagar Tarjeta OpenPay
                         try
                         {
-                            OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);
-                            Customer customer = new Customer();
-                            customer.Name = tarjetas[0].Nombre;
-                            customer.LastName = tarjetas[0].Apellidos;
-                            customer.PhoneNumber = tarjetas[0].Telefono;
-                            customer.Email = tarjetas[0].Correo;
-                            customer.Id = tarjetas[0].IdOpen;
+                            OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);                            
 
                             ChargeRequest request = new ChargeRequest();
                             request.Method = "card";
                             request.SourceId = tarjetas[0].id;
-                            request.Amount = datos.Monto;// new Decimal();
+                            request.Amount = datos.Monto;
                             request.Description = "Pago Por Paquete:" + tarjetas[0].Paquete;
                             request.OrderId = "pago-" + tarjetas[0].NPK_Venta.ToString();
-                            //request.Capture = false;
-                            request.DeviceSessionId = DeviceSessionId;// "kR1MiQhz2otdIuUlQkbEyitIqVMiI16f";
-                            //request.Customer = customer;
+                            request.DeviceSessionId = datos.REQUESTid;
+                            request.Use3DSecure = true;
+                            request.RedirectUrl = RedirectUrl;
 
 
                             Charge charge = api.ChargeService.Create(tarjetas[0].IdOpen, request);
@@ -521,9 +547,9 @@ namespace dyma.powerhouse.data.repositories
                             Respuesta.Desc_Error = charge.ErrorMessage;
                             Respuesta.NumeroTransaccion = charge.Authorization;
                             Respuesta.Monto = charge.Amount.ToString();
-                            Respuesta.NumeroTarjeta = charge.Card.CardNumber;
                             Respuesta.description = charge.Description;
                             Respuesta.operation_date = charge.CreationDate.ToString();
+                            Respuesta.urlpayment = charge.PaymentMethod.Url;
 
                             using (var connection2 = util.DbManager.ConnectionFactory(sqlConnectionString))
                             {
@@ -543,7 +569,9 @@ namespace dyma.powerhouse.data.repositories
                                                 Titular = charge.Card.HolderName,
                                                 CorreoElectronico = charge.Card.Brand,
                                                 NumAutorizacion = charge.Authorization,
-                                                MontoPago = charge.Amount
+                                                MontoPago = charge.Amount,
+                                                IDPagoOpenPay  = charge.Id,
+                                                url = charge.PaymentMethod.Url
                                             }, tran, null, commandType: System.Data.CommandType.StoredProcedure);
                                         tran.Commit();
                                     }
@@ -579,6 +607,51 @@ namespace dyma.powerhouse.data.repositories
 
             return Respuesta;
         }
+
+        public RespuestaPago VentaUsuarioPago_Aplicar(vwVentaCarroPagoAplicar datos)
+        {
+            var Respuesta = new RespuestaPago();
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("Venta Pago List Data requiered");
+
+
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                var resp = new List<vwMisTarjetas>();
+                using (var connection2 = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection2.Open();
+                    using (var tran = connection2.BeginTransaction())
+                    {
+                        try
+                        {
+                            var affectedRows = connection2.Execute("SP_Proc_Venta_Carro_Pago_Aplicar",
+                                new
+                                {
+                                    IDPagoOpenPay = datos.IDPagoOpenPay
+                                }, tran, null, commandType: System.Data.CommandType.StoredProcedure);
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            tran.Rollback();
+                            Respuesta.Error = 2;
+                            Respuesta.Desc_Error = ex.ToString();
+                            return Respuesta;
+                        }
+                        finally
+                        {
+                            connection2.Close();
+                        }
+
+                    }
+                }
+
+            }
+
+            return Respuesta;
+        }
+
         public string ReservaLugar(int NFK_CalendarioClase, int NFK_Usuario, int NFK_Salon, int NFK_SalonLugar, string ServidorSMTP, int puerto, string smtusuario, string smtpcontrasena)
         {
             using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))

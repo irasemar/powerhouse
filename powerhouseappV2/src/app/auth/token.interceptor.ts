@@ -22,14 +22,18 @@ export class TokenInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${acc.Token}`,
-          'Content-Type' : 'application/json'
+          'Content-Type' : 'application/json',
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache'
         }
       });
     }else{
       
       request = request.clone({
         setHeaders: {
-          'Content-Type' : 'application/json'
+          'Content-Type' : 'application/json',
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache'
         }
       });
     }

@@ -3,7 +3,7 @@
       <h1>Estatus de clases para hoy</h1>
       <div class="padding">
          <div fxLayout="row wrap">
-            <mat-card *ngFor="let row of ReservasHoy" [style.background]="row.Color === 'orange' ? '#f04c22':'#1dcbce'">
+            <mat-card *ngFor="let row of ReservasHoy" [style.background]="row.Color === 'orange' ? '#f04c22':'#1dcbce'" class="box">
                <mat-card-header>
                   <img mat-card-avatar src="{{ row.Fotografia }}">
                   <mat-card-subtitle>{{row.Instructor}}</mat-card-subtitle>
@@ -30,7 +30,7 @@
       <h1>Estatus de clases apartir de hoy</h1>
       <div class="padding">
          <div fxLayout="row wrap">
-            <mat-card *ngFor="let row of ReservasAPartirHoy" [style.background]="row.Color === 'orange' ? '#f04c22':'#1dcbce'">
+            <mat-card *ngFor="let row of ReservasAPartirHoy" [style.background]="row.Color === 'orange' ? '#f04c22':'#1dcbce'" class="box">
                <mat-card-header>
                   <img mat-card-avatar src="{{ row.Fotografia }}">
                   <mat-card-subtitle>{{row.Instructor}}</mat-card-subtitle>
@@ -66,6 +66,7 @@
                      <tr>
                         <th>CLIENTE</th>
                         <th>FECHA PAGO</th>
+                        <th>CANTIDAD DE CLASES</th>
                         <th>MONTO</th>
                         <th>TARJETA</th>
                         <th>TIPO DE TARJETA</th>
@@ -76,6 +77,7 @@
                      <tr *ngFor="let row of MisPagosHoy">
                         <td>{{ row.Cliente}}</td>
                         <td>{{ row.FechaPago}}</td>
+                        <td>{{ row.CantidadClases }}</td>
                         <td>{{ row.MontoPago }}</td>
                         <td>{{ row.NumeroTarjeta }}</td>
                         <td>{{ row.TipoTarjeta }}</td>
@@ -101,6 +103,7 @@
                      <tr>
                         <th>CLIENTE</th>
                         <th>FECHA PAGO</th>
+                        <th>CANTIDAD DE CLASES</th>
                         <th>MONTO</th>
                         <th>TARJETA</th>
                         <th>TIPO DE TARJETA</th>
@@ -111,6 +114,7 @@
                      <tr *ngFor="let row of MisPagos">
                         <td>{{ row.Cliente}}</td>
                         <td>{{ row.FechaPago}}</td>
+                        <td>{{ row.CantidadClases }}</td>
                         <td>{{ row.MontoPago }}</td>
                         <td>{{ row.NumeroTarjeta }}</td>
                         <td>{{ row.TipoTarjeta }}</td>

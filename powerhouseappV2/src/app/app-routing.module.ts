@@ -15,6 +15,8 @@ import { InstructorsComponent } from './instructors/instructors.component';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
 import { StudioComponent } from './studio/studio.component';
 import { HomeComponent } from './home/home.component';
+import { FaqComponent } from './faq/faq.component';
+import { AvisoPrivacidadComponent } from './avisoprivacidad/avisoprivacidad.component';
 import { HiitCalendarComponent } from './hiit-calendar/hiit-calendar.component';
 import { NewComponent } from './new/new.component';
 import { ClassTrainComponent } from './class-train/class-train.component';
@@ -22,6 +24,8 @@ import { ClassTrainComponent } from './class-train/class-train.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home',pathMatch: 'full'},
   { path: 'home',      component: HomeComponent,pathMatch: 'full' },
+  { path: 'faq',      component: FaqComponent,pathMatch: 'full' },
+  { path: 'avisoprivacidad',      component: AvisoPrivacidadComponent,pathMatch: 'full' },
   { path: 'slider',      component: SliderComponent },
   { path: 'registro',      component: RegisterComponent },
   { path: 'perfil',      component: ProfileComponent },

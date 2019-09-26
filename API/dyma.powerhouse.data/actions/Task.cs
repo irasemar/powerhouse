@@ -545,10 +545,15 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.GuardarTipoTarjetaActivo(NPK_TipoTarjeta, Activo, NFK_User);
-        }        public RespuestaPago VentaUsuarioPago(vwVentaCarroPago datos, string APIKEY, string MERCHANT_ID, bool PRODPAY, string DEVICESESSIONID)
+        }        public RespuestaPago VentaUsuarioPago(vwVentaCarroPago datos, string APIKEY, string MERCHANT_ID, bool PRODPAY, string DEVICESESSIONID, string RedirectUrl)
         {
             var repo = new UserRepository(ClientConnectionString);
-            return repo.VentaUsuarioPago(datos, APIKEY, MERCHANT_ID, PRODPAY, DEVICESESSIONID);
+            return repo.VentaUsuarioPago(datos, APIKEY, MERCHANT_ID, PRODPAY, DEVICESESSIONID, RedirectUrl);
+        }
+        public RespuestaPago VentaUsuarioPago_Aplicar(vwVentaCarroPagoAplicar datos)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            return repo.VentaUsuarioPago_Aplicar(datos);
         }
         public List<vwClasesDisponiblesWeeks> ClasesDisponiblesPorInstructor(int NFK_Instructor)
         {
@@ -601,6 +606,11 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.Mi_Historia(NFK_Usuario);
+        }
+        public List<vwValidarUsuario> ValidarMiUsuario(int NFK_Usuario)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.ValidarMiUsuario(NFK_Usuario);
         }
         public List<vwHistoriaPagos> Mi_HistoriaPagos(int NFK_Usuario)
         {

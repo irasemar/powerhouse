@@ -80,14 +80,16 @@ export class ClassComponent implements OnInit {
     }
   }
   public select(bike:ClaseReserva){
+    if (String(this.authservice.getAccount()) === 'null') {
+      const modalLogin = this.modalService.open(ModalMensageLoginComponent);
+      return;
+    }
     if (this.Saldo[0].Saldo <= 0) {
       const modalSaldo = this.modalService.open(ModalMensageSaldoComponent);
       modalSaldo.componentInstance.Usuario = this.authservice.getAccount().Nombre + ' ' + this.authservice.getAccount().Apellidos;
       return;
     }
-    if (String(this.authservice.getAccount()) === 'null') {
-      const modalLogin = this.modalService.open(ModalMensageLoginComponent);
-    }
+    
     else {
       this.catalog.getMiSaldo(this.authservice.getAccount().NPK_Usuario).subscribe(saldo =>{
         if (saldo[0].Saldo <= 0) {

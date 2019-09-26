@@ -5,6 +5,7 @@ import { CatalogsService,VentaCarro,PagoForm } from "../services/catalogs.servic
 import { AuthService } from "../services/auth.services";
 import { Router } from '@angular/router';
 import { UpdateService } from '../services/loader.service'
+import { ModalMensageComponent } from '../modal-mensage/modal-mensage.component';
 
 @Component({
   selector: 'app-cart',
@@ -73,8 +74,13 @@ export class CartComponent implements OnInit {
       if (result) {
         console.log(result);
         if (result.Error === 0){
-          this.updateService.UpdateSaldo();
-          this.router.navigate(['/proximas-clases/']);
+          window.open(result.urlpayment,"_self");
+          /* this.updateService.UpdateSaldo();
+          const modalMensage = this.modalService.open(ModalMensageComponent);
+          modalMensage.componentInstance.Mensage = "Reserva tus clases.";
+          modalMensage.componentInstance.Titulo = "Tu pago se ha realizado con éxito";
+          modalRef.result.then((result) => { this.router.navigate(['/proximas-clases/']); }); */
+          //this.router.navigate(['/proximas-clases/']);
         }
       }
     });    

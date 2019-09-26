@@ -25,6 +25,8 @@
     "@ng-bootstrap/ng-bootstrap": "^5.1.0",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.7",
+    "ngx-page-scroll": "^7.0.0",
+    "ngx-page-scroll-core": "^7.0.0",
     "postcss-loader": "^3.0.0",
     "rxjs": "^6.5.2",
     "rxjs-compat": "^6.5.2",

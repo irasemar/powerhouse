@@ -72,8 +72,7 @@ namespace dyma.powerhouse.data.views
 
         [JsonIgnore]
         public int CreadoPor { get; set; }
-        [JsonIgnore]
-        public DateTime FechaCreacion { get; set; }
+        public string FechaCreacion { get; set; }
         [JsonIgnore]
         public int? ModificadoPor { get; set; }
         [JsonIgnore]
@@ -173,6 +172,12 @@ namespace dyma.powerhouse.data.views
         public string NumAutorizacion { get; set; }
         public string CorreoElectronico { get; set; }
         public decimal Monto { get; set; }
+        public string TOKENid { get; set; }
+        public string REQUESTid { get; set; }
+    }
+    public class vwVentaCarroPagoAplicar
+    {
+        public string IDPagoOpenPay { get; set; }
     }
     public class vwClasesDisponiblesWeeks
     {
@@ -204,6 +209,7 @@ namespace dyma.powerhouse.data.views
         public string Duracion { get; set; }
         public bool Reservado { get; set; }
         public string Clase { get; set; }
+        public int PuedeReservar { get; set; }
 
     }
     public class vwClaseHeader
@@ -292,6 +298,7 @@ namespace dyma.powerhouse.data.views
         public string NumeroTarjeta { get; set; }
         public string description { get; set; }
         public string operation_date { get; set; }
+        public string urlpayment { get; set; }
     }
     public class vwHistoriaPagos
     {
@@ -302,6 +309,7 @@ namespace dyma.powerhouse.data.views
         public string TipoTarjeta { get; set; }
         public string NumeroTarjeta { get; set; }
         public string NumAutorizacion { get; set; }
+        public int CantidadClases { get; set; }
     }
     public class vwReservasPWHHoy
     {
@@ -355,5 +363,14 @@ namespace dyma.powerhouse.data.views
         public string Instructor { get; set; }
         public string HoraInicio { get; set; }
         public string Duracion { get; set; }
+    }
+    public class vwValidarUsuario
+    {
+        public int NPK_Usuario { get; set; }
+        public string id { get; set; }
+        public string correo { get; set; }
+        public string usuario { get; set; }
+
+
     }
 }

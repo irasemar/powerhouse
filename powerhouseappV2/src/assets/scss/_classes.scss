@@ -79,41 +79,14 @@
             .col-sm-1:first-child{
                 margin-left:350px
             }
-        }
-    
-    //     div:nth-child(1){
-    //         margin-left: 8.333333%;
-    //     }
-    //     div:nth-child(2){
-    //         margin-top: 25px;
-    // }
-    //     div:nth-child(3){
-    //         margin-top: 35px;
-    //     }
-    //     div:nth-child(4){
-    //         margin-top: 45px;
-    //     }
-    //     div:nth-child(5){
-    //         margin-top: 55px;
-    //     }
-    //     div:nth-child(6){
-    //         margin-top: 55px;
-    //     }
-    //     div:nth-child(7){
-    //         margin-top: 45px;
-    //     }
-    //     div:nth-child(8){
-    //         margin-top: 35px;
-    //     }
-    //     div:nth-child(9){
-    //         margin-top: 25px;
-    //     }
-    //     div:nth-child(10){
-    //         margin-top: 0
-    //     }
-
+        }  
     }
 
+}
+.classes__bikestrain-row {
+    margin-left: 100px;
+    margin-right: -50px;
+    overflow-x: hidden;
 }
 
 .container-lugares {
@@ -122,21 +95,102 @@
     width: 40%;
     margin: 0 auto;
 }
-@media only screen and (max-width: 410px) {
+@media (max-width: 360px) {
+    .classes__bike {
+        border-radius: 50%;
+        width: calculateRem(30px);
+        height: calculateRem(30px);
+        font-size: calculateRem(13px);
+    }
+    .classes__bikes-row {
+        margin-left: 5px;
+        margin-right: 10px;
+    }
+    .classes__bikestrain-row {
+        margin-left: 20px;
+    }
+  }
+@media (max-width: 414px) {
+    .classes__bike {
+        border-radius: 50%;
+        width: calculateRem(30px);
+        height: calculateRem(30px);
+        font-size: calculateRem(13px);
+    }
+    .classes__bikes-row {
+        margin-left: 1px;
+    }
+    .classes__bikestrain-row {
+        margin-left: 20px;
+    }
+  }
+
+
+  @media (max-width: 320px) {
+    .classes__bike {
+        border-radius: 50%;
+        width: calculateRem(30px);
+        height: calculateRem(30px);
+        font-size: calculateRem(13px);
+    }
+    .classes__bikes-row {
+        margin-left: 5px;
+        margin-right: 10px;
+    }
+    .container-lugares {
+        padding-top: 6.25rem;
+        padding-bottom: 2.5rem;
+        width: 100%;
+        margin: 0 auto;
+    }
+    .classes__bikestrain-row {
+        margin-left: 20px;
+
+    }
+  }
+  
+@media (max-width: 411px) {
     .container-lugares {
         padding-top: 6.25rem;
         padding-bottom: 2.5rem;
         width: 85%;
         margin: 0 auto;
     }
+    .classes__bike {
+        border-radius: 50%;
+        width: calculateRem(30px);
+        height: calculateRem(30px);
+        font-size: calculateRem(13px);
+    }
+    .classes__bikes-row {
+        margin-left: 1px;
+    }
+    .classes__bikestrain-row {
+        margin-left: 20px;
+
+    }
   }
  
-  @media only screen and (max-width: 600px) {
+  @media (max-width: 600px) {
     .container-lugares {
         padding-top: 6.25rem;
         padding-bottom: 2.5rem;
-        width: 85%;
+        width: 90%;
         margin: 0 auto;
+    }
+    .classes__bike {
+        border-radius: 50%;
+        width: calculateRem(25px);
+        height: calculateRem(25px);
+        font-size: calculateRem(13px);
+    }
+    .classes__bikes-row {
+        margin-left: 5px;
+        margin-right: 10px;
+    }
+    .classes__bikestrain-row {
+        margin-left: 20px;
+
     }
   }
 
@@ -146,21 +200,3 @@
     width: 45%;
     margin: 0 auto;
 }
-@media only screen and (max-width: 410px) {
-    .container-train {
-        padding-top: 6.25rem;
-        padding-bottom: 2.5rem;
-        width: 85%;
-        margin: 0 auto;
-    }
-  }
- 
-  @media only screen and (max-width: 600px) {
-    .container-train {
-        padding-top: 6.25rem;
-        padding-bottom: 2.5rem;
-        width: 85%;
-        margin: 0 auto;
-    }
-  }
-  

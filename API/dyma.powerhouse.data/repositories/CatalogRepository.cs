@@ -2298,18 +2298,18 @@ namespace dyma.powerhouse.data.repositories
             {
                 connection.Open();
                 var query = @"  Select	b.DiaSemana,b.Dia,b.Clase,b.Anio,b.FechaInicio,b.FechaFin,b.NPK_CalendarioClase,b.NFK_Instructor,b.Instructor,
-		                                b.HoraInicio,b.Duracion,b.Reservado
+		                                b.HoraInicio,b.Duracion,b.Reservado, b.PuedeReservar
                                 From	vwClasesDisponibles b WITH (NOLOCK) 
-                                Where   b.NFK_Semana = @NFK_Semana
+                                Where   b.NFK_Semana >= @NFK_Semana
                                         And b.Dia = @Dia
                                         And b.NFK_Clase = @NFK_Clase
                                 Order by [Date],b.HoraInicio";
-                semanas = connection.Query<vwClasesDisponiblesWeeks>("Select	Distinct a.NumeroSemana,a.NFK_Semana, a.Anio, a.NFK_Clase From vwClasesDisponiblesWeeks a WITH (NOLOCK) Where a.NFK_Clase = @NFK_Clase Order by a.Anio,a.NumeroSemana", new { NFK_Clase }).ToList();
+                semanas = connection.Query<vwClasesDisponiblesWeeks>("Select	Distinct Top 1 a.NumeroSemana,a.NFK_Semana, a.Anio, a.NFK_Clase From vwClasesDisponiblesWeeks a WITH (NOLOCK) Where a.NFK_Clase = @NFK_Clase Order by a.Anio,a.NumeroSemana", new { NFK_Clase }).ToList();
 
                 foreach (vwClasesDisponiblesWeeks week in semanas)
                 {
                     var diassemana = new List<vwClasesDisponiblesDia>();
-                    diassemana = connection.Query<vwClasesDisponiblesDia>("select Distinct b.DiaSemana,b.Dia, b.DescDia,b.Date from vwClasesDisponibles b WITH (NOLOCK) Where b.NFK_Semana = @NFK_Semana And b.NFK_Clase = @NFK_Clase Order by b.Date", new { week.NFK_Semana, NFK_Clase }).ToList();
+                    diassemana = connection.Query<vwClasesDisponiblesDia>("select Distinct top 7 b.DiaSemana,b.Dia, b.DescDia,b.Date from vwClasesDisponibles b WITH (NOLOCK) Where b.NFK_Semana >= @NFK_Semana And b.NFK_Clase = @NFK_Clase Order by b.Date", new { week.NFK_Semana, NFK_Clase }).ToList();
                     foreach (vwClasesDisponiblesDia dia in diassemana)
                     {
                         var clases = new List<vwClasesDisponibles>();
@@ -2417,6 +2417,19 @@ namespace dyma.powerhouse.data.repositories
             {
                 connection.Open();
                 resp = connection.Query<vwHistoriaReserva>("SP_Mi_Historia",
+                    new
+                    {
+                        NFK_Usuario = NFK_Usuario
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }        public List<vwValidarUsuario> ValidarMiUsuario(int NFK_Usuario)
+        {
+            var resp = new List<vwValidarUsuario>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwValidarUsuario>("SP_Validar_MiUsuario",
                     new
                     {
                         NFK_Usuario = NFK_Usuario
@@ -2997,7 +3010,7 @@ namespace dyma.powerhouse.data.repositories
                 try
                 {
                     connection.Open();
-                    resp = connection.Query<vwUsuario>("Select NPK_Usuario,Nombre,Apellidos,Usuario,Contrasena,Telefono,Format(FechaNacimiento,'dd/MM/yyyy') As FechaNacimiento,Genero,ContactoEmergencia,TelefonoContacto,Activo,CreadoPor,FechaCreacion,ModificadoPor,FechaModificacion,Administrador,id,Correo From Usuario with(nolock) Where IsNull(Administrador,0) = 0 order by Usuario", new { Activo }).ToList();
+                    resp = connection.Query<vwUsuario>("Select NPK_Usuario,Nombre,Apellidos,Usuario,Contrasena,Telefono,Format(FechaNacimiento,'dd/MM/yyyy') As FechaNacimiento,Genero,ContactoEmergencia,TelefonoContacto,Activo,CreadoPor,ModificadoPor,FechaModificacion,Administrador,id,Correo,FechaCreacion From Usuario with(nolock) Where IsNull(Administrador,0) = 0 order by FechaCreacion desc", new { Activo }).ToList();
                 }
                 catch (Exception ex)
                 {

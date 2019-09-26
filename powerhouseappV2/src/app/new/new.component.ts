@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new',
@@ -15,30 +16,34 @@ export class NewComponent implements OnInit {
   active : string;
   hitlink : string;
 
-  constructor() { }
+  constructor( private router: Router) { }
 
   ngOnInit() {
 
     this.lista = [
       {
         "title": "Powerhouse",
-        "url": "./home"
+        "url": "home"
       },
       {
-        "title": "Clases",
-        "url": "./classes"
+        "title": "Ride",
+        "url": "Ride"
+      },
+      {
+        "title": "Train",
+        "url": "Train"
       },
       {
         "title": "Power Team",
-        "url": "./powerteam"
+        "url": "powerteam"
       },
       {
         "title": "Estudio",
-        "url": "./estudio"
+        "url": "estudio"
       },
       {
         "title": "Life Motto",
-        "url": "./motto"
+        "url": "motto"
       }
     ]
     this.hiits = [
@@ -138,6 +143,11 @@ export class NewComponent implements OnInit {
     this.powerlink = 2;
     
   }
-
+  verride(){
+    this.router.navigate(['/indoor-calendar/']);
+  }
+  vertrain(){
+    this.router.navigate(['/hiit-calendar/']);
+  }
 
 }

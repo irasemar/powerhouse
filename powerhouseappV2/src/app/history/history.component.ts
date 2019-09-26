@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CatalogsService,HistoriaReserva } from "../services/catalogs.service";
 import { AuthService } from "../services/auth.services";
 import { Router } from '@angular/router';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-history',
@@ -13,9 +14,10 @@ export class HistoryComponent implements OnInit {
   list: any[];
   active : string;
   public welcome = false;
-  constructor( private catalog: CatalogsService, private authservice: AuthService, private router: Router) { }
+  constructor( private catalog: CatalogsService, private authservice: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    
     this.welcome = false;
     this.title = 'Mi historial';
     this.list = [

@@ -59,27 +59,32 @@ export class ClassTrainComponent implements OnInit {
       });
     }
     else {
-      this.catalog.getEstatus_Salon_PorDia_Header(this.NFK_Clase, this.NFK_Semana, this.Dia, this.NPK_CalendarioClase, this.NPK_Usuario).subscribe(clases => {
-        this.class.Fecha = clases[0].Fecha;
-        this.class.Clase = clases[0].Clase;
-        this.class.Instructor = clases[0].Instructor;
-        this.class.NPK_CalendarioClase = clases[0].NPK_CalendarioClase;
-        this.class.NFK_Instructor = clases[0].NFK_Instructor;
-        this.class.Fotografia = clases[0].Fotografia;
-        this.TengoClase = clases[0].TengoClase;
-        this.welcome = true;
+      this.catalog.getEstatus_Salon_PorDia(this.NFK_Clase, this.NFK_Semana, this.Dia, this.NPK_CalendarioClase).subscribe(lugares => {
+        this.bikes = lugares;
+        this.catalog.getEstatus_Salon_PorDia_Header(this.NFK_Clase, this.NFK_Semana, this.Dia, this.NPK_CalendarioClase, this.NPK_Usuario).subscribe(clases => {
+          this.class.Fecha = clases[0].Fecha;
+          this.class.Clase = clases[0].Clase;
+          this.class.Instructor = clases[0].Instructor;
+          this.class.NPK_CalendarioClase = clases[0].NPK_CalendarioClase;
+          this.class.NFK_Instructor = clases[0].NFK_Instructor;
+          this.class.Fotografia = clases[0].Fotografia;
+          this.TengoClase = clases[0].TengoClase;
+          this.welcome = true;
+        });
       });
     }
   }
   public select(bike:any){
+    if (String(this.authservice.getAccount()) === 'null') {
+      const modalLogin = this.modalService.open(ModalMensageLoginComponent);
+      return;
+    }
     if (this.Saldo[0].Saldo <= 0) {
       const modalSaldo = this.modalService.open(ModalMensageSaldoComponent);
       modalSaldo.componentInstance.Usuario = this.authservice.getAccount().Nombre + ' ' + this.authservice.getAccount().Apellidos;
       return;
     }
-    if (String(this.authservice.getAccount()) === 'null') {
-      const modalLogin = this.modalService.open(ModalMensageLoginComponent);
-    }
+    
     else {
       this.catalog.getMiSaldo(this.authservice.getAccount().NPK_Usuario).subscribe(saldo => {
         if (saldo[0].Saldo <= 0) {

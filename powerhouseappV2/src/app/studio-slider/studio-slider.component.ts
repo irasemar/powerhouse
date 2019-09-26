@@ -10,11 +10,11 @@ export class StudioSliderComponent implements OnInit {
   showNavigationArrows = true;
   showNavigationIndicators = true;
   images = [
-    {src:'../assets/images/studio_01.jpg'
+    {src:'../assets/images/slider_01.jpg'
   },
-  {src:'../assets/images/studio_02.jpg'
+  {src:'../assets/images/slider_02.jpg'
 },
-{src:'../assets/images/studio_03.jpg',
+{src:'../assets/images/slider_03.jpg',
 }
 ]
   

@@ -26,8 +26,11 @@
         &--number{
             font-size:calculateRem(13px);
             font-weight: 800;
+            min-height: 35px;
+            min-height: 35px;
         }
         &--child{
+            line-height: .4rem !important;
             border-radius: 0;
             border-right: 0;
             border-left: 0;
@@ -60,6 +63,50 @@
                 }
             }
         }
+        &--childoff{
+            line-height: .4rem !important;
+            border-radius: 0;
+            border-right: 0;
+            border-left: 0;
+            border-bottom:0;
+            margin-left:0 !important;
+            margin-right: 0 !important;
+            border: 10px solid #fafafa;
+            min-height: 150px;
+            max-height: 150px;
+            background-color: #e3e2e1e8;
+            color:#000000 !important;
+            &--duration{
+                text-transform: uppercase;
+                font-weight: 600;
+                color:#000000 !important;
+            }
+            &--nodisp{
+                text-transform: uppercase;
+                font-weight: 600;
+                color:#000000 !important;
+                line-height: 15px;
+            }
+            &--time{
+                text-transform: uppercase;
+                font-weight: normal;
+                font-size:calculateRem(18px);
+                color:#000000 !important;
+            }
+            &--instructor{
+                &:hover{
+                    color:#000000 !important;
+                }
+
+            }
+            &:hover{
+                background: $orange;
+                color:#FFF !important;
+                a, a:visited, a:hover{
+                    color:#FFF !important;
+                }
+            }
+        }        
     }
     
 
@@ -97,6 +144,16 @@
             background: $aqua;
             color:#FFF!important;
         }
+    }    
+    .calendar__card--childoff{
+        color:$gray;
+        &:hover{
+            background: $aqua;
+            color:#FFF!important;
+        }
     }
 
+}
+.card-text{
+    line-height: 15px;
 }

@@ -7,36 +7,36 @@
       <form [formGroup]="form">
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="Nombre">Nombre</label>
+            <label for="Nombre">* Nombre</label>
             <input type="text" id="Nombre" class="form-control" formControlName="Nombre" required>
           </div>
           <div class="form-group col-md-6">
-            <label for="Apellido">Apellidos</label>
+            <label for="Apellido">* Apellidos</label>
             <input type="text" id="Apellido" class="form-control" formControlName="Apellidos" required>
           </div>
         </div>
         <div class="form-group">
-          <label for="Email">Email</label>
+          <label for="Email">* Email</label>
           <input type="text" id="Email" class="form-control" formControlName="Usuario" required>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="Contraseña">Contraseña</label>
+            <label for="Contraseña">* Contraseña</label>
             <input type="password" id="Contraseña" class="form-control" formControlName="Contrasena" required>
           </div>
           <div class="form-group col-md-6">
-            <label for="Confirma">Confirma contraseña</label>
+            <label for="Confirma">* Confirma contraseña</label>
             <input type="password" id="Confirma" class="form-control" formControlName="ConfirmaContrasena" required>
           </div>
         </div>
         <hr class="line--blue">
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="Contacto">Contacto de emergencia</label>
+            <label for="Contacto">* Contacto de emergencia</label>
             <input type="text" id="Contacto" class="form-control" placeholder="Nombre" formControlName="ContactoEmergencia" required>
           </div>
           <div class="form-group col-md-6">
-            <label for="Tel">Tel</label>
+            <label for="Tel">* Tel</label>
             <input type="number" id="Tel" class="form-control" formControlName="TelefonoContacto" required>
           </div>
         </div>
@@ -47,7 +47,7 @@
         </div>
         <p class="orange text-center mt-3 mb-3">Al crear tu cuenta, aceptas los términos y condiciones.</p>
         <p class="text-center">
-          <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="!form.valid">Crear cuenta</button>
+          <button type="submit" class="btn btn-primary" (click)="save()">Crear cuenta</button>
         </p>
       </form>
     </div>

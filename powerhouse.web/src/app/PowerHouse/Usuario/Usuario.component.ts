@@ -20,19 +20,20 @@ export class UsuarioComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input()
   columns: ListColumn[] = [	  
-		{ name: '#Usuario', property:' NPK_Usuario', visible: false, isModelProperty: true },
+		{ name: '#Usuario', property:'NPK_Usuario', visible: true, isModelProperty: true },
 		{ name: 'Nombre', property: 'Nombre', visible: true, isModelProperty: true },
 		{ name: 'Apellidos', property: 'Apellidos', visible: true, isModelProperty: true },
 		{ name: 'Usuario', property: 'Usuario', visible: true, isModelProperty: true },
-		{ name: 'Telefono', property: 'Telefono', visible: true, isModelProperty: true },
+		{ name: 'Telefono', property: 'Telefono', visible: false, isModelProperty: true },
 		{ name: 'Fecha de Nacimiento', property: 'FechaNacimiento', visible: true, isModelProperty: true },
 		{ name: 'Genero', property: 'Genero', visible: true, isModelProperty: true },
-		{ name: 'Contacto de Emergencia', property: 'ContactoEmergencia', visible: true, isModelProperty: true },
-		{ name: 'Tel de Contacto', property: 'TelefonoContacto', visible: true, isModelProperty: true },
-		{ name: 'Correo', property: 'Correo', visible: true, isModelProperty: true },
+		{ name: 'Contacto de Emergencia', property: 'ContactoEmergencia', visible: false, isModelProperty: true },
+		{ name: 'Tel de Contacto', property: 'TelefonoContacto', visible: false, isModelProperty: true },
+		{ name: 'Correo', property: 'Correo', visible: false, isModelProperty: true },
+		{ name: 'Fecha Alta', property: 'FechaCreacion', visible: true, isModelProperty: true },		
 	{ name: 'Actions', property: 'actions', visible: true },
   ] as ListColumn[];
-  pageSize = 10;
+  pageSize = 50;
   dataSource: MatTableDataSource<UsuarioView> | null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

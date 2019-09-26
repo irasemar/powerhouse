@@ -14,29 +14,33 @@
     <!--Row of bikes and photo-->
     <div class="row">
         <!--First column of bikes -->
-        <div class="col-2 offset-1">
-          <div class="row mb-2 mt-5">
-              <div class="col-6 text-center">
-              </div>
-              <div class="col-6 text-center" *ngIf="bikes[3]">
-                  <span class="classes__bike" (click)="bikes[3].NFK_Usuario != 0 || select(bikes[3])" [ngClass]="{'active' : bikes[3].Estatus }">{{bikes[3].LugarSalon}}</span>
-              </div>
-          </div>
-          <div class="row mb-2">
-              <div class="col-6 text-center" *ngIf="bikes[6]">
-                    <span class="classes__bike" (click)="bikes[6].NFK_Usuario != 0 || select(bikes[6])" [ngClass]="{'active' : bikes[6].Estatus }">{{bikes[6].LugarSalon}}</span>
-              </div>
-              <div class="col-6 text-center" *ngIf="bikes[4]">
-                  <span class="classes__bike" (click)="bikes[4].NFK_Usuario != 0 || select(bikes[4])" [ngClass]="{'active' : bikes[4].Estatus }">{{bikes[4].LugarSalon}}</span>
-              </div>
-          </div>
-          <div class="row">
-            <div class="col-6 text-center">
+        <div class="col-3 offset-1">
+            <div class="row mb-2 mt-5">
+                <div class="col-6 text-center">
+                </div>
+                <div class="col-6 text-center" *ngIf="bikes[3]">
+                    <span class="classes__bike" (click)="bikes[3].NFK_Usuario != 0 || select(bikes[3])"
+                        [ngClass]="{'active' : bikes[3].Estatus }">{{bikes[3].LugarSalon}}</span>
+                </div>
             </div>
-            <div class="col-6 text-center"  *ngIf="bikes[5]">
-                <span class="classes__bike" (click)="bikes[5].NFK_Usuario != 0 || select(bikes[5])" [ngClass]="{'active' : bikes[5].Estatus }">{{bikes[5].LugarSalon}}</span>
+            <div class="row mb-2">
+                <div class="col-6 text-center" *ngIf="bikes[6]">
+                    <span class="classes__bike" (click)="bikes[6].NFK_Usuario != 0 || select(bikes[6])"
+                        [ngClass]="{'active' : bikes[6].Estatus }">{{bikes[6].LugarSalon}}</span>
+                </div>
+                <div class="col-6 text-center" *ngIf="bikes[4]">
+                    <span class="classes__bike" (click)="bikes[4].NFK_Usuario != 0 || select(bikes[4])"
+                        [ngClass]="{'active' : bikes[4].Estatus }">{{bikes[4].LugarSalon}}</span>
+                </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-6 text-center">
+                </div>
+                <div class="col-6 text-center" *ngIf="bikes[5]">
+                    <span class="classes__bike" (click)="bikes[5].NFK_Usuario != 0 || select(bikes[5])"
+                        [ngClass]="{'active' : bikes[5].Estatus }">{{bikes[5].LugarSalon}}</span>
+                </div>
+            </div>
         </div>
         <!--Second column of avatar-->
         <div class="col-4 offset-1">

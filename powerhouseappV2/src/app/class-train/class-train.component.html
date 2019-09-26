@@ -32,7 +32,7 @@
           </div>
         </div>
         <!--Third column of bikes-->
-        <div class="col-2">
+        <div class="col-3">
             <div class="row mb-2 mt-5">
                 <div class="col-4 text-center">
                     <span class="classes__bike aqua" (click)="bikes[2].NFK_Usuario != 0 || select(bikes[2])" [ngClass]="{'active' : bikes[2].Estatus }">{{bikes[2].LugarSalon}}</span>
@@ -48,15 +48,18 @@
     </div>
     <!--Row of bikes -->
 
-    <div class="row mb-3 classes__bikes-row first mt-4">
+    <div class="row mb-3 classes__bikestrain-row first mt-5">
         <div class="col-1  text-center" *ngFor="let bike of bikes | slice : 5:13" >
             <span  class="classes__bike aqua" (click)="bike.NFK_Usuario != 0 || select(bike)" [ngClass]="{'active' : bike.Estatus }">{{bike.LugarSalon}}</span>
         </div>
+        
     </div>
-    <div class="row mb-3 classes__bikes-row first">
+    <div class="row mb-3 classes__bikestrain-row first">
+            
         <div class="col-1  text-center" *ngFor="let bike of bikes | slice : 13:20" >
             <span  class="classes__bike aqua" (click)="bike.NFK_Usuario != 0 || select(bike)" [ngClass]="{'active' : bike.Estatus }">{{bike.LugarSalon}}</span>
         </div>
+        
     </div>
 
     

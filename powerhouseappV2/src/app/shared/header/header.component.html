@@ -26,7 +26,7 @@
     </ul>
   </div>
   <div class="float-right header__right-links" *ngIf="!logged">
-    <p><a (click)="login()">Iniciar sesión</a> | <a href="./registro">Crear cuenta</a></p>
+    <p><a (click)="login()">Iniciar sesión</a> | <a href="./registro">Crear cuenta</a></p><!--  -->
   </div>
   <form *ngIf="logged" class="form-inline my-2 my-lg-0">
     <div ngbDropdown class="d-inline-block">
@@ -45,7 +45,7 @@
       </div>
     </div>
   </form>
-  <a href="#" class="btn btn-primary ml-3" href="./comprar-clase" *ngIf="logged">Comprar clases</a>
+  <a href="#" class="btn btn-primary ml-3" href="./comprar-clase">Comprar clases</a>
 
   <button class="navbar-toggler hidden-sm-up" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed"
     data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,7 @@
 <div class="social">
   <ul class="social__list">
     <!-- <li class="social__list-item"><a href=""><i class="fab fa-facebook-f"></i></a></li> -->
-    <li class="social__list-item"><a href="https://www.instagram.com/mypowerhousemx/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+    <!-- <li class="social__list-item"><a href="https://www.instagram.com/mypowerhousemx/" target="_blank"><i class="fab fa-instagram"></i></a></li> -->
     <!-- <li class="social__list-item"><a href=""><i class="fab fa-youtube"></i></a></li> -->
   </ul>
 </div>

@@ -1,6 +1,6 @@
 
 <div class="modal-body">
-  <h2 class="h2 orange text-center">¡Gracias por tu compra!</h2>
+  <h2 class="h2 orange text-center">Continua haciendo tu compra</h2>
   <div class="small orange text-center">Revisa tu correo para tu confirmación</div>
   <hr clas="line--orange"> 
   <div class="row">
@@ -19,16 +19,21 @@
           </div>
         </li>
       </ul>
-      <!-- <div class="row">
-        <div class="col-md-6"><span class="orange">Tax:</span></div>
-        <div class="col-md-6"><strong>${{tax}} mx</strong></div>
-      </div> -->
       <div class="row">
           <div class="col-md-6"><span class="orange">Total estimado:</span></div>
           <div class="col-md-6"><strong>${{payment}} mx</strong></div>
+      
         </div>
     </div>
-    <div class="col-md-6">
+  </div>
+  <hr>
+    <div class="row">
+      
+        <div class="col-md-4"><h4>Tarjetas de crédito</h4><img src="/assets/images/cards1.png"></div>
+        <div class="col-md-8"><h4>Tarjetas de débito</h4><img src="/assets/images/cards2.png"></div>
+    </div>
+    <hr>
+    <div class="col-md-12">
       <form [formGroup]="form">
         <div class="row">
           <div class="col-md-12">
@@ -42,19 +47,25 @@
                   </option>
                 </select>
               </div>
+              <div class="form-row" *ngIf="!TarjetaExistente">
+                <div class="form-group col-md-12">
+                  <label>CVV</label>
+                  <input type="number" class="form-control" formControlName="CVV" maxlength="4" onKeyPress="if(this.value.length==4) return false;" required>
+                </div>
+              </div>              
             </div>
             <div class="form-row" *ngIf="TarjetaExistente">
               <div class="form-group col-md-12">
                 <label>Numero de Tarjeta</label>
-                <input type="number" class="form-control" formControlName="Numero" maxlength="19" required>
+                <input type="number" class="form-control" formControlName="Numero" maxlength="19" onKeyPress="if(this.value.length==19) return false;" required>
               </div>
             </div>
             <div class="form-row" *ngIf="TarjetaExistente">
               <div class="form-group col-md-12">
                 <label>CVV</label>
-                <input type="number" class="form-control" formControlName="CVV" maxlength="2" required>
+                <input type="number" class="form-control" formControlName="CVV" maxlength="4" onKeyPress="if(this.value.length==4) return false;" required>
               </div>
-            </div>
+            </div>            
             <div class="form-row col-md-12" *ngIf="TarjetaExistente">
               <p class="orange">Vigencia</p>
             </div>
@@ -107,27 +118,32 @@
                 <label class="orange">Correo</label>
                 <input type="text" class="form-control" formControlName="CorreoElectronico" required>
               </div>
-            </div>
-            <!-- <p>{{payment.brand}} **** **** **** {{payment.digits}}</p>
-                  <p>Expira: {{payment.expiration}}</p>
-                  <p>{{payment.name}}</p>
-                  <p>{{payment.address}}</p>
-                  <p class="orange">Correo</p>
-                  <p>{{payment.email}}</p> -->
+            </div>            
           </div>
+          <div class="col-md-12"><div class="sctn-row">                            
+            <div class="openpay"><div class="logo">Transacciones realizadas vía:</div>
+            <div class="shield">Tus pagos se realizan de forma segura con encriptación de 256 bits</div>
+            </div>
+        </div></div>
         </div>
     
       </form>
+    
+    
+    
     </div>
-  </div>
+  
 </div>
+<br>
 <div class="modal-footer" *ngIf="TarjetaExistente">
   <button type="button" class="btn btn-outline-primary--orange" (click)="cancelPay();">Cancelar</button>
   <p *ngIf="MostrarErrorPago">{{MensageError}}</p>
-  <button type="button" class="btn btn-outline-primary--orange" (click)="closePay();" [disabled]="!form.valid">Aceptar</button>
+  <p *ngIf="MostrarErrorPago" style="color: red;font-weight: bold;">{{MensageErrorOpenPay}}</p>
+  <button type="button" class="btn btn-outline-primary--orange" (click)="closePay();" [disabled]="!form.valid" >Aceptar</button>
 </div>
 <div class="modal-footer" *ngIf="!TarjetaExistente">
   <button type="button" class="btn btn-outline-primary--orange" (click)="cancelPay();">Cancelar</button>
   <p *ngIf="MostrarErrorPago">{{MensageError}}</p>
-  <button type="button" class="btn btn-outline-primary--orange" (click)="closePaytarjetaExistente();">Aceptar</button>
+  <p *ngIf="MostrarErrorPago" style="color: red;font-weight: bold;">{{MensageErrorOpenPay}}</p>
+  <button type="button" class="btn btn-outline-primary--orange" (click)="closePaytarjetaExistente();" [disabled]="!form.valid">Aceptar</button>
 </div>

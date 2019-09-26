@@ -148,6 +148,13 @@ export class CatalogsService {
     //head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.post<RespuestaPago>(`${this.config.apiEndpoint}/v1/powerhouse/VentaUsuarioPago`, Venta, { headers: head });
   }
+  letVentaUsuarioPago_Aplicar(PahoOpenPay) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.post<RespuestaPago>(`${this.config.apiEndpoint}/v1/powerhouse/VentaUsuarioPago_Aplicar`, PahoOpenPay, { headers: head });
+  }
   getVentaCarrro() {
     const acc = this.auth.getAccount();
     let head: HttpHeaders = new HttpHeaders();
@@ -227,6 +234,13 @@ export class CatalogsService {
     head = head.append('Content-Type', 'application/json');
     //head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<Saldo[]>(`${this.config.apiEndpoint}/v1/powerhouse/Obtener_Saldo/${NPK_Usuario}`, { headers: head });
+  }
+  getValidaUsuario(NPK_Usuario) {
+    //const acc = this.auth.getAccount();
+    let head: HttpHeaders = new HttpHeaders();
+    head = head.append('Content-Type', 'application/json');
+    //head = head.append('Authorization', `Bearer ${acc.Token}`);
+    return this.http.get<ValidarUsuarioView[]>(`${this.config.apiEndpoint}/v1/powerhouse/ValidarMiUsuario/${NPK_Usuario}`, { headers: head });
   }
   getMisReservas(NPK_Usuario) {
     //const acc = this.auth.getAccount();
@@ -439,7 +453,8 @@ export interface PagoForm {
   CorreoElectronico: string;
   NumAutorizacion: string
   Monto: number
-  
+  TOKENid: string;
+  REQUESTid: string;
 }
 
 export interface ClasesDisponiblesWeeks {
@@ -472,6 +487,7 @@ export interface ClasesDisponibles {
   FechaFin: string;
   Reservado : number;
   Clase: string;
+  PuedeReservar: number;
 }
 export interface ClaseHeader {  
   NPK_CalendarioClase : number;
@@ -537,6 +553,7 @@ export interface RespuestaPago {
   NumeroTarjeta: string;
   description: string;
   operation_date: string;
+  urlpayment: string;
   }
   export interface MisPagos {
     FechaPago: string;
@@ -546,9 +563,18 @@ export interface RespuestaPago {
     NumeroTarjeta: string;
     NumAutorizacion: string;
   }
-  export interface RespuestaView {
-    NPK_Respuesta: number;
-    Respuesta: string;
-    DescError: string;
-    Error: number;
-    }
+export interface RespuestaView {
+  NPK_Respuesta: number;
+  Respuesta: string;
+  DescError: string;
+  Error: number;
+}
+export interface ValidarUsuarioView {
+  NPK_Usuario: number;
+  id: string;
+  correo: string;
+  usuario: number;
+}
+export interface VentaPagoOpenView {
+  IDPagoOpenPay: string;
+}

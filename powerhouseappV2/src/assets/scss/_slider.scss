@@ -28,3 +28,28 @@
     }
     top:33%;
 }
+@media (max-width: 360px) {
+    .carousel-caption{
+        h3{
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: calculateRem(20px);
+            line-height: calculateRem(10px);
+            font-family: $fontblack;
+        }
+        top:13%;
+    }
+}
+
+@media (max-width: 415px) {
+    .carousel-caption{
+        h3{
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: calculateRem(20px);
+            line-height: calculateRem(10px);
+            font-family: $fontblack;
+        }
+        top:13%;
+    }
+}

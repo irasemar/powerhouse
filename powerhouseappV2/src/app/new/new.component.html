@@ -8,10 +8,10 @@
   </div>
 </div>
 <hr class="line">
-<div class="container">
+<div id="home" class="container">
     <div class="row">
         <div class="col-md-3">
-          <app-sidenav class="static" [active]="active" [list]="lista"></app-sidenav>
+          <app-sidenav class="static d-none d-sm-block" [active]="active" [list]="lista"></app-sidenav>
         </div>
         <div class="col-md-9">
           <h2 class="h2 orange">La experiencia</h2>
@@ -21,12 +21,12 @@
       </div>
 </div>
 <!-- Classes -->
-<div class="home__classes">
+<div id="Ride" class="home__classes">
   <div class="container">
       <div class="row">
           <div class="col-md-3">
-              <app-sidenav class="static mt-5 mb-3" [active]="indoorlink" [list]="lista"></app-sidenav>
-              <button class="btn btn-primary mt-3">Ver Horario</button>
+              <app-sidenav class="static mt-5 mb-3 d-none d-sm-block" [active]="indoorlink" [list]="lista"></app-sidenav>
+              <button class="btn btn-primary mt-3 d-none d-sm-block" (click)="verride()">Ver Horario</button>
             </div>
             <div class="col-md-9">
               <h2 class="h2 white">Ride</h2>
@@ -46,12 +46,12 @@
   </div>
 </div> -->
 <!--HIIT-->
-<div class="home__classes hiit">
+<div id="Train" class="home__classes hiit">
   <div class="container">
       <div class="row">
           <div class="col-md-3">
-              <app-sidenav class="static mt-5 mb-3" [active]="hitlink" [list]="lista"></app-sidenav>
-              <button class="btn btn-primary--aqua mt-3">Ver Horario</button>
+              <app-sidenav class="static mt-5 mb-3 d-none d-sm-block" [active]="hitlink" [list]="lista"></app-sidenav>
+              <button class="btn btn-primary--aqua mt-3 d-none d-sm-block" (click)="vertrain()">Ver Horario</button>
             </div>
             <div class="col-md-9">
               <h2 class="h2 white">Train</h2>
@@ -75,12 +75,12 @@
   </div>
 </div>-->
 <!-- Classes -->
-<div class="home__classes powerteam">
+<div id="powerteam" class="home__classes powerteam">
   <div class="container">
       <div class="row">
           <div class="col-md-3">
-              <app-sidenav class="static mt-5 mb-3" [active]="powerlink" [list]="lista"></app-sidenav>
-              <button class="btn btn-primary mt-3">¡Conoce al Power Team!</button>
+              <app-sidenav class="static mt-5 mb-3 d-none d-sm-block" [active]="powerlink" [list]="lista"></app-sidenav>
+              <button class="btn btn-primary mt-3 d-none d-sm-block">¡Conoce al Power Team!</button>
             </div>
             <div class="col-md-9">
               <h2 class="h2 white">Power Team</h2>
@@ -90,13 +90,14 @@
       </div>
   </div>
 </div>
-<app-studio-slider></app-studio-slider>
+<div id="estudio"><app-studio-slider></app-studio-slider></div>
+
 <!-- Motto -->
-<div class="home__classes motto">
+<div id="motto" class="home__classes motto">
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-        <app-sidenav class="static mt-5 mb-3" [active]="powerlink" [list]="lista"></app-sidenav>
+        <app-sidenav class="static mt-5 mb-3 d-none d-sm-block" [active]="powerlink" [list]="lista"></app-sidenav>
       </div>
       <div class="col-md-9">
         <h2 class="h2 white">
