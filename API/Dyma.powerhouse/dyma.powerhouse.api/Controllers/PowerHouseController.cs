@@ -99,7 +99,31 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
+        [AllowAnonymous]
+        [Route("ActualizaUsuarioOpenPay"), HttpPost, ResponseType(typeof(dyma.powerhouse.data.views.RespuestaPago))]
+        public HttpResponseMessage ActualizaUsuarioOpenPay()
+        {
+            try
+            {
+                dyma.powerhouse.data.views.RespuestaPago Respuesta = new data.views.RespuestaPago();
+                var proxy = new Tasks(this.GetConnectionString());
+                Respuesta = proxy.ActualizaUsuarioOpenPay(System.Configuration.ConfigurationManager.AppSettings["APIKEY"].ToString(),
+                    System.Configuration.ConfigurationManager.AppSettings["MERCHANT_ID"].ToString(), Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["PRODPAY"]));
+                return Request.CreateResponse(HttpStatusCode.OK, Respuesta);
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
         [AllowAnonymous]
         [Route("VentaUsuarioPago"), HttpPost, ResponseType(typeof(dyma.powerhouse.data.views.RespuestaPago))]
         public HttpResponseMessage VentaUsuarioPago(dyma.powerhouse.data.views.vwVentaCarroPago datos)
@@ -134,7 +158,8 @@ namespace dyma.powerhouse.api.Controllers
             {
                 dyma.powerhouse.data.views.RespuestaPago Respuesta = new data.views.RespuestaPago();
                 var proxy = new Tasks(this.GetConnectionString());
-                Respuesta = proxy.VentaUsuarioPago_Aplicar(datos);
+                Respuesta = proxy.VentaUsuarioPago_Aplicar(datos, System.Configuration.ConfigurationManager.AppSettings["APIKEY"].ToString(),
+                    System.Configuration.ConfigurationManager.AppSettings["MERCHANT_ID"].ToString(), Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["PRODPAY"]));
                 return Request.CreateResponse(HttpStatusCode.OK, Respuesta);
             }
             catch (data.exceptions.BusinessRuleValidationException ex)
@@ -272,6 +297,38 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
         [AllowAnonymous]
+        [Route("ReservaLugarAdmin/{NFK_CalendarioClase:int}/{NFK_Usuario:int}/{NFK_Salon:int}/{NFK_SalonLugar:int}"), HttpPost, ResponseType(typeof(string))]
+        public HttpResponseMessage ReservaLugarAdmin(int NFK_CalendarioClase, int NFK_Usuario, int NFK_Salon, int NFK_SalonLugar)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                proxy.ReservaLugarAdmin(NFK_CalendarioClase, NFK_Usuario, NFK_Salon, NFK_SalonLugar, System.Configuration.ConfigurationManager.AppSettings["SMTP"].ToString(),
+                        Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["PUERTO"].ToString()),
+                        System.Configuration.ConfigurationManager.AppSettings["CUENTACORREO"].ToString(),
+                        System.Configuration.ConfigurationManager.AppSettings["CONTRASENA"].ToString());
+                var resp = new Models.ResponseMessage()
+                {
+                    NumError = 0,
+                    IsError = false,
+                    Message = "Reserva Send successfully."
+                };
+                return Request.CreateResponse(HttpStatusCode.OK, resp);
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
         [Route("Obtener_Saldo/{NFK_Usuario:int}"), HttpGet, ResponseType(typeof(dyma.powerhouse.data.views.vwSaldo))]
         public HttpResponseMessage Obtener_Saldo(int NFK_Usuario)
         {
@@ -383,6 +440,50 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
         [AllowAnonymous]
+        [Route("DetallePago/{NPK_Venta:int}"), HttpGet, ResponseType(typeof(dyma.powerhouse.data.views.vwDetalleVenta))]
+        public HttpResponseMessage DetallePago(int NPK_Venta)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.DetalleDePago(NPK_Venta));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
+        [Route("DetallePagoReservas/{NPK_Venta:int}"), HttpGet, ResponseType(typeof(dyma.powerhouse.data.views.vwDetalleVentaReservas))]
+        public HttpResponseMessage DetallePagoReservas(int NPK_Venta)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.DetalleDePagoReservas(NPK_Venta));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
         [Route("Mi_HistoriaPagosPWH"), HttpGet, ResponseType(typeof(dyma.powerhouse.data.views.vwHistoriaPagos))]
         public HttpResponseMessage Mi_HistoriaPagosPWH()
         {
@@ -434,6 +535,28 @@ namespace dyma.powerhouse.api.Controllers
             {
                 var proxy = new Tasks(this.GetConnectionString());
                 return Request.CreateResponse(HttpStatusCode.OK, proxy.Reservas_PWH_Hoy());
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
+        [Route("Reservas_PWH_Hoy_Atras"), HttpGet, ResponseType(typeof(dyma.powerhouse.data.views.vwReservasPWHHoy))]
+        public HttpResponseMessage Reservas_PWH_Hoy_Atras()
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.Reservas_PWH_Hoy_Atras());
             }
             catch (data.exceptions.BusinessRuleValidationException ex)
             {
@@ -537,6 +660,28 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
         [AllowAnonymous]
+        [Route("Reservas_Cancelar_Admin/{NFK_CalendarioClase:int}/{NPK_ReservaClase:int}"), HttpGet, ResponseType(typeof(dyma.powerhouse.data.views.vwReservasAsistencia))]
+        public HttpResponseMessage Reservas_Cancelar_Admin(int NFK_CalendarioClase, int NPK_ReservaClase)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.Reservas_Cancelar_Admin(NFK_CalendarioClase, NPK_ReservaClase));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
         [Route("Regalar_Clases/{NFK_Usuario:int}/{Cantidad:int}/{CreadoPor:int}"), HttpGet, ResponseType(typeof(dyma.powerhouse.data.views.vwRespuesta))]
         public HttpResponseMessage Regalar_Clases(int NFK_Usuario, int Cantidad, int CreadoPor)
         {
@@ -544,6 +689,28 @@ namespace dyma.powerhouse.api.Controllers
             {
                 var proxy = new Tasks(this.GetConnectionString());
                 return Request.CreateResponse(HttpStatusCode.OK, proxy.Regalar_Clases(NFK_Usuario, Cantidad, CreadoPor));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
+        [Route("Registrar_VentaPaquete_Clases"), HttpPost, ResponseType(typeof(dyma.powerhouse.data.views.vwRespuesta))]
+        public HttpResponseMessage Registrar_VentaPaquete_Clases(data.views.vwVentaPaqueteAdmin datos)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.Registrar_VentaPaquete_Clases(datos.NFK_Usuario, datos.NFK_Paquete, datos.Tarjeta, datos.NumeroAutorizacion, datos.CreadoPor));
             }
             catch (data.exceptions.BusinessRuleValidationException ex)
             {
@@ -650,6 +817,50 @@ namespace dyma.powerhouse.api.Controllers
             {
                 var proxy = new Tasks(this.GetConnectionString());
                 return Request.CreateResponse(HttpStatusCode.OK, proxy.ValidarMiUsuario(NFK_Usuario));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
+        [Route("Cambiar_Instructor_Clase/{NPK_CalendarioClase:int}/{NFK_Instructor:int}"), HttpGet, ResponseType(typeof(dyma.powerhouse.data.views.vwRespuesta))]
+        public HttpResponseMessage Cambiar_Instructor_Clase(int NPK_CalendarioClase, int NFK_Instructor)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.Cambiar_Instructor_Clase(NPK_CalendarioClase, NFK_Instructor));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
+        [Route("EliminarVenta/{NPK_Venta:int}"), HttpGet, ResponseType(typeof(dyma.powerhouse.data.views.vwRespuesta))]
+        public HttpResponseMessage EliminarVenta(int NPK_Venta)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.EliminarVenta(NPK_Venta));
             }
             catch (data.exceptions.BusinessRuleValidationException ex)
             {

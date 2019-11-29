@@ -74,7 +74,12 @@ export class CartComponent implements OnInit {
       if (result) {
         console.log(result);
         if (result.Error === 0){
-          window.open(result.urlpayment,"_self");
+          if (String(result.urlpayment).length > 2) {
+            window.open(result.urlpayment,"_self");
+          }
+          else {
+            this.router.navigate(['/proximas-clases/'], { queryParams: { id: result.idPago } });
+          }
           /* this.updateService.UpdateSaldo();
           const modalMensage = this.modalService.open(ModalMensageComponent);
           modalMensage.componentInstance.Mensage = "Reserva tus clases.";

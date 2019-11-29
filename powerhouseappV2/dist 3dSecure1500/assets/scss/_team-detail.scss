@@ -1,0 +1,90 @@
+.team-detail{
+    &.container{
+        padding-top:calculateRem(20px);
+        padding-bottom:0;
+    }
+    &__profile-name{
+        position: absolute;
+        z-index: 100;
+        color: #FFF;
+        font-size:calculateRem(90px);
+        margin-top:calculateRem(250px);
+        left:calculateRem(20px);
+    }
+    &__profile-pic{
+        min-width: 100% !important;
+    }
+    
+    .h4{
+        font-size:calculateRem(12px);
+        font-weight: 300;
+        margin-bottom: 0;
+    }
+    .h3{
+        font-size: calculateRem(22px);
+        margin-top:0;
+    }
+    .carousel-item{
+        min-height: initial;
+    }
+    .carousel-indicators{
+        margin-left: initial;
+        margin-right: initial;
+    }
+
+    .carousel.slide{
+        width: 89%;
+    }
+}
+
+  @media (max-width: 414px) {
+    .team-detail__profile-name {
+        position: absolute;
+        z-index: 100;
+        color: #FFF;
+        font-size: 1.625rem;
+        margin-top: 7rem;
+        left: 1.25rem;
+        line-height: .5rem;
+    }
+    }
+  @media (max-width: 411px) {
+    .team-detail__profile-name {
+        position: absolute;
+        z-index: 100;
+        color: #FFF;
+        font-size: 1.625rem;
+        margin-top: 7rem;
+        left: 1.25rem;
+        line-height: .5rem;
+    }
+    }
+    
+    @media  (max-width: 350px) {
+        .team-detail__profile-name {
+            position: absolute;
+            z-index: 100;
+            color: #FFF;
+            font-size: 1.625rem;
+            margin-top: 7rem;
+            left: 1.25rem;
+        }
+     }
+    
+     @media  (max-width: 320px) {
+        .team-detail__profile-name {
+            position: absolute;
+            z-index: 100;
+            color: #FFF;
+            margin-top: 5rem;
+            left: 1.25rem;
+        }
+     }
+     /* .team-detail__profile-name {
+        position: absolute;
+        z-index: 100;
+        color: #FFF;
+        font-size: 5.625rem;
+        margin-top: 15.625rem;
+        left: 1.25rem;
+    } */

@@ -299,6 +299,11 @@ export class AppComponent {
       position: 16,
       routeOrFunction: 'Calendario',
     };
+    const NIVEL1CATClasesAnteriores = {
+      name: 'Clases Anteriores',
+      position: 17,
+      routeOrFunction: 'ClasesAnteriores',
+    };
     //NIVEL1CATAlturaAsiento, NIVEL1CATDistanciaAsiento, NIVEL1CATAlturaManubrio, NIVEL1CATTallaZapato,
     menu.push(
       {
@@ -313,7 +318,7 @@ export class AppComponent {
         name: 'PROGRAMAR CLASES',
         icon: 'insert_invitation',
         position: 2,
-        subItems: [NIVEL1CATCalendario]
+        subItems: [NIVEL1CATCalendario,NIVEL1CATClasesAnteriores]
       },
       {
         name: 'CONFIGURAR SALON',
@@ -332,12 +337,28 @@ export class AppComponent {
       position: 1,
       routeOrFunction: 'Usuario',
     };
+    const CATClientesEliminarConsulta = {
+      name: 'Consulta Clientes Eliminar',
+      position: 3,
+      routeOrFunction: 'UsuarioEliminar',
+    };
+    const CATClientesClasesConsulta = {
+      name: 'Clientes Consulta de Clases',
+      position: 4,
+      routeOrFunction: 'ConsultaClientesClases',
+    };
+    const CATClientesInstructorConsulta = {
+      name: 'Clientes Consulta X Instructor',
+      position: 5,
+      routeOrFunction: 'ConsultaClientesInstructor',
+    };
+    
     menu.push(
       {
         name: 'CLIENTES',
         icon: 'directions_run',
         position:5,
-        subItems: [CATClientesConsulta,CATClientesPagos]
+        subItems: [CATClientesConsulta, CATClientesPagos, CATClientesEliminarConsulta, CATClientesClasesConsulta, CATClientesInstructorConsulta]
       }
     );
 

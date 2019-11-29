@@ -178,13 +178,13 @@ namespace dyma.powerhouse.data.actions
             return repo.GuardarInstructorActivo(NPK_Instructor, Activo, NFK_User);
         }
 
-        public List<vwPaquete> TraerPaquetes(int Activo)
+        public List<vwPaquete> TraerPaquetes(int Activo, int NFK_User)
         {
             var repo = new CatalogRepository(ClientConnectionString);
             if (Activo < 2)
-                return repo.TraerPaquetes(Activo);
+                return repo.TraerPaquetes(Activo, NFK_User);
             else
-                return repo.TraerPaquetes(null);
+                return repo.TraerPaquetes(null, NFK_User);
         }
         public PaqueteCatalogo GuardarPaquete(PaqueteCatalogo datos, int NFK_User)
         {
@@ -428,7 +428,31 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.TraerUsuarios(null);
-        }
+        }        public List<vwUsuario> TraerUsuariosSelect()
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.TraerUsuariosSelect();
+        }        public List<vwUsuarioAdmin> TraerUsuariosAdmin(int Activo)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.TraerUsuariosAdmin(null);
+        }        public List<vwUsuario> TraerUsuarioEliminar()
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.TraerUsuarioEliminar();
+        }        public List<vwUsuarioPremio> ConsultaUsuarioClases(int ConPremio)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.ConsultaUsuarioClases(ConPremio);
+        }        public List<vwUsuarioClasesPorInstructor> ConsultaUsuarioClasesPorInstructor()
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.ConsultaUsuarioClasesPorInstructor();
+        }        public vwRespuesta EliminarUsuario(int NPK_Usuario)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.EliminarUsuario(NPK_Usuario);
+        }
         #endregion       
 
         #region USERS
@@ -461,6 +485,11 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new UserRepository(ClientConnectionString);
             return repo.UpdateProfileUser(datos, APIKEY, MERCHANT_ID, PRODPAY);
+        }
+        public CatalogoUsuario UpdateProfileUserAdmin(CatalogoUsuario datos, string APIKEY, string MERCHANT_ID, bool PRODPAY)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            return repo.UpdateProfileUserAdmin(datos, APIKEY, MERCHANT_ID, PRODPAY);
         }
         public vwRespuesta ValidateExistsUser(string username)
         {
@@ -545,15 +574,19 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.GuardarTipoTarjetaActivo(NPK_TipoTarjeta, Activo, NFK_User);
-        }        public RespuestaPago VentaUsuarioPago(vwVentaCarroPago datos, string APIKEY, string MERCHANT_ID, bool PRODPAY, string DEVICESESSIONID, string RedirectUrl)
+        }        public RespuestaPago ActualizaUsuarioOpenPay(string APIKEY, string MERCHANT_ID, bool PRODPAY)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            return repo.ActualizaUsuarioOpenPay(APIKEY, MERCHANT_ID, PRODPAY);
+        }        public RespuestaPago VentaUsuarioPago(vwVentaCarroPago datos, string APIKEY, string MERCHANT_ID, bool PRODPAY, string DEVICESESSIONID, string RedirectUrl)
         {
             var repo = new UserRepository(ClientConnectionString);
             return repo.VentaUsuarioPago(datos, APIKEY, MERCHANT_ID, PRODPAY, DEVICESESSIONID, RedirectUrl);
         }
-        public RespuestaPago VentaUsuarioPago_Aplicar(vwVentaCarroPagoAplicar datos)
+        public RespuestaPago VentaUsuarioPago_Aplicar(vwVentaCarroPagoAplicar datos, string APIKEY, string MERCHANT_ID, bool PRODPAY)
         {
             var repo = new UserRepository(ClientConnectionString);
-            return repo.VentaUsuarioPago_Aplicar(datos);
+            return repo.VentaUsuarioPago_Aplicar(datos, APIKEY, MERCHANT_ID, PRODPAY);
         }
         public List<vwClasesDisponiblesWeeks> ClasesDisponiblesPorInstructor(int NFK_Instructor)
         {
@@ -579,6 +612,12 @@ namespace dyma.powerhouse.data.actions
         {
             var repo = new UserRepository(ClientConnectionString);
             repo.ReservaLugar(NFK_CalendarioClase, NFK_Usuario, NFK_Salon, NFK_SalonLugar, ServidorSMTP, puerto, smtusuario, smtpcontrasena);
+            return "";
+        }
+        public string ReservaLugarAdmin(int NFK_CalendarioClase, int NFK_Usuario, int NFK_Salon, int NFK_SalonLugar, string ServidorSMTP, int puerto, string smtusuario, string smtpcontrasena)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            repo.ReservaLugarAdmin(NFK_CalendarioClase, NFK_Usuario, NFK_Salon, NFK_SalonLugar, ServidorSMTP, puerto, smtusuario, smtpcontrasena);
             return "";
         }
         public string CancelarReservaLugar(int NPK_ReservaClase, int NFK_Usuario, string ServidorSMTP, int puerto, string smtusuario, string smtpcontrasena)
@@ -627,10 +666,25 @@ namespace dyma.powerhouse.data.actions
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.Mi_HistoriaPagosPWHHOY();
         }
+        public vwDetalleVenta DetalleDePago(int NPK_Venta)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.DetalleDePago(NPK_Venta);
+        }
+        public List<vwDetalleVentaReservas> DetalleDePagoReservas(int NPK_Venta)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.DetalleDePagoReservas(NPK_Venta);
+        }
         public List<vwReservasPWHHoy> Reservas_PWH_Hoy()
         {
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.Reservas_PWH_Hoy();
+        }
+        public List<vwReservasPWHHoy> Reservas_PWH_Hoy_Atras()
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Reservas_PWH_Hoy_Atras();
         }
         public List<vwReservasPWHHoy> Reservas_PWH_ApartirHoy()
         {
@@ -652,10 +706,20 @@ namespace dyma.powerhouse.data.actions
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.Reservas_Asistencia_Registrar(NFK_CalendarioClase, NPK_ReservaClase);
         }
+        public List<vwReservasAsistencia> Reservas_Cancelar_Admin(int NFK_CalendarioClase, int NPK_ReservaClase)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Reservas_Cancelar_Admin(NFK_CalendarioClase, NPK_ReservaClase);
+        }
         public vwRespuesta Regalar_Clases(int NFK_Usuario, int Cantidad, int CreadoPor)
         {
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.Regalar_Clases(NFK_Usuario, Cantidad, CreadoPor);
+        }
+        public vwRespuesta Registrar_VentaPaquete_Clases(int NFK_Usuario, int NFK_Paquete, string Tarjeta, string NumeroAutorizacion, int CreadoPor)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Registrar_VentaPaquete_Clases(NFK_Usuario, NFK_Paquete, Tarjeta, NumeroAutorizacion, CreadoPor);
         }
         public string PagarPaquete(int NPK_Paquete, int NFK_Usuario)
         {
@@ -668,7 +732,16 @@ namespace dyma.powerhouse.data.actions
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.Obtener_Tarjetas(NFK_Usuario);
         }
-
+        public vwRespuesta Cambiar_Instructor_Clase(int NPK_CalendarioClase, int NFK_Instructor)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.Cambiar_Instructor_Clase(NPK_CalendarioClase, NFK_Instructor);
+        }
+        public vwRespuesta EliminarVenta(int NPK_Venta)
+        {
+            var repo = new CatalogRepository(ClientConnectionString);
+            return repo.EliminarVenta(NPK_Venta);
+        }
         #endregion      
     }
 }

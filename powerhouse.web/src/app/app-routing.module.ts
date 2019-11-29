@@ -160,6 +160,22 @@ const routes: Routes = [
         path: 'DetalleUsuario/:npk_usuario/:usuario',
         loadChildren: 'app/PowerHouse/DetalleUsuario/DetalleUsuario.module#DetalleUsuarioModule',
       },
+      {
+        path: 'UsuarioEliminar',
+        loadChildren: 'app/PowerHouse/UsuarioEliminar/UsuarioEliminar.module#UsuarioEliminarModule',
+      },
+      {
+        path: 'ClasesAnteriores',
+        loadChildren: 'app/PowerHouse/clasesanteriores/clasesanteriores.module#ClasesAnterioresModule',
+      },
+      {
+        path: 'ConsultaClientesClases',
+        loadChildren: 'app/PowerHouse/ReporteClasesUsuario/ReporteClasesUsuario.module#ReporteClasesUsuarioModule',
+      },
+      {
+        path: 'ConsultaClientesInstructor',
+        loadChildren: 'app/PowerHouse/ReporteUsuarioInstructor/ReporteUsuarioInstructor.module#ReporteUsuarioInstructorModule',
+      },
       /* {
         path: 'ActividadMantenimiento/:npk_mantenimiento/:mantenimiento',
         loadChildren: 'app/Sit/ActividadMantenimiento/ActividadMantenimiento.module#ActividadMantenimientoModule',

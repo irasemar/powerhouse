@@ -3,7 +3,10 @@
   <div class="elevation border-radius overflow-hidden route-animations-elements">
      <fury-list name="CLIENTES" [columns]="columns" (filterChange)="onFilterChange($event)">
 
-      <div class="actions">        
+      <div class="actions">    
+          <button class="create" (click)="exportAsXLSX();" type="button" mat-mini-fab color="accent" title="Exportar Excel">
+              <mat-icon class="fas fa-file-excel"></mat-icon>
+          </button>    
       </div>
 
       <mat-table #table [dataSource]="dataSource" matSort>
@@ -43,7 +46,8 @@
             </button>
 
             <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">   
-                <button (click)="detalleUsuario(row)" mat-menu-item><span>Ver Detalles</span></button>           
+                <button (click)="detalleUsuario(row)" mat-menu-item><span>Ver Detalles</span></button>
+                <button (click)="updateUsuario(row)" mat-menu-item><span>Actualizar</span></button>           
             </mat-menu>
           </mat-cell>
         </ng-container> 

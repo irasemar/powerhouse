@@ -268,24 +268,25 @@ namespace dyma.powerhouse.data.repositories
                         OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);
                         Customer request = new Customer();
                         request.ExternalId = "PWH-" + datos.NPK_Usuario.ToString();
-                        request.Name = exist.Nombre;
-                        request.LastName = exist.Apellidos;
-                        request.Email = "admin@mypowerhouse.mx";
-                        request.PhoneNumber = exist.Telefono;
+                        request.Name = datos.Nombre;
+                        request.LastName = datos.Apellidos;
+                        request.Email = String.IsNullOrEmpty(datos.Correo) ? datos.Usuario : datos.Correo;
+                        request.PhoneNumber = datos.Telefono;
                         request.RequiresAccount = false;
-                        Address address = new Address();
-                        address.City = "San Pedro Garza García";
-                        address.CountryCode = "MX";
-                        address.State = "Nuevo Leon";
-                        address.PostalCode = "66254";
-                        address.Line1 = "Av. Roberto Garza Sada #101";
-                        address.Line2 = "";
-                        address.Line3 = "San Pedro Garza García N.L.";
-                        request.Address = address;
+                        //Address address = new Address();
+                        //address.City = "San Pedro Garza García";
+                        //address.CountryCode = "MX";
+                        //address.State = "Nuevo Leon";
+                        //address.PostalCode = "66254";
+                        //address.Line1 = "Av. Roberto Garza Sada #101";
+                        //address.Line2 = "";
+                        //address.Line3 = "San Pedro Garza García N.L.";
+                        //request.Address = address;
 
                         request = api.CustomerService.Create(request);
                         exist.id = request.Id;
                     }
+                    
                     #endregion
 
                     using (var tran = connection.BeginTransaction())
@@ -367,6 +368,137 @@ namespace dyma.powerhouse.data.repositories
                 }
             }
             return resp;
+        }
+
+        public CatalogoUsuario UpdateProfileUserAdmin(CatalogoUsuario datos, string APIKEY, string MERCHANT_ID, bool PRODPAY)
+        {
+            if (datos == null)
+                throw new exceptions.BusinessRuleValidationException("Usuario Datos requeridos");
+
+            if (datos.NPK_Usuario > 0)
+            {
+                using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+                {
+                    connection.Open();
+                    var exist = connection.Get<CatalogoUsuario>(datos.NPK_Usuario);
+                    using (var tran = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            var fab = connection.Get<CatalogoUsuario>(datos.NPK_Usuario, tran);
+                            datos.FechaModificacion = DateTime.UtcNow;
+                            datos.Contrasena = fab.Contrasena;
+                            datos.ModificadoPor = 0;
+                            datos.Usuario = fab.Usuario;
+                            datos.CreadoPor = fab.CreadoPor;
+                            datos.FechaCreacion = fab.FechaCreacion;
+                            datos.id = exist.id;
+                            datos.Genero = "1";
+                            datos.Contrasena = fab.Contrasena;
+                            datos.ContactoEmergencia = fab.ContactoEmergencia;
+                            datos.TelefonoContacto = fab.TelefonoContacto;
+                            connection.Update<CatalogoUsuario>(datos, tran);
+                            tran.Commit();
+                            var user = connection.Get<CatalogoUsuario>(datos.NPK_Usuario);
+                            try
+                            {
+                                OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);
+                                Customer request = new Customer();
+                                request.Name = user.Nombre;
+                                request.LastName = user.Apellidos;
+                                request.Email = user.Correo;
+                                request.PhoneNumber = user.Telefono;
+                                request.Id = user.id;
+
+                                request = api.CustomerService.Update(request);
+                            }
+                            catch (Exception exop)
+                            {
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            datos.NPK_Usuario = 0;
+                            tran.Rollback();
+                            throw ex;
+                        }
+
+                    }
+                }
+            }
+            return datos;
+        }
+        public RespuestaPago ActualizaUsuarioOpenPayAdmin(string APIKEY, string MERCHANT_ID, bool PRODPAY, int NPK_Usuario)
+        {
+            var Respuesta = new RespuestaPago();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                List<CatalogoUsuario> resp = new List<CatalogoUsuario>();
+                resp = connection.Query<CatalogoUsuario>("Select * From Usuario Where NPK_Usuario = @NPK_Usuario", new { NPK_Usuario }, commandType: System.Data.CommandType.Text).ToList();
+                foreach (CatalogoUsuario usuario in resp)
+                {
+                    try
+                    {
+                        OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);
+                        Customer request = new Customer();
+                        request.Name = usuario.Nombre;
+                        request.LastName = usuario.Apellidos;
+                        request.Email = usuario.Correo;
+                        request.PhoneNumber = usuario.Telefono;
+                        request.Id = usuario.id;
+
+                        request = api.CustomerService.Update(request);
+                    }
+                    catch (Exception exop)
+                    {
+
+                    }
+
+                }
+            }
+
+            return Respuesta;
+        }
+        public RespuestaPago ActualizaUsuarioOpenPay(string APIKEY, string MERCHANT_ID, bool PRODPAY)
+        {
+            var Respuesta = new RespuestaPago();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                List<CatalogoUsuario> resp = new List<CatalogoUsuario>();
+                resp = connection.Query<CatalogoUsuario>("Select * From Usuario Where id Is Not Null", new { }, commandType: System.Data.CommandType.Text).ToList();
+                foreach (CatalogoUsuario usuario in resp)
+                {
+                    try
+                    {
+                        OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);
+                        Customer request = new Customer();
+                        request.Name = usuario.Nombre;
+                        request.LastName = usuario.Apellidos;
+                        request.Email = usuario.Correo;
+                        request.PhoneNumber = usuario.Telefono;
+                        //Address address = new Address();
+                        //address.City = "";
+                        //address.CountryCode = "MX";
+                        //address.State = "";
+                        //address.PostalCode = "";
+                        //address.Line1 = "";
+                        //address.Line2 = "";
+                        //address.Line3 = "";
+                        //request.Address = address;
+                        request.Id = usuario.id;
+
+                        request = api.CustomerService.Update(request);
+                    }
+                    catch (Exception exop)
+                    {
+
+                    }
+
+                }
+            }
+            
+            return Respuesta;
         }
         public RespuestaPago VentaUsuarioPago(vwVentaCarroPago datos, string APIKEY, string MERCHANT_ID, bool PRODPAY, string DeviceSessionId, string RedirectUrl)
         {
@@ -529,8 +661,15 @@ namespace dyma.powerhouse.data.repositories
                         #region Pagar Tarjeta OpenPay
                         try
                         {
-                            OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);                            
+                            OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);
 
+                            //string card_id = "khtdvhlcfzsxsxscr0m3u6";
+                            //Card card = api.CardService.Get(card_id);
+                            //card.Cvv2 = "201";
+
+                            //card = OpenpayAPI.
+
+                            //Card card = new Card();
                             ChargeRequest request = new ChargeRequest();
                             request.Method = "card";
                             request.SourceId = tarjetas[0].id;
@@ -540,6 +679,16 @@ namespace dyma.powerhouse.data.repositories
                             request.DeviceSessionId = datos.REQUESTid;
                             request.Use3DSecure = true;
                             request.RedirectUrl = RedirectUrl;
+                            if (datos.Monto > Convert.ToDecimal(1500.00))
+                            {
+                                request.Use3DSecure = true;
+                                request.RedirectUrl = RedirectUrl;
+                            }
+                            else
+                            {
+                                request.Use3DSecure = false;
+                                request.RedirectUrl = "";
+                            }
 
 
                             Charge charge = api.ChargeService.Create(tarjetas[0].IdOpen, request);
@@ -549,7 +698,17 @@ namespace dyma.powerhouse.data.repositories
                             Respuesta.Monto = charge.Amount.ToString();
                             Respuesta.description = charge.Description;
                             Respuesta.operation_date = charge.CreationDate.ToString();
-                            Respuesta.urlpayment = charge.PaymentMethod.Url;
+                            var urlpayment = "";
+                            try
+                            {
+                                Respuesta.urlpayment = (String.IsNullOrEmpty(charge.PaymentMethod.Url) ? "" : charge.PaymentMethod.Url);
+                            }
+                            catch(Exception expay)
+                            {
+                                Respuesta.urlpayment = "";
+                            }
+                            Respuesta.idPago = charge.Id;
+                            
 
                             using (var connection2 = util.DbManager.ConnectionFactory(sqlConnectionString))
                             {
@@ -571,7 +730,7 @@ namespace dyma.powerhouse.data.repositories
                                                 NumAutorizacion = charge.Authorization,
                                                 MontoPago = charge.Amount,
                                                 IDPagoOpenPay  = charge.Id,
-                                                url = charge.PaymentMethod.Url
+                                                url = Respuesta.urlpayment
                                             }, tran, null, commandType: System.Data.CommandType.StoredProcedure);
                                         tran.Commit();
                                     }
@@ -608,46 +767,60 @@ namespace dyma.powerhouse.data.repositories
             return Respuesta;
         }
 
-        public RespuestaPago VentaUsuarioPago_Aplicar(vwVentaCarroPagoAplicar datos)
+        public RespuestaPago VentaUsuarioPago_Aplicar(vwVentaCarroPagoAplicar datos, string APIKEY, string MERCHANT_ID, bool PRODPAY)
         {
             var Respuesta = new RespuestaPago();
             if (datos == null)
                 throw new exceptions.BusinessRuleValidationException("Venta Pago List Data requiered");
-
-
-            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            try
             {
-                var resp = new List<vwMisTarjetas>();
-                using (var connection2 = util.DbManager.ConnectionFactory(sqlConnectionString))
+                OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);              
+
+                Charge charge = api.ChargeService.Get(datos.IDPagoOpenPay);
+                if (charge.Status == "completed")
                 {
-                    connection2.Open();
-                    using (var tran = connection2.BeginTransaction())
+                    using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
                     {
-                        try
+                        var resp = new List<vwMisTarjetas>();
+                        using (var connection2 = util.DbManager.ConnectionFactory(sqlConnectionString))
                         {
-                            var affectedRows = connection2.Execute("SP_Proc_Venta_Carro_Pago_Aplicar",
-                                new
+                            connection2.Open();
+                            using (var tran = connection2.BeginTransaction())
+                            {
+                                try
                                 {
-                                    IDPagoOpenPay = datos.IDPagoOpenPay
-                                }, tran, null, commandType: System.Data.CommandType.StoredProcedure);
-                            tran.Commit();
-                        }
-                        catch (Exception ex)
-                        {
-                            tran.Rollback();
-                            Respuesta.Error = 2;
-                            Respuesta.Desc_Error = ex.ToString();
-                            return Respuesta;
-                        }
-                        finally
-                        {
-                            connection2.Close();
+                                    var affectedRows = connection2.Execute("SP_Proc_Venta_Carro_Pago_Aplicar",
+                                        new
+                                        {
+                                            IDPagoOpenPay = datos.IDPagoOpenPay
+                                        }, tran, null, commandType: System.Data.CommandType.StoredProcedure);
+                                    tran.Commit();
+                                }
+                                catch (Exception ex)
+                                {
+                                    tran.Rollback();
+                                    Respuesta.Error = 2;
+                                    Respuesta.Desc_Error = ex.ToString();
+                                    return Respuesta;
+                                }
+                                finally
+                                {
+                                    connection2.Close();
+                                }
+
+                            }
                         }
 
                     }
                 }
 
             }
+            catch(Exception txex)
+            {
+
+            }
+
+            
 
             return Respuesta;
         }
@@ -683,7 +856,64 @@ namespace dyma.powerhouse.data.repositories
                             mensajeSoporteCSAM.From = new System.Net.Mail.MailAddress(smtusuario);
                             mensajeSoporteCSAM.To.Add(usuario.Correo);
                             mensajeSoporteCSAM.Body = "Hola " + usuario.Nombre + " Tienes una Reserva Nueva en PowerHouse en la clase: " + reserva[0].Clase + " para el dia : " + reserva[0].DescDia + " hora : " + reserva[0].HoraInicio + 
-                                " Con el instructor: " + reserva[0].Instructor + ", TE ESPERAMOS!!";
+                                " Con el instructor: " + reserva[0].Instructor + ", tu lugar seleccionado es:" + reserva[0].Lugar + ", TE ESPERAMOS!!";
+                            mensajeSoporteCSAM.Subject = "Reserva Powerhouse Realizada";
+                            smtpClienteCSAM.Send(mensajeSoporteCSAM);
+                            mensajeSoporteCSAM.Dispose();
+                        }
+                        catch (Exception errorCorreoCSAM)
+                        {
+                            resp.Error = 1;
+                            resp.DescError = errorCorreoCSAM.ToString();
+                        }
+                        finally
+                        {
+                            mensajeSoporteCSAM.Dispose();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+            }
+
+            return "";
+        }
+        public string ReservaLugarAdmin(int NFK_CalendarioClase, int NFK_Usuario, int NFK_Salon, int NFK_SalonLugar, string ServidorSMTP, int puerto, string smtusuario, string smtpcontrasena)
+        {
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                using (var tran = connection.BeginTransaction())
+                {
+                    try
+                    {
+
+                        var reserva = connection.Query<vwReservaRespuesta>("SP_Reserva_Lugar_Admin",
+                            new
+                            {
+                                NFK_CalendarioClase = NFK_CalendarioClase,
+                                NFK_Usuario = NFK_Usuario,
+                                NFK_Salon = NFK_Salon,
+                                NFK_SalonLugar = NFK_SalonLugar
+                            }, tran, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                        tran.Commit();
+                        var resp = new vwRespuesta();
+                        var usuario = connection.Query<vwUsuario>("Select NPK_Usuario, Nombre, Apellidos, Usuario,isnull(Correo,Usuario) as Correo,Contrasena From Usuario with(nolock) Where NPK_Usuario = @NFK_Usuario ", new { NFK_Usuario }).FirstOrDefault();
+                        MailMessage mensajeSoporteCSAM = new MailMessage();
+                        SmtpClient smtpClienteCSAM = new SmtpClient();
+                        smtpClienteCSAM.Host = ServidorSMTP;
+                        smtpClienteCSAM.Port = puerto;
+                        smtpClienteCSAM.Credentials = new System.Net.NetworkCredential(smtusuario, smtpcontrasena);
+                        try
+                        {
+                            mensajeSoporteCSAM.From = new System.Net.Mail.MailAddress(smtusuario);
+                            mensajeSoporteCSAM.To.Add(usuario.Correo);
+                            mensajeSoporteCSAM.Body = "Hola " + usuario.Nombre + " Tienes una Reserva Nueva en PowerHouse en la clase: " + reserva[0].Clase + " para el dia : " + reserva[0].DescDia + " hora : " + reserva[0].HoraInicio +
+                                " Con el instructor: " + reserva[0].Instructor + ", tu lugar seleccionado es:" + reserva[0].Lugar + ", TE ESPERAMOS!!";
                             mensajeSoporteCSAM.Subject = "Reserva Powerhouse Realizada";
                             smtpClienteCSAM.Send(mensajeSoporteCSAM);
                             mensajeSoporteCSAM.Dispose();

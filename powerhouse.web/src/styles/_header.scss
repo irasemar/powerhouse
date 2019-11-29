@@ -1,0 +1,80 @@
+.header{
+    color: $gray;
+    &__logo{
+        background: url(/assets/images/logo.svg) no-repeat;
+        color: #FFF;
+        width:calculateRem(260px);
+        height: calculateRem(45px);
+        display: block;
+        margin-right: calculateRem(30px)
+    }
+    &__dropdown{
+       font-size:calculateRem(13px) !important;
+       letter-spacing: 0.034rem;
+    }
+    &__dropdown-title{
+        color:#000;
+        font-size: calculateRem(14px);
+        border-bottom:1px solid #000;
+        padding-bottom: calculateRem(10px);
+        margin-bottom: calculateRem(15px);
+    }
+    &__right-links{
+        color:rgba(0,0,0,.5);
+        font-size:calculateRem(13px);
+        p{
+            margin-bottom:0;
+        }
+        a{
+            display: inline-block;
+            padding:calculateRem(12px);
+            letter-spacing: 0.034rem;
+            color:rgba(0,0,0,.5);
+            &:hover, &:visited{
+                color:rgba(0,0,0,.5);
+                text-decoration: underline;
+                cursor:pointer;
+            }
+        }
+    }
+    &__cart-items{
+        background: #FFF;
+        border-radius: 50%;
+        width: calculateRem(40px);
+        height: calculateRem(40px);
+        color:$midgray;
+        text-align: center;
+        border:1px solid $midgray;
+        font-size:calculateRem(12px);
+        font-weight: 400;
+        margin-right: 5px;
+        display: inline-block;
+        line-height: 40px;
+    }
+}
+
+.social{
+    &__list{
+        position: absolute;
+        z-index:1000;
+        right: calculateRem(20px);
+        margin-top:calculateRem(80px);
+       list-style: none;
+        &-item{
+            display: inline-block;
+            margin-right:calculateRem(10px);
+            &:last-child{
+                margin-right: 0;
+            }
+            a, a:hover{color:$orange;}
+        }
+    }
+}
+
+.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border: 0px;
+}

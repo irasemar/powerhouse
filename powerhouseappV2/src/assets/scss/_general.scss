@@ -306,6 +306,7 @@ a, a:hover, a:visited{
         margin-left: 46px;
         margin-right: 0px;
     }
+    
 }
     
     
@@ -563,4 +564,13 @@ a, a:hover, a:visited{
     margin-left: 0px;
     padding: 20px 0 0 40px;
     /* width: 200px; */
+}
+.card-body2{
+    flex: 1 1 auto;
+    padding: 0.25rem;
+}
+.h7{
+    margin-top: 10;
+    margin-bottom: .5rem;
+    text-align: center;
 }

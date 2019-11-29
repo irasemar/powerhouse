@@ -10,6 +10,7 @@ import { FuryCardModule } from '../../shared/card/card.module';
 import { ListModule } from '../../shared/list/list.module';
 import { HighlightModule } from '../../shared/highlightjs/highlight.module';
 import { QuickInfoWidgetModule } from '../../shared/widgets/quick-info-widget/quick-info-widget.module';
+import { DetalleVentaModule } from 'app/PowerHouse/DetalleVenta/DetalleVenta.module';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { QuickInfoWidgetModule } from '../../shared/widgets/quick-info-widget/qu
     HighlightModule,
     ListModule,
     QuickInfoWidgetModule,
+    DetalleVentaModule
   ],
   declarations: [DetalleUsuarioComponent],
   exports: [DetalleUsuarioComponent]

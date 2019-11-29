@@ -20,7 +20,10 @@ import { NgbModule,NgbCarouselConfig, NgbCarousel } from '@ng-bootstrap/ng-boots
 import { HttpClient } from '@angular/common/http';
 import { APP_CONFIG, AppConfig } from "../../app.config";
 import { CatalogsService, Saldo, MisPagos, ReservasPWHHoyView, ReservaDashboardView } from '../../services/catalogs.service';
-import { AsistenciaComponent } from '../../../app/PowerHouse/Asistencia/Asistencia.component'
+import { AsistenciaComponent } from '../../../app/PowerHouse/Asistencia/Asistencia.component';
+import { CambiarInstructorComponent } from '../../../app/PowerHouse/CambiarInstructor/CambiarInstructor.component';
+import { ReservarLugarComponent } from '../../../app/PowerHouse/ReservarLugar/ReservarLugar.component';
+import { DetalleVentaComponent } from '../../../app/PowerHouse/DetalleVenta/DetalleVenta.component';
 import { MatDialog } from '@angular/material';
 
 @Component({
@@ -44,6 +47,7 @@ export class DashboardComponent implements OnInit {
 	
   CantPagos : number = 0;
   CantPagosHoy: number = 0;
+  verpagos: boolean = false;
   constructor(
     private router: Router,
     public auth: AuthService, private catalog: CatalogsService,
@@ -73,58 +77,62 @@ export class DashboardComponent implements OnInit {
 
 
     var acc = this.auth.getAccount();
-    console.log(acc);
+    if (acc.NPK_Usuario === 2023 || acc.NPK_Usuario === 2024 || acc.NPK_Usuario === 2025 || acc.NPK_Usuario === 2026) {
+      this.verpagos = true;
+    }
     if (!acc)
       this.router.navigate(['/']);
     else
       this.router.navigate(['/dashboard']);
   }  
   ngAfterViewInit() {
-    setTimeout(() => {
-      /* this.catalog.getMiSaldo(this.npk_usuario).subscribe(saldo => {
-        this.Saldo = saldo;
-        this.SaldoClases = this.Saldo[0].Saldo;
-        this.ReservasHoyRide = this.Saldo[0].ReservasHoyRide;
-        this.ReservasHoyTrain = this.Saldo[0].ReservasHoyTrain;
-        this.TotalAsistenciaRide = this.Saldo[0].TotalAsistenciaRide;
-        this.TotalAsistenciaTrain = this.Saldo[0].TotalAsistenciaTrain;
-      }); */
-      this.catalog.getMiHistoriaPagos_PWH().subscribe(pagos => {
-        this.MisPagos = pagos;
-        this.CantPagos = this.MisPagos.length;
-      });
-      this.catalog.getMiHistoriaPagos_PWHHOY().subscribe(pagos => {
-        this.MisPagosHoy = pagos;
-        this.CantPagosHoy = this.MisPagosHoy.length;
-      });
-      this.catalog.getReservasPWHHoy().subscribe(reservas => {
-        this.ReservasHoy = reservas;
-      });
-      this.catalog.getReservasPWHApartirHoy().subscribe(reservas => {
-        this.ReservasAPartirHoy = reservas;
-      });
-      this.catalog.getReservasDashBoard().subscribe(reservas => {
-        this.ReservasDashboard = reservas;
-      });
-      
-      
-      /* this.catalog.getMiHistoria(this.npk_usuario).subscribe(clases => {
-        this.HistoriaClases = clases;
-        this.CantClasesTomadas = this.HistoriaClases.length;
-      });
-      this.catalog.getMisReservas(this.npk_usuario).subscribe(reservas => {
-        this.Reservas = reservas;
-        this.CantClasesReservadas = this.Reservas.length;
-      }); */
+    setTimeout(() => {     
+      this.fillView();
+    });
+  }
+  fillView() {
+    this.catalog.getMiHistoriaPagos_PWH().subscribe(pagos => {
+      this.MisPagos = pagos;
+      this.CantPagos = this.MisPagos.length;
+    });
+    this.catalog.getMiHistoriaPagos_PWHHOY().subscribe(pagos => {
+      this.MisPagosHoy = pagos;
+      this.CantPagosHoy = this.MisPagosHoy.length;
+    });
+    this.catalog.getReservasPWHHoy().subscribe(reservas => {
+      this.ReservasHoy = reservas;
+    });
+    this.catalog.getReservasPWHApartirHoy().subscribe(reservas => {
+      this.ReservasAPartirHoy = reservas;
+    });
+    this.catalog.getReservasDashBoard().subscribe(reservas => {
+      this.ReservasDashboard = reservas;
     });
   }
   verDetalle(CalendarioClase){
-    console.log(CalendarioClase);
     this.dialog.open(AsistenciaComponent, {
-			data: CalendarioClase,height: "500px",width: "800px",}).afterClosed().subscribe((genero) => {			
+			data: CalendarioClase,height: "500px",width: "800px",}).afterClosed().subscribe((genero) => {		
+        this.fillView();
 		});
   }
   col(colAmount: number) {
     return `1 1 calc(${100 / colAmount}% - ${this._gap - (this._gap / colAmount)}px)`;
+  }
+  CambiarInstructor(CalendarioClase){
+    this.dialog.open(CambiarInstructorComponent, {
+			data: CalendarioClase,height: "400px",width: "400px",}).afterClosed().subscribe((genero) => {		
+        this.fillView();
+		});
+  }
+  AbrirMapa(CalendarioClase){
+    this.dialog.open(ReservarLugarComponent, {
+			data: CalendarioClase,height: "800px",width: "800px",}).afterClosed().subscribe((genero) => {		
+        this.fillView();
+		});
+  }
+  AbrirComportamientoPago(row) {    
+    this.dialog.open(DetalleVentaComponent, {
+			data: row,height: "800px",width: "800px",}).afterClosed().subscribe((genero) => {	
+		});
   }
 }

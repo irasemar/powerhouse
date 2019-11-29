@@ -28,7 +28,7 @@ export class AsistenciaComponent implements OnInit {
   ngAfterViewInit() {
     setTimeout(() => {
 		this.NPK_CalendarioClase = this.defaults.NPK_CalendarioClase;
-      	this.catalog.getAsistencias(this.NPK_CalendarioClase).subscribe(reservas => {
+      this.catalog.getAsistencias(this.NPK_CalendarioClase).subscribe(reservas => {
         this.Reservas = reservas;
       });
     });
@@ -37,6 +37,12 @@ export class AsistenciaComponent implements OnInit {
   RegistrarAsistencia(Reserva) {  
 	  console.log(Reserva);
 	  this.catalog.getRegistrarAsistencias(this.NPK_CalendarioClase, Reserva.NPK_ReservaClase).subscribe(reservas => {
+        this.Reservas = reservas;
+      });
+  }
+  CancelarReserva(Reserva) {  
+	  console.log(Reserva);
+	  this.catalog.letCancelarAsistencias(this.NPK_CalendarioClase, Reserva.NPK_ReservaClase).subscribe(reservas => {
         this.Reservas = reservas;
       });
   }

@@ -35,8 +35,9 @@
         <div class="header__cart-items">{{CantidadCarro}}</div>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <h4 class="header__dropdown-title">Mi cuenta</h4>
-        <a href="./perfil" ngbDropdownItem>Mi perfil</a>
-        <button ngbDropdownItem (click)="ProximasClases();">Mis próximas clases</button>
+        <!-- <a href="./perfil" ngbDropdownItem>Mi perfil</a> -->
+        <button ngbDropdownItem (click)="miperfil();" (focus)="miperfil()" >Mi perfil</button>
+        <button ngbDropdownItem (click)="ProximasClases();" >Mis próximas clases</button>
         <button ngbDropdownItem (click)="MiHistoria();">Mi historial</button>
         <button ngbDropdownItem (click)="MisPagos();">Mis Pagos</button>
         <!-- <button ngbDropdownItem>Power Points</button> -->

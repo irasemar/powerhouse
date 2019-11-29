@@ -80,7 +80,45 @@ namespace dyma.powerhouse.data.views
 
         public short Activo { get; set; }
         public string Correo { get; set; }
-        //public int AnioInicio { get; set; }
+        //public int SaldoTotal { get; set; }
+        //public int CantidadClasesTomadas { get; set; }
+    }
+    public class vwUsuarioAdmin
+    {
+        [Key]
+        public long NPK_Usuario { get; set; }
+
+        public string Usuario { get; set; }
+        [JsonIgnore]
+        public string Contrasena { get; set; }
+
+        public string Nombre { get; set; }
+
+        public string Apellidos { get; set; }
+
+        public string Telefono { get; set; }
+        public string FechaNacimiento { get; set; }
+        public string Genero { get; set; }
+        public string ContactoEmergencia { get; set; }
+        public string TelefonoContacto { get; set; }
+        public string BikeSetupAlturaAsiento { get; set; }
+        public string BikeSetupDistanciaAsiento { get; set; }
+        public string BikeSetupDistanciaManubrio { get; set; }
+        public string BikeSetupAlturaManubrio { get; set; }
+        public string TallaZapato { get; set; }
+        public int QuieroOfertas { get; set; }
+
+        [JsonIgnore]
+        public int CreadoPor { get; set; }
+        public string FechaCreacion { get; set; }
+        [JsonIgnore]
+        public int? ModificadoPor { get; set; }
+        [JsonIgnore]
+        public DateTime? FechaModificacion { get; set; }
+
+        public short Activo { get; set; }
+        public string Correo { get; set; }
+        public int SaldoTotal { get; set; }
         //public int CantidadClasesTomadas { get; set; }
     }
     [Table("Usuario")]
@@ -232,6 +270,8 @@ namespace dyma.powerhouse.data.views
         public int NPK_CalendarioClase { get; set; }
         public bool Estatus { get; set; }
         public int NFK_Usuario { get; set; }
+        public string Usuario { get; set; }
+        public int Asistencia { get; set; }
 
     }
     public class vwSaldo
@@ -299,6 +339,7 @@ namespace dyma.powerhouse.data.views
         public string description { get; set; }
         public string operation_date { get; set; }
         public string urlpayment { get; set; }
+        public string idPago { get; set; }
     }
     public class vwHistoriaPagos
     {
@@ -310,6 +351,32 @@ namespace dyma.powerhouse.data.views
         public string NumeroTarjeta { get; set; }
         public string NumAutorizacion { get; set; }
         public int CantidadClases { get; set; }
+        public int CantidadClasesUtilizadas { get; set; }
+        public int NPK_Venta { get; set; }
+        public string FechaVencimiento { get; set; }
+
+
+    }
+    public class vwDetalleVenta
+    {
+        public int NPK_Venta { get; set; }
+        public int NFK_Paquete { get; set; }
+        public string Paquete { get; set; }
+        public int CantidadClases { get; set; }
+        public int CantClasesAsistidas { get; set; }
+        public int CantClasesReserva { get; set; }
+        public int CantClasesDisponibles { get; set; }
+        public int CantClasesVencidas { get; set; }
+    }
+    public class vwDetalleVentaReservas
+    {
+        public string Asistencia { get; set; }
+        public string Fecha { get; set; }
+        public string Hora { get; set; }
+        public string Instructor { get; set; }
+        public string Salon { get; set; }
+        public string SalonLugar { get; set; }
+        public string Fotografia { get; set; }
     }
     public class vwReservasPWHHoy
     {
@@ -326,6 +393,8 @@ namespace dyma.powerhouse.data.views
         public int CantLugaresSeparados { get; set; }
         public int CantLugaresAsistencia { get; set; }
         public string Fotografia { get; set; }
+        public int NFK_Clase { get; set; }
+        public int NFK_Semana { get; set; }
     }
     public class vwReservasAsistencia
     {
@@ -363,6 +432,7 @@ namespace dyma.powerhouse.data.views
         public string Instructor { get; set; }
         public string HoraInicio { get; set; }
         public string Duracion { get; set; }
+        public string Lugar { get; set; }
     }
     public class vwValidarUsuario
     {
@@ -370,6 +440,53 @@ namespace dyma.powerhouse.data.views
         public string id { get; set; }
         public string correo { get; set; }
         public string usuario { get; set; }
+
+
+    }
+    public class vwVentaPaqueteAdmin
+    {
+        public int NFK_Usuario { get; set; }
+        public int NFK_Paquete { get; set; }
+        public string Tarjeta { get; set; }
+        public string NumeroAutorizacion { get; set; }
+        public int CreadoPor { get; set; }
+
+
+    }
+    public class vwUsuarioPremio
+    {
+        public int NPK_Usuario { get; set; }
+        public string Nombre { get; set; }
+        public string Usuario { get; set; }
+        public string Correo { get; set; }
+        public int CantidadCompras { get; set; }
+        public int CantClasesCompradas { get; set; }
+        public int CantidadClasesAsistio { get; set; }
+        public int CantidadClasesSinAsistir { get; set; }
+        public int TotalClases { get; set; }
+        public string Premio1 { get; set; }
+        public string Premio2 { get; set; }
+        public string Premio3 { get; set; }
+        public string Premio4 { get; set; }
+        public string Premio5 { get; set; }
+        public string Premio6 { get; set; }
+        public string Premio7 { get; set; }
+        public string Premio8 { get; set; }
+        public string Premio9 { get; set; }
+        public string Premio10 { get; set; }
+        public int CantClasesAsistioRIDE { get; set; }
+        public int CantClasesAsistioTRAIN { get; set; }
+
+
+    }
+    public class vwUsuarioClasesPorInstructor
+    {
+        public int NPK_Usuario { get; set; }
+        public string Nombre { get; set; }
+        public string Usuario { get; set; }
+        public string Instructor { get; set; }
+        public string Clase { get; set; }
+        public int CantClases { get; set; }
 
 
     }

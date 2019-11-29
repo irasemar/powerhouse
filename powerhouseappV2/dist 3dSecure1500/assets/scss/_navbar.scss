@@ -1,0 +1,29 @@
+.header__navbar{
+    &--link{
+        font-size:calculateRem(14px)
+       
+    }
+    &--items{
+        border-bottom:1px solid $orange
+    }
+}
+.navbar-expand-lg .navbar-nav .nav-link{
+    letter-spacing: 0.034rem;
+}
+
+.btn-primary{
+    letter-spacing: 0.034rem;   
+}
+.space {
+    letter-spacing: 0.034rem;
+}
+.navbar-expand-lg .navbar-nav .nav-link{
+    padding-right: 1.5rem;
+}
+.fixed-top {
+    position:relative !important;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}

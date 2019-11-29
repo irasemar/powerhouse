@@ -93,10 +93,10 @@ export class CatalogsService {
     return this.http.get<InstructorRedSocialView[]>(`${this.config.apiEndpoint}/v1/catalogos/InstructorRedSocialWH/${NPK_Instructor}`, { headers: head } );
   } 
   
-  getPaquetes(Activo) {
+  getPaquetes(Activo,NPK_User) {
     let head: HttpHeaders = new HttpHeaders();
     head = head.append('Content-Type', 'application/json');
-    return this.http.get<PaqueteForm[]>(`${this.config.apiEndpoint}/v1/catalogos/Paquete/${Activo}`, { headers: head } );
+    return this.http.get<PaqueteForm[]>(`${this.config.apiEndpoint}/v1/catalogos/Paquete/${Activo}/${NPK_User}`, { headers: head } );
   }
   
   getPowerHouses(Activo) {
@@ -277,6 +277,7 @@ export class CatalogsService {
     //head = head.append('Authorization', `Bearer ${acc.Token}`);
     return this.http.get<MisPagos[]>(`${this.config.apiEndpoint}/v1/powerhouse/Mi_HistoriaPagos/${NPK_Usuario}`, { headers: head });
   }
+  
   
 }
 export interface GeneroForm {
@@ -554,6 +555,7 @@ export interface RespuestaPago {
   description: string;
   operation_date: string;
   urlpayment: string;
+  idPago: string
   }
   export interface MisPagos {
     FechaPago: string;

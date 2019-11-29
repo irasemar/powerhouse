@@ -142,11 +142,11 @@ registerLocaleData(localemx);
   ],
   providers: [
     /* { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }, */
-    {
+    /* {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-     },
+     }, */
     //{provide : LocationStrategy , useClass: HashLocationStrategy},
     { provide: APP_CONFIG, useValue: AppConfigImpl },
     { provide: LOCALE_ID, useValue: 'es-MX'},

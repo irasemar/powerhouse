@@ -1,0 +1,42 @@
+<table><tr><td>
+<div fxFlex="100" class="padding">
+      <h2 mat-dialog-title>¿Como se Gasto la Compra?</h2>
+</div>
+</td></tr>
+<br>
+<tr><td>PAQUETE: {{DetalleVenta.Paquete}}</td></tr>
+<tr><td>CLASES COMPRADAS: {{DetalleVenta.CantidadClases}}</td></tr>
+<tr><td>CLASES CON ASISTENCIA: {{DetalleVenta.CantClasesAsistidas}}</td></tr>
+<tr><td>CLASES RESERVADAS: {{DetalleVenta.CantClasesReserva}}</td></tr>
+<tr><td>DISPONIBLE: {{DetalleVenta.CantClasesDisponibles}}</td></tr>
+<tr><td>VENCIDAS: {{DetalleVenta.CantClasesVencidas}}</td></tr>
+<tr><td>
+<div class="padding">
+<div fxFlex="100" class="table-container route-animations-elements" furyScrollbar>
+  <table class="table" [class.table-hover]="tableHover" [class.table-striped]="tableStriped"
+    [class.table-condensed]="tableCondensed" [class.table-bordered]="tableBordered">
+    <thead>
+      <tr>
+        <th>ASISTENCIA</th>
+        <th>FECHA</th>
+        <th>HORA</th>
+        <th>INSTRUCTOR</th>
+        <th>SALON</th>
+        <th>LUGAR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of DetalleVentaReservas">
+        <td>{{ row.Asistencia }}</td>
+        <td>{{ row.Fecha }}</td>
+        <td>{{ row.Hora }}</td>
+        <td><img mat-card-avatar src="{{ row.Fotografia }}" > {{ row.Instructor }}</td>
+        <td>{{ row.Salon }}</td>
+        <td>{{ row.SalonLugar }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+</td></tr>
+</table>

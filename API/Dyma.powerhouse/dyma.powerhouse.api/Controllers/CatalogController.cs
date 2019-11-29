@@ -695,13 +695,13 @@ namespace dyma.powerhouse.api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }        [AllowAnonymous]
-        [Route("Paquete/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwPaquete>))]
-        public HttpResponseMessage TraerPaquetes(int activo)
+        [Route("Paquete/{activo:int}/{NPK_User:int}"), HttpGet, ResponseType(typeof(List<data.views.vwPaquete>))]
+        public HttpResponseMessage TraerPaquetes(int activo, int NPK_User)
         {
             try
             {
                 var proxy = new Tasks(this.GetConnectionString());
-                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerPaquetes(activo));
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerPaquetes(activo, NPK_User));
             }
             catch (data.exceptions.BusinessRuleValidationException ex)
             {
@@ -2126,6 +2126,132 @@ namespace dyma.powerhouse.api.Controllers
                 var httpError = new HttpError(ex, true);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
-        }
+        }        [AllowAnonymous]
+        [Route("UsuariosSelect"), HttpGet, ResponseType(typeof(List<data.views.vwUsuario>))]
+        public HttpResponseMessage TraerUsuariosSelect()
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerUsuariosSelect());
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }        [AllowAnonymous]
+        [Route("UsuarioAdmin/{activo:int}"), HttpGet, ResponseType(typeof(List<data.views.vwUsuarioAdmin>))]
+        public HttpResponseMessage TraerUsuariosAdmin(int activo)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerUsuariosAdmin(activo));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }        [AllowAnonymous]
+        [Route("UsuarioEliminar"), HttpGet, ResponseType(typeof(List<data.views.vwUsuario>))]
+        public HttpResponseMessage TraerUsuarioEliminar()
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.TraerUsuarioEliminar());
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }        [AllowAnonymous]
+        [Route("EliminarUsuario/{NPK_Usuario:int}"), HttpGet, ResponseType(typeof(data.views.vwRespuesta))]
+        public HttpResponseMessage EliminarUsuario(int NPK_Usuario)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.EliminarUsuario(NPK_Usuario));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }        [AllowAnonymous]
+        [Route("ConsultaUsuarioClases/{ConPremio:int}"), HttpGet, ResponseType(typeof(List<data.views.vwUsuarioPremio>))]
+        public HttpResponseMessage ConsultaUsuarioClases(int ConPremio)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.ConsultaUsuarioClases(ConPremio));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }        [AllowAnonymous]
+        [Route("ConsultaUsuarioClasesPorInstructor"), HttpGet, ResponseType(typeof(List<data.views.vwUsuarioPremio>))]
+        public HttpResponseMessage ConsultaUsuarioClasesPorInstructor()
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.ConsultaUsuarioClasesPorInstructor());
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
     }
 }

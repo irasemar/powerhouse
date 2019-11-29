@@ -1,0 +1,69 @@
+
+
+.home{
+    &__classes{
+        background: url(./assets/images/banner_ride.jpg) no-repeat;
+        background-size:cover;
+        color: #FFF;
+        padding:calculateRem(120px) 0;
+        .sidenav__nav-link {
+            color: #FFF;
+        }
+        &.hiit{
+            background: url(./assets/images/banner_train.jpg) no-repeat;
+            background-size:cover;
+        }
+        &.powerteam{
+            background: url(./assets/images/banner_powerteam.jpg) no-repeat;
+            background-size:cover;
+        }
+        &.motto{
+            .h2{
+                font-weight: 700;
+            }
+            background: rgba(240,75,34,1);
+            background: -moz-linear-gradient(left, rgba(240,75,34,1) 0%, rgba(250,173,160,1) 66%, rgba(255,255,255,1) 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, rgba(240,75,34,1)), color-stop(66%, rgba(250,173,160,1)), color-stop(100%, rgba(255,255,255,1)));
+            background: -webkit-linear-gradient(left, rgba(240,75,34,1) 0%, rgba(250,173,160,1) 66%, rgba(255,255,255,1) 100%);
+            background: -o-linear-gradient(left, rgba(240,75,34,1) 0%, rgba(250,173,160,1) 66%, rgba(255,255,255,1) 100%);
+            background: -ms-linear-gradient(left, rgba(240,75,34,1) 0%, rgba(250,173,160,1) 66%, rgba(255,255,255,1) 100%);
+            background: linear-gradient(to right, rgba(240,75,34,1) 0%, rgba(250,173,160,1) 66%, rgba(255,255,255,1) 100%);        }
+    }
+
+}
+
+.home-mb{
+    &__classes{
+        background: url(./assets/images/slider_03.jpg) no-repeat;
+        background-size:cover;
+        color: #FFF;
+        padding:calculateRem(0px) 0;
+        .sidenav__nav-link {
+            color: #FFF;
+        }
+        &.hiit{
+            background: url(./assets/images/home-hiit.jpg) no-repeat;
+            background-size:cover;
+        }
+        &.powerteam{
+            background: url(./assets/images/home-powerteam.jpg) no-repeat;
+            background-size:cover;
+        }
+        &.motto{
+            .h2{
+                font-weight: 700;
+            }
+            background: rgba(240,75,34,1);
+            background: -moz-linear-gradient(left, rgba(240,75,34,1) 0%, rgba(250,173,160,1) 66%, rgba(255,255,255,1) 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, rgba(240,75,34,1)), color-stop(66%, rgba(250,173,160,1)), color-stop(100%, rgba(255,255,255,1)));
+            background: -webkit-linear-gradient(left, rgba(240,75,34,1) 0%, rgba(250,173,160,1) 66%, rgba(255,255,255,1) 100%);
+            background: -o-linear-gradient(left, rgba(240,75,34,1) 0%, rgba(250,173,160,1) 66%, rgba(255,255,255,1) 100%);
+            background: -ms-linear-gradient(left, rgba(240,75,34,1) 0%, rgba(250,173,160,1) 66%, rgba(255,255,255,1) 100%);
+            background: linear-gradient(to right, rgba(240,75,34,1) 0%, rgba(250,173,160,1) 66%, rgba(255,255,255,1) 100%);        }
+    }
+
+}
+.container-home {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+}

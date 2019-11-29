@@ -1,0 +1,242 @@
+<table><tr><td>
+<div fxFlex="100" class="padding">
+    <form [formGroup]="form">
+      <h2 mat-dialog-title>Reservar Clase Para un Cliente</h2>
+      <mat-dialog-content>
+    
+        <div>
+          <div fxLayout="column" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+            <mat-form-field fxFlex>
+              <mat-label>Usuario</mat-label>
+              <mat-select placeholder="Usuario" [formControl]="NFK_Usuario" #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="NFK_UsuarioFilterCtrl" [placeholderLabel]="'Buscar Cliente...'" 
+                  [noEntriesFoundLabel]="'No existe el cliente'"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let usuario of filteredNFK_Usuario | async" [value]="usuario">
+                  {{usuario.Nombre + ' ' + usuario.Apellidos}}
+                </mat-option>
+                <!-- 
+                  <mat-option *ngFor="let usuario of usuarios" [value]="usuario.NPK_Usuario">
+                    {{usuario.Nombre + ' ' + usuario.Apellidos}}
+                  </mat-option> -->
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div *ngIf="NFK_Clase == 2">
+          <h2 class="classes__date aqua mt-3 mb-3">Lugar Seleccionado: {{LugarAReservar.LugarSalon}}</h2>
+        </div>
+        <div *ngIf="NFK_Clase == 1">
+          <h2 class="classes__date mt-3 mb-3">Lugar Seleccionado: {{LugarAReservar.LugarSalon}}</h2>
+        </div>
+      </mat-dialog-content>
+      <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+        <button mat-button mat-button [disabled]="!form.valid" (click)="ReservarLugar();">RESERVAR LUGAR</button>
+      </mat-dialog-actions>
+    </form>
+</div>
+</td></tr>
+<tr><td>
+<div class="padding">
+<div fxFlex="100" *ngIf="NFK_Clase == 1">
+  <div class="container-lugares" *ngIf="welcome">
+    <div class="row mb-5">
+        <div class="col-md-12 text-center">
+            <h1 class="classes__heading">Ride</h1>
+            
+            <h2 class="classes__date mt-3 mb-3">{{class.Fecha}}</h2>
+            <p class="classes__coach">Coach: <a [href]="class.NFK_Instructor">{{class.Instructor}}</a></p>
+            <p class="classes__coach">Tipo de clase: <a [href]="class.Clase">{{class.Clase}}</a></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3 offset-1">
+            <div class="row mb-2 mt-5">
+                <div class="col-6 text-center">
+                </div>
+                <div class="col-6 text-center" *ngIf="bikes[3]">
+                    <span title="{{bikes[3].Usuario}}" class="classes__bike" (click)="bikes[3].NFK_Usuario != 0 || select(bikes[3])"
+                        [ngClass]="(bikes[3].NPK_ReservaClase > 0 )?'active':bikes[3].class" >{{bikes[3].LugarSalon}}</span>
+                </div><!-- "{'active' : bikes[3].Estatus }" -->
+            </div>
+            <div class="row mb-2">
+                <div class="col-6 text-center" *ngIf="bikes[6]">
+                    <span title="{{bikes[6].Usuario}}" class="classes__bike" (click)="bikes[6].NFK_Usuario != 0 || select(bikes[6])"
+                        [ngClass]="{'active' : bikes[6].Estatus }">{{bikes[6].LugarSalon}}</span>
+                </div>
+                <div class="col-6 text-center" *ngIf="bikes[4]">
+                    <span title="{{bikes[4].Usuario}}" class="classes__bike" (click)="bikes[4].NFK_Usuario != 0 || select(bikes[4])"
+                        [ngClass]="{'active' : bikes[4].Estatus }">{{bikes[4].LugarSalon}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 text-center">
+                </div>
+                <div class="col-6 text-center" *ngIf="bikes[5]">
+                    <span title="{{bikes[5].Usuario}}" class="classes__bike" (click)="bikes[5].NFK_Usuario != 0 || select(bikes[5])"
+                        [ngClass]="{'active' : bikes[5].Estatus }">{{bikes[5].LugarSalon}}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-4 offset-1">
+          <div style="text-align: center;">
+            <img class="classes__avatar" [src]="class.Fotografia" alt="">
+          </div>
+        </div>
+        
+        <div class="col-2 offset-1" *ngIf="bikes[0]">
+          <div class="row mb-2 mt-5">
+            <div class="col-12 text-center">
+              <span title="{{bikes[0].Usuario}}" class="classes__bike" (click)="bikes[0].NFK_Usuario != 0 || select(bikes[0])"
+                [ngClass]="{'active' : bikes[0].Estatus }">{{bikes[0].LugarSalon}}</span>
+            </div>
+          </div>
+          <div class="row mb-2" *ngIf="bikes[1]">
+            <div class="col-12 text-center">
+              <span title="{{bikes[1].Usuario}}" class="classes__bike" (click)="bikes[1].NFK_Usuario != 0 ||  select(bikes[1])"
+                [ngClass]="{'active' : bikes[1].Estatus }">{{bikes[1].LugarSalon}}</span>
+            </div>
+          </div>
+          <div class="row mb-2" *ngIf="bikes[2]">
+            <div class="col-12 text-center">
+              <span title="{{bikes[2].Usuario}}" class="classes__bike" (click)="bikes[2].NFK_Usuario != 0 || select(bikes[2])"
+                [ngClass]="{'active' : bikes[2].Estatus }">{{bikes[2].LugarSalon}}</span>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+
+    <div class="row mb-3 classes__bikes-row mt-5">
+        <div class="col-1 custom-col text-center" *ngFor="let bike of bikes.slice().reverse() | slice : 18:27">
+            <span title="{{bike.Usuario}}" class="classes__bike" (click)="bike.NFK_Usuario != 0 || select(bike)"
+                [ngClass]="{'active' : bike.Estatus }">{{ bike.LugarSalon }}</span>
+        </div>
+    </div>
+    <div class="row mb-3 classes__bikes-row">
+        <div class="col-1 custom-col text-center" *ngFor="let bike of bikes | slice : 16:25">
+            <span title="{{bike.Usuario}}" class="classes__bike" (click)="bike.NFK_Usuario != 0 || select(bike)"
+                [ngClass]="{'active' : bike.Estatus }">{{bike.LugarSalon}}</span>
+        </div>
+    </div>
+    <div class="row mb-3 classes__bikes-row">
+        <div class="col-1 custom-col text-center" *ngFor="let bike of bikes | slice : 25:35">
+            <span title="{{bike.Usuario}}" class="classes__bike" (click)="bike.NFK_Usuario != 0 || select(bike)"
+                [ngClass]="{'active' : bike.Estatus }">{{bike.LugarSalon}}</span>
+        </div>
+    </div>
+    
+  </div>
+</div>
+</div>
+</td></tr>
+<tr><td>
+<div fxFlex="100" *ngIf="NFK_Clase == 2">
+  <div class="container-lugares" *ngIf="welcome">
+    <div class="row mb-5">
+      <div class="col-md-12 text-center">
+        <h1 class="classes__heading aqua">Train</h1>
+
+        <h2 class="classes__date aqua mt-3 mb-3">{{class.Fecha}}</h2>
+        <p class="classes__coach">Coach: <a [href]="class.NFK_Instructor">{{class.Instructor}}</a></p>
+        <p class="classes__coach">Tipo de clase: <a [href]="class.Clase">{{class.Clase}}</a></p>
+      </div>
+    </div>
+    <!--Row of bikes and photo-->
+    <div class="row">
+      <!--First column of bikes -->
+      <div class="col-2 offset-2">
+        <div class="row mb-2 mt-5">
+          <div class="col-6 text-center">
+            <span title="{{bikes[0].Usuario}}" class="classes__bike aqua" (click)="bikes[0].NFK_Usuario != 0 || select(bikes[0])"
+              [ngClass]="{'active' : bikes[0].Estatus }">{{bikes[0].LugarSalon}}</span>
+          </div>
+          <div class="col-6 text-center">
+            <span title="{{bikes[1].Usuario}}" class="classes__bike aqua" (click)="bikes[1].NFK_Usuario != 0 || select(bikes[1])"
+              [ngClass]="{'active' : bikes[1].Estatus }">{{bikes[1].LugarSalon}}</span>
+          </div>
+        </div>
+
+      </div>
+      <!--Second column of avatar-->
+      <div class="col-4">
+        <div style="text-align: center;">
+          <img class="classes__avatar" [src]="class.Fotografia" alt="">
+        </div>
+      </div>
+      <!--Third column of bikes-->
+      <div class="col-3">
+        <div class="row mb-2 mt-5">
+          <div class="col-4 text-center">
+            <span title="{{bikes[2].Usuario}}" class="classes__bike aqua" (click)="bikes[2].NFK_Usuario != 0 || select(bikes[2])"
+              [ngClass]="{'active' : bikes[2].Estatus }">{{bikes[2].LugarSalon}}</span>
+          </div>
+          <div class="col-4 text-center">
+            <span title="{{bikes[3].Usuario}}" class="classes__bike aqua" (click)="bikes[3].NFK_Usuario != 0 || select(bikes[3])"
+              [ngClass]="{'active' : bikes[3].Estatus }">{{bikes[3].LugarSalon}}</span>
+          </div>
+          <div class="col-4 text-center">
+            <span title="{{bikes[4].Usuario}}" class="classes__bike aqua" (click)="bikes[4].NFK_Usuario != 0 || select(bikes[4])"
+              [ngClass]="{'active' : bikes[4].Estatus }">{{bikes[4].LugarSalon}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Row of bikes -->
+
+    <div class="row_train mb-3 classes__bikestrain-row first mt-5">
+      <div class="col-1  text-center" *ngFor="let bike of bikes | slice : 5:13">
+        <span title="{{bike.Usuario}}" class="classes__bike aqua" (click)="bike.NFK_Usuario != 0 || select(bike)"
+          [ngClass]="{'active' : bike.Estatus }">{{bike.LugarSalon}}</span>
+      </div>
+
+    </div>
+    <div class="row_train mb-3 classes__bikestrain-row first">
+
+      <div class="col-1  text-center" *ngFor="let bike of bikes | slice : 13:20">
+        <span title="{{bike.Usuario}}" class="classes__bike aqua" (click)="bike.NFK_Usuario != 0 || select(bike)"
+          [ngClass]="{'active' : bike.Estatus }">{{bike.LugarSalon}}</span>
+      </div>
+
+    </div>
+  </div>
+    
+</div>
+</td></tr>
+<br>
+<tr><td>
+<div class="padding">
+<div fxFlex="100" class="table-container route-animations-elements" furyScrollbar>
+  <table class="table" [class.table-hover]="tableHover" [class.table-striped]="tableStriped"
+    [class.table-condensed]="tableCondensed" [class.table-bordered]="tableBordered">
+    <thead>
+      <tr>
+        <th>SALON</th>
+        <th>LUGAR</th>
+        <th>CLIENTE</th>
+        <th>ASISTENCIA</th>
+        <th>REGISTRAR ASISTENCIA</th>
+        <th>CANCELAR RESERVA</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of Reservas">
+        <td>{{ row.Salon }}</td>
+        <td>{{ row.SalonLugar }}</td>
+        <td>{{ row.Cliente }}</td>
+        <td>
+            <span>
+                <mat-icon *ngIf="row.Asistencia == 0" color="warn">highlight_off</mat-icon>
+                <mat-icon *ngIf="row.Asistencia == 1" color="accent">beenhere</mat-icon></span>
+        </td>
+        <td><button mat-button (click)="RegistrarAsistencia(row)">Registrar Asistencia</button></td>
+        <td><button mat-button (click)="CancelarReserva(row)">Cancelar Reserva</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+</td></tr>
+</table>

@@ -23,19 +23,20 @@ export class UpcomingComponent implements OnInit {
   constructor( private catalog: CatalogsService, private authservice: AuthService, private router: Router, private modalService: NgbModal,
     private updateService: UpdateService, private route: ActivatedRoute) { 
       this.route.queryParams.subscribe(params => {
-          console.log(params);
-          if (String(params.id).length > 0) {
-            var pago = {} as VentaPagoOpenView;
-            pago.IDPagoOpenPay = String(params.id);
-            this.catalog.letVentaUsuarioPago_Aplicar(pago).subscribe(respuesta => {        
-              var resp = respuesta;        
-              if (resp.Error === 0) {
-                this.updateService.UpdateSaldo();
-                const modalMensage = this.modalService.open(ModalMensageComponent);
-                modalMensage.componentInstance.Mensage = "Reserva tus clases.";
-                modalMensage.componentInstance.Titulo = "Tu pago se ha realizado con éxito";
-              }
-            });
+          if (String(params.id) != "undefined") {
+            if (String(params.id).length > 0) {
+              var pago = {} as VentaPagoOpenView;
+              pago.IDPagoOpenPay = String(params.id);
+              this.catalog.letVentaUsuarioPago_Aplicar(pago).subscribe(respuesta => {        
+                var resp = respuesta;        
+                if (resp.Error === 0) {
+                  this.updateService.UpdateSaldo();
+                  const modalMensage = this.modalService.open(ModalMensageComponent);
+                  modalMensage.componentInstance.Mensage = "Reserva tus clases.";
+                  modalMensage.componentInstance.Titulo = "Tu pago se ha realizado con éxito";
+                }
+              });
+            }
           }
       });
     }

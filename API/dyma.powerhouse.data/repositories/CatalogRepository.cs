@@ -925,7 +925,7 @@ namespace dyma.powerhouse.data.repositories
             return datos;
         }
 
-        public List<vwPaquete> TraerPaquetes(int? Activo)
+        public List<vwPaquete> TraerPaquetes(int? Activo, int NFK_User)
         {
             var resp = new List<vwPaquete>();
             using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
@@ -933,7 +933,10 @@ namespace dyma.powerhouse.data.repositories
                 try
                 {
                     connection.Open();
-                    resp = connection.Query<vwPaquete>("Select * From vwPaquete with(nolock) Where Activo = IsNull(@Activo, Activo) order by CantidadClases", new { Activo }).ToList();
+                    if (NFK_User == 8)
+                        resp = connection.Query<vwPaquete>("Select * From vwPaquete with(nolock) order by CantidadClases", new { Activo }).ToList();
+                    else
+                        resp = connection.Query<vwPaquete>("Select * From vwPaquete with(nolock) Where Activo = IsNull(@Activo, Activo) order by CantidadClases", new { Activo }).ToList();
                 }
                 catch (Exception ex)
                 {
@@ -2478,6 +2481,34 @@ namespace dyma.powerhouse.data.repositories
                 return resp;
             }
         }
+        public vwDetalleVenta DetalleDePago(int NPK_Venta)
+        {
+            var resp = new vwDetalleVenta();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwDetalleVenta>("SP_Sel_Detalle_Compra",
+                    new
+                    {
+                        NPK_Venta = NPK_Venta
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                return resp;
+            }
+        }
+        public List<vwDetalleVentaReservas> DetalleDePagoReservas(int NPK_Venta)
+        {
+            var resp = new List<vwDetalleVentaReservas>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwDetalleVentaReservas>("SP_Sel_Detalle_Compra_DetalleReserva",
+                    new
+                    {
+                        NPK_Venta = NPK_Venta
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }
         public List<vwReservasPWHHoy> Reservas_PWH_Hoy()
         {
             var resp = new List<vwReservasPWHHoy>();
@@ -2485,6 +2516,20 @@ namespace dyma.powerhouse.data.repositories
             {
                 connection.Open();
                 resp = connection.Query<vwReservasPWHHoy>("SP_Reservas_PWH_Hoy",
+                    new
+                    {
+
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }
+        public List<vwReservasPWHHoy> Reservas_PWH_Hoy_Atras()
+        {
+            var resp = new List<vwReservasPWHHoy>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwReservasPWHHoy>("SP_Reservas_PWH_Hoy_Atras",
                     new
                     {
 
@@ -2549,6 +2594,21 @@ namespace dyma.powerhouse.data.repositories
                 return resp;
             }
         }
+        public List<vwReservasAsistencia> Reservas_Cancelar_Admin(int NFK_CalendarioClase, int NPK_ReservaClase)
+        {
+            var resp = new List<vwReservasAsistencia>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwReservasAsistencia>("SP_Cancelar_Reservas_Asistencia",
+                    new
+                    {
+                        NFK_CalendarioClase = NFK_CalendarioClase,
+                        NPK_ReservaClase = NPK_ReservaClase
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }
         public vwRespuesta Regalar_Clases(int NFK_Usuario, int Cantidad, int CreadoPor)
         {
             var resp = new List<vwRespuesta>();
@@ -2561,6 +2621,24 @@ namespace dyma.powerhouse.data.repositories
                         NFK_Usuario = NFK_Usuario,
                         Cantidad = Cantidad,
                         CreadoPor = CreadoPor
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp[0];
+            }
+        }
+        public vwRespuesta Registrar_VentaPaquete_Clases(int NFK_Usuario, int NFK_Paquete, string Tarjeta, string NumeroAutorizacion, int CreadoPor)
+        {
+            var resp = new List<vwRespuesta>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                resp = connection.Query<vwRespuesta>("SP_Registrar_VentaPaquete",
+                    new
+                    {
+                        NFK_Usuario = NFK_Usuario,
+                        NFK_Paquete = NFK_Paquete,
+                        CreadoPor = CreadoPor,
+                        NumeroTarjeta = Tarjeta,
+                        NumAutorizacion = NumeroAutorizacion
                     }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
                 return resp[0];
             }
@@ -3010,7 +3088,159 @@ namespace dyma.powerhouse.data.repositories
                 try
                 {
                     connection.Open();
-                    resp = connection.Query<vwUsuario>("Select NPK_Usuario,Nombre,Apellidos,Usuario,Contrasena,Telefono,Format(FechaNacimiento,'dd/MM/yyyy') As FechaNacimiento,Genero,ContactoEmergencia,TelefonoContacto,Activo,CreadoPor,ModificadoPor,FechaModificacion,Administrador,id,Correo,FechaCreacion From Usuario with(nolock) Where IsNull(Administrador,0) = 0 order by FechaCreacion desc", new { Activo }).ToList();
+                    resp = connection.Query<vwUsuario>(@"Select NPK_Usuario,Nombre,Apellidos,Usuario,Contrasena,Telefono,Format(FechaNacimiento,'dd/MM/yyyy') As FechaNacimiento,
+                        Genero,ContactoEmergencia,TelefonoContacto,Activo,CreadoPor,ModificadoPor,FechaModificacion,Administrador,id,Correo,FechaCreacion
+                        From Usuario with(nolock) 
+                        Where IsNull(Administrador,0) = 0 order by FechaCreacion desc", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }        public List<vwUsuario> TraerUsuariosSelect()
+        {
+            var resp = new List<vwUsuario>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwUsuario>(@"Select NPK_Usuario,Nombre,Apellidos,Usuario,Contrasena,Telefono,Format(FechaNacimiento,'dd/MM/yyyy') As FechaNacimiento,
+                                                        Genero,ContactoEmergencia,TelefonoContacto,Activo,CreadoPor,ModificadoPor,FechaModificacion,Administrador,id,Correo,FechaCreacion
+                                                        From Usuario with(nolock) 
+                                                        Where IsNull(Administrador,0) = 0And Activo = 1 
+                                                        Union 
+                                                        Select 0,' Seleccione',' ',' ','','','',1,'','',1,1,1,getdate(),0,'','',getdate()						
+                                                        order by Nombre,Apellidos desc", new { }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }        public List<vwUsuarioAdmin> TraerUsuariosAdmin(int? Activo)
+        {
+            var resp = new List<vwUsuarioAdmin>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwUsuarioAdmin>(@"Select NPK_Usuario,Nombre,Apellidos,Usuario,Contrasena,Telefono,Format(FechaNacimiento,'dd/MM/yyyy') As FechaNacimiento,Genero.Genero,
+                        ContactoEmergencia,TelefonoContacto,Usuario.Activo,Usuario.CreadoPor,Usuario.ModificadoPor,Usuario.FechaModificacion,Administrador,id,Correo,
+						Usuario.FechaCreacion, IsNull(SaldoTotal,0) As SaldoTotal
+                        From Usuario with(nolock) left Outer join vwSaldo with(nolock) On Usuario.NPK_Usuario = vwSaldo.NFK_Usuario
+						left Outer Join  Genero with(nolock) On Usuario.Genero = NPK_Genero
+                        Where IsNull(Administrador,0) = 0 order by FechaCreacion desc", new { Activo }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }        public List<vwUsuario> TraerUsuarioEliminar()
+        {
+            var resp = new List<vwUsuario>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwUsuario>("Select NPK_Usuario,Nombre,Apellidos,Usuario From Usuario with(nolock) Where NPK_Usuario > 20 And NPK_Usuario Not In (Select Distinct NFK_Usuario From Venta with(nolock))", new { }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }        public vwRespuesta EliminarUsuario(int NPK_Usuario)
+        {
+            var resp = new vwRespuesta();
+            resp.Error = 0;
+            resp.DescError = "";
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    var resp1 = connection.Query<vwUsuario>("SP_Eliminar_Usuario_SinVenta", new
+                    {
+                        NPK_Usuario = NPK_Usuario
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList(); ;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }        public List<vwUsuarioPremio> ConsultaUsuarioClases(int ConPremio)
+        {
+            var resp = new List<vwUsuarioPremio>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwUsuarioPremio>("SP_Clientes_Puntos", new { ConPremio = ConPremio },null,false,null,CommandType.StoredProcedure).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }        public List<vwUsuarioClasesPorInstructor> ConsultaUsuarioClasesPorInstructor()
+        {
+            var resp = new List<vwUsuarioClasesPorInstructor>();
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    resp = connection.Query<vwUsuarioClasesPorInstructor>("SP_Clientes_ClasesPorInstructor", new { }, null, false, null, CommandType.StoredProcedure).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
+        }        public vwRespuesta Cambiar_Instructor_Clase(int NPK_CalendarioClase, int NFK_Instructor)
+        {
+            var resp = new vwRespuesta();
+            resp.Error = 0;
+            resp.DescError = "";
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                connection.Open();
+                var resp1 = connection.Query<vwRespuesta>("SP_Cambiar_InstructorCalendarioClase",
+                    new
+                    {
+                        NPK_CalendarioClase = NPK_CalendarioClase,
+                        NFK_Instructor = NFK_Instructor
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                return resp;
+            }
+        }        public vwRespuesta EliminarVenta(int NPK_Venta)
+        {
+            var resp = new vwRespuesta();
+            resp.Error = 0;
+            resp.DescError = "";
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    var resp1 = connection.Query<vwUsuario>("SP_Eliminar_Venta", new
+                    {
+                        NPK_Venta = NPK_Venta
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList(); ;
                 }
                 catch (Exception ex)
                 {

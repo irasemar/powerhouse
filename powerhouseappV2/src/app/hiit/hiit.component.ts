@@ -23,13 +23,19 @@ export class HiitComponent implements OnInit {
   }
   ngAfterViewInit() {
 		setTimeout(() => {
-      this.catalog.getPaquetes(1).subscribe(paquetes =>{this.cupons = paquetes;});      
+      if (String(this.authservice.getAccount()) === "null") {
+        this.catalog.getPaquetes(1,0).subscribe(paquetes =>{this.cupons = paquetes;});    
+      }
+      else{
+        this.catalog.getPaquetes(1,this.authservice.getAccount().NPK_Usuario).subscribe(paquetes =>{this.cupons = paquetes;});    
+      }  
     });
   }
   comprar(paquete){
-    if (this.authservice.getAccount().NPK_Usuario === 6 || this.authservice.getAccount().NPK_Usuario === 7 || 
-      this.authservice.getAccount().NPK_Usuario === 8 || this.authservice.getAccount().NPK_Usuario === 9) {
-    
+    //---->
+    /* if (this.authservice.getAccount().NPK_Usuario === 6 || this.authservice.getAccount().NPK_Usuario === 7 || 
+      this.authservice.getAccount().NPK_Usuario === 8 || this.authservice.getAccount().NPK_Usuario === 9) { */
+    //<-----
       this.session = this.authservice.getAccount();
       if (this.session) {
         if(this.session.NPK_Usuario > 0) {
@@ -56,17 +62,18 @@ export class HiitComponent implements OnInit {
               });
             }
           });
-        }
+        }        
       }
       else {
         const modalLogin = this.modalService.open(ModalMensageLoginComponent);
       }
-    }
+    //---->
+    /* }
     else {
       const modalLogin = this.modalService.open(ModalMensagePagoOfflineComponent);
       return;
-    }
-    
+    } */
+    //<-----
   }
 
 }

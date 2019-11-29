@@ -1,0 +1,25 @@
+<div class="padding">
+    <form [formGroup]="form">
+  <h2 mat-dialog-title>Cambiar Instructor</h2>  
+    <mat-dialog-content>
+      
+      <div>
+        <div fxLayout="column" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+          <mat-form-field fxFlex>
+            <mat-label>Instructor</mat-label>
+            <mat-select placeholder="Instructor" formControlName="NFK_Instructor" required>
+              <mat-option>Seleccione</mat-option>
+              <mat-option *ngFor="let instructor of Instructors" [value]="instructor.NPK_Instructor">
+                {{instructor.Nombre + ' ' + instructor.Apellidos}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+      <button mat-button mat-button [disabled]="!form.valid" (click)="CambiarInstructor();">CAMBIAR INSTRUCTOR</button>
+    </mat-dialog-actions>
+  </form>
+</div>

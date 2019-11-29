@@ -22,6 +22,22 @@
 @import "styles/tabs";
 @import "styles/utilities";
 
+ @import 'styles/_variables';
+@import 'styles/_general';
+/*@import 'styles/_home';
+@import 'styles/header';
+@import 'styles/navbar';
+@import 'styles/slider';
+@import 'styles/footer';
+@import 'styles/register';
+@import 'styles/sidenav';
+@import 'styles/calendar';
+@import 'styles/classes';
+@import 'styles/cart';
+@import 'styles/instructors';
+@import 'styles/team-detail';
+@import 'styles/rides'; */
+
 @keyframes pageLoad {
   from {
     opacity: 1;

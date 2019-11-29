@@ -408,8 +408,53 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
 
-        
+        [AllowAnonymous]
+        [Route("UpdateProfileAdmin"), HttpPost, ResponseType(typeof(List<Models.UserSession>))]
+        public HttpResponseMessage UpdateProfileAdmin(Models.UsuarioForm datos)
+        {
+            try
+            {
+                //if (ModelState.IsValid)
+                //{
+                var proxy = new Tasks(this.GetConnectionString());
+                var resp = new data.views.CatalogoUsuario()
+                {
+                    NPK_Usuario = datos.NPK_Usuario,
+                    Nombre = datos.Nombre,
+                    Apellidos = datos.Apellidos,
+                    Telefono = datos.Telefono,
+                    FechaNacimiento = Convert.ToDateTime(datos.FechaNacimiento),
+                    Activo = 1,
+                    Correo = datos.Correo
+                };
+                var user = proxy.UpdateProfileUserAdmin(resp, System.Configuration.ConfigurationManager.AppSettings["APIKEY"].ToString(),
+                    System.Configuration.ConfigurationManager.AppSettings["MERCHANT_ID"].ToString(), Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["PRODPAY"]));
+                if (user == null)
+                    throw new data.exceptions.BusinessRuleValidationException("Usuario Ya Existe");
 
-        
+                
+                return Request.CreateResponse(HttpStatusCode.OK, user);
+                //}
+                //else
+                //{
+                //    log.Error(ModelState);
+                //    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                //}
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
+
     }
 }

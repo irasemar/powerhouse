@@ -1,0 +1,33 @@
+.instructors{
+    &__card{
+        border:0;
+        margin-left:0 !important;
+        margin-right: 0!important;
+        border-radius: 0 !important;
+        &--title{
+            position: absolute;
+            z-index:100;
+            color:#FFF;
+            left:calculateRem(20px);
+            bottom:calculateRem(100px);
+            font-size:calculateRem(38px);
+        }
+        &--title2{
+            position: absolute;
+            z-index:100;
+            color:#FFF;
+            left:calculateRem(20px);
+            bottom:calculateRem(50px);
+            font-size:calculateRem(28px);
+        }
+    }
+    .col-md-4, .col-md-6{
+        padding-right: 5px !important;
+        padding-left: 5px !important;
+    }
+}
+.card-img-top {
+    width: 100%;
+    border-top-left-radius:0px;
+    border-top-right-radius:0px;
+}

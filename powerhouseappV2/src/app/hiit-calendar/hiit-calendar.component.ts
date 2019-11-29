@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CatalogsService,ClasesDisponibles,ClasesDisponiblesWeeks,Saldo } from "../services/catalogs.service";
 import { AuthService } from "../services/auth.services";
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-hiit-calendar',
@@ -13,17 +13,25 @@ export class HiitCalendarComponent implements OnInit {
   showNavigationArrows: boolean = true;
   showNavigationIndicators: boolean = true;
   Saldo : Saldo[];
-  
+  navigationSubscription;
   constructor(config: NgbCarouselConfig, private catalog: CatalogsService, private authservice: AuthService, private router: Router) {
     config.showNavigationArrows = true;
     config.showNavigationIndicators = true;
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component
+      if (e instanceof NavigationEnd) {
+        this.initialize();
+      }
+    });
   }
-
+  initialize() {
+    //Arreglo semanas
+    this.catalog.getClasesDisponibles(2).subscribe(clases =>{
+      this.ClasesWeeks = clases;
+    });
+  }
   ngOnInit() {
-        //Arreglo semanas
-        this.catalog.getClasesDisponibles(2).subscribe(clases =>{
-          this.ClasesWeeks = clases;
-        });
+    this.initialize();
   }
   Reservar(NFK_Semana, NFK_Clase, Dia, NPK_CalendarioClase) {
     /* this.catalog.getMiSaldo(this.authservice.getAccount().NPK_Usuario).subscribe(saldo =>{

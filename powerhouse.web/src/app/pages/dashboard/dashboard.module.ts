@@ -18,7 +18,9 @@ import { DashboardComponent } from './dashboard.component';
 import { DashboardService } from './dashboard.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AsistenciaModule } from '../../../app/PowerHouse/Asistencia/Asistencia.module';
-
+import { CambiarInstructorModule } from '../../../app/PowerHouse/CambiarInstructor/CambiarInstructor.module';
+import { ReservarLugarModule } from '../../../app/PowerHouse/ReservarLugar/ReservarLugar.module';
+import { DetalleVentaModule } from '../../../app/PowerHouse/DetalleVenta/DetalleVenta.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -41,7 +43,10 @@ import { AsistenciaModule } from '../../../app/PowerHouse/Asistencia/Asistencia.
     MapsWidgetModule,
     MarketWidgetModule,
     NgbModule,
-    AsistenciaModule
+    AsistenciaModule,
+    CambiarInstructorModule,
+    ReservarLugarModule,
+    DetalleVentaModule
   ],
   declarations: [DashboardComponent],
   providers: [DashboardService]

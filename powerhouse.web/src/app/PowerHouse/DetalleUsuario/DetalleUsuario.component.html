@@ -33,10 +33,10 @@
         </fury-quick-info-widget>
       </div>
   </div>
+  <div fxFlex="100"><div fxFlex="55" class="alerta">Reservas</div><div fxFlex="5">&nbsp;</div><div fxFlex="40" class="alerta">Abonar Paquete</div></div>
   <div fxFlex="100">
-    <div fxFlex="49" fxLayout="row" [fxLayoutGap]="gap" >
-      <div fxFlex="100" class="alerta">Reservas</div>
-      <div fxFlex="100" class="table-container route-animations-elements" furyScrollbar>
+    <div fxFlex="55" fxLayout="row" [fxLayoutGap]="gap" >
+      <div fxFlex="300" class="table-container route-animations-elements" furyScrollbar>
         <table class="table" [class.table-hover]="tableHover" [class.table-striped]="tableStriped"
           [class.table-condensed]="tableCondensed" [class.table-bordered]="tableBordered">
           <thead>
@@ -45,6 +45,7 @@
               <th>CLASE</th>
               <th>INSTRUCTOR</th>
               <th>LUGAR</th>
+              <th>CANCELAR RESERVA</th>
             </tr>
           </thead>
           <tbody>
@@ -53,35 +54,70 @@
               <td>{{ row.Clase }}</td>
               <td>{{ row.Instructor }}</td>
               <td>{{ row.SalonLugar }}</td>
+              <td><button mat-button (click)="CancelarReserva(row)">Cancelar Reserva</button></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-    <div fxFlex="49" fxLayout="row" [fxLayoutGap]="gap" >     
+    <div fxFlex="5">&nbsp;</div>
+    <div fxFlex="40" fxLayout="row" [fxLayoutGap]="gap" >     
       <div fxFlex="100" class="table-container route-animations-elements" furyScrollbar>
           <mat-dialog-content>
-              <form [formGroup]="form">
+              <form [formGroup]="formpaquete">
                 <div fxLayout="column">                  
                   <mat-form-field fxFlex>
-                    <mat-label>Cantidad de Clases a Regalar</mat-label>
-                    <input matInput type="number" formControlName="Cantidad" required>
+                    <mat-label>Paquete</mat-label>
+                    <mat-select placeholder="Paquete" formControlName="NPK_Paquete" required>
+                      <mat-option>Seleccione</mat-option>
+                      <mat-option *ngFor="let paquete of paquetes" [value]="paquete.NPK_Paquete">
+                        {{paquete.Paquete}}, Cantidad Clases: {{paquete.CantidadClases}}, Precio : {{paquete.Precio}}.
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field fxFlex>
+                    <mat-label>Tarjeta</mat-label>
+                    <input matInput type="number" formControlName="Tarjeta" required>
+                  </mat-form-field>
+                  <mat-form-field fxFlex>
+                    <mat-label>Numero de Autorizacion</mat-label>
+                    <input matInput type="text" formControlName="NumeroAutorizacion" required>
                   </mat-form-field>
                 </div>
               </form>
             </mat-dialog-content>
             <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
-              <button mat-button mat-raised-button color="warn" (click)="save()" [disabled]="!form.valid">
-                <mat-icon class="fas fa-exclamation"></mat-icon>Regalar Clases
+              <button mat-button mat-raised-button color="warn" (click)="savePaquete()" [disabled]="!formpaquete.valid">
+                <mat-icon class="fas fa-exclamation"></mat-icon>Abonar Clases
               </button>
             </mat-dialog-actions>
       </div>
     </div>
   </div>
-  
+  <div fxFlex="100">
+    <div fxFlex="40" fxLayout="row" [fxLayoutGap]="gap">
+      <div fxFlex="100" class="table-container route-animations-elements" furyScrollbar>
+        <mat-dialog-content>
+          <form [formGroup]="form">
+            <div fxLayout="column">
+              <mat-form-field fxFlex>
+                <mat-label>Cantidad de Clases a Regalar</mat-label>
+                <input matInput type="number" formControlName="Cantidad" required>
+              </mat-form-field>
+            </div>
+          </form>
+        </mat-dialog-content>
+        <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+          <button mat-button mat-raised-button color="warn" (click)="save()" [disabled]="!form.valid">
+            <mat-icon class="fas fa-exclamation"></mat-icon>Regalar Clases
+          </button>
+        </mat-dialog-actions>
+      </div>
+    </div>
+  </div>
   <div fxFlex="100">
     <div fxFlex="100" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1" furyAspectRatio.sm="1.5:1" fxFlex="column">
-        <div fxFlex="100" class="alerta">Historia Clases Tomadas</div>
+        <div fxFlex="100" class="alerta">Historia Clases Tomadas ultimos 30 dias</div>
         <div class="table-container route-animations-elements" furyScrollbar fxFlex="grow">
           <table class="table" [class.table-hover]="tableHover" [class.table-striped]="tableStriped"
             [class.table-condensed]="tableCondensed" [class.table-bordered]="tableBordered">
@@ -117,20 +153,35 @@
           [class.table-condensed]="tableCondensed" [class.table-bordered]="tableBordered">
           <thead>
             <tr>
+              <th>CLASES COMPRADAS</th>
+              <th>CLASES UTILIZADAS</th>
               <th>FECHA PAGO</th>
+              <th>FECHA VENCIMIENTO</th>
               <th>MONTO</th>
               <th>TARJETA</th>
               <th>TIPO DE TARJETA</th>
-              <th>NUM. AUTORIZACION</th>
+              <th>NUM. AUTORIZACION</th>              
+              <th>¿COMO SE UTILIZO?</th>
+              <th>ELIMINAR VENTA</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let row of MisPagos">
+              <td>{{ row.CantidadClases}}</td>
+              <td>{{ row.CantidadClasesUtilizadas}}</td>
               <td>{{ row.FechaPago}}</td>
+              <td>{{ row.FechaVencimiento}}</td>
               <td>{{ row.MontoPago }}</td>
               <td>{{ row.NumeroTarjeta }}</td>
               <td >{{ row.TipoTarjeta }}</td>
               <td>{{ row.NumAutorizacion }}</td>
+              <td><button mat-icon-button (click)="AbrirComportamientoPago(row)">
+                <mat-icon>select_all</mat-icon>
+             </button></td>
+              <td>
+                <button *ngIf="row.CantidadClasesUtilizadas == 0 && NPK_UsuarioLogedo == 2025" mat-button mat-raised-button color="warn" (click)="eliminarventa(row)">
+                  <mat-icon class="fas fa-trash"></mat-icon>Eliminar Venta
+                </button></td>
             </tr>
           </tbody>
         </table>

@@ -105,4 +105,7 @@ export class HeaderComponent implements OnInit {
   team(){
     this.router.navigate(['/team/']);
   }
+  miperfil(){
+    this.router.navigate(['/perfil/']);
+  }
 }

@@ -9,6 +9,7 @@ import { UsuarioComponent } from './Usuario.component';
 import { FuryCardModule } from '../../shared/card/card.module';
 import { ListModule } from '../../shared/list/list.module';
 import { HighlightModule } from '../../shared/highlightjs/highlight.module';
+import { UsuarioCreateUpdateModule } from './Usuario-create-update/Usuario-create-update.module';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { HighlightModule } from '../../shared/highlightjs/highlight.module';
     // Core
     HighlightModule,
     ListModule,
+    UsuarioCreateUpdateModule,
   ],
   declarations: [UsuarioComponent],
   exports: [UsuarioComponent]
