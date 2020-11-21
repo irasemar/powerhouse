@@ -264,31 +264,29 @@ namespace dyma.powerhouse.data.repositories
                     connection.Open();
                     var exist = connection.Get<CatalogoUsuario>(datos.NPK_Usuario);
                     #region AgregarCliente OpenPay
-                    if (String.IsNullOrEmpty(exist.id)) { 
-                        OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);
-                        Customer request = new Customer();
-                        request.ExternalId = "PWH-" + datos.NPK_Usuario.ToString();
-                        request.Name = datos.Nombre;
-                        request.LastName = datos.Apellidos;
-                        request.Email = String.IsNullOrEmpty(datos.Correo) ? datos.Usuario : datos.Correo;
-                        request.PhoneNumber = datos.Telefono;
-                        request.RequiresAccount = false;
-                        //Address address = new Address();
-                        //address.City = "San Pedro Garza García";
-                        //address.CountryCode = "MX";
-                        //address.State = "Nuevo Leon";
-                        //address.PostalCode = "66254";
-                        //address.Line1 = "Av. Roberto Garza Sada #101";
-                        //address.Line2 = "";
-                        //address.Line3 = "San Pedro Garza García N.L.";
-                        //request.Address = address;
+                    if (String.IsNullOrEmpty(exist.id))
+                    {
+                        try
+                        {
+                            OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);
+                            Customer request = new Customer();
+                            request.ExternalId = "PWH-" + datos.NPK_Usuario.ToString();
+                            request.Name = datos.Nombre;
+                            request.LastName = datos.Apellidos;
+                            request.Email = String.IsNullOrEmpty(datos.Correo) ? datos.Usuario : datos.Correo;
+                            request.PhoneNumber = datos.Telefono;
+                            request.RequiresAccount = false;
 
-                        request = api.CustomerService.Create(request);
-                        exist.id = request.Id;
+                            request = api.CustomerService.Create(request);
+                            exist.id = request.Id;
+                        }
+                        catch (Exception ex)
+                        {
+                            
+                        }
                     }
-                    
-                    #endregion
 
+                    #endregion
                     using (var tran = connection.BeginTransaction())
                     {
                         try
@@ -311,6 +309,7 @@ namespace dyma.powerhouse.data.repositories
                         }
 
                     }
+                    
                 }
             }
             return datos;
@@ -408,7 +407,7 @@ namespace dyma.powerhouse.data.repositories
                                 request.LastName = user.Apellidos;
                                 request.Email = user.Correo;
                                 request.PhoneNumber = user.Telefono;
-                                request.Id = user.id;
+                                request.Id = user.id;                                
 
                                 request = api.CustomerService.Update(request);
                             }
@@ -499,6 +498,37 @@ namespace dyma.powerhouse.data.repositories
             }
             
             return Respuesta;
+        }
+        public vwRespuesta EliminarTarjeta(int NPK_Tarjeta, string APIKEY, string MERCHANT_ID, bool PRODPAY, string customerid,string cardid)
+        {
+            var resp = new vwRespuesta();
+            resp.Error = 0;
+            resp.DescError = "";
+            using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    try
+                    {
+                        OpenpayAPI api = new OpenpayAPI(APIKEY, MERCHANT_ID, PRODPAY);
+                        api.CardService.Delete(customerid, cardid);
+                    }
+                    catch (Exception exop)
+                    {
+
+                    }
+                    var resp1 = connection.Query<vwUsuario>("SP_Eliminar_Tarjeta", new
+                    {
+                        NPK_Tarjeta = NPK_Tarjeta
+                    }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return resp;
         }
         public RespuestaPago VentaUsuarioPago(vwVentaCarroPago datos, string APIKEY, string MERCHANT_ID, bool PRODPAY, string DeviceSessionId, string RedirectUrl)
         {
@@ -677,19 +707,20 @@ namespace dyma.powerhouse.data.repositories
                             request.Description = "Pago Por Paquete:" + tarjetas[0].Paquete;
                             request.OrderId = "pago-" + tarjetas[0].NPK_Venta.ToString();
                             request.DeviceSessionId = datos.REQUESTid;
-                            request.Use3DSecure = true;
-                            request.RedirectUrl = RedirectUrl;
-                            if (datos.Monto > Convert.ToDecimal(1500.00))
-                            {
-                                request.Use3DSecure = true;
-                                request.RedirectUrl = RedirectUrl;
-                            }
-                            else
-                            {
-                                request.Use3DSecure = false;
-                                request.RedirectUrl = "";
-                            }
-
+                            //request.Use3DSecure = true;
+                            //request.RedirectUrl = RedirectUrl;
+                            //if (datos.Monto > Convert.ToDecimal(1500.00))
+                            //{
+                            //    request.Use3DSecure = true;
+                            //    request.RedirectUrl = RedirectUrl;
+                            //}
+                            //else
+                            //{
+                            //    request.Use3DSecure = false;
+                            //    request.RedirectUrl = "";
+                            //}
+                            request.Use3DSecure = false;
+                            request.RedirectUrl = "";
 
                             Charge charge = api.ChargeService.Create(tarjetas[0].IdOpen, request);
                             Respuesta.Error = 0;
@@ -956,31 +987,34 @@ namespace dyma.powerhouse.data.repositories
                                 NFK_Usuario = NFK_Usuario
                             }, tran, commandType: System.Data.CommandType.StoredProcedure).ToList();
                         tran.Commit();
-                        var resp = new vwRespuesta();
-                        var usuario = connection.Query<vwUsuario>("Select NPK_Usuario, Nombre, Apellidos, Usuario,isnull(Correo,Usuario) as Correo,Contrasena From Usuario with(nolock) Where NPK_Usuario = @NFK_Usuario ", new { NFK_Usuario }).FirstOrDefault();
-                        MailMessage mensajeSoporteCSAM = new MailMessage();
-                        SmtpClient smtpClienteCSAM = new SmtpClient();
-                        smtpClienteCSAM.Host = ServidorSMTP;
-                        smtpClienteCSAM.Port = puerto;
-                        smtpClienteCSAM.Credentials = new System.Net.NetworkCredential(smtusuario, smtpcontrasena);
-                        try
+                        if (reserva.Count > 0)
                         {
-                            mensajeSoporteCSAM.From = new System.Net.Mail.MailAddress(smtusuario);
-                            mensajeSoporteCSAM.To.Add(usuario.Correo);
-                            mensajeSoporteCSAM.Body = "Hola " + usuario.Nombre + " Cancelaste una Reserva en PowerHouse en la clase: " + reserva[0].Clase + " para el dia : " + reserva[0].DescDia + " hora : " + reserva[0].HoraInicio +
-                                " Con el instructor: " + reserva[0].Instructor + ", NO PIERDAS TUS CLASES, VUELVE A RESERVAR. TE ESPERAMOS!!";
-                            mensajeSoporteCSAM.Subject = "Cancelación de Reserva Powerhouse";
-                            smtpClienteCSAM.Send(mensajeSoporteCSAM);
-                            mensajeSoporteCSAM.Dispose();
-                        }
-                        catch (Exception errorCorreoCSAM)
-                        {
-                            resp.Error = 1;
-                            resp.DescError = errorCorreoCSAM.ToString();
-                        }
-                        finally
-                        {
-                            mensajeSoporteCSAM.Dispose();
+                            var resp = new vwRespuesta();
+                            var usuario = connection.Query<vwUsuario>("Select NPK_Usuario, Nombre, Apellidos, Usuario,isnull(Correo,Usuario) as Correo,Contrasena From Usuario with(nolock) Where NPK_Usuario = @NFK_Usuario ", new { NFK_Usuario }).FirstOrDefault();
+                            MailMessage mensajeSoporteCSAM = new MailMessage();
+                            SmtpClient smtpClienteCSAM = new SmtpClient();
+                            smtpClienteCSAM.Host = ServidorSMTP;
+                            smtpClienteCSAM.Port = puerto;
+                            smtpClienteCSAM.Credentials = new System.Net.NetworkCredential(smtusuario, smtpcontrasena);
+                            try
+                            {
+                                mensajeSoporteCSAM.From = new System.Net.Mail.MailAddress(smtusuario);
+                                mensajeSoporteCSAM.To.Add(usuario.Correo);
+                                mensajeSoporteCSAM.Body = "Hola " + usuario.Nombre + " Cancelaste una Reserva en PowerHouse en la clase: " + reserva[0].Clase + " para el dia : " + reserva[0].DescDia + " hora : " + reserva[0].HoraInicio +
+                                    " Con el instructor: " + reserva[0].Instructor + ", NO PIERDAS TUS CLASES, VUELVE A RESERVAR. TE ESPERAMOS!!";
+                                mensajeSoporteCSAM.Subject = "Cancelación de Reserva Powerhouse";
+                                smtpClienteCSAM.Send(mensajeSoporteCSAM);
+                                mensajeSoporteCSAM.Dispose();
+                            }
+                            catch (Exception errorCorreoCSAM)
+                            {
+                                resp.Error = 1;
+                                resp.DescError = errorCorreoCSAM.ToString();
+                            }
+                            finally
+                            {
+                                mensajeSoporteCSAM.Dispose();
+                            }
                         }
                     }
                     catch (Exception ex)

@@ -259,6 +259,7 @@ namespace dyma.powerhouse.data.views
         public string Clase { get; set; }
         public string Fotografia { get; set; }
         public int TengoClase { get; set; }
+        public string Actividad { get; set; }
     }
     public class vwClaseReserva
     {
@@ -272,6 +273,8 @@ namespace dyma.powerhouse.data.views
         public int NFK_Usuario { get; set; }
         public string Usuario { get; set; }
         public int Asistencia { get; set; }
+        public int LugarInactivo { get; set; }
+        public string DescripcionInactivo { get; set; }
 
     }
     public class vwSaldo
@@ -304,6 +307,13 @@ namespace dyma.powerhouse.data.views
         public int Asistencia { get; set; }
 
 
+    }
+    public class vwCambioCalendarioClase
+    {
+        public int NPK_CalendarioClase { get; set; }
+        public int NFK_Instructor { get; set; }
+        public string Actividad { get; set; }
+        public int NFK_InstructorAdjunto { get; set; }
     }
     public class vwMisTarjetas
     {
@@ -395,6 +405,8 @@ namespace dyma.powerhouse.data.views
         public string Fotografia { get; set; }
         public int NFK_Clase { get; set; }
         public int NFK_Semana { get; set; }
+        public int NFK_InstructorAdjunto { get; set; }
+        public string Actividad { get; set; }
     }
     public class vwReservasAsistencia
     {

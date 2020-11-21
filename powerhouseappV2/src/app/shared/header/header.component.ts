@@ -108,4 +108,7 @@ export class HeaderComponent implements OnInit {
   miperfil(){
     this.router.navigate(['/perfil/']);
   }
+  athome() {
+    window.location.href = "http://www.powerhouseathome.com";
+  }
 }

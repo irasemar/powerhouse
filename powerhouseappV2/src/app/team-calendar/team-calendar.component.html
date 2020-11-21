@@ -8,8 +8,8 @@
           <span>{{day.DiaSemana}}</span>
           <span class="calendar__card--number"><strong>{{day.Dia}}</strong></span>
         </div>
-        <div class="card calendar__card--child" *ngFor="let class of day.classes">
-          <div class="card-body" (click)=" Reservar(week.NFK_Semana,week.NFK_Clase,day.Dia,class.NPK_CalendarioClase)">
+        <div class="card calendar__card--child" *ngFor="let class of day.classes" (click)=" Reservar(week.NFK_Semana,week.NFK_Clase,day.Dia,class.NPK_CalendarioClase, class.Clase);">
+          <div class="card-body" (click)=" Reservar(week.NFK_Semana,week.NFK_Clase,day.Dia,class.NPK_CalendarioClase, class.Clase);">
             <h5 class="card-title calendar__card--child--time">{{class.HoraInicio}}</h5>
             <p class="card-text">{{class.Clase}}</p>
             <p class="card-text calendar__card--child--duration">{{class.Duracion}}</p>

@@ -11,7 +11,11 @@
 <div id="home" class="container">
     <div class="row">
         <div class="col-md-3">
-          <app-sidenav class="static d-none d-sm-block" [active]="active" [list]="lista"></app-sidenav>
+          <ul class="nav sidenav flex-column">
+            <li class="nav-item" *ngFor="let link of lista">
+              <a pageScroll href="#{{link.url}}" class="nav-link sidenav__nav-link">{{link.title}}</a>
+            </li>
+          </ul>
         </div>
         <div class="col-md-9">
           <h2 class="h2 orange">La experiencia</h2>
@@ -25,7 +29,11 @@
   <div class="container">
       <div class="row">
           <div class="col-md-3">
-              <app-sidenav class="static mt-5 mb-3 d-none d-sm-block" [active]="indoorlink" [list]="lista"></app-sidenav>
+            <ul class="nav sidenav flex-column">
+              <li class="nav-item" *ngFor="let link of lista">
+                <a pageScroll href="#{{link.url}}" class="nav-link sidenav__nav-link">{{link.title}}</a>
+              </li>
+            </ul>
               <button class="btn btn-primary mt-3 d-none d-sm-block" (click)="verride()">Ver Horario</button>
             </div>
             <div class="col-md-9">
@@ -50,7 +58,11 @@
   <div class="container">
       <div class="row">
           <div class="col-md-3">
-              <app-sidenav class="static mt-5 mb-3 d-none d-sm-block" [active]="hitlink" [list]="lista"></app-sidenav>
+            <ul class="nav sidenav flex-column">
+              <li class="nav-item" *ngFor="let link of lista">
+                <a pageScroll href="#{{link.url}}" class="nav-link sidenav__nav-link">{{link.title}}</a>
+              </li>
+            </ul>
               <button class="btn btn-primary--aqua mt-3 d-none d-sm-block" (click)="vertrain()">Ver Horario</button>
             </div>
             <div class="col-md-9">
@@ -79,8 +91,12 @@
   <div class="container">
       <div class="row">
           <div class="col-md-3">
-              <app-sidenav class="static mt-5 mb-3 d-none d-sm-block" [active]="powerlink" [list]="lista"></app-sidenav>
-              <button class="btn btn-primary mt-3 d-none d-sm-block">¡Conoce al Power Team!</button>
+            <ul class="nav sidenav flex-column">
+              <li class="nav-item" *ngFor="let link of lista">
+                <a pageScroll href="#{{link.url}}" class="nav-link sidenav__nav-link">{{link.title}}</a>
+              </li>
+            </ul>
+              <button class="btn btn-primary mt-3 d-none d-sm-block" (click)="gototeam();">¡Conoce al Power Team!</button>
             </div>
             <div class="col-md-9">
               <h2 class="h2 white">Power Team</h2>
@@ -97,7 +113,11 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-        <app-sidenav class="static mt-5 mb-3 d-none d-sm-block" [active]="powerlink" [list]="lista"></app-sidenav>
+        <ul class="nav sidenav flex-column">
+          <li class="nav-item" *ngFor="let link of lista">
+            <a pageScroll href="#{{link.url}}" class="nav-link sidenav__nav-link">{{link.title}}</a>
+          </li>
+        </ul>
       </div>
       <div class="col-md-9">
         <h2 class="h2 white">

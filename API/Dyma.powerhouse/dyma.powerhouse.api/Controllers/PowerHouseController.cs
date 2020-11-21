@@ -832,13 +832,13 @@ namespace dyma.powerhouse.api.Controllers
             }
         }
         [AllowAnonymous]
-        [Route("Cambiar_Instructor_Clase/{NPK_CalendarioClase:int}/{NFK_Instructor:int}"), HttpGet, ResponseType(typeof(dyma.powerhouse.data.views.vwRespuesta))]
-        public HttpResponseMessage Cambiar_Instructor_Clase(int NPK_CalendarioClase, int NFK_Instructor)
+        [Route("Cambiar_Instructor_Clase"), HttpPost, ResponseType(typeof(dyma.powerhouse.data.views.vwRespuesta))]
+        public HttpResponseMessage Cambiar_Instructor_Clase(data.views.vwCambioCalendarioClase datos)
         {
             try
             {
                 var proxy = new Tasks(this.GetConnectionString());
-                return Request.CreateResponse(HttpStatusCode.OK, proxy.Cambiar_Instructor_Clase(NPK_CalendarioClase, NFK_Instructor));
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.Cambiar_Instructor_Clase(datos.NPK_CalendarioClase, datos.NFK_Instructor, datos.Actividad, datos.NFK_InstructorAdjunto));
             }
             catch (data.exceptions.BusinessRuleValidationException ex)
             {
@@ -861,6 +861,31 @@ namespace dyma.powerhouse.api.Controllers
             {
                 var proxy = new Tasks(this.GetConnectionString());
                 return Request.CreateResponse(HttpStatusCode.OK, proxy.EliminarVenta(NPK_Venta));
+            }
+            catch (data.exceptions.BusinessRuleValidationException ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message, ex);
+                var httpError = new HttpError(ex, true);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        [AllowAnonymous]
+        [Route("EliminarTarjeta"), HttpPost, ResponseType(typeof(dyma.powerhouse.data.views.vwRespuesta))]
+        public HttpResponseMessage EliminarTarjeta(data.views.vwMisTarjetas datos)
+        {
+            try
+            {
+                var proxy = new Tasks(this.GetConnectionString());
+                return Request.CreateResponse(HttpStatusCode.OK, proxy.EliminarTarjeta(datos.NPK_Tarjeta, System.Configuration.ConfigurationManager.AppSettings["APIKEY"].ToString(),
+                    System.Configuration.ConfigurationManager.AppSettings["MERCHANT_ID"].ToString(), 
+                    Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["PRODPAY"]),
+                    datos.IdOpen, datos.id));
             }
             catch (data.exceptions.BusinessRuleValidationException ex)
             {

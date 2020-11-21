@@ -19,7 +19,7 @@ import { AuthService } from "../../services/auth.services";
 import { NgbModule,NgbCarouselConfig, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { APP_CONFIG, AppConfig } from "../../app.config";
-import { CatalogsService, Saldo, MisPagos, ReservasPWHHoyView, ReservaDashboardView } from '../../services/catalogs.service';
+import { CatalogsService, Saldo, MisPagos, ReservasPWHHoyView, ReservaDashboardView, CambioCalendarioClaseForm } from '../../services/catalogs.service';
 import { AsistenciaComponent } from '../../../app/PowerHouse/Asistencia/Asistencia.component';
 import { CambiarInstructorComponent } from '../../../app/PowerHouse/CambiarInstructor/CambiarInstructor.component';
 import { ReservarLugarComponent } from '../../../app/PowerHouse/ReservarLugar/ReservarLugar.component';
@@ -44,7 +44,8 @@ export class DashboardComponent implements OnInit {
   ReservasHoy : ReservasPWHHoyView[];
   ReservasAPartirHoy: ReservasPWHHoyView[];
   ReservasDashboard: ReservaDashboardView[];
-	
+  
+  
   CantPagos : number = 0;
   CantPagosHoy: number = 0;
   verpagos: boolean = false;
@@ -77,7 +78,7 @@ export class DashboardComponent implements OnInit {
 
 
     var acc = this.auth.getAccount();
-    if (acc.NPK_Usuario === 2023 || acc.NPK_Usuario === 2024 || acc.NPK_Usuario === 2025 || acc.NPK_Usuario === 2026) {
+    if (acc.NPK_Usuario === 2023 || acc.NPK_Usuario === 2024 || acc.NPK_Usuario === 3018 || acc.NPK_Usuario === 2026) {
       this.verpagos = true;
     }
     if (!acc)

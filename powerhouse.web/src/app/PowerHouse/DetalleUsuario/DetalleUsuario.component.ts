@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { filter } from 'rxjs/operators';
 import { ListColumn } from '../../shared/list/list-column.model';
-import { CatalogsService, Saldo, MisPagos, HistoriaReserva, RespuestaView, PaqueteForm, vwVentaPaqueteAdmin } from "../../services/catalogs.service";
+import { CatalogsService, Saldo, MisPagos, HistoriaReserva, RespuestaView, PaqueteForm, vwVentaPaqueteAdmin, MisTarjetas } from "../../services/catalogs.service";
 import { Router } from '@angular/router';
 import { ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormControl } from '@angular/forms';
@@ -49,6 +49,7 @@ export class DetalleUsuarioComponent implements OnInit, AfterViewInit, OnDestroy
 	CantPagos : number = 0;
 	ClaseGratis: RespuestaView;
 	paquetes : PaqueteForm [];
+	Tarjetas: MisTarjetas[];
 
 	constructor( private route: ActivatedRoute,private router: Router, private catalog: CatalogsService,private fb: FormBuilder,public auth: AuthService,
 		private dialog: MatDialog,) { }
@@ -89,6 +90,7 @@ export class DetalleUsuarioComponent implements OnInit, AfterViewInit, OnDestroy
 			this.Reservas = reservas;
 			this.CantClasesReservadas = this.Reservas.length;
 		});
+		this.catalog.getMisTarjetas(this.npk_usuario).subscribe(tarjetas => { this.Tarjetas = tarjetas; console.log(tarjetas); });
 	}
 	ngOnDestroy() {
 	}
@@ -110,6 +112,12 @@ export class DetalleUsuarioComponent implements OnInit, AfterViewInit, OnDestroy
 	eliminarventa(Venta){
 		console.log(Venta);
 		this.catalog.letEliminarVenta(Venta.NPK_Venta).subscribe(reservas => { 
+			this.fillView();
+		});
+	}
+	eliminartarjeta(tarjeta) {
+		console.log(tarjeta);
+		this.catalog.letEliminarTarjeta(tarjeta).subscribe(reservas => { 
 			this.fillView();
 		});
 	}

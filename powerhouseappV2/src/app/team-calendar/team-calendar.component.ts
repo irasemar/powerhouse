@@ -26,9 +26,10 @@ export class TeamCalendarComponent implements OnInit {
     this.id=this.route.snapshot.paramMap.get("id");
     this.catalog.getClasesDisponiblesPorInstructor(this.id).subscribe(clases =>{
       this.ClasesWeeks = clases;
+      console.log(clases);
     });
   }
-  Reservar(NFK_Semana, NFK_Clase, Dia, NPK_CalendarioClase) {
+  Reservar(NFK_Semana, NFK_Clase, Dia, NPK_CalendarioClase, Clase) {
     /* this.catalog.getMiSaldo(this.authservice.getAccount().NPK_Usuario).subscribe(saldo =>{
       this.Saldo = saldo;
       if (this.Saldo[0].Saldo > 0 || this.Saldo[0].ReservadoHoy > 0) {
@@ -37,7 +38,13 @@ export class TeamCalendarComponent implements OnInit {
     }); */
     /* alert(NPK_CalendarioClase);
     return; */
-    this.router.navigate(['/clase/' + NFK_Semana + '/' + NFK_Clase + '/' + Dia + '/' + NPK_CalendarioClase]);
+    if (Clase === "Train") {
+      this.router.navigate(['/train/' + NFK_Semana + '/' + NFK_Clase + '/' + Dia + '/' + NPK_CalendarioClase]);
+    }
+    else {
+      this.router.navigate(['/clase/' + NFK_Semana + '/' + NFK_Clase + '/' + Dia + '/' + NPK_CalendarioClase]);
+    }
+    //this.router.navigate(['/clase/' + NFK_Semana + '/' + NFK_Clase + '/' + Dia + '/' + NPK_CalendarioClase]);
     
   }
 

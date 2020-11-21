@@ -6,7 +6,12 @@
   </div>
   <div class="row">
     <div class="col-md-2">
-      <app-sidenav [active]="active" [list]="list"></app-sidenav>
+      <!-- <app-sidenav [active]="active" [list]="list"></app-sidenav> -->
+      <ul class="nav sidenav flex-column">
+        <li class="nav-item" *ngFor="let link of list">
+          <a pageScroll (click)="openurl(link.url);" class="nav-link sidenav__nav-link">{{link.title}}</a>
+        </li>
+      </ul>
     </div>
     <div class="col-md-1">
       

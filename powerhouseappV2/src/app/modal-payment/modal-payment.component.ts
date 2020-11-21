@@ -206,7 +206,7 @@ export class ModalPaymentComponent implements OnInit {
       Venta.REQUESTid = this.deviceSessionId;
       this.MensageError = 'Espere por favor, estamos realizando su pago.......';
       var resp = {} as RespuestaPago;
-      /* this.catalog.letVentaUsuarioPago(Venta).subscribe(respuesta => {        
+      this.catalog.letVentaUsuarioPago(Venta).subscribe(respuesta => {        
         resp = respuesta;        
         if (resp.Error === 0) {
           this.MostrarErrorPago = false;          
@@ -217,7 +217,7 @@ export class ModalPaymentComponent implements OnInit {
           this.MensageError = '¡Se ocasiono un problema con el sistema de pago, por favor intentelo de nuevo o mas tarde!';
           this.MensageErrorOpenPay = resp.Desc_Error;
         }
-      }); */
+      });
     //---->
     /* } */
     //<-----

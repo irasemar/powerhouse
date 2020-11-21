@@ -1,5 +1,6 @@
 <ul class="nav sidenav flex-column">
   <li class="nav-item" *ngFor="let link of list">
-    <a pageScroll href="#{{link.url}}" class="nav-link sidenav__nav-link">{{link.title}}</a>
+    <a (click)="openurl(link.url);" class="nav-link sidenav__nav-link ">{{link.title}}</a>
+    
   </li>
 </ul>

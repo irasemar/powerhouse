@@ -3,7 +3,6 @@
   <h2 mat-dialog-title>Cambiar Instructor</h2>  
     <mat-dialog-content>
       
-      <div>
         <div fxLayout="column" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
           <mat-form-field fxFlex>
             <mat-label>Instructor</mat-label>
@@ -15,8 +14,23 @@
             </mat-select>
           </mat-form-field>
         </div>
-      </div>
-      
+        <div fxLayout="column" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+          <mat-form-field fxFlex>
+            <mat-label>Instructor Adjunto</mat-label>
+            <mat-select placeholder="Instructor Adjunto" formControlName="NFK_InstructorAdjunto">
+              <mat-option>Seleccione</mat-option>
+              <mat-option *ngFor="let instructor of Instructors" [value]="instructor.NPK_Instructor">
+                {{instructor.Nombre + ' ' + instructor.Apellidos}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+        <mat-form-field fxFlex>
+          <mat-label>Actividad</mat-label>
+          <input type="text" formControlName="Actividad" matInput>
+        </mat-form-field>
+        </div>
     </mat-dialog-content>
     <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
       <button mat-button mat-button [disabled]="!form.valid" (click)="CambiarInstructor();">CAMBIAR INSTRUCTOR</button>

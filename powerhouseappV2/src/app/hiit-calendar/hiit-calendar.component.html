@@ -20,7 +20,7 @@
                       <tr style="align-items:stretch;vertical-align: initial;">
                         <td *ngFor="let day of week.days" style="width: 14%;">
                           <div *ngFor="let class of day.classes">
-                            <div (click)=" Reservar(week.NFK_Semana,week.NFK_Clase,day.Dia,class.NPK_CalendarioClase)"
+                            <div (click)="Reservar(week.NFK_Semana,week.NFK_Clase,day.Dia,class.NPK_CalendarioClase)"
                               class="cards calendar__card--child" *ngIf="class.PuedeReservar === 1">
                               
                               <div style="text-align: center;line-height: 17px;">
@@ -29,7 +29,7 @@
                                 <p class="card-text calendar__card--child--duration">{{class.Duracion}}</p>
                               </div>
                             </div>
-                            <div (click)="false" class="card calendar__card--childoff" *ngIf="class.PuedeReservar === 0">
+                            <div class="card calendar__card--childoff" *ngIf="class.PuedeReservar === 0">
                                 
                               <div style="text-align: center;line-height: 17px;">
                                 <h5 class="calendar__card--child--time">{{class.HoraInicio}}</h5>
@@ -44,34 +44,7 @@
                     </tbody>
                   </table>
                 </div>
-                 <!--  <div class="card-deck">
-                    <div class="card calendar__card" *ngFor="let day of week.days">
-                      <div class="card-title calendar__card--title" [ngClass]="{'active': day.Reservado}">
-                        <span>{{day.day}}</span>
-                        <span class="calendar__card--number"><strong>{{day.DescDia}}</strong></span>
-                      </div>
-                      <div *ngFor="let class of day.classes">
-                        <div (click)=" Reservar(week.NFK_Semana,week.NFK_Clase,day.Dia,class.NPK_CalendarioClase)"
-                          class="card calendar__card--child" *ngIf="class.PuedeReservar === 1">
-                          <div class="card-body">
-                            <h5 class="card-title calendar__card--child--time">{{class.HoraInicio}}</h5>
-                            <p class="card-text">{{class.Instructor}}</p>
-                            <p class="card-text calendar__card--child--duration">{{class.Duracion}}</p>
-                          </div>
-                        </div>
-                        <div (click)="false" class="card calendar__card--childoff" *ngIf="class.PuedeReservar === 0">
-                          <div class="card-body">
-                            <h5 class="card-title calendar__card--child--time">{{class.HoraInicio}}</h5>
-                            <p class="card-text">{{class.Instructor}}</p>
-                            <p class="card-text calendar__card--child--duration">{{class.Duracion}}</p>
-                            <p class="card-text calendar__card--child--duration">No disponible</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div> -->
-              <!-- </ng-template>
-            </ngb-carousel> -->
+                
                 </div>
       </div>
     </div>

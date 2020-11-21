@@ -614,12 +614,12 @@ getReservasDashBoard() {
   //head = head.append('Authorization', `Bearer ${acc.Token}`);
   return this.http.get<ReservaDashboardView[]>(`${this.config.apiEndpoint}/v1/powerhouse/Reservas_Dashboard`, { headers: head });
 }
-letCambiarInstructor(NFK_CalendarioClase, NFK_Instructor) {
+letCambiarInstructor(forma) {
   //const acc = this.auth.getAccount();
   let head: HttpHeaders = new HttpHeaders();
   head = head.append('Content-Type', 'application/json');
   //head = head.append('Authorization', `Bearer ${acc.Token}`);
-  return this.http.get<RespuestaView[]>(`${this.config.apiEndpoint}/v1/powerhouse/Cambiar_Instructor_Clase/${NFK_CalendarioClase}/${NFK_Instructor}`, { headers: head });
+  return this.http.post<RespuestaView[]>(`${this.config.apiEndpoint}/v1/powerhouse/Cambiar_Instructor_Clase`, forma, { headers: head });
 }
 letUsuario(usuario) {
 	//const acc = this.auth.getAccount();
@@ -655,6 +655,13 @@ letEliminarVenta(NPK_Venta) {
   head = head.append('Content-Type', 'application/json');
   //head = head.append('Authorization', `Bearer ${acc.Token}`);
   return this.http.get<RespuestaView>(`${this.config.apiEndpoint}/v1/powerhouse/EliminarVenta/${NPK_Venta}`, { headers: head });
+}
+letEliminarTarjeta(tarjeta) {
+  //const acc = this.auth.getAccount();
+  let head: HttpHeaders = new HttpHeaders();
+  head = head.append('Content-Type', 'application/json');
+  //head = head.append('Authorization', `Bearer ${acc.Token}`);
+  return this.http.post<RespuestaView>(`${this.config.apiEndpoint}/v1/powerhouse/EliminarTarjeta`, tarjeta, { headers: head });
 }
 }
 export interface ClaseReserva {  
@@ -918,6 +925,8 @@ export interface MisTarjetas {
   Estado: string;
   CP: string;
   Direccion: string;
+  IdOpen: string,
+  id: string
 }
 export interface Saldo {  
   SaldoTotal : number;
@@ -961,6 +970,8 @@ export interface ReservasPWHHoyView {
   Fotografia: string;
   NFK_Clase: number;
   NFK_Semana: number;
+  NFK_InstructorAdjunto: number;
+  Actividad: string;
 }
 export interface ClaseHeader {  
   NPK_CalendarioClase : number;
@@ -1039,4 +1050,10 @@ export interface UsuarioForm {
 	Telefono: string;
 	FechaNacimiento: string;
 	Correo: string;
+}
+export interface CambioCalendarioClaseForm {
+  NPK_CalendarioClase: number;
+  NFK_Instructor: number;
+  Actividad: string;
+  NFK_InstructorAdjunto: number;
 }

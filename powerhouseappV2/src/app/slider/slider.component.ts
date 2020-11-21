@@ -20,20 +20,26 @@ export class SliderComponent implements OnInit {
   images = [
     {
       src: '../assets/images/slider_01.jpg',
-      title: 'IT’S ABOUT YOU,',
-      title2: 'IT’S ABOUT THE POWER!',
+      srcmoving: '../assets/images/moving.png',
+      title: 'THIS 2020 WE´RE ON',
+      title2: 'A MISSION TO GET YOU',
+      title3: 'MOVING!',
       description: 'Sit amet dolo lorem ipsum '
     },
     {
       src: '../assets/images/slider_02.jpg',
-      title: 'IT’S ABOUT YOU,',
-      title2: 'IT’S ABOUT THE POWER!',
+      srcmoving: '../assets/images/moving.png',
+      title: 'THIS 2020 WE´RE ON',
+      title2: 'A MISSION TO GET YOU',
+      title3: 'MOVING!',
       description: 'Sit amet dolo lorem ipsum '
     },
     {
       src: '../assets/images/slider_03.jpg',
-      title: 'IT’S ABOUT YOU,',
-      title2: 'IT’S ABOUT THE POWER!',
+      srcmoving: '../assets/images/moving.png',
+      title: 'THIS 2020 WE´RE ON',
+      title2: 'A MISSION TO GET YOU',
+      title3: 'MOVING!',
       description: 'Sit amet dolo lorem ipsum '
     }
   ]

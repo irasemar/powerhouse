@@ -3,6 +3,7 @@
         padding-left:calculateRem(5px);
         font-size:calculateRem(13px);
         letter-spacing: 0.034rem;
+        cursor: pointer;
         &--active{
             color: $orange !important;
             border-bottom:1px solid $orange;

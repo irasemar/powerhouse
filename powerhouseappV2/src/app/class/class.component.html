@@ -7,8 +7,9 @@
             <h1 class="classes__heading">Ride</h1>
             
             <h2 class="classes__date mt-3 mb-3">{{class.Fecha}}</h2>
-            <p class="classes__coach">Coach: <a [href]="class.NFK_Instructor">{{class.Instructor}}</a></p>
-            <p class="classes__coach">Tipo de clase: <a [href]="class.Clase">{{class.Clase}}</a></p>
+            <p class="classes__coach orange">1.5 mts entre cada bici por sana distancia</p>
+            <p class="classes__coach">Coach: {{class.Instructor}}</p>
+            <p class="classes__coach">{{class.Actividad}}</p>
         </div>
     </div>
     <!--Row of bikes and photo-->
@@ -19,22 +20,23 @@
                 <div class="col-12 text-center">
                 </div>
                 <div class="col-6 text-center" *ngIf="bikes[3]">
-                    <span class="classes__bike" (click)="bikes[3].NFK_Usuario != 0 || select(bikes[3])"
-                        [ngClass]="{'active' : bikes[3].Estatus }">{{bikes[3].LugarSalon}}</span>
+                    <span class="classes__bike" *ngIf="bikes[3].LugarInactivo==1" (click)="bikes[3].NFK_Usuario != 0 || select(bikes[3])" [ngClass]="{'active' : bikes[3].Estatus }">{{bikes[3].LugarSalon}}</span>
+                    <span *ngIf="bikes[3].LugarInactivo==0"></span>
+                    <!-- <span class="classes__bike" *ngIf="bikes[3].LugarInactivo==0" [ngClass]="{'active' : bikes[3].Estatus }">{{bikes[3].DescripcionInactivo}}</span> -->
                 </div>
                 <div class="col-6 text-center" *ngIf="bikes[4]">
-                    <span class="classes__bike" (click)="bikes[4].NFK_Usuario != 0 || select(bikes[4])"
-                        [ngClass]="{'active' : bikes[4].Estatus }">{{bikes[4].LugarSalon}}</span>
+                    <span class="classes__bike" *ngIf="bikes[4].LugarInactivo==1" (click)="bikes[4].NFK_Usuario != 0 || select(bikes[4])" [ngClass]="{'active' : bikes[4].Estatus }">{{bikes[4].LugarSalon}}</span>
+                    <span *ngIf="bikes[4].LugarInactivo==0" ></span>
                 </div>
             </div>
             <div class="row mb-2">
                 <div class="col-6 text-center" *ngIf="bikes[6]">
-                    <span class="classes__bike" (click)="bikes[6].NFK_Usuario != 0 || select(bikes[6])"
-                        [ngClass]="{'active' : bikes[6].Estatus }">{{bikes[6].LugarSalon}}</span>
+                    <span class="classes__bike" *ngIf="bikes[6].LugarInactivo==1" (click)="bikes[6].NFK_Usuario != 0 || select(bikes[6])" [ngClass]="{'active' : bikes[6].Estatus }">{{bikes[6].LugarSalon}}</span>
+                    <span *ngIf="bikes[6].LugarInactivo==0" ></span>
                 </div>
                 <div class="col-6 text-center" *ngIf="bikes[5]">
-                    <span class="classes__bike" (click)="bikes[5].NFK_Usuario != 0 || select(bikes[5])"
-                        [ngClass]="{'active' : bikes[5].Estatus }">{{bikes[5].LugarSalon}}</span>
+                    <span class="classes__bike" *ngIf="bikes[5].LugarInactivo==1" (click)="bikes[5].NFK_Usuario != 0 || select(bikes[5])" [ngClass]="{'active' : bikes[5].Estatus }">{{bikes[5].LugarSalon}}</span>
+                    <span *ngIf="bikes[5].LugarInactivo==0" ></span>
                 </div>
                 
             </div>
@@ -54,17 +56,20 @@
         <div class="col-2 offset-1" *ngIf="bikes[0]">
             <div class="row mb-2 mt-5">
                 <div class="col-12 text-center">
-                    <span class="classes__bike" (click)="bikes[0].NFK_Usuario != 0 || select(bikes[0])" [ngClass]="{'active' : bikes[0].Estatus }">{{bikes[0].LugarSalon}}</span>
+                    <span class="classes__bike" *ngIf="bikes[0].LugarInactivo==1" (click)="bikes[0].NFK_Usuario != 0 || select(bikes[0])" [ngClass]="{'active' : bikes[0].Estatus }">{{bikes[0].LugarSalon}}</span>
+                    <span *ngIf="bikes[0].LugarInactivo==0" ></span>
                 </div>
             </div>
             <div class="row mb-2" *ngIf="bikes[1]"> 
                 <div class="col-12 text-center">
-                    <span class="classes__bike" (click)="bikes[1].NFK_Usuario != 0 ||  select(bikes[1])" [ngClass]="{'active' : bikes[1].Estatus }">{{bikes[1].LugarSalon}}</span>
+                    <span class="classes__bike" *ngIf="bikes[1].LugarInactivo==1" (click)="bikes[1].NFK_Usuario != 0 ||  select(bikes[1])" [ngClass]="{'active' : bikes[1].Estatus }">{{bikes[1].LugarSalon}}</span>
+                    <span *ngIf="bikes[1].LugarInactivo==0" ></span>
                 </div>
             </div>
             <div class="row mb-2" *ngIf="bikes[2]">
                 <div class="col-12 text-center">
-                    <span class="classes__bike" (click)="bikes[2].NFK_Usuario != 0 || select(bikes[2])" [ngClass]="{'active' : bikes[2].Estatus }">{{bikes[2].LugarSalon}}</span>
+                    <span class="classes__bike" *ngIf="bikes[2].LugarInactivo==1" (click)="bikes[2].NFK_Usuario != 0 || select(bikes[2])" [ngClass]="{'active' : bikes[2].Estatus }">{{bikes[2].LugarSalon}}</span>
+                    <span *ngIf="bikes[2].LugarInactivo==0" ></span>
                 </div>
             </div>
           </div>
@@ -73,20 +78,20 @@
 
     <div class="row mb-3 classes__bikes-row mt-5">
         <div class="col-1 custom-col text-center" *ngFor="let bike of bikes.slice().reverse() | slice : 18:27">
-            <span class="classes__bike" (click)="bike.NFK_Usuario != 0 || select(bike)"
-                [ngClass]="{'active' : bike.Estatus }">{{ bike.LugarSalon }}</span>
+            <span class="classes__bike" *ngIf="bike.LugarInactivo==1" (click)="bike.NFK_Usuario != 0 || select(bike)" [ngClass]="{'active' : bike.Estatus }">{{ bike.LugarSalon }}</span>
+            <span *ngIf="bike.LugarInactivo==0" ></span>
         </div>
     </div>
     <div class="row mb-3 classes__bikes-row">
         <div class="col-1 custom-col text-center" *ngFor="let bike of bikes | slice : 16:25">
-            <span class="classes__bike" (click)="bike.NFK_Usuario != 0 || select(bike)"
-                [ngClass]="{'active' : bike.Estatus }">{{bike.LugarSalon}}</span>
+            <span class="classes__bike" *ngIf="bike.LugarInactivo==1" (click)="bike.NFK_Usuario != 0 || select(bike)" [ngClass]="{'active' : bike.Estatus }">{{bike.LugarSalon}}</span>
+            <span *ngIf="bike.LugarInactivo==0" ></span>
         </div>
     </div>
     <div class="row mb-3 classes__bikes-row">
         <div class="col-1 custom-col text-center" *ngFor="let bike of bikes | slice : 25:35">
-            <span class="classes__bike" (click)="bike.NFK_Usuario != 0 || select(bike)"
-                [ngClass]="{'active' : bike.Estatus }">{{bike.LugarSalon}}</span>
+            <span class="classes__bike" *ngIf="bike.LugarInactivo==1" (click)="bike.NFK_Usuario != 0 || select(bike)" [ngClass]="{'active' : bike.Estatus }">{{bike.LugarSalon}}</span>
+            <span *ngIf="bike.LugarInactivo==0" ></span>
         </div>
     </div>
     

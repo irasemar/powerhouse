@@ -51,8 +51,10 @@ export class ClassComponent implements OnInit {
         this.catalog.getEstatus_Salon_PorDia(this.NFK_Clase, this.NFK_Semana, this.Dia, this.NPK_CalendarioClase).subscribe(lugares => {
           this.bikes = lugares;
           this.catalog.getEstatus_Salon_PorDia_Header(this.NFK_Clase, this.NFK_Semana, this.Dia, this.NPK_CalendarioClase, this.NPK_Usuario).subscribe(clases => {
+            console.log("clases",clases);
             this.class.Fecha = clases[0].Fecha;
             this.class.Clase = clases[0].Clase;
+            this.class.Actividad = clases[0].Actividad;
             this.class.Instructor = clases[0].Instructor;
             this.class.NPK_CalendarioClase = clases[0].NPK_CalendarioClase;
             this.class.NFK_Instructor = clases[0].NFK_Instructor;
@@ -69,6 +71,7 @@ export class ClassComponent implements OnInit {
         this.catalog.getEstatus_Salon_PorDia_Header(this.NFK_Clase, this.NFK_Semana, this.Dia, this.NPK_CalendarioClase, this.NPK_Usuario).subscribe(clases => {
           this.class.Fecha = clases[0].Fecha;
           this.class.Clase = clases[0].Clase;
+          this.class.Actividad = clases[0].Actividad;
           this.class.Instructor = clases[0].Instructor;
           this.class.NPK_CalendarioClase = clases[0].NPK_CalendarioClase;
           this.class.NFK_Instructor = clases[0].NFK_Instructor;

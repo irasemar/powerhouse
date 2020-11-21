@@ -9,7 +9,7 @@
       <div class="col-md-12" *ngFor="let week of ClasesWeeks">
         <h2 class="h3 text-center mt-4 mb-5">SEMANA {{week.NumeroSemana}}, {{week.Anio}}</h2>
         <div class="col-md-12 card-deck">
-            <table>
+          <table style="width: 100%;">
               <thead style="align-items:stretch;vertical-align: initial;"> 
                 <td *ngFor="let day of week.days" style="width: 14%;">
                   <div  [ngClass]="{'active': day.Reservado}" class="card-title calendar__card--title">

@@ -17,6 +17,10 @@
             color: $gray;
             cursor: pointer;
         }
+        &.inactive{
+            background: #000000;
+            color:#FFF;
+        }
         &.active{
             background: $orange;
             color:#FFF;
@@ -32,6 +36,10 @@
                 background-color: rgba(29, 203, 206, 0.38);
                 color: $gray;
                 border:1px solid $aqua;
+            }
+            &.inactive{
+                background: #000000;
+                color:#FFF;
             }
         }
     }

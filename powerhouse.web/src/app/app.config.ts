@@ -7,6 +7,6 @@ export interface AppConfig {
 }
 
 export const AppConfigImpl: AppConfig = {    
-    //apiEndpoint : "http://localhost:59228/api",
-    apiEndpoint : "https://mypowerhouse.mx/service/api",
+    apiEndpoint : "http://localhost:59228/api",
+    //apiEndpoint : "https://mypowerhouse.mx/service/api",
 };

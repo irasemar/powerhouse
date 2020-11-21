@@ -3211,7 +3211,7 @@ namespace dyma.powerhouse.data.repositories
                 }
             }
             return resp;
-        }        public vwRespuesta Cambiar_Instructor_Clase(int NPK_CalendarioClase, int NFK_Instructor)
+        }        public vwRespuesta Cambiar_Instructor_Clase(int NPK_CalendarioClase, int NFK_Instructor, string Actividad, int NFK_InstructorAdjunto)
         {
             var resp = new vwRespuesta();
             resp.Error = 0;
@@ -3219,11 +3219,13 @@ namespace dyma.powerhouse.data.repositories
             using (var connection = util.DbManager.ConnectionFactory(sqlConnectionString))
             {
                 connection.Open();
-                var resp1 = connection.Query<vwRespuesta>("SP_Cambiar_InstructorCalendarioClase",
+                var resp1 = connection.Query<vwRespuesta>("SP_Cambiar_InstructorCalendarioClaseDescripcion",
                     new
                     {
                         NPK_CalendarioClase = NPK_CalendarioClase,
-                        NFK_Instructor = NFK_Instructor
+                        NFK_Instructor = NFK_Instructor,
+                        Actividad = Actividad,
+                        NFK_InstructorAdjunto = NFK_InstructorAdjunto
                     }, null, commandType: System.Data.CommandType.StoredProcedure).ToList();
                 return resp;
             }
@@ -3248,6 +3250,6 @@ namespace dyma.powerhouse.data.repositories
                 }
             }
             return resp;
-        }
+        }        
     }
 }

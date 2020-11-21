@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject  } from '@angular/core';
 import { Router } from '@angular/router';
+import { PageScrollService } from 'ngx-page-scroll-core';
 
 @Component({
   selector: 'app-new',
@@ -149,5 +150,9 @@ export class NewComponent implements OnInit {
   vertrain(){
     this.router.navigate(['/hiit-calendar/']);
   }
+  gototeam() {
+    this.router.navigate(['/team/']);
+  }
+  
 
 }

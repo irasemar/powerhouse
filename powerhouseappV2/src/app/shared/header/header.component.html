@@ -13,6 +13,9 @@
       <li class="nav-item">
         <a class="nav-link header__navbar--link" href="./estudio">Contacto</a>
       </li>
+      <li class="nav-item">        
+        <a class="nav-link header__navbar--link" (click)="athome();" style="cursor: pointer;">PH at Home</a>
+      </li>
       <li class="nav-item">
           <div ngbDropdown class="d-inline-block">
               <button type="button" class="btn nav-link header__navbar--link" id="Classes" style="color: #f04c22; font-weight: 600;" ngbDropdownToggle> Reservar Clases</button>
@@ -22,7 +25,7 @@
               </div>
             </div>
       </li>
-
+      
     </ul>
   </div>
   <div class="float-right header__right-links" *ngIf="!logged">

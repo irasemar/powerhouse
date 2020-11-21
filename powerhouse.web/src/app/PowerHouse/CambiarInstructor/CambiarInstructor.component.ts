@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
-import { CatalogsService,AsistenciaView } from '../../services/catalogs.service';
+import { CatalogsService,AsistenciaView, CambioCalendarioClaseForm } from '../../services/catalogs.service';
 import { Alert } from 'selenium-webdriver';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -21,7 +21,9 @@ export class CambiarInstructorComponent implements OnInit {
   ngOnInit() {
     console.log(this.defaults);
     this.form = this.fb.group({
-      NFK_Instructor: [this.defaults.NFK_Instructor || '']
+      NFK_Instructor: [this.defaults.NFK_Instructor || ''],
+      Actividad: [this.defaults.Actividad || ''],
+      NFK_InstructorAdjunto: [this.defaults.NFK_InstructorAdjunto || '']
     });
     
   }
@@ -40,7 +42,12 @@ export class CambiarInstructorComponent implements OnInit {
       alert("El Instructor es Requerido");
     }
     else {
-      this.catalog.letCambiarInstructor(this.NPK_CalendarioClase, cambio.NFK_Instructor).subscribe(reservas => {
+      var cambiarIntructor = {} as CambioCalendarioClaseForm;
+      cambiarIntructor.NPK_CalendarioClase = this.NPK_CalendarioClase;
+      cambiarIntructor.NFK_Instructor = cambio.NFK_Instructor;
+      cambiarIntructor.Actividad = cambio.Actividad;
+      cambiarIntructor.NFK_InstructorAdjunto = cambio.NFK_InstructorAdjunto;
+      this.catalog.letCambiarInstructor(cambiarIntructor).subscribe(reservas => {
         this.dialogRef.close();
       });
     }

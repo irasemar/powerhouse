@@ -121,4 +121,7 @@ export class ProfileComponent implements OnInit {
       this.router.navigateByUrl('home');
     });
   }
+  openurl(url) {
+    this.router.navigateByUrl(url);
+  }
 }

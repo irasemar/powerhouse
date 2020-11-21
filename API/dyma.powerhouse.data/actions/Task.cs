@@ -732,15 +732,20 @@ namespace dyma.powerhouse.data.actions
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.Obtener_Tarjetas(NFK_Usuario);
         }
-        public vwRespuesta Cambiar_Instructor_Clase(int NPK_CalendarioClase, int NFK_Instructor)
+        public vwRespuesta Cambiar_Instructor_Clase(int NPK_CalendarioClase, int NFK_Instructor, string Actividad, int NFK_InstructorAdjunto)
         {
             var repo = new CatalogRepository(ClientConnectionString);
-            return repo.Cambiar_Instructor_Clase(NPK_CalendarioClase, NFK_Instructor);
+            return repo.Cambiar_Instructor_Clase(NPK_CalendarioClase, NFK_Instructor, Actividad, NFK_InstructorAdjunto);
         }
         public vwRespuesta EliminarVenta(int NPK_Venta)
         {
             var repo = new CatalogRepository(ClientConnectionString);
             return repo.EliminarVenta(NPK_Venta);
+        }
+        public vwRespuesta EliminarTarjeta(int NPK_Tarjeta, string APIKEY, string MERCHANT_ID, bool PRODPAY, string customerid, string cardid)
+        {
+            var repo = new UserRepository(ClientConnectionString);
+            return repo.EliminarTarjeta(NPK_Tarjeta, APIKEY, MERCHANT_ID, PRODPAY, customerid, cardid);
         }
         #endregion      
     }

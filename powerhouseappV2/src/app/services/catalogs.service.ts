@@ -498,6 +498,7 @@ export interface ClaseHeader {
   Clase: string;
   Fotografia: string;
   TengoClase: number;
+  Actividad: string;
 }
 export interface ClaseReserva {  
   NPK_Salon : number;
@@ -508,6 +509,8 @@ export interface ClaseReserva {
   NPK_CalendarioClase: number;
   Estatus: boolean;
   NFK_Usuario : number;
+  LugarInactivo: number;
+  DescripcionInactivo: string;
 }
 export interface Saldo {  
   SaldoTotal : number;

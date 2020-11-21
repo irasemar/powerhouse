@@ -3,35 +3,36 @@
     <div fxFlex="100" class="alerta">{{usuario}}</div>
   </div>
   <div fxFlex="100">
-    <div fxFlex="20" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1" furyAspectRatio.sm="1.5:1" fxFlex="column" class="box">
-        <fury-quick-info-widget class="route-animations-elements margin" fxFlex="grow"
-          value="{{SaldoClases}}" label="Saldo Clases" icon="attach_money" background="#ffffff" color="black">
-        </fury-quick-info-widget>
-      </div>
-      <div fxFlex="20" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1" furyAspectRatio.sm="1.5:1" fxFlex="column" class="box">
-        <fury-quick-info-widget class="route-animations-elements margin" fxFlex="grow"
-          value="{{ReservasHoyRide}}" label="Ride Clases Reservadas " icon="attach_money"
-          background="#f04c22" color="white" >
-        </fury-quick-info-widget>
-      </div>
-      <div fxFlex="20" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1" furyAspectRatio.sm="1.5:1" fxFlex="column" class="box">
-        <fury-quick-info-widget class="route-animations-elements margin" fxFlex="grow"
-          value="{{ReservasHoyTrain}}" label="Train Clases Reservadas " icon="attach_money"
-          background="#1dcbce" color="white" >
-        </fury-quick-info-widget>
-      </div>
-      <div fxFlex="20" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1" furyAspectRatio.sm="1.5:1" fxFlex="column" class="box">
-        <fury-quick-info-widget class="route-animations-elements margin" fxFlex="grow"
-          value="{{ TotalAsistenciaRide }}" label="Ride Clases Tomadas" icon="attach_money"
-          background="#f04c22" color="white" >
-        </fury-quick-info-widget>
-      </div>
-      <div fxFlex="20" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1" furyAspectRatio.sm="1.5:1" fxFlex="column" class="box">
-        <fury-quick-info-widget class="route-animations-elements margin" fxFlex="grow"
-          value="{{ TotalAsistenciaTrain }}" label="Train Clases Tomadas" icon="attach_money"
-          background="#1dcbce" color="white" >
-        </fury-quick-info-widget>
-      </div>
+    <div fxFlex="20" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1"
+      furyAspectRatio.sm="1.5:1" fxFlex="column" class="box">
+      <fury-quick-info-widget class="route-animations-elements margin" fxFlex="grow" value="{{SaldoClases}}"
+        label="Saldo Clases" icon="attach_money" background="#ffffff" color="black">
+      </fury-quick-info-widget>
+    </div>
+    <div fxFlex="20" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1"
+      furyAspectRatio.sm="1.5:1" fxFlex="column" class="box">
+      <fury-quick-info-widget class="route-animations-elements margin" fxFlex="grow" value="{{ReservasHoyRide}}"
+        label="Ride Clases Reservadas " icon="attach_money" background="#f04c22" color="white">
+      </fury-quick-info-widget>
+    </div>
+    <div fxFlex="20" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1"
+      furyAspectRatio.sm="1.5:1" fxFlex="column" class="box">
+      <fury-quick-info-widget class="route-animations-elements margin" fxFlex="grow" value="{{ReservasHoyTrain}}"
+        label="Train Clases Reservadas " icon="attach_money" background="#1dcbce" color="white">
+      </fury-quick-info-widget>
+    </div>
+    <div fxFlex="20" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1"
+      furyAspectRatio.sm="1.5:1" fxFlex="column" class="box">
+      <fury-quick-info-widget class="route-animations-elements margin" fxFlex="grow" value="{{ TotalAsistenciaRide }}"
+        label="Ride Clases Tomadas" icon="attach_money" background="#f04c22" color="white">
+      </fury-quick-info-widget>
+    </div>
+    <div fxFlex="20" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1"
+      furyAspectRatio.sm="1.5:1" fxFlex="column" class="box">
+      <fury-quick-info-widget class="route-animations-elements margin" fxFlex="grow" value="{{ TotalAsistenciaTrain }}"
+        label="Train Clases Tomadas" icon="attach_money" background="#1dcbce" color="white">
+      </fury-quick-info-widget>
+    </div>
   </div>
   <div fxFlex="100"><div fxFlex="55" class="alerta">Reservas</div><div fxFlex="5">&nbsp;</div><div fxFlex="40" class="alerta">Abonar Paquete</div></div>
   <div fxFlex="100">
@@ -95,8 +96,8 @@
     </div>
   </div>
   <div fxFlex="100">
-    <div fxFlex="40" fxLayout="row" [fxLayoutGap]="gap">
-      <div fxFlex="100" class="table-container route-animations-elements" furyScrollbar>
+    <div fxFlex="50" fxLayout="row" [fxLayoutGap]="gap">
+      <div fxFlex="50" class="table-container route-animations-elements" furyScrollbar>
         <mat-dialog-content>
           <form [formGroup]="form">
             <div fxLayout="column">
@@ -112,9 +113,33 @@
             <mat-icon class="fas fa-exclamation"></mat-icon>Regalar Clases
           </button>
         </mat-dialog-actions>
-      </div>
+      </div>  
+    </div>
+    <div fxFlex="50" fxLayout="row" [fxLayoutGap]="gap">
+      <table class="table" [class.table-hover]="tableHover" [class.table-striped]="tableStriped"
+        [class.table-condensed]="tableCondensed" [class.table-bordered]="tableBordered">
+        <thead>
+          <tr>
+            <th>TARJETA</th>
+            <th>NOMBRE</th>
+            <th>ELIMINAR TARJETA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tarjeta of Tarjetas">
+            <td *ngIf="tarjeta.Numero!=''">{{ tarjeta.Numero}}</td>
+            <td *ngIf="tarjeta.Numero!=''">{{ tarjeta.Nombre}}</td>
+            <td *ngIf="tarjeta.Numero!=''">
+              <button *ngIf="NPK_UsuarioLogedo == 3018" mat-button mat-raised-button color="warn"
+                (click)="eliminartarjeta(tarjeta)">
+                <mat-icon class="fas fa-trash"></mat-icon>Eliminar Venta
+              </button></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+  
   <div fxFlex="100">
     <div fxFlex="100" fxLayout="column" [fxLayoutGap]="gap" fxLayout.gt-lg="column" furyAspectRatio="1:1" furyAspectRatio.sm="1.5:1" fxFlex="column">
         <div fxFlex="100" class="alerta">Historia Clases Tomadas ultimos 30 dias</div>
@@ -179,7 +204,7 @@
                 <mat-icon>select_all</mat-icon>
              </button></td>
               <td>
-                <button *ngIf="row.CantidadClasesUtilizadas == 0 && NPK_UsuarioLogedo == 2025" mat-button mat-raised-button color="warn" (click)="eliminarventa(row)">
+                <button *ngIf="row.CantidadClasesUtilizadas == 0 && NPK_UsuarioLogedo == 3018" mat-button mat-raised-button color="warn" (click)="eliminarventa(row)">
                   <mat-icon class="fas fa-trash"></mat-icon>Eliminar Venta
                 </button></td>
             </tr>
