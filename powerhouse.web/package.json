@@ -54,7 +54,7 @@
     "smoothscroll-polyfill": "^0.4.3",
     "sortablejs": "~1.7.0",
     "typings": "^2.1.1",
-    "xlsx": "^0.14.3",
+    "xlsx": "^0.17.0",
     "zone.js": "~0.8.20"
   },
   "devDependencies": {
