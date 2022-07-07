@@ -39,7 +39,7 @@
     "lodash-es": "~4.17.5",
     "luxon": "^1.13.1",
     "material-time-control": "github:SteveDunlap13/MaterialTimeControl",
-    "moment": "~2.20.1",
+    "moment": "~2.29.4",
     "ng2-currency-mask": "^5.3.1",
     "ngx-mat-select-search": "^1.7.2",
     "ngx-material-timepicker": "^3.0.3",
